@@ -256,6 +256,89 @@ a { color: inherit; }
 }
 .ref-links a:hover { color: var(--mint); border-color: var(--mint); }
 
+/* interactive demo trigger + panel */
+.demo-btn {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--rule);
+  display: flex;
+}
+.demo-btn button {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--mint);
+  background: transparent;
+  border: 1px solid var(--mint);
+  border-radius: 5px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.demo-btn button:hover { background: var(--level-1-bg); }
+
+.demo-panel {
+  grid-column: 1 / -1;
+  background: var(--bg-raise);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 22px;
+  margin-top: -4px;
+}
+.demo-panel.hidden { display: none !important; }
+.demo-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+@media (max-width: 800px) { .demo-layout { grid-template-columns: 1fr; } }
+
+.demo-chart-wrap { border: 1px solid var(--card-border); border-radius: 8px; padding: 10px; background: var(--card); }
+.demo-chart-wrap svg { width: 100%; height: auto; display: block; }
+
+.demo-controls { display: flex; flex-direction: column; gap: 14px; }
+.demo-slider-row label {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink);
+  margin-bottom: 5px;
+}
+.demo-slider-row label .val { color: var(--level-2); font-weight: 600; }
+.demo-slider-row input[type="range"] { width: 100%; accent-color: var(--mint); }
+.demo-note { font-family: var(--mono); font-size: 11.5px; color: var(--ink-soft); }
+
+.demo-steps {
+  margin-top: 16px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+.demo-steps .hl { color: var(--level-2); font-weight: 600; }
+.demo-steps .lbl { color: var(--ink-faint); }
+
+.demo-callout {
+  grid-column: 1 / -1;
+  margin-top: 18px;
+  border-left: 3px solid var(--level-3);
+  padding: 4px 0 4px 16px;
+}
+.demo-callout .eyebrow2 {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--level-3);
+  margin: 0 0 4px;
+}
+.demo-callout p { margin: 0; font-size: 13px; color: var(--ink-soft); }
+
 .hidden { display: none !important; }
 .empty-state { color: var(--ink-faint); font-family: var(--mono); font-size: 13px; padding: 60px 0; text-align: center; }
 
