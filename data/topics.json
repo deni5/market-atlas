@@ -2158,7 +2158,7 @@
           "uk": "Моделює ціновий вплив поінформованого потоку заявок; класичний бенчмарк цінового впливу."
         },
         "links": {
-          "paper": "",
+          "paper": "https://www.jstor.org/stable/1913210",
           "hf": "",
           "kaggle": "",
           "wiki": "",
@@ -2227,7 +2227,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Autoregressive_conditional_duration",
           "more": ""
         }
       },
@@ -2712,7 +2712,7 @@
           "uk": "Теоретико-ігрова атрибуція ознак, що працює для будь-якого прогнозу чорної скриньки."
         },
         "links": {
-          "paper": "",
+          "paper": "https://arxiv.org/abs/1705.07874",
           "hf": "",
           "kaggle": "",
           "wiki": "",
@@ -2734,7 +2734,7 @@
           "uk": "Підганяє просту локальну сурогатну модель, щоб пояснити один окремий прогноз."
         },
         "links": {
-          "paper": "",
+          "paper": "https://arxiv.org/abs/1602.04938",
           "hf": "",
           "kaggle": "",
           "wiki": "",
@@ -2839,7 +2839,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Purged_cross-validation",
           "more": ""
         }
       },
@@ -2883,7 +2883,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Deflated_Sharpe_ratio",
           "more": ""
         }
       },
@@ -2905,8 +2905,8 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
-          "more": ""
+          "wiki": "https://en.wikipedia.org/wiki/Purged_cross-validation",
+          "more": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2326253"
         }
       }
     ]
@@ -2960,7 +2960,7 @@
           "uk": "Моделює каскадне поширення дистресу через мережу міжбанківських експозицій."
         },
         "links": {
-          "paper": "",
+          "paper": "https://doi.org/10.1038/srep00541",
           "hf": "",
           "kaggle": "",
           "wiki": "",
