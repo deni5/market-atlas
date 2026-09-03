@@ -29,7 +29,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average",
           "more": ""
         }
       },
@@ -51,7 +51,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Exponential_smoothing",
           "more": ""
         }
       },
@@ -73,7 +73,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Vector_autoregression",
           "more": ""
         }
       },
@@ -95,7 +95,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Error_correction_model",
           "more": ""
         }
       },
@@ -139,7 +139,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Kalman_filter",
           "more": ""
         }
       }
@@ -197,7 +197,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Autoregressive_conditional_heteroskedasticity",
           "more": ""
         }
       },
@@ -263,7 +263,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Realized_variance",
           "more": ""
         }
       },
@@ -285,7 +285,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Heston_model",
           "more": ""
         }
       },
@@ -343,7 +343,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Capital_asset_pricing_model",
           "more": ""
         }
       },
@@ -365,7 +365,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Fama%E2%80%93French_three-factor_model",
           "more": ""
         }
       },
@@ -409,7 +409,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Arbitrage_pricing_theory",
           "more": ""
         }
       },
@@ -450,11 +450,11 @@
           "uk": "Нейромережевий автоенкодер навчається нелінійним факторним експозиціям безпосередньо з дохідностей і характеристик (Gu-Kelly-Xiu)."
         },
         "links": {
-          "paper": "",
+          "paper": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3335536",
           "hf": "",
           "kaggle": "",
           "wiki": "",
-          "more": ""
+          "more": "https://github.com/rongwang0824/Autoencoder-Asset-Pricing-Models"
         },
         "used_by": {
           "en": "related to -> PRAGMA-style banking-event foundation models",
@@ -493,7 +493,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Value_at_risk",
           "more": ""
         }
       },
@@ -559,7 +559,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Expected_shortfall",
           "more": ""
         }
       },
@@ -603,7 +603,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Extreme_value_theory",
           "more": ""
         }
       },
@@ -625,7 +625,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Copula_(probability_theory)",
           "more": ""
         }
       }
@@ -661,7 +661,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Modern_portfolio_theory",
           "more": ""
         }
       },
@@ -683,7 +683,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Black%E2%80%93Litterman_model",
           "more": ""
         }
       },
@@ -705,7 +705,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Risk_parity",
           "more": ""
         }
       },
@@ -727,7 +727,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Kelly_criterion",
           "more": ""
         }
       },
@@ -807,7 +807,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Merton_model",
           "more": ""
         }
       },
@@ -931,7 +931,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Logistic_regression",
           "more": ""
         }
       },
@@ -953,7 +953,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm",
           "more": ""
         }
       },
@@ -975,7 +975,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Support_vector_machine",
           "more": ""
         }
       },
@@ -997,7 +997,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Decision_tree_learning",
           "more": ""
         }
       },
@@ -1019,7 +1019,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Random_forest",
           "more": ""
         }
       },
@@ -1041,7 +1041,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Gradient_boosting",
           "more": ""
         }
       }
@@ -1077,7 +1077,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Isolation_forest",
           "more": ""
         }
       },
@@ -1099,7 +1099,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Local_outlier_factor",
           "more": ""
         }
       },
@@ -1143,7 +1143,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/DBSCAN",
           "more": ""
         }
       },
@@ -1223,7 +1223,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Recurrent_neural_network",
           "more": ""
         }
       },
@@ -1245,7 +1245,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Long_short-term_memory",
           "more": ""
         }
       },
@@ -1267,7 +1267,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Gated_recurrent_unit",
           "more": ""
         }
       },
@@ -1289,7 +1289,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Seq2seq",
           "more": ""
         }
       },
@@ -1366,10 +1366,10 @@
           "uk": "Самоувага по всій послідовності; базова архітектура для всіх моделей нижче."
         },
         "links": {
-          "paper": "",
+          "paper": "https://arxiv.org/abs/1706.03762",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Transformer_(deep_learning)",
           "more": ""
         }
       },
@@ -1388,7 +1388,7 @@
           "uk": "Розріджена ProbSparse-увага для ефективного прогнозування довгих часових рядів."
         },
         "links": {
-          "paper": "",
+          "paper": "https://arxiv.org/abs/2012.07436",
           "hf": "",
           "kaggle": "",
           "wiki": "",
@@ -1410,7 +1410,7 @@
           "uk": "Декомпозиція плюс автокореляція замість стандартної самоуваги для тренду й сезонності."
         },
         "links": {
-          "paper": "",
+          "paper": "https://arxiv.org/abs/2106.13008",
           "hf": "",
           "kaggle": "",
           "wiki": "",
@@ -1432,11 +1432,11 @@
           "uk": "Трансформер, посилений частотною областю (Фур'є/вейвлети); сильний нещодавній бенчмарк на рядах S&P 500 / NASDAQ."
         },
         "links": {
-          "paper": "",
+          "paper": "https://arxiv.org/abs/2201.12740",
           "hf": "",
           "kaggle": "",
           "wiki": "",
-          "more": ""
+          "more": "https://arxiv.org/abs/2511.12951"
         }
       },
       {
@@ -1454,7 +1454,7 @@
           "uk": "Позначає аномалії через розбіжність між локальними й глобальними патернами уваги."
         },
         "links": {
-          "paper": "",
+          "paper": "https://arxiv.org/abs/2110.02642",
           "hf": "",
           "kaggle": "",
           "wiki": "",
@@ -1476,7 +1476,7 @@
           "uk": "Інтерпретоване багатогоризонтне прогнозування, що поєднує LSTM, увагу та вентилі відбору змінних."
         },
         "links": {
-          "paper": "",
+          "paper": "https://arxiv.org/abs/1912.09363",
           "hf": "",
           "kaggle": "",
           "wiki": "",
@@ -1514,8 +1514,8 @@
         "links": {
           "paper": "",
           "hf": "",
-          "kaggle": "",
-          "wiki": "",
+          "kaggle": "https://www.kaggle.com/code/maverickss26/anomaly-detection-using-autoencoders",
+          "wiki": "https://en.wikipedia.org/wiki/Autoencoder",
           "more": ""
         }
       },
@@ -1536,8 +1536,8 @@
         "links": {
           "paper": "",
           "hf": "",
-          "kaggle": "",
-          "wiki": "",
+          "kaggle": "https://www.kaggle.com/code/taaniyaarora/anomaly-detection-using-lstm-autoencoders",
+          "wiki": "https://en.wikipedia.org/wiki/Long_short-term_memory",
           "more": ""
         }
       },
@@ -1559,7 +1559,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Variational_autoencoder",
           "more": ""
         }
       },
@@ -1622,7 +1622,7 @@
           "uk": "Реконструює підпослідовності книги лімітних заявок, щоб позначити маніпуляції на основі угод."
         },
         "links": {
-          "paper": "",
+          "paper": "https://doi.org/10.1016/j.jfds.2024.100129",
           "hf": "",
           "kaggle": "",
           "wiki": "",
@@ -1661,7 +1661,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Generative_adversarial_network",
           "more": ""
         }
       },
@@ -1749,7 +1749,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Diffusion_model",
           "more": ""
         }
       }
@@ -1785,7 +1785,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Graph_neural_network",
           "more": ""
         }
       },
@@ -1891,7 +1891,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Fuzzy_clustering",
           "more": ""
         }
       },
@@ -1913,7 +1913,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Adaptive_neuro_fuzzy_inference_system",
           "more": ""
         }
       },
@@ -2015,7 +2015,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Q-learning",
           "more": ""
         }
       },
@@ -2037,7 +2037,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Deep_reinforcement_learning#Deep_Q-networks",
           "more": ""
         }
       },
@@ -2059,7 +2059,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Policy_gradient_method",
           "more": ""
         }
       },
@@ -2081,7 +2081,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Proximal_policy_optimization",
           "more": ""
         }
       },
@@ -2205,7 +2205,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Hawkes_process",
           "more": ""
         }
       },
@@ -2285,7 +2285,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Hidden_Markov_model",
           "more": ""
         }
       },
@@ -2329,7 +2329,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Particle_filter",
           "more": ""
         }
       },
@@ -2351,7 +2351,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/CUSUM",
           "more": ""
         }
       }
@@ -2387,7 +2387,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model",
           "more": ""
         }
       },
@@ -2409,7 +2409,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Binomial_options_pricing_model",
           "more": ""
         }
       },
@@ -2431,7 +2431,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Heston_model",
           "more": ""
         }
       },
@@ -2453,7 +2453,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Jump_diffusion",
           "more": ""
         }
       },
@@ -2475,7 +2475,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Monte_Carlo_methods_for_option_pricing",
           "more": ""
         }
       }
@@ -2511,7 +2511,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Vasicek_model",
           "more": ""
         }
       },
@@ -2533,7 +2533,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Cox%E2%80%93Ingersoll%E2%80%93Ross_model",
           "more": ""
         }
       },
@@ -2577,7 +2577,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Hull%E2%80%93White_model",
           "more": ""
         }
       }
@@ -2635,7 +2635,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation",
           "more": ""
         }
       },
@@ -2941,7 +2941,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Centrality",
           "more": ""
         }
       },
@@ -3131,7 +3131,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Benford%27s_law",
           "more": ""
         }
       }
@@ -3167,7 +3167,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Technical_analysis",
           "more": ""
         }
       },
@@ -3269,7 +3269,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Hyperparameter_optimization",
           "more": ""
         }
       },
@@ -3291,7 +3291,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Bayesian_optimization",
           "more": ""
         }
       },
@@ -3313,7 +3313,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Genetic_algorithm",
           "more": ""
         }
       },
@@ -3335,7 +3335,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Particle_swarm_optimization",
           "more": ""
         }
       }
@@ -3371,7 +3371,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Sharpe_ratio",
           "more": ""
         }
       },
@@ -3393,7 +3393,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Precision_and_recall",
           "more": ""
         }
       },
@@ -3415,7 +3415,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Receiver_operating_characteristic",
           "more": ""
         }
       },
@@ -3437,7 +3437,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/Calmar_ratio",
           "more": ""
         }
       },
@@ -3459,7 +3459,7 @@
           "paper": "",
           "hf": "",
           "kaggle": "",
-          "wiki": "",
+          "wiki": "https://en.wikipedia.org/wiki/F-score",
           "more": ""
         }
       }
