@@ -1,14 +1,30 @@
 [
   {
     "id": "time-series",
-    "title": "Classical Time-Series Models",
-    "desc": "The statistical backbone under every later forecasting method — trend, seasonality and autoregression.",
+    "num": "01",
+    "title": {
+      "en": "Classical Time-Series Models",
+      "uk": "Класичні моделі часових рядів"
+    },
+    "desc": {
+      "en": "The statistical backbone under every later forecasting method - trend, seasonality and autoregression.",
+      "uk": "Статистичний фундамент під усіма пізнішими методами прогнозування - тренд, сезонність та авторегресія."
+    },
     "items": [
       {
         "lvl": "I",
-        "name": "ARIMA / ARMA",
-        "tag": "Stat",
-        "desc": "Box–Jenkins autoregressive–moving-average models for stationary return series.",
+        "name": {
+          "en": "ARIMA / ARMA",
+          "uk": "ARIMA / ARMA"
+        },
+        "tag": {
+          "en": "Stat",
+          "uk": "Стат"
+        },
+        "desc": {
+          "en": "Box-Jenkins autoregressive-moving-average models for stationary return series.",
+          "uk": "Моделі Бокса-Дженкінса (авторегресія - ковзне середнє) для стаціонарних рядів дохідності."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -19,9 +35,18 @@
       },
       {
         "lvl": "I",
-        "name": "Holt–Winters Exponential Smoothing",
-        "tag": "Stat",
-        "desc": "Recursively weighted trend and seasonality forecasting.",
+        "name": {
+          "en": "Holt-Winters Exponential Smoothing",
+          "uk": "Експоненційне згладжування Хольта-Вінтерса"
+        },
+        "tag": {
+          "en": "Stat",
+          "uk": "Стат"
+        },
+        "desc": {
+          "en": "Recursively weighted trend and seasonality forecasting.",
+          "uk": "Рекурсивно зважене прогнозування тренду та сезонності."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -32,9 +57,18 @@
       },
       {
         "lvl": "II",
-        "name": "VAR (Vector Autoregression)",
-        "tag": "Stat",
-        "desc": "Models several interdependent series jointly, each as a function of all series' own lags.",
+        "name": {
+          "en": "VAR (Vector Autoregression)",
+          "uk": "VAR (векторна авторегресія)"
+        },
+        "tag": {
+          "en": "Stat",
+          "uk": "Стат"
+        },
+        "desc": {
+          "en": "Models several interdependent series jointly, each as a function of all series own lags.",
+          "uk": "Моделює кілька взаємозалежних рядів одночасно, кожен як функцію лагів усіх рядів."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -45,9 +79,18 @@
       },
       {
         "lvl": "II",
-        "name": "VECM",
-        "tag": "Stat",
-        "desc": "VAR extended for series that are individually non-stationary but jointly cointegrated.",
+        "name": {
+          "en": "VECM",
+          "uk": "VECM"
+        },
+        "tag": {
+          "en": "Stat",
+          "uk": "Стат"
+        },
+        "desc": {
+          "en": "VAR extended for series that are individually non-stationary but jointly cointegrated.",
+          "uk": "Розширення VAR для рядів, які поодинці нестаціонарні, але спільно коінтегровані."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -58,9 +101,18 @@
       },
       {
         "lvl": "II",
-        "name": "SARIMAX",
-        "tag": "Stat",
-        "desc": "ARIMA with seasonal terms and exogenous regressors, e.g. macro variables.",
+        "name": {
+          "en": "SARIMAX",
+          "uk": "SARIMAX"
+        },
+        "tag": {
+          "en": "Stat",
+          "uk": "Стат"
+        },
+        "desc": {
+          "en": "ARIMA with seasonal terms and exogenous regressors, e.g. macro variables.",
+          "uk": "ARIMA із сезонними складовими та екзогенними регресорами, наприклад макрозмінними."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -71,9 +123,18 @@
       },
       {
         "lvl": "III",
-        "name": "Kalman Filter (state-space)",
-        "tag": "Stat",
-        "desc": "Recursive Bayesian estimation of an unobserved state, e.g. a time-varying beta.",
+        "name": {
+          "en": "Kalman Filter (state-space)",
+          "uk": "Фільтр Калмана (простір станів)"
+        },
+        "tag": {
+          "en": "Stat",
+          "uk": "Стат"
+        },
+        "desc": {
+          "en": "Recursive Bayesian estimation of an unobserved state, e.g. a time-varying beta.",
+          "uk": "Рекурсивна баєсівська оцінка неспостережуваного стану, наприклад бети, що змінюється в часі."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -82,19 +143,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "01"
+    ]
   },
   {
     "id": "volatility",
-    "title": "Volatility Models",
-    "desc": "Conditional-variance models — the input every VaR, option and risk-parity calculation depends on.",
+    "num": "02",
+    "title": {
+      "en": "Volatility Models",
+      "uk": "Моделі волатильності"
+    },
+    "desc": {
+      "en": "Conditional-variance models - the input every VaR, option and risk-parity calculation depends on.",
+      "uk": "Моделі умовної дисперсії - вхідні дані, від яких залежить кожен розрахунок VaR, опціонів і risk parity."
+    },
     "items": [
       {
         "lvl": "I",
-        "name": "ARCH",
-        "tag": "Vol",
-        "desc": "Engle's model: today's variance depends on yesterday's squared residual.",
+        "name": {
+          "en": "ARCH",
+          "uk": "ARCH"
+        },
+        "tag": {
+          "en": "Vol",
+          "uk": "Волат."
+        },
+        "desc": {
+          "en": "Engle's model: today's variance depends on yesterday's squared residual.",
+          "uk": "Модель Енгла: сьогоднішня дисперсія залежить від учорашнього квадрата залишку."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -105,9 +181,18 @@
       },
       {
         "lvl": "I",
-        "name": "GARCH(1,1)",
-        "tag": "Vol",
-        "desc": "Bollerslev's generalised ARCH — the industry-standard volatility workhorse.",
+        "name": {
+          "en": "GARCH(1,1)",
+          "uk": "GARCH(1,1)"
+        },
+        "tag": {
+          "en": "Vol",
+          "uk": "Волат."
+        },
+        "desc": {
+          "en": "Bollerslev's generalised ARCH - the industry-standard volatility workhorse.",
+          "uk": "Узагальнений ARCH Боллерслєва - галузевий стандарт для оцінки волатильності."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -118,9 +203,18 @@
       },
       {
         "lvl": "II",
-        "name": "EGARCH",
-        "tag": "Vol",
-        "desc": "Captures the leverage effect: volatility reacts asymmetrically to positive and negative shocks.",
+        "name": {
+          "en": "EGARCH",
+          "uk": "EGARCH"
+        },
+        "tag": {
+          "en": "Vol",
+          "uk": "Волат."
+        },
+        "desc": {
+          "en": "Captures the leverage effect: volatility reacts asymmetrically to positive and negative shocks.",
+          "uk": "Враховує ефект левериджу: волатильність асиметрично реагує на позитивні й негативні шоки."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -131,9 +225,18 @@
       },
       {
         "lvl": "II",
-        "name": "GJR-GARCH",
-        "tag": "Vol",
-        "desc": "Threshold GARCH variant modelling the leverage effect via an explicit indicator term.",
+        "name": {
+          "en": "GJR-GARCH",
+          "uk": "GJR-GARCH"
+        },
+        "tag": {
+          "en": "Vol",
+          "uk": "Волат."
+        },
+        "desc": {
+          "en": "Threshold GARCH variant modelling the leverage effect via an explicit indicator term.",
+          "uk": "Порогова версія GARCH, що моделює ефект левериджу через явний індикаторний доданок."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -144,9 +247,18 @@
       },
       {
         "lvl": "II",
-        "name": "Realized Volatility (RV)",
-        "tag": "Vol",
-        "desc": "Estimates volatility from summed squared high-frequency intraday returns.",
+        "name": {
+          "en": "Realized Volatility (RV)",
+          "uk": "Реалізована волатильність (RV)"
+        },
+        "tag": {
+          "en": "Vol",
+          "uk": "Волат."
+        },
+        "desc": {
+          "en": "Estimates volatility from summed squared high-frequency intraday returns.",
+          "uk": "Оцінює волатильність через суму квадратів високочастотної внутрішньоденної дохідності."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -157,9 +269,18 @@
       },
       {
         "lvl": "III",
-        "name": "Heston Stochastic Volatility",
-        "tag": "Vol",
-        "desc": "Volatility follows its own stochastic process rather than a deterministic function of past returns.",
+        "name": {
+          "en": "Heston Stochastic Volatility",
+          "uk": "Стохастична волатильність Хестона"
+        },
+        "tag": {
+          "en": "Vol",
+          "uk": "Волат."
+        },
+        "desc": {
+          "en": "Volatility follows its own stochastic process rather than a deterministic function of past returns.",
+          "uk": "Волатильність слідує власному стохастичному процесу, а не детермінованій функції минулої дохідності."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -170,9 +291,18 @@
       },
       {
         "lvl": "III",
-        "name": "HAR-RV",
-        "tag": "Vol",
-        "desc": "Regresses realized volatility on its own daily, weekly and monthly averages.",
+        "name": {
+          "en": "HAR-RV",
+          "uk": "HAR-RV"
+        },
+        "tag": {
+          "en": "Vol",
+          "uk": "Волат."
+        },
+        "desc": {
+          "en": "Regresses realized volatility on its own daily, weekly and monthly averages.",
+          "uk": "Регресує реалізовану волатильність на її власні денні, тижневі й місячні середні."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -181,19 +311,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "02"
+    ]
   },
   {
     "id": "factor",
-    "title": "Factor & Asset-Pricing Models",
-    "desc": "What ‘normal’ expected return looks like — the baseline every anomaly and mispricing is measured against.",
+    "num": "03",
+    "title": {
+      "en": "Factor & Asset-Pricing Models",
+      "uk": "Факторні моделі та моделі ціноутворення активів"
+    },
+    "desc": {
+      "en": "What normal expected return looks like - the baseline every anomaly and mispricing is measured against.",
+      "uk": "Як виглядає нормальна очікувана дохідність - базовий рівень, відносно якого вимірюється будь-яка аномалія чи хибне ціноутворення."
+    },
     "items": [
       {
         "lvl": "I",
-        "name": "CAPM",
-        "tag": "Factor",
-        "desc": "Single-factor model: expected return is driven by market beta alone.",
+        "name": {
+          "en": "CAPM",
+          "uk": "CAPM"
+        },
+        "tag": {
+          "en": "Factor",
+          "uk": "Фактор"
+        },
+        "desc": {
+          "en": "Single-factor model: expected return is driven by market beta alone.",
+          "uk": "Однофакторна модель: очікувана дохідність визначається лише ринковою бетою."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -204,9 +349,18 @@
       },
       {
         "lvl": "II",
-        "name": "Fama–French 3-Factor",
-        "tag": "Factor",
-        "desc": "Adds size (SMB) and value (HML) factors on top of CAPM's market factor.",
+        "name": {
+          "en": "Fama-French 3-Factor",
+          "uk": "Fama-French, 3 фактори"
+        },
+        "tag": {
+          "en": "Factor",
+          "uk": "Фактор"
+        },
+        "desc": {
+          "en": "Adds size (SMB) and value (HML) factors on top of CAPM's market factor.",
+          "uk": "Додає фактори розміру (SMB) і вартості (HML) до ринкового фактора CAPM."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -217,9 +371,18 @@
       },
       {
         "lvl": "II",
-        "name": "Fama–French 5-Factor",
-        "tag": "Factor",
-        "desc": "Further adds profitability (RMW) and investment (CMA) factors.",
+        "name": {
+          "en": "Fama-French 5-Factor",
+          "uk": "Fama-French, 5 факторів"
+        },
+        "tag": {
+          "en": "Factor",
+          "uk": "Фактор"
+        },
+        "desc": {
+          "en": "Further adds profitability (RMW) and investment (CMA) factors.",
+          "uk": "Додатково включає фактори прибутковості (RMW) та інвестицій (CMA)."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -230,9 +393,18 @@
       },
       {
         "lvl": "II",
-        "name": "APT",
-        "tag": "Factor",
-        "desc": "Multi-factor pricing without CAPM's market-equilibrium assumptions.",
+        "name": {
+          "en": "APT",
+          "uk": "APT"
+        },
+        "tag": {
+          "en": "Factor",
+          "uk": "Фактор"
+        },
+        "desc": {
+          "en": "Multi-factor pricing without CAPM's market-equilibrium assumptions.",
+          "uk": "Багатофакторне ціноутворення без припущень CAPM про ринкову рівновагу."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -243,9 +415,18 @@
       },
       {
         "lvl": "III",
-        "name": "IPCA",
-        "tag": "Factor",
-        "desc": "Latent-factor model in which factor loadings are instrumented by observable firm characteristics.",
+        "name": {
+          "en": "IPCA",
+          "uk": "IPCA"
+        },
+        "tag": {
+          "en": "Factor",
+          "uk": "Фактор"
+        },
+        "desc": {
+          "en": "Latent-factor model in which factor loadings are instrumented by observable firm characteristics.",
+          "uk": "Модель латентних факторів, де факторні навантаження інструментуються спостережуваними характеристиками компанії."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -256,31 +437,58 @@
       },
       {
         "lvl": "III",
-        "name": "Autoencoder Asset Pricing",
-        "tag": "Autoencoder",
-        "desc": "A neural autoencoder learns nonlinear factor exposures directly from returns and characteristics (Gu–Kelly–Xiu).",
-        "used_by": "related to → PRAGMA-style banking-event foundation models",
+        "name": {
+          "en": "Autoencoder Asset Pricing",
+          "uk": "Ціноутворення активів через автоенкодер"
+        },
+        "tag": {
+          "en": "Autoencoder",
+          "uk": "Автоенкодер"
+        },
+        "desc": {
+          "en": "A neural autoencoder learns nonlinear factor exposures directly from returns and characteristics (Gu-Kelly-Xiu).",
+          "uk": "Нейромережевий автоенкодер навчається нелінійним факторним експозиціям безпосередньо з дохідностей і характеристик (Gu-Kelly-Xiu)."
+        },
         "links": {
           "paper": "",
           "hf": "",
           "kaggle": "",
           "wiki": "",
           "more": ""
+        },
+        "used_by": {
+          "en": "related to -> PRAGMA-style banking-event foundation models",
+          "uk": "пов'язано з -> фундаментальними моделями банківських подій на кшталт PRAGMA"
         }
       }
-    ],
-    "num": "03"
+    ]
   },
   {
     "id": "risk-measures",
-    "title": "Risk Measures",
-    "desc": "Turning a return distribution into a single number a risk desk can act on.",
+    "num": "04",
+    "title": {
+      "en": "Risk Measures",
+      "uk": "Міри ризику"
+    },
+    "desc": {
+      "en": "Turning a return distribution into a single number a risk desk can act on.",
+      "uk": "Перетворення розподілу дохідності на одне число, яким може оперувати ризик-менеджер."
+    },
     "items": [
       {
         "lvl": "I",
-        "name": "Value-at-Risk (VaR)",
-        "tag": "Risk",
-        "desc": "The loss that will not be exceeded with a given confidence level over a given horizon.",
+        "name": {
+          "en": "Value-at-Risk (VaR)",
+          "uk": "Value-at-Risk (VaR)"
+        },
+        "tag": {
+          "en": "Risk",
+          "uk": "Ризик"
+        },
+        "desc": {
+          "en": "The loss that will not be exceeded with a given confidence level over a given horizon.",
+          "uk": "Втрата, яку не буде перевищено із заданим рівнем довіри за заданий горизонт."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -291,9 +499,18 @@
       },
       {
         "lvl": "II",
-        "name": "Historical Simulation VaR",
-        "tag": "Risk",
-        "desc": "Nonparametric VaR read directly off the empirical distribution of past returns.",
+        "name": {
+          "en": "Historical Simulation VaR",
+          "uk": "VaR через історичну симуляцію"
+        },
+        "tag": {
+          "en": "Risk",
+          "uk": "Ризик"
+        },
+        "desc": {
+          "en": "Nonparametric VaR read directly off the empirical distribution of past returns.",
+          "uk": "Непараметричний VaR, зчитаний безпосередньо з емпіричного розподілу минулих дохідностей."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -304,9 +521,18 @@
       },
       {
         "lvl": "II",
-        "name": "Parametric (Variance–Covariance) VaR",
-        "tag": "Risk",
-        "desc": "Assumes normally distributed returns; fast, but understates tail risk.",
+        "name": {
+          "en": "Parametric (Variance-Covariance) VaR",
+          "uk": "Параметричний VaR (варіація-коваріація)"
+        },
+        "tag": {
+          "en": "Risk",
+          "uk": "Ризик"
+        },
+        "desc": {
+          "en": "Assumes normally distributed returns; fast, but understates tail risk.",
+          "uk": "Припускає нормальний розподіл дохідностей; швидкий, але недооцінює хвостовий ризик."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -317,9 +543,18 @@
       },
       {
         "lvl": "II",
-        "name": "Conditional VaR / Expected Shortfall",
-        "tag": "Risk",
-        "desc": "The average loss beyond the VaR threshold; a coherent risk measure VaR itself is not.",
+        "name": {
+          "en": "Conditional VaR / Expected Shortfall",
+          "uk": "Умовний VaR / очікувані втрати (ES)"
+        },
+        "tag": {
+          "en": "Risk",
+          "uk": "Ризик"
+        },
+        "desc": {
+          "en": "The average loss beyond the VaR threshold; a coherent risk measure VaR itself is not.",
+          "uk": "Середня втрата понад поріг VaR; когерентна міра ризику, якою сам VaR не є."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -330,9 +565,18 @@
       },
       {
         "lvl": "III",
-        "name": "Monte Carlo VaR",
-        "tag": "Risk",
-        "desc": "Simulates thousands of price paths to build the loss distribution directly.",
+        "name": {
+          "en": "Monte Carlo VaR",
+          "uk": "VaR методом Монте-Карло"
+        },
+        "tag": {
+          "en": "Risk",
+          "uk": "Ризик"
+        },
+        "desc": {
+          "en": "Simulates thousands of price paths to build the loss distribution directly.",
+          "uk": "Симулює тисячі цінових траєкторій, щоб напряму побудувати розподіл втрат."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -343,9 +587,18 @@
       },
       {
         "lvl": "III",
-        "name": "Extreme Value Theory (GPD)",
-        "tag": "Risk",
-        "desc": "Models the tail of the loss distribution directly via the Generalized Pareto Distribution.",
+        "name": {
+          "en": "Extreme Value Theory (GPD)",
+          "uk": "Теорія екстремальних значень (GPD)"
+        },
+        "tag": {
+          "en": "Risk",
+          "uk": "Ризик"
+        },
+        "desc": {
+          "en": "Models the tail of the loss distribution directly via the Generalized Pareto Distribution.",
+          "uk": "Моделює хвіст розподілу втрат напряму через узагальнений розподіл Парето."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -356,9 +609,18 @@
       },
       {
         "lvl": "III",
-        "name": "Copula-based Risk Models",
-        "tag": "Risk",
-        "desc": "Models the joint dependence between assets separately from each asset's own marginal distribution.",
+        "name": {
+          "en": "Copula-based Risk Models",
+          "uk": "Ризик-моделі на основі копул"
+        },
+        "tag": {
+          "en": "Risk",
+          "uk": "Ризик"
+        },
+        "desc": {
+          "en": "Models the joint dependence between assets separately from each asset's own marginal distribution.",
+          "uk": "Моделює спільну залежність між активами окремо від маргінального розподілу кожного активу."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -367,19 +629,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "04"
+    ]
   },
   {
     "id": "portfolio",
-    "title": "Portfolio Optimization",
-    "desc": "Turning return and risk estimates into position sizes.",
+    "num": "05",
+    "title": {
+      "en": "Portfolio Optimization",
+      "uk": "Оптимізація портфеля"
+    },
+    "desc": {
+      "en": "Turning return and risk estimates into position sizes.",
+      "uk": "Перетворення оцінок дохідності й ризику на розміри позицій."
+    },
     "items": [
       {
         "lvl": "I",
-        "name": "Markowitz Mean–Variance",
-        "tag": "Portfolio",
-        "desc": "The original efficient frontier: maximise return for a given level of variance.",
+        "name": {
+          "en": "Markowitz Mean-Variance",
+          "uk": "Марковіц: середнє-дисперсія"
+        },
+        "tag": {
+          "en": "Portfolio",
+          "uk": "Портфель"
+        },
+        "desc": {
+          "en": "The original efficient frontier: maximise return for a given level of variance.",
+          "uk": "Оригінальна ефективна межа: максимізація дохідності за заданого рівня дисперсії."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -390,9 +667,18 @@
       },
       {
         "lvl": "II",
-        "name": "Black–Litterman",
-        "tag": "Portfolio",
-        "desc": "Blends market-equilibrium returns with an investor's subjective views via Bayesian updating.",
+        "name": {
+          "en": "Black-Litterman",
+          "uk": "Black-Litterman"
+        },
+        "tag": {
+          "en": "Portfolio",
+          "uk": "Портфель"
+        },
+        "desc": {
+          "en": "Blends market-equilibrium returns with an investor's subjective views via Bayesian updating.",
+          "uk": "Поєднує рівноважні ринкові дохідності із суб'єктивними поглядами інвестора через баєсівське оновлення."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -403,9 +689,18 @@
       },
       {
         "lvl": "II",
-        "name": "Risk Parity",
-        "tag": "Portfolio",
-        "desc": "Allocates so each asset contributes equally to portfolio risk, not equally to capital.",
+        "name": {
+          "en": "Risk Parity",
+          "uk": "Паритет ризику"
+        },
+        "tag": {
+          "en": "Portfolio",
+          "uk": "Портфель"
+        },
+        "desc": {
+          "en": "Allocates so each asset contributes equally to portfolio risk, not equally to capital.",
+          "uk": "Розподіляє капітал так, щоб кожен актив робив однаковий внесок у ризик портфеля, а не в капітал."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -416,9 +711,18 @@
       },
       {
         "lvl": "II",
-        "name": "Kelly Criterion",
-        "tag": "Portfolio",
-        "desc": "Optimal bet-sizing to maximise the long-run geometric growth rate of capital.",
+        "name": {
+          "en": "Kelly Criterion",
+          "uk": "Критерій Келлі"
+        },
+        "tag": {
+          "en": "Portfolio",
+          "uk": "Портфель"
+        },
+        "desc": {
+          "en": "Optimal bet-sizing to maximise the long-run geometric growth rate of capital.",
+          "uk": "Оптимальний розмір ставки для максимізації довгострокового геометричного зростання капіталу."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -429,9 +733,18 @@
       },
       {
         "lvl": "III",
-        "name": "CVaR Optimization",
-        "tag": "Portfolio",
-        "desc": "Rockafellar–Uryasev formulation minimising tail risk directly, solvable as a linear program.",
+        "name": {
+          "en": "CVaR Optimization",
+          "uk": "Оптимізація за CVaR"
+        },
+        "tag": {
+          "en": "Portfolio",
+          "uk": "Портфель"
+        },
+        "desc": {
+          "en": "Rockafellar-Uryasev formulation minimising tail risk directly, solvable as a linear program.",
+          "uk": "Формулювання Рокафеллара-Ур'ясєва, що напряму мінімізує хвостовий ризик і зводиться до лінійної програми."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -442,9 +755,18 @@
       },
       {
         "lvl": "III",
-        "name": "Hierarchical Risk Parity",
-        "tag": "Portfolio",
-        "desc": "Uses hierarchical clustering on the correlation matrix, avoiding unstable matrix inversion.",
+        "name": {
+          "en": "Hierarchical Risk Parity",
+          "uk": "Ієрархічний паритет ризику"
+        },
+        "tag": {
+          "en": "Portfolio",
+          "uk": "Портфель"
+        },
+        "desc": {
+          "en": "Uses hierarchical clustering on the correlation matrix, avoiding unstable matrix inversion.",
+          "uk": "Використовує ієрархічну кластеризацію матриці кореляцій, уникаючи нестабільного оберння матриці."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -453,19 +775,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "05"
+    ]
   },
   {
     "id": "credit",
-    "title": "Credit Risk Models",
-    "desc": "Estimating the probability and cost of a counterparty defaulting.",
+    "num": "06",
+    "title": {
+      "en": "Credit Risk Models",
+      "uk": "Моделі кредитного ризику"
+    },
+    "desc": {
+      "en": "Estimating the probability and cost of a counterparty defaulting.",
+      "uk": "Оцінка ймовірності та вартості дефолту контрагента."
+    },
     "items": [
       {
         "lvl": "II",
-        "name": "Merton Structural Model",
-        "tag": "Credit",
-        "desc": "Treats equity as a call option on firm assets to infer default probability.",
+        "name": {
+          "en": "Merton Structural Model",
+          "uk": "Структурна модель Мертона"
+        },
+        "tag": {
+          "en": "Credit",
+          "uk": "Кредит"
+        },
+        "desc": {
+          "en": "Treats equity as a call option on firm assets to infer default probability.",
+          "uk": "Трактує акціонерний капітал як опціон кол на активи фірми, щоб вивести ймовірність дефолту."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -476,9 +813,18 @@
       },
       {
         "lvl": "II",
-        "name": "KMV Model",
-        "tag": "Credit",
-        "desc": "Commercial extension of Merton estimating a market-implied ‘distance to default’.",
+        "name": {
+          "en": "KMV Model",
+          "uk": "Модель KMV"
+        },
+        "tag": {
+          "en": "Credit",
+          "uk": "Кредит"
+        },
+        "desc": {
+          "en": "Commercial extension of Merton estimating a market-implied 'distance to default'.",
+          "uk": "Комерційне розширення моделі Мертона, що оцінює ринково-імпліковану відстань до дефолту."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -489,9 +835,18 @@
       },
       {
         "lvl": "II",
-        "name": "Logistic Regression Scorecard",
-        "tag": "Credit",
-        "desc": "The classical statistical credit-scoring model for probability of default.",
+        "name": {
+          "en": "Logistic Regression Scorecard",
+          "uk": "Скорингова карта на логістичній регресії"
+        },
+        "tag": {
+          "en": "Credit",
+          "uk": "Кредит"
+        },
+        "desc": {
+          "en": "The classical statistical credit-scoring model for probability of default.",
+          "uk": "Класична статистична модель кредитного скорингу для ймовірності дефолту."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -502,9 +857,18 @@
       },
       {
         "lvl": "III",
-        "name": "CreditMetrics",
-        "tag": "Credit",
-        "desc": "Portfolio credit-risk framework built on rating transition (migration) matrices.",
+        "name": {
+          "en": "CreditMetrics",
+          "uk": "CreditMetrics"
+        },
+        "tag": {
+          "en": "Credit",
+          "uk": "Кредит"
+        },
+        "desc": {
+          "en": "Portfolio credit-risk framework built on rating transition (migration) matrices.",
+          "uk": "Портфельний фреймворк кредитного ризику, побудований на матрицях міграції рейтингів."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -515,9 +879,18 @@
       },
       {
         "lvl": "III",
-        "name": "Reduced-Form (Intensity) Models",
-        "tag": "Credit",
-        "desc": "Models default as a jump process with a hazard rate, rather than an asset-value trigger.",
+        "name": {
+          "en": "Reduced-Form (Intensity) Models",
+          "uk": "Редуковані (інтенсивнісні) моделі"
+        },
+        "tag": {
+          "en": "Credit",
+          "uk": "Кредит"
+        },
+        "desc": {
+          "en": "Models default as a jump process with a hazard rate, rather than an asset-value trigger.",
+          "uk": "Моделює дефолт як стрибкоподібний процес зі ставкою ризику, а не як тригер вартості активів."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -526,19 +899,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "06"
+    ]
   },
   {
     "id": "classical-ml",
-    "title": "Classical Machine Learning",
-    "desc": "Supervised tabular models for direction, return and default prediction.",
+    "num": "07",
+    "title": {
+      "en": "Classical Machine Learning",
+      "uk": "Класичне машинне навчання"
+    },
+    "desc": {
+      "en": "Supervised tabular models for direction, return and default prediction.",
+      "uk": "Моделі навчання з учителем для табличних даних - прогноз напрямку ціни, дохідності та дефолту."
+    },
     "items": [
       {
         "lvl": "I",
-        "name": "Linear / Logistic Regression",
-        "tag": "ML",
-        "desc": "Baseline parametric models for return magnitude or price-direction prediction.",
+        "name": {
+          "en": "Linear / Logistic Regression",
+          "uk": "Лінійна / логістична регресія"
+        },
+        "tag": {
+          "en": "ML",
+          "uk": "МН"
+        },
+        "desc": {
+          "en": "Baseline parametric models for return magnitude or price-direction prediction.",
+          "uk": "Базові параметричні моделі для прогнозу величини дохідності чи напрямку ціни."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -549,9 +937,18 @@
       },
       {
         "lvl": "I",
-        "name": "k-Nearest Neighbours",
-        "tag": "ML",
-        "desc": "Predicts by similarity to the most comparable historical market states.",
+        "name": {
+          "en": "k-Nearest Neighbours",
+          "uk": "Метод k найближчих сусідів"
+        },
+        "tag": {
+          "en": "ML",
+          "uk": "МН"
+        },
+        "desc": {
+          "en": "Predicts by similarity to the most comparable historical market states.",
+          "uk": "Прогнозує на основі подібності до найбільш порівнянних історичних станів ринку."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -562,9 +959,18 @@
       },
       {
         "lvl": "II",
-        "name": "Support Vector Machines",
-        "tag": "ML",
-        "desc": "Margin-maximising classifier or regressor, common for price-direction prediction.",
+        "name": {
+          "en": "Support Vector Machines",
+          "uk": "Метод опорних векторів (SVM)"
+        },
+        "tag": {
+          "en": "ML",
+          "uk": "МН"
+        },
+        "desc": {
+          "en": "Margin-maximising classifier or regressor, common for price-direction prediction.",
+          "uk": "Класифікатор/регресор із максимізацією відступу, поширений для прогнозу напрямку ціни."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -575,9 +981,18 @@
       },
       {
         "lvl": "II",
-        "name": "Decision Trees (CART)",
-        "tag": "ML",
-        "desc": "Interpretable rule-based splits over market and fundamental features.",
+        "name": {
+          "en": "Decision Trees (CART)",
+          "uk": "Дерева рішень (CART)"
+        },
+        "tag": {
+          "en": "ML",
+          "uk": "МН"
+        },
+        "desc": {
+          "en": "Interpretable rule-based splits over market and fundamental features.",
+          "uk": "Інтерпретовані розбиття на правилах за ринковими й фундаментальними ознаками."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -588,9 +1003,18 @@
       },
       {
         "lvl": "II",
-        "name": "Random Forest",
-        "tag": "Ensemble",
-        "desc": "A bagged ensemble of decision trees; a robust baseline for tabular financial data.",
+        "name": {
+          "en": "Random Forest",
+          "uk": "Випадковий ліс"
+        },
+        "tag": {
+          "en": "Ensemble",
+          "uk": "Ансамбль"
+        },
+        "desc": {
+          "en": "A bagged ensemble of decision trees; a robust baseline for tabular financial data.",
+          "uk": "Беггінг-ансамбль дерев рішень; надійна базова модель для табличних фінансових даних."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -601,9 +1025,18 @@
       },
       {
         "lvl": "III",
-        "name": "Gradient Boosting (XGBoost / LightGBM / CatBoost)",
-        "tag": "Ensemble",
-        "desc": "Sequential boosting of weak learners; the dominant benchmark for tabular financial features.",
+        "name": {
+          "en": "Gradient Boosting (XGBoost / LightGBM / CatBoost)",
+          "uk": "Градієнтний бустинг (XGBoost / LightGBM / CatBoost)"
+        },
+        "tag": {
+          "en": "Ensemble",
+          "uk": "Ансамбль"
+        },
+        "desc": {
+          "en": "Sequential boosting of weak learners; the dominant benchmark for tabular financial features.",
+          "uk": "Послідовний бустинг слабких моделей; домінуючий бенчмарк для табличних фінансових ознак."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -612,19 +1045,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "07"
+    ]
   },
   {
     "id": "unsupervised-outliers",
-    "title": "Unsupervised Outlier Methods",
-    "desc": "Flag the point that doesn't belong, without ever being shown a labelled anomaly.",
+    "num": "08",
+    "title": {
+      "en": "Unsupervised Outlier Methods",
+      "uk": "Методи виявлення викидів без учителя"
+    },
+    "desc": {
+      "en": "Flag the point that doesn't belong, without ever being shown a labelled anomaly.",
+      "uk": "Позначають точку, яка не вписується, жодного разу не побачивши розмічену аномалію."
+    },
     "items": [
       {
         "lvl": "II",
-        "name": "Isolation Forest",
-        "tag": "Outlier",
-        "desc": "Isolates points by random partitioning; anomalies need far fewer splits to isolate.",
+        "name": {
+          "en": "Isolation Forest",
+          "uk": "Isolation Forest"
+        },
+        "tag": {
+          "en": "Outlier",
+          "uk": "Викид"
+        },
+        "desc": {
+          "en": "Isolates points by random partitioning; anomalies need far fewer splits to isolate.",
+          "uk": "Ізолює точки через випадкове розбиття; аномаліям потрібно значно менше розбиттів для ізоляції."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -635,9 +1083,18 @@
       },
       {
         "lvl": "II",
-        "name": "Local Outlier Factor",
-        "tag": "Outlier",
-        "desc": "Flags points whose local density is much lower than their neighbours'.",
+        "name": {
+          "en": "Local Outlier Factor",
+          "uk": "Local Outlier Factor"
+        },
+        "tag": {
+          "en": "Outlier",
+          "uk": "Викид"
+        },
+        "desc": {
+          "en": "Flags points whose local density is much lower than their neighbours'.",
+          "uk": "Позначає точки, локальна щільність яких значно нижча за щільність сусідів."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -648,9 +1105,18 @@
       },
       {
         "lvl": "II",
-        "name": "One-Class SVM",
-        "tag": "Outlier",
-        "desc": "Learns a boundary around normal data; anything outside it is scored anomalous.",
+        "name": {
+          "en": "One-Class SVM",
+          "uk": "One-Class SVM"
+        },
+        "tag": {
+          "en": "Outlier",
+          "uk": "Викид"
+        },
+        "desc": {
+          "en": "Learns a boundary around normal data; anything outside it is scored anomalous.",
+          "uk": "Навчається межі навколо нормальних даних; усе поза нею оцінюється як аномалія."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -661,9 +1127,18 @@
       },
       {
         "lvl": "II",
-        "name": "DBSCAN",
-        "tag": "Outlier",
-        "desc": "Density-based clustering; points left in low-density regions are labelled outliers.",
+        "name": {
+          "en": "DBSCAN",
+          "uk": "DBSCAN"
+        },
+        "tag": {
+          "en": "Outlier",
+          "uk": "Викид"
+        },
+        "desc": {
+          "en": "Density-based clustering; points left in low-density regions are labelled outliers.",
+          "uk": "Кластеризація на основі щільності; точки в регіонах низької щільності позначаються викидами."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -674,9 +1149,18 @@
       },
       {
         "lvl": "III",
-        "name": "Elliptic Envelope",
-        "tag": "Outlier",
-        "desc": "Fits a robust covariance estimate and flags points outside the resulting ellipsoid.",
+        "name": {
+          "en": "Elliptic Envelope",
+          "uk": "Elliptic Envelope"
+        },
+        "tag": {
+          "en": "Outlier",
+          "uk": "Викид"
+        },
+        "desc": {
+          "en": "Fits a robust covariance estimate and flags points outside the resulting ellipsoid.",
+          "uk": "Підганяє робастну оцінку коваріації і позначає точки поза отриманим еліпсоїдом."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -687,9 +1171,18 @@
       },
       {
         "lvl": "III",
-        "name": "Deep Isolation Forest",
-        "tag": "Outlier",
-        "desc": "Replaces axis-aligned splits with random neural-network projections for high-dimensional data.",
+        "name": {
+          "en": "Deep Isolation Forest",
+          "uk": "Deep Isolation Forest"
+        },
+        "tag": {
+          "en": "Outlier",
+          "uk": "Викид"
+        },
+        "desc": {
+          "en": "Replaces axis-aligned splits with random neural-network projections for high-dimensional data.",
+          "uk": "Замінює осьові розбиття на випадкові проєкції нейромережі для даних високої розмірності."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -698,19 +1191,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "08"
+    ]
   },
   {
     "id": "sequential-dl",
-    "title": "Sequential Deep Learning",
-    "desc": "Neural architectures built to carry information forward through time.",
+    "num": "09",
+    "title": {
+      "en": "Sequential Deep Learning",
+      "uk": "Послідовне глибоке навчання"
+    },
+    "desc": {
+      "en": "Neural architectures built to carry information forward through time.",
+      "uk": "Нейромережеві архітектури, побудовані для перенесення інформації крізь час."
+    },
     "items": [
       {
         "lvl": "I",
-        "name": "Recurrent Neural Network (RNN)",
-        "tag": "Seq DL",
-        "desc": "The base recurrent architecture for sequential and time-series data.",
+        "name": {
+          "en": "Recurrent Neural Network (RNN)",
+          "uk": "Рекурентна нейромережа (RNN)"
+        },
+        "tag": {
+          "en": "Seq DL",
+          "uk": "Послід. DL"
+        },
+        "desc": {
+          "en": "The base recurrent architecture for sequential and time-series data.",
+          "uk": "Базова рекурентна архітектура для послідовних даних і часових рядів."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -721,9 +1229,18 @@
       },
       {
         "lvl": "II",
-        "name": "LSTM",
-        "tag": "Seq DL",
-        "desc": "Gated RNN that solves the vanishing-gradient problem over long sequences.",
+        "name": {
+          "en": "LSTM",
+          "uk": "LSTM"
+        },
+        "tag": {
+          "en": "Seq DL",
+          "uk": "Послід. DL"
+        },
+        "desc": {
+          "en": "Gated RNN that solves the vanishing-gradient problem over long sequences.",
+          "uk": "Вентильна RNN, що вирішує проблему зникаючого градієнта на довгих послідовностях."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -734,9 +1251,18 @@
       },
       {
         "lvl": "II",
-        "name": "GRU",
-        "tag": "Seq DL",
-        "desc": "A simplified LSTM variant with fewer parameters and comparable performance.",
+        "name": {
+          "en": "GRU",
+          "uk": "GRU"
+        },
+        "tag": {
+          "en": "Seq DL",
+          "uk": "Послід. DL"
+        },
+        "desc": {
+          "en": "A simplified LSTM variant with fewer parameters and comparable performance.",
+          "uk": "Спрощений варіант LSTM з меншою кількістю параметрів і порівнянною якістю."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -747,9 +1273,18 @@
       },
       {
         "lvl": "II",
-        "name": "Seq2Seq (Encoder–Decoder)",
-        "tag": "Seq DL",
-        "desc": "Maps an input sequence to an output sequence, e.g. multi-step forecasting.",
+        "name": {
+          "en": "Seq2Seq (Encoder-Decoder)",
+          "uk": "Seq2Seq (енкодер-декодер)"
+        },
+        "tag": {
+          "en": "Seq DL",
+          "uk": "Послід. DL"
+        },
+        "desc": {
+          "en": "Maps an input sequence to an output sequence, e.g. multi-step forecasting.",
+          "uk": "Відображає вхідну послідовність у вихідну, наприклад для багатокрокового прогнозування."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -760,9 +1295,18 @@
       },
       {
         "lvl": "III",
-        "name": "CNN-LSTM Hybrid",
-        "tag": "Seq DL",
-        "desc": "Convolutional feature extraction feeding a recurrent temporal model.",
+        "name": {
+          "en": "CNN-LSTM Hybrid",
+          "uk": "Гібрид CNN-LSTM"
+        },
+        "tag": {
+          "en": "Seq DL",
+          "uk": "Послід. DL"
+        },
+        "desc": {
+          "en": "Convolutional feature extraction feeding a recurrent temporal model.",
+          "uk": "Згорткове видобування ознак, що живить рекурентну часову модель."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -773,9 +1317,18 @@
       },
       {
         "lvl": "III",
-        "name": "ConvLSTM",
-        "tag": "Seq DL",
-        "desc": "Convolutional gates inside the LSTM cell; captures joint spatial–temporal structure.",
+        "name": {
+          "en": "ConvLSTM",
+          "uk": "ConvLSTM"
+        },
+        "tag": {
+          "en": "Seq DL",
+          "uk": "Послід. DL"
+        },
+        "desc": {
+          "en": "Convolutional gates inside the LSTM cell; captures joint spatial-temporal structure.",
+          "uk": "Згорткові вентилі всередині комірки LSTM; захоплює спільну просторово-часову структуру."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -784,19 +1337,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "09"
+    ]
   },
   {
     "id": "attention",
-    "title": "Attention & Transformer Models",
-    "desc": "Self-attention replacing recurrence — the current state of the art for long financial sequences.",
+    "num": "10",
+    "title": {
+      "en": "Attention & Transformer Models",
+      "uk": "Моделі уваги та трансформери"
+    },
+    "desc": {
+      "en": "Self-attention replacing recurrence - the current state of the art for long financial sequences.",
+      "uk": "Самоувага замість рекурентності - сучасний стан справ для довгих фінансових послідовностей."
+    },
     "items": [
       {
         "lvl": "II",
-        "name": "Transformer",
-        "tag": "Attention",
-        "desc": "Self-attention over the full sequence; the base architecture behind every model below.",
+        "name": {
+          "en": "Transformer",
+          "uk": "Трансформер"
+        },
+        "tag": {
+          "en": "Attention",
+          "uk": "Увага"
+        },
+        "desc": {
+          "en": "Self-attention over the full sequence; the base architecture behind every model below.",
+          "uk": "Самоувага по всій послідовності; базова архітектура для всіх моделей нижче."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -807,9 +1375,18 @@
       },
       {
         "lvl": "III",
-        "name": "Informer",
-        "tag": "Attention",
-        "desc": "Sparse ProbSparse attention for efficient long-sequence time-series forecasting.",
+        "name": {
+          "en": "Informer",
+          "uk": "Informer"
+        },
+        "tag": {
+          "en": "Attention",
+          "uk": "Увага"
+        },
+        "desc": {
+          "en": "Sparse ProbSparse attention for efficient long-sequence time-series forecasting.",
+          "uk": "Розріджена ProbSparse-увага для ефективного прогнозування довгих часових рядів."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -820,9 +1397,18 @@
       },
       {
         "lvl": "III",
-        "name": "Autoformer",
-        "tag": "Attention",
-        "desc": "Decomposition plus auto-correlation, replacing standard self-attention for trend and seasonality.",
+        "name": {
+          "en": "Autoformer",
+          "uk": "Autoformer"
+        },
+        "tag": {
+          "en": "Attention",
+          "uk": "Увага"
+        },
+        "desc": {
+          "en": "Decomposition plus auto-correlation, replacing standard self-attention for trend and seasonality.",
+          "uk": "Декомпозиція плюс автокореляція замість стандартної самоуваги для тренду й сезонності."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -833,9 +1419,18 @@
       },
       {
         "lvl": "III",
-        "name": "FEDformer",
-        "tag": "Attention",
-        "desc": "Frequency-domain (Fourier/Wavelet) enhanced Transformer; a strong recent benchmark on S&P 500 / NASDAQ series.",
+        "name": {
+          "en": "FEDformer",
+          "uk": "FEDformer"
+        },
+        "tag": {
+          "en": "Attention",
+          "uk": "Увага"
+        },
+        "desc": {
+          "en": "Frequency-domain (Fourier/Wavelet) enhanced Transformer; a strong recent benchmark on S&P 500 / NASDAQ series.",
+          "uk": "Трансформер, посилений частотною областю (Фур'є/вейвлети); сильний нещодавній бенчмарк на рядах S&P 500 / NASDAQ."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -846,9 +1441,18 @@
       },
       {
         "lvl": "III",
-        "name": "Anomaly Transformer",
-        "tag": "Attention",
-        "desc": "Flags anomalies via the discrepancy between local and global attention patterns.",
+        "name": {
+          "en": "Anomaly Transformer",
+          "uk": "Anomaly Transformer"
+        },
+        "tag": {
+          "en": "Attention",
+          "uk": "Увага"
+        },
+        "desc": {
+          "en": "Flags anomalies via the discrepancy between local and global attention patterns.",
+          "uk": "Позначає аномалії через розбіжність між локальними й глобальними патернами уваги."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -859,9 +1463,18 @@
       },
       {
         "lvl": "III",
-        "name": "Temporal Fusion Transformer",
-        "tag": "Attention",
-        "desc": "Interpretable multi-horizon forecasting combining LSTM, attention and variable-selection gates.",
+        "name": {
+          "en": "Temporal Fusion Transformer",
+          "uk": "Temporal Fusion Transformer"
+        },
+        "tag": {
+          "en": "Attention",
+          "uk": "Увага"
+        },
+        "desc": {
+          "en": "Interpretable multi-horizon forecasting combining LSTM, attention and variable-selection gates.",
+          "uk": "Інтерпретоване багатогоризонтне прогнозування, що поєднує LSTM, увагу та вентилі відбору змінних."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -870,19 +1483,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "10"
+    ]
   },
   {
     "id": "autoencoders",
-    "title": "Autoencoders & Representation Learning",
-    "desc": "Learn what ‘normal’ compresses to; large reconstruction error is the anomaly signal.",
+    "num": "11",
+    "title": {
+      "en": "Autoencoders & Representation Learning",
+      "uk": "Автоенкодери та навчання представлень"
+    },
+    "desc": {
+      "en": "Learn what 'normal' compresses to; large reconstruction error is the anomaly signal.",
+      "uk": "Навчаються, у що стискається норма; велика похибка реконструкції - сигнал аномалії."
+    },
     "items": [
       {
         "lvl": "II",
-        "name": "Vanilla Autoencoder",
-        "tag": "Autoencoder",
-        "desc": "Reconstruction-error anomaly scoring over tabular market features.",
+        "name": {
+          "en": "Vanilla Autoencoder",
+          "uk": "Звичайний автоенкодер"
+        },
+        "tag": {
+          "en": "Autoencoder",
+          "uk": "Автоенкодер"
+        },
+        "desc": {
+          "en": "Reconstruction-error anomaly scoring over tabular market features.",
+          "uk": "Оцінка аномальності через похибку реконструкції на табличних ринкових ознаках."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -893,9 +1521,18 @@
       },
       {
         "lvl": "II",
-        "name": "LSTM-Autoencoder",
-        "tag": "Autoencoder",
-        "desc": "Sequence-to-sequence reconstruction for time-series anomaly detection.",
+        "name": {
+          "en": "LSTM-Autoencoder",
+          "uk": "LSTM-автоенкодер"
+        },
+        "tag": {
+          "en": "Autoencoder",
+          "uk": "Автоенкодер"
+        },
+        "desc": {
+          "en": "Sequence-to-sequence reconstruction for time-series anomaly detection.",
+          "uk": "Реконструкція послідовність-у-послідовність для виявлення аномалій у часових рядах."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -906,9 +1543,18 @@
       },
       {
         "lvl": "III",
-        "name": "Variational Autoencoder",
-        "tag": "Autoencoder",
-        "desc": "A probabilistic latent space; anomaly score combines reconstruction error and KL-divergence.",
+        "name": {
+          "en": "Variational Autoencoder",
+          "uk": "Варіаційний автоенкодер"
+        },
+        "tag": {
+          "en": "Autoencoder",
+          "uk": "Автоенкодер"
+        },
+        "desc": {
+          "en": "A probabilistic latent space; anomaly score combines reconstruction error and KL-divergence.",
+          "uk": "Імовірнісний латентний простір; оцінка аномальності поєднує похибку реконструкції та KL-дивергенцію."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -919,9 +1565,18 @@
       },
       {
         "lvl": "III",
-        "name": "Convolutional Autoencoder",
-        "tag": "Autoencoder",
-        "desc": "A 1-D convolutional encoder/decoder over price-and-volume windows.",
+        "name": {
+          "en": "Convolutional Autoencoder",
+          "uk": "Згортковий автоенкодер"
+        },
+        "tag": {
+          "en": "Autoencoder",
+          "uk": "Автоенкодер"
+        },
+        "desc": {
+          "en": "A 1-D convolutional encoder/decoder over price-and-volume windows.",
+          "uk": "1D-згортковий енкодер/декодер над вікнами ціни й обсягу."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -932,9 +1587,18 @@
       },
       {
         "lvl": "III",
-        "name": "Denoising / Sparse Autoencoder",
-        "tag": "Autoencoder",
-        "desc": "Trained to reconstruct clean data from corrupted input, forcing more robust features.",
+        "name": {
+          "en": "Denoising / Sparse Autoencoder",
+          "uk": "Шумозаглушувальний / розріджений автоенкодер"
+        },
+        "tag": {
+          "en": "Autoencoder",
+          "uk": "Автоенкодер"
+        },
+        "desc": {
+          "en": "Trained to reconstruct clean data from corrupted input, forcing more robust features.",
+          "uk": "Навчається реконструювати чисті дані з пошкодженого входу, що змушує до більш робастних ознак."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -945,9 +1609,18 @@
       },
       {
         "lvl": "III",
-        "name": "Transformer Autoencoder for Order Books",
-        "tag": "Autoencoder",
-        "desc": "Reconstructs limit-order-book sub-sequences to flag trade-based manipulation.",
+        "name": {
+          "en": "Transformer Autoencoder for Order Books",
+          "uk": "Трансформер-автоенкодер для книг заявок"
+        },
+        "tag": {
+          "en": "Autoencoder",
+          "uk": "Автоенкодер"
+        },
+        "desc": {
+          "en": "Reconstructs limit-order-book sub-sequences to flag trade-based manipulation.",
+          "uk": "Реконструює підпослідовності книги лімітних заявок, щоб позначити маніпуляції на основі угод."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -956,19 +1629,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "11"
+    ]
   },
   {
     "id": "generative",
-    "title": "Generative Models",
-    "desc": "Learn the data-generating process itself; a sample the model can't explain is the anomaly.",
+    "num": "12",
+    "title": {
+      "en": "Generative Models",
+      "uk": "Генеративні моделі"
+    },
+    "desc": {
+      "en": "Learn the data-generating process itself; a sample the model can't explain is the anomaly.",
+      "uk": "Навчаються самого процесу генерації даних; зразок, який модель не може пояснити, - і є аномалія."
+    },
     "items": [
       {
         "lvl": "III",
-        "name": "GAN",
-        "tag": "Generative",
-        "desc": "A generator/discriminator pair; the discriminator's failure to tell real from fake flags anomalies.",
+        "name": {
+          "en": "GAN",
+          "uk": "GAN"
+        },
+        "tag": {
+          "en": "Generative",
+          "uk": "Генеративні"
+        },
+        "desc": {
+          "en": "A generator/discriminator pair; the discriminator's failure to tell real from fake flags anomalies.",
+          "uk": "Пара генератор/дискримінатор; нездатність дискримінатора відрізнити справжнє від фейкового позначає аномалії."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -979,9 +1667,18 @@
       },
       {
         "lvl": "III",
-        "name": "TimeGAN",
-        "tag": "Generative",
-        "desc": "A GAN framework explicitly preserving temporal dynamics for realistic synthetic financial series.",
+        "name": {
+          "en": "TimeGAN",
+          "uk": "TimeGAN"
+        },
+        "tag": {
+          "en": "Generative",
+          "uk": "Генеративні"
+        },
+        "desc": {
+          "en": "A GAN framework explicitly preserving temporal dynamics for realistic synthetic financial series.",
+          "uk": "GAN-фреймворк, що явно зберігає часову динаміку для реалістичних синтетичних фінансових рядів."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -992,9 +1689,18 @@
       },
       {
         "lvl": "III",
-        "name": "TAnoGAN",
-        "tag": "Generative",
-        "desc": "GAN-based anomaly detector using the generator's reconstruction loss on time-series windows.",
+        "name": {
+          "en": "TAnoGAN",
+          "uk": "TAnoGAN"
+        },
+        "tag": {
+          "en": "Generative",
+          "uk": "Генеративні"
+        },
+        "desc": {
+          "en": "GAN-based anomaly detector using the generator's reconstruction loss on time-series windows.",
+          "uk": "Детектор аномалій на основі GAN, що використовує похибку реконструкції генератора на вікнах часового ряду."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1005,9 +1711,18 @@
       },
       {
         "lvl": "III",
-        "name": "GAN-LSTM Hybrid",
-        "tag": "Generative",
-        "desc": "An LSTM-based generator and discriminator; a strong recent benchmark for sequential anomaly detection.",
+        "name": {
+          "en": "GAN-LSTM Hybrid",
+          "uk": "Гібрид GAN-LSTM"
+        },
+        "tag": {
+          "en": "Generative",
+          "uk": "Генеративні"
+        },
+        "desc": {
+          "en": "An LSTM-based generator and discriminator; a strong recent benchmark for sequential anomaly detection.",
+          "uk": "Генератор і дискримінатор на основі LSTM; сильний нещодавній бенчмарк для виявлення послідовних аномалій."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1018,9 +1733,18 @@
       },
       {
         "lvl": "III",
-        "name": "Diffusion Models for Time Series",
-        "tag": "Generative",
-        "desc": "Iterative denoising generative process; an emerging alternative to GANs for synthetic market data.",
+        "name": {
+          "en": "Diffusion Models for Time Series",
+          "uk": "Дифузійні моделі для часових рядів"
+        },
+        "tag": {
+          "en": "Generative",
+          "uk": "Генеративні"
+        },
+        "desc": {
+          "en": "Iterative denoising generative process; an emerging alternative to GANs for synthetic market data.",
+          "uk": "Ітеративний генеративний процес шумозаглушення; нова альтернатива GAN для синтетичних ринкових даних."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1029,19 +1753,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "12"
+    ]
   },
   {
     "id": "graph",
-    "title": "Graph-Based Models",
-    "desc": "Assets, accounts and counterparties as nodes — the anomaly is in the structure, not just one series.",
+    "num": "13",
+    "title": {
+      "en": "Graph-Based Models",
+      "uk": "Графові моделі"
+    },
+    "desc": {
+      "en": "Assets, accounts and counterparties as nodes - the anomaly is in the structure, not just one series.",
+      "uk": "Активи, рахунки й контрагенти як вузли - аномалія в структурі, а не лише в одному ряді."
+    },
     "items": [
       {
         "lvl": "II",
-        "name": "Graph Neural Network",
-        "tag": "Graph",
-        "desc": "Propagates information across nodes connected by edges such as correlation or transaction flow.",
+        "name": {
+          "en": "Graph Neural Network",
+          "uk": "Графова нейромережа (GNN)"
+        },
+        "tag": {
+          "en": "Graph",
+          "uk": "Граф"
+        },
+        "desc": {
+          "en": "Propagates information across nodes connected by edges such as correlation or transaction flow.",
+          "uk": "Поширює інформацію між вузлами, з'єднаними ребрами на кшталт кореляції чи потоку транзакцій."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1052,9 +1791,18 @@
       },
       {
         "lvl": "III",
-        "name": "Graph Attention Network",
-        "tag": "Graph",
-        "desc": "A GNN variant that weighs each neighbour's contribution via a learned attention score.",
+        "name": {
+          "en": "Graph Attention Network",
+          "uk": "Графова мережа уваги (GAT)"
+        },
+        "tag": {
+          "en": "Graph",
+          "uk": "Граф"
+        },
+        "desc": {
+          "en": "A GNN variant that weighs each neighbour's contribution via a learned attention score.",
+          "uk": "Варіант GNN, що зважує внесок кожного сусіда через навчену оцінку уваги."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1065,9 +1813,18 @@
       },
       {
         "lvl": "III",
-        "name": "Graph Autoencoder",
-        "tag": "Graph",
-        "desc": "Reconstructs an adjacency or correlation matrix; a large error flags a structural anomaly.",
+        "name": {
+          "en": "Graph Autoencoder",
+          "uk": "Графовий автоенкодер"
+        },
+        "tag": {
+          "en": "Graph",
+          "uk": "Граф"
+        },
+        "desc": {
+          "en": "Reconstructs an adjacency or correlation matrix; a large error flags a structural anomaly.",
+          "uk": "Реконструює матрицю суміжності чи кореляції; велика похибка позначає структурну аномалію."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1078,31 +1835,58 @@
       },
       {
         "lvl": "III",
-        "name": "GNN + Transformer Hybrids",
-        "tag": "Graph",
-        "desc": "Combine relational (graph) and temporal (attention) structure for systemic anomaly discovery.",
-        "used_by": "used by → anti-money-laundering transaction monitoring",
+        "name": {
+          "en": "GNN + Transformer Hybrids",
+          "uk": "Гібриди GNN + трансформер"
+        },
+        "tag": {
+          "en": "Graph",
+          "uk": "Граф"
+        },
+        "desc": {
+          "en": "Combine relational (graph) and temporal (attention) structure for systemic anomaly discovery.",
+          "uk": "Поєднують реляційну (граф) і часову (увага) структуру для виявлення системних аномалій."
+        },
         "links": {
           "paper": "",
           "hf": "",
           "kaggle": "",
           "wiki": "",
           "more": ""
+        },
+        "used_by": {
+          "en": "used by -> anti-money-laundering transaction monitoring",
+          "uk": "використовується -> у моніторингу транзакцій для протидії відмиванню коштів"
         }
       }
-    ],
-    "num": "13"
+    ]
   },
   {
     "id": "fuzzy",
-    "title": "Fuzzy Logic & Neuro-Fuzzy Systems",
-    "desc": "Where the boundary between ‘normal’ and ‘anomalous’ is itself uncertain, not just the data.",
+    "num": "14",
+    "title": {
+      "en": "Fuzzy Logic & Neuro-Fuzzy Systems",
+      "uk": "Нечітка логіка та нейро-нечіткі системи"
+    },
+    "desc": {
+      "en": "Where the boundary between 'normal' and 'anomalous' is itself uncertain, not just the data.",
+      "uk": "Там, де сама межа між нормою та аномалією невизначена, а не лише дані."
+    },
     "items": [
       {
         "lvl": "II",
-        "name": "Fuzzy C-Means Clustering",
-        "tag": "Fuzzy",
-        "desc": "Soft clustering: each point holds partial membership across several risk clusters at once.",
+        "name": {
+          "en": "Fuzzy C-Means Clustering",
+          "uk": "Нечітка кластеризація C-Means"
+        },
+        "tag": {
+          "en": "Fuzzy",
+          "uk": "Нечітка логіка"
+        },
+        "desc": {
+          "en": "Soft clustering: each point holds partial membership across several risk clusters at once.",
+          "uk": "М'яка кластеризація: кожна точка має часткову належність одразу до кількох ризик-кластерів."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1113,9 +1897,18 @@
       },
       {
         "lvl": "II",
-        "name": "ANFIS",
-        "tag": "Fuzzy",
-        "desc": "Fuzzy if-then rules whose parameters are tuned by neural-network gradient learning.",
+        "name": {
+          "en": "ANFIS",
+          "uk": "ANFIS"
+        },
+        "tag": {
+          "en": "Fuzzy",
+          "uk": "Нечітка логіка"
+        },
+        "desc": {
+          "en": "Fuzzy if-then rules whose parameters are tuned by neural-network gradient learning.",
+          "uk": "Нечіткі правила якщо-то, параметри яких налаштовуються градієнтним навчанням нейромережі."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1126,9 +1919,18 @@
       },
       {
         "lvl": "II",
-        "name": "Fuzzy Rule-Based Fraud Scoring",
-        "tag": "Fuzzy",
-        "desc": "Clusters financial and non-financial variables into fraud-risk categories for expert review.",
+        "name": {
+          "en": "Fuzzy Rule-Based Fraud Scoring",
+          "uk": "Нечітке скорингування шахрайства на правилах"
+        },
+        "tag": {
+          "en": "Fuzzy",
+          "uk": "Нечітка логіка"
+        },
+        "desc": {
+          "en": "Clusters financial and non-financial variables into fraud-risk categories for expert review.",
+          "uk": "Кластеризує фінансові та нефінансові змінні в категорії ризику шахрайства для експертного огляду."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1139,9 +1941,18 @@
       },
       {
         "lvl": "III",
-        "name": "Fuzzy Semi-Supervised Outlier Detection",
-        "tag": "Fuzzy",
-        "desc": "Treats volatility-outlier detection as fuzzy classification rather than hard-threshold regression.",
+        "name": {
+          "en": "Fuzzy Semi-Supervised Outlier Detection",
+          "uk": "Нечітке напівкероване виявлення викидів"
+        },
+        "tag": {
+          "en": "Fuzzy",
+          "uk": "Нечітка логіка"
+        },
+        "desc": {
+          "en": "Treats volatility-outlier detection as fuzzy classification rather than hard-threshold regression.",
+          "uk": "Трактує виявлення викидів волатильності як нечітку класифікацію, а не регресію з жорстким порогом."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1152,9 +1963,18 @@
       },
       {
         "lvl": "III",
-        "name": "Genetic-Fuzzy Hybrids",
-        "tag": "Fuzzy",
-        "desc": "Evolutionary algorithms tune fuzzy-rule and attention parameters jointly.",
+        "name": {
+          "en": "Genetic-Fuzzy Hybrids",
+          "uk": "Генетично-нечіткі гібриди"
+        },
+        "tag": {
+          "en": "Fuzzy",
+          "uk": "Нечітка логіка"
+        },
+        "desc": {
+          "en": "Evolutionary algorithms tune fuzzy-rule and attention parameters jointly.",
+          "uk": "Еволюційні алгоритми спільно налаштовують параметри нечітких правил та уваги."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1163,19 +1983,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "14"
+    ]
   },
   {
     "id": "rl",
-    "title": "Reinforcement Learning for Markets",
-    "desc": "Learning a trading or hedging policy from trial, error and reward — not from a labelled dataset.",
+    "num": "15",
+    "title": {
+      "en": "Reinforcement Learning for Markets",
+      "uk": "Навчання з підкріпленням для ринків"
+    },
+    "desc": {
+      "en": "Learning a trading or hedging policy from trial, error and reward - not from a labelled dataset.",
+      "uk": "Навчання торгової чи хеджувальної політики через спроби, помилки й винагороду - а не з розміченого набору даних."
+    },
     "items": [
       {
         "lvl": "II",
-        "name": "Q-Learning",
-        "tag": "RL",
-        "desc": "Tabular value-based RL for simple, discrete trading-action policies.",
+        "name": {
+          "en": "Q-Learning",
+          "uk": "Q-навчання"
+        },
+        "tag": {
+          "en": "RL",
+          "uk": "РН"
+        },
+        "desc": {
+          "en": "Tabular value-based RL for simple, discrete trading-action policies.",
+          "uk": "Табличне ціннісне навчання з підкріпленням для простих дискретних торгових політик."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1186,9 +2021,18 @@
       },
       {
         "lvl": "III",
-        "name": "Deep Q-Network",
-        "tag": "RL",
-        "desc": "Neural-network Q-function approximation for higher-dimensional market states.",
+        "name": {
+          "en": "Deep Q-Network",
+          "uk": "Deep Q-Network (DQN)"
+        },
+        "tag": {
+          "en": "RL",
+          "uk": "РН"
+        },
+        "desc": {
+          "en": "Neural-network Q-function approximation for higher-dimensional market states.",
+          "uk": "Апроксимація Q-функції нейромережею для станів ринку вищої розмірності."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1199,9 +2043,18 @@
       },
       {
         "lvl": "III",
-        "name": "Policy Gradient / REINFORCE",
-        "tag": "RL",
-        "desc": "Directly optimises a stochastic trading policy via gradient ascent on expected return.",
+        "name": {
+          "en": "Policy Gradient / REINFORCE",
+          "uk": "Градієнт політики / REINFORCE"
+        },
+        "tag": {
+          "en": "RL",
+          "uk": "РН"
+        },
+        "desc": {
+          "en": "Directly optimises a stochastic trading policy via gradient ascent on expected return.",
+          "uk": "Напряму оптимізує стохастичну торгову політику через градієнтний підйом на очікуваній дохідності."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1212,9 +2065,18 @@
       },
       {
         "lvl": "III",
-        "name": "Proximal Policy Optimization",
-        "tag": "RL",
-        "desc": "A stable, clipped policy-gradient method common in modern portfolio-management RL.",
+        "name": {
+          "en": "Proximal Policy Optimization",
+          "uk": "Proximal Policy Optimization (PPO)"
+        },
+        "tag": {
+          "en": "RL",
+          "uk": "РН"
+        },
+        "desc": {
+          "en": "A stable, clipped policy-gradient method common in modern portfolio-management RL.",
+          "uk": "Стабільний, обрізаний метод градієнта політики, поширений у сучасному RL для управління портфелем."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1225,9 +2087,18 @@
       },
       {
         "lvl": "III",
-        "name": "Actor–Critic (A2C/A3C)",
-        "tag": "RL",
-        "desc": "Combines a policy (actor) with a value estimator (critic) for lower-variance training.",
+        "name": {
+          "en": "Actor-Critic (A2C/A3C)",
+          "uk": "Actor-Critic (A2C/A3C)"
+        },
+        "tag": {
+          "en": "RL",
+          "uk": "РН"
+        },
+        "desc": {
+          "en": "Combines a policy (actor) with a value estimator (critic) for lower-variance training.",
+          "uk": "Поєднує політику (актора) з оцінювачем цінності (критиком) для навчання з нижчою дисперсією."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1238,9 +2109,18 @@
       },
       {
         "lvl": "III",
-        "name": "DDPG",
-        "tag": "RL",
-        "desc": "An actor–critic method for continuous action spaces, e.g. position sizing.",
+        "name": {
+          "en": "DDPG",
+          "uk": "DDPG"
+        },
+        "tag": {
+          "en": "RL",
+          "uk": "РН"
+        },
+        "desc": {
+          "en": "An actor-critic method for continuous action spaces, e.g. position sizing.",
+          "uk": "Метод актор-критик для неперервних просторів дій, наприклад розміру позиції."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1249,19 +2129,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "15"
+    ]
   },
   {
     "id": "microstructure",
-    "title": "Market Microstructure Models",
-    "desc": "What happens inside the order book, tick by tick.",
+    "num": "16",
+    "title": {
+      "en": "Market Microstructure Models",
+      "uk": "Моделі мікроструктури ринку"
+    },
+    "desc": {
+      "en": "What happens inside the order book, tick by tick.",
+      "uk": "Що відбувається всередині книги заявок, тік за тіком."
+    },
     "items": [
       {
         "lvl": "II",
-        "name": "Kyle's Lambda",
-        "tag": "Microstructure",
-        "desc": "Models the price impact of informed order flow; the classical price-impact benchmark.",
+        "name": {
+          "en": "Kyle's Lambda",
+          "uk": "Лямбда Кайла"
+        },
+        "tag": {
+          "en": "Microstructure",
+          "uk": "Мікроструктура"
+        },
+        "desc": {
+          "en": "Models the price impact of informed order flow; the classical price-impact benchmark.",
+          "uk": "Моделює ціновий вплив поінформованого потоку заявок; класичний бенчмарк цінового впливу."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1272,9 +2167,18 @@
       },
       {
         "lvl": "II",
-        "name": "Glosten–Milgrom Model",
-        "tag": "Microstructure",
-        "desc": "Models the bid–ask spread as compensation for adverse selection from informed traders.",
+        "name": {
+          "en": "Glosten-Milgrom Model",
+          "uk": "Модель Гльостена-Мілгрома"
+        },
+        "tag": {
+          "en": "Microstructure",
+          "uk": "Мікроструктура"
+        },
+        "desc": {
+          "en": "Models the bid-ask spread as compensation for adverse selection from informed traders.",
+          "uk": "Моделює спред bid-ask як компенсацію за несприятливий відбір з боку поінформованих трейдерів."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1285,9 +2189,18 @@
       },
       {
         "lvl": "III",
-        "name": "Hawkes Process",
-        "tag": "Microstructure",
-        "desc": "A self-exciting point process: one trade raises the likelihood of the next, in clusters.",
+        "name": {
+          "en": "Hawkes Process",
+          "uk": "Процес Хоукса"
+        },
+        "tag": {
+          "en": "Microstructure",
+          "uk": "Мікроструктура"
+        },
+        "desc": {
+          "en": "A self-exciting point process: one trade raises the likelihood of the next, in clusters.",
+          "uk": "Самозбуджувальний точковий процес: одна угода підвищує ймовірність наступної, кластерами."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1298,9 +2211,18 @@
       },
       {
         "lvl": "III",
-        "name": "Autoregressive Conditional Duration",
-        "tag": "Microstructure",
-        "desc": "Models the time between trade arrivals rather than the price level itself.",
+        "name": {
+          "en": "Autoregressive Conditional Duration",
+          "uk": "Авторегресійна умовна тривалість (ACD)"
+        },
+        "tag": {
+          "en": "Microstructure",
+          "uk": "Мікроструктура"
+        },
+        "desc": {
+          "en": "Models the time between trade arrivals rather than the price level itself.",
+          "uk": "Моделює час між надходженнями угод, а не сам рівень ціни."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1311,9 +2233,18 @@
       },
       {
         "lvl": "III",
-        "name": "Limit Order Book Simulation",
-        "tag": "Microstructure",
-        "desc": "Agent-based or statistical reconstruction of order-book dynamics for stress-testing detectors.",
+        "name": {
+          "en": "Limit Order Book Simulation",
+          "uk": "Симуляція книги лімітних заявок"
+        },
+        "tag": {
+          "en": "Microstructure",
+          "uk": "Мікроструктура"
+        },
+        "desc": {
+          "en": "Agent-based or statistical reconstruction of order-book dynamics for stress-testing detectors.",
+          "uk": "Агентна чи статистична реконструкція динаміки книги заявок для стрес-тестування детекторів."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1322,19 +2253,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "16"
+    ]
   },
   {
     "id": "regime",
-    "title": "Regime-Switching & State-Space Models",
-    "desc": "The market's own statistical rules change over time; these models let the rules switch too.",
+    "num": "17",
+    "title": {
+      "en": "Regime-Switching & State-Space Models",
+      "uk": "Моделі перемикання режимів і простору станів"
+    },
+    "desc": {
+      "en": "The market's own statistical rules change over time; these models let the rules switch too.",
+      "uk": "Статистичні правила самого ринку змінюються з часом; ці моделі дозволяють правилам теж перемикатись."
+    },
     "items": [
       {
         "lvl": "II",
-        "name": "Hidden Markov Model",
-        "tag": "Regime",
-        "desc": "A latent discrete regime — bull, bear, high-volatility — drives the observed returns.",
+        "name": {
+          "en": "Hidden Markov Model",
+          "uk": "Прихована марковська модель (HMM)"
+        },
+        "tag": {
+          "en": "Regime",
+          "uk": "Режим"
+        },
+        "desc": {
+          "en": "A latent discrete regime - bull, bear, high-volatility - drives the observed returns.",
+          "uk": "Латентний дискретний режим - бичачий, ведмежий, високої волатильності - визначає спостережувану дохідність."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1345,9 +2291,18 @@
       },
       {
         "lvl": "III",
-        "name": "Markov-Switching GARCH",
-        "tag": "Regime",
-        "desc": "Combines regime-switching with conditional heteroskedasticity.",
+        "name": {
+          "en": "Markov-Switching GARCH",
+          "uk": "GARCH з марковським перемиканням"
+        },
+        "tag": {
+          "en": "Regime",
+          "uk": "Режим"
+        },
+        "desc": {
+          "en": "Combines regime-switching with conditional heteroskedasticity.",
+          "uk": "Поєднує перемикання режимів з умовною гетероскедастичністю."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1358,9 +2313,18 @@
       },
       {
         "lvl": "III",
-        "name": "Particle Filter",
-        "tag": "Regime",
-        "desc": "A nonlinear, non-Gaussian extension of the Kalman filter via sequential sampling.",
+        "name": {
+          "en": "Particle Filter",
+          "uk": "Частинковий фільтр"
+        },
+        "tag": {
+          "en": "Regime",
+          "uk": "Режим"
+        },
+        "desc": {
+          "en": "A nonlinear, non-Gaussian extension of the Kalman filter via sequential sampling.",
+          "uk": "Нелінійне, негаусове розширення фільтра Калмана через послідовну вибірку."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1371,9 +2335,18 @@
       },
       {
         "lvl": "III",
-        "name": "Change-Point Detection (CUSUM, Bayesian Online)",
-        "tag": "Regime",
-        "desc": "Flags a structural break in a series' statistical properties in real time.",
+        "name": {
+          "en": "Change-Point Detection (CUSUM, Bayesian Online)",
+          "uk": "Виявлення точок зміни (CUSUM, баєсівський онлайн)"
+        },
+        "tag": {
+          "en": "Regime",
+          "uk": "Режим"
+        },
+        "desc": {
+          "en": "Flags a structural break in a series' statistical properties in real time.",
+          "uk": "Позначає структурний злам у статистичних властивостях ряду в реальному часі."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1382,19 +2355,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "17"
+    ]
   },
   {
     "id": "derivatives",
-    "title": "Stochastic Processes for Derivatives",
-    "desc": "Pricing the contracts written on top of the underlying market.",
+    "num": "18",
+    "title": {
+      "en": "Stochastic Processes for Derivatives",
+      "uk": "Стохастичні процеси для деривативів"
+    },
+    "desc": {
+      "en": "Pricing the contracts written on top of the underlying market.",
+      "uk": "Ціноутворення контрактів, написаних поверх базового ринку."
+    },
     "items": [
       {
         "lvl": "I",
-        "name": "Black–Scholes–Merton",
-        "tag": "Derivatives",
-        "desc": "Closed-form option pricing under geometric Brownian motion.",
+        "name": {
+          "en": "Black-Scholes-Merton",
+          "uk": "Black-Scholes-Merton"
+        },
+        "tag": {
+          "en": "Derivatives",
+          "uk": "Деривативи"
+        },
+        "desc": {
+          "en": "Closed-form option pricing under geometric Brownian motion.",
+          "uk": "Аналітичне ціноутворення опціонів за геометричного броунівського руху."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1405,9 +2393,18 @@
       },
       {
         "lvl": "II",
-        "name": "Binomial / Trinomial Trees",
-        "tag": "Derivatives",
-        "desc": "Discrete-time lattice approximations for American and exotic option pricing.",
+        "name": {
+          "en": "Binomial / Trinomial Trees",
+          "uk": "Біноміальні / триноміальні дерева"
+        },
+        "tag": {
+          "en": "Derivatives",
+          "uk": "Деривативи"
+        },
+        "desc": {
+          "en": "Discrete-time lattice approximations for American and exotic option pricing.",
+          "uk": "Дискретно-часові ґраткові наближення для ціноутворення американських та екзотичних опціонів."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1418,9 +2415,18 @@
       },
       {
         "lvl": "III",
-        "name": "Heston Model",
-        "tag": "Derivatives",
-        "desc": "A stochastic-volatility extension of Black–Scholes that captures the volatility smile.",
+        "name": {
+          "en": "Heston Model",
+          "uk": "Модель Хестона"
+        },
+        "tag": {
+          "en": "Derivatives",
+          "uk": "Деривативи"
+        },
+        "desc": {
+          "en": "A stochastic-volatility extension of Black-Scholes that captures the volatility smile.",
+          "uk": "Розширення Блека-Шоулза зі стохастичною волатильністю, що враховує усмішку волатильності."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1431,9 +2437,18 @@
       },
       {
         "lvl": "III",
-        "name": "Jump-Diffusion (Merton, Kou)",
-        "tag": "Derivatives",
-        "desc": "Adds discontinuous price jumps on top of the continuous diffusion process.",
+        "name": {
+          "en": "Jump-Diffusion (Merton, Kou)",
+          "uk": "Стрибкоподібна дифузія (Мертон, Коу)"
+        },
+        "tag": {
+          "en": "Derivatives",
+          "uk": "Деривативи"
+        },
+        "desc": {
+          "en": "Adds discontinuous price jumps on top of the continuous diffusion process.",
+          "uk": "Додає розривні цінові стрибки поверх неперервного дифузійного процесу."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1444,9 +2459,18 @@
       },
       {
         "lvl": "III",
-        "name": "Monte Carlo Option Pricing",
-        "tag": "Derivatives",
-        "desc": "Simulates many price paths to price path-dependent and exotic derivatives.",
+        "name": {
+          "en": "Monte Carlo Option Pricing",
+          "uk": "Ціноутворення опціонів методом Монте-Карло"
+        },
+        "tag": {
+          "en": "Derivatives",
+          "uk": "Деривативи"
+        },
+        "desc": {
+          "en": "Simulates many price paths to price path-dependent and exotic derivatives.",
+          "uk": "Симулює безліч цінових траєкторій для оцінки залежних від шляху та екзотичних деривативів."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1455,19 +2479,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "18"
+    ]
   },
   {
     "id": "rates",
-    "title": "Fixed-Income & Term-Structure Models",
-    "desc": "Modelling the shape of the yield curve and how it moves.",
+    "num": "19",
+    "title": {
+      "en": "Fixed-Income & Term-Structure Models",
+      "uk": "Моделі фіксованого доходу та термінової структури"
+    },
+    "desc": {
+      "en": "Modelling the shape of the yield curve and how it moves.",
+      "uk": "Моделювання форми кривої дохідності та того, як вона рухається."
+    },
     "items": [
       {
         "lvl": "II",
-        "name": "Vasicek Model",
-        "tag": "Rates",
-        "desc": "A mean-reverting short-rate model; the classical one-factor term-structure benchmark.",
+        "name": {
+          "en": "Vasicek Model",
+          "uk": "Модель Васічека"
+        },
+        "tag": {
+          "en": "Rates",
+          "uk": "Ставки"
+        },
+        "desc": {
+          "en": "A mean-reverting short-rate model; the classical one-factor term-structure benchmark.",
+          "uk": "Модель короткої ставки з поверненням до середнього; класичний однофакторний бенчмарк термінової структури."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1478,9 +2517,18 @@
       },
       {
         "lvl": "II",
-        "name": "CIR Model",
-        "tag": "Rates",
-        "desc": "A Vasicek variant that guarantees non-negative interest rates.",
+        "name": {
+          "en": "CIR Model",
+          "uk": "Модель CIR"
+        },
+        "tag": {
+          "en": "Rates",
+          "uk": "Ставки"
+        },
+        "desc": {
+          "en": "A Vasicek variant that guarantees non-negative interest rates.",
+          "uk": "Варіант моделі Васічека, що гарантує невід'ємні процентні ставки."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1491,9 +2539,18 @@
       },
       {
         "lvl": "II",
-        "name": "Nelson–Siegel / Svensson",
-        "tag": "Rates",
-        "desc": "A parsimonious parametric fit to the entire yield curve at once.",
+        "name": {
+          "en": "Nelson-Siegel / Svensson",
+          "uk": "Nelson-Siegel / Svensson"
+        },
+        "tag": {
+          "en": "Rates",
+          "uk": "Ставки"
+        },
+        "desc": {
+          "en": "A parsimonious parametric fit to the entire yield curve at once.",
+          "uk": "Економна параметрична підгонка одразу всієї кривої дохідності."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1504,9 +2561,18 @@
       },
       {
         "lvl": "III",
-        "name": "Hull–White Model",
-        "tag": "Rates",
-        "desc": "Extends Vasicek with a time-dependent drift, fitting the current curve exactly.",
+        "name": {
+          "en": "Hull-White Model",
+          "uk": "Модель Халла-Байта"
+        },
+        "tag": {
+          "en": "Rates",
+          "uk": "Ставки"
+        },
+        "desc": {
+          "en": "Extends Vasicek with a time-dependent drift, fitting the current curve exactly.",
+          "uk": "Розширює модель Васічека часозалежним дрейфом, точно підганяючи поточну криву."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1515,19 +2581,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "19"
+    ]
   },
   {
     "id": "nlp",
-    "title": "Sentiment & NLP-Based Models",
-    "desc": "Turning unstructured text — news, filings, social feeds — into a market signal.",
+    "num": "20",
+    "title": {
+      "en": "Sentiment & NLP-Based Models",
+      "uk": "Моделі настроїв та НЛП"
+    },
+    "desc": {
+      "en": "Turning unstructured text - news, filings, social feeds - into a market signal.",
+      "uk": "Перетворення неструктурованого тексту - новин, звітності, соцмереж - на ринковий сигнал."
+    },
     "items": [
       {
         "lvl": "II",
-        "name": "Lexicon-Based Sentiment Scoring",
-        "tag": "NLP",
-        "desc": "Dictionary-driven polarity scores extracted from news or social-media text.",
+        "name": {
+          "en": "Lexicon-Based Sentiment Scoring",
+          "uk": "Оцінка настрою на основі лексикону"
+        },
+        "tag": {
+          "en": "NLP",
+          "uk": "НЛП"
+        },
+        "desc": {
+          "en": "Dictionary-driven polarity scores extracted from news or social-media text.",
+          "uk": "Оцінки полярності на основі словника, добуті з новинного чи соцмережевого тексту."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1538,9 +2619,18 @@
       },
       {
         "lvl": "II",
-        "name": "Latent Dirichlet Allocation",
-        "tag": "NLP",
-        "desc": "Unsupervised topic modelling to surface emerging narrative risk themes.",
+        "name": {
+          "en": "Latent Dirichlet Allocation",
+          "uk": "Латентне розміщення Дірихле (LDA)"
+        },
+        "tag": {
+          "en": "NLP",
+          "uk": "НЛП"
+        },
+        "desc": {
+          "en": "Unsupervised topic modelling to surface emerging narrative risk themes.",
+          "uk": "Тематичне моделювання без учителя для виявлення нових наративних ризик-тем."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1551,9 +2641,18 @@
       },
       {
         "lvl": "III",
-        "name": "FinBERT / Financial Transformers",
-        "tag": "NLP",
-        "desc": "Domain-fine-tuned language models for sentence-level market-sentiment classification.",
+        "name": {
+          "en": "FinBERT / Financial Transformers",
+          "uk": "FinBERT / фінансові трансформери"
+        },
+        "tag": {
+          "en": "NLP",
+          "uk": "НЛП"
+        },
+        "desc": {
+          "en": "Domain-fine-tuned language models for sentence-level market-sentiment classification.",
+          "uk": "Мовні моделі, дотреновані на домені, для класифікації ринкового настрою на рівні речень."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1564,9 +2663,18 @@
       },
       {
         "lvl": "III",
-        "name": "Event-Study NLP Signals",
-        "tag": "NLP",
-        "desc": "Extracts structured event tags — earnings surprise, guidance cut — from unstructured filings.",
+        "name": {
+          "en": "Event-Study NLP Signals",
+          "uk": "НЛП-сигнали дослідження подій"
+        },
+        "tag": {
+          "en": "NLP",
+          "uk": "НЛП"
+        },
+        "desc": {
+          "en": "Extracts structured event tags - earnings surprise, guidance cut - from unstructured filings.",
+          "uk": "Видобуває структуровані теги подій - несподіванка у прибутках, зниження прогнозу - з неструктурованої звітності."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1575,19 +2683,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "20"
+    ]
   },
   {
     "id": "xai",
-    "title": "Explainability & Interpretability",
-    "desc": "Once a model flags something, someone has to be able to say why.",
+    "num": "21",
+    "title": {
+      "en": "Explainability & Interpretability",
+      "uk": "Пояснюваність та інтерпретованість"
+    },
+    "desc": {
+      "en": "Once a model flags something, someone has to be able to say why.",
+      "uk": "Щойно модель щось позначає, хтось має бути здатен пояснити чому."
+    },
     "items": [
       {
         "lvl": "II",
-        "name": "SHAP",
-        "tag": "XAI",
-        "desc": "Game-theoretic feature attribution that works for any black-box prediction.",
+        "name": {
+          "en": "SHAP",
+          "uk": "SHAP"
+        },
+        "tag": {
+          "en": "XAI",
+          "uk": "XAI"
+        },
+        "desc": {
+          "en": "Game-theoretic feature attribution that works for any black-box prediction.",
+          "uk": "Теоретико-ігрова атрибуція ознак, що працює для будь-якого прогнозу чорної скриньки."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1598,9 +2721,18 @@
       },
       {
         "lvl": "II",
-        "name": "LIME",
-        "tag": "XAI",
-        "desc": "Fits a simple local surrogate model to explain one individual prediction.",
+        "name": {
+          "en": "LIME",
+          "uk": "LIME"
+        },
+        "tag": {
+          "en": "XAI",
+          "uk": "XAI"
+        },
+        "desc": {
+          "en": "Fits a simple local surrogate model to explain one individual prediction.",
+          "uk": "Підганяє просту локальну сурогатну модель, щоб пояснити один окремий прогноз."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1611,9 +2743,18 @@
       },
       {
         "lvl": "III",
-        "name": "Attention-Weight Visualization",
-        "tag": "XAI",
-        "desc": "Inspects a Transformer's attention map to see which time-steps drove a flag.",
+        "name": {
+          "en": "Attention-Weight Visualization",
+          "uk": "Візуалізація ваг уваги"
+        },
+        "tag": {
+          "en": "XAI",
+          "uk": "XAI"
+        },
+        "desc": {
+          "en": "Inspects a Transformer's attention map to see which time-steps drove a flag.",
+          "uk": "Досліджує карту уваги трансформера, щоб побачити, які часові кроки спричинили позначку."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1624,9 +2765,18 @@
       },
       {
         "lvl": "III",
-        "name": "DIFFI for Isolation Forest",
-        "tag": "XAI",
-        "desc": "Depth-based feature-importance scoring specific to isolation-forest anomaly detectors.",
+        "name": {
+          "en": "DIFFI for Isolation Forest",
+          "uk": "DIFFI для Isolation Forest"
+        },
+        "tag": {
+          "en": "XAI",
+          "uk": "XAI"
+        },
+        "desc": {
+          "en": "Depth-based feature-importance scoring specific to isolation-forest anomaly detectors.",
+          "uk": "Оцінка важливості ознак на основі глибини, специфічна для детекторів на основі isolation forest."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1635,19 +2785,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "21"
+    ]
   },
   {
     "id": "validation",
-    "title": "Model Validation & Backtesting",
-    "desc": "A model that looks great on history and fails live almost always failed here first.",
+    "num": "22",
+    "title": {
+      "en": "Model Validation & Backtesting",
+      "uk": "Валідація моделі та бектестинг"
+    },
+    "desc": {
+      "en": "A model that looks great on history and fails live almost always failed here first.",
+      "uk": "Модель, що чудово виглядає на історії, але провалюється наживо, майже завжди спершу провалилась саме тут."
+    },
     "items": [
       {
         "lvl": "I",
-        "name": "Walk-Forward Split",
-        "tag": "Validation",
-        "desc": "A chronological train/test split that respects the arrow of time and avoids look-ahead bias.",
+        "name": {
+          "en": "Walk-Forward Split",
+          "uk": "Walk-forward розбиття"
+        },
+        "tag": {
+          "en": "Validation",
+          "uk": "Валідація"
+        },
+        "desc": {
+          "en": "A chronological train/test split that respects the arrow of time and avoids look-ahead bias.",
+          "uk": "Хронологічний поділ на train/test, що поважає стрілу часу й уникає упередженості зазирання вперед."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1658,9 +2823,18 @@
       },
       {
         "lvl": "II",
-        "name": "Purged / Embargoed k-Fold CV",
-        "tag": "Validation",
-        "desc": "A cross-validation variant that removes leakage from overlapping financial-label windows.",
+        "name": {
+          "en": "Purged / Embargoed k-Fold CV",
+          "uk": "Purged/embargoed k-fold крос-валідація"
+        },
+        "tag": {
+          "en": "Validation",
+          "uk": "Валідація"
+        },
+        "desc": {
+          "en": "A cross-validation variant that removes leakage from overlapping financial-label windows.",
+          "uk": "Варіант крос-валідації, що усуває витік даних через накладені вікна фінансових міток."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1671,9 +2845,18 @@
       },
       {
         "lvl": "II",
-        "name": "White's Reality Check / SPA Test",
-        "tag": "Validation",
-        "desc": "Statistical tests correcting for data-snooping bias across many backtested strategies.",
+        "name": {
+          "en": "White's Reality Check / SPA Test",
+          "uk": "Reality Check Вайта / SPA-тест"
+        },
+        "tag": {
+          "en": "Validation",
+          "uk": "Валідація"
+        },
+        "desc": {
+          "en": "Statistical tests correcting for data-snooping bias across many backtested strategies.",
+          "uk": "Статистичні тести, що коригують упередженість підглядання в дані для багатьох протестованих стратегій."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1684,9 +2867,18 @@
       },
       {
         "lvl": "III",
-        "name": "Deflated Sharpe Ratio",
-        "tag": "Validation",
-        "desc": "Adjusts the Sharpe ratio for the number of trials run and for non-normal returns.",
+        "name": {
+          "en": "Deflated Sharpe Ratio",
+          "uk": "Дефльований коефіцієнт Шарпа"
+        },
+        "tag": {
+          "en": "Validation",
+          "uk": "Валідація"
+        },
+        "desc": {
+          "en": "Adjusts the Sharpe ratio for the number of trials run and for non-normal returns.",
+          "uk": "Коригує коефіцієнт Шарпа на кількість проведених випробувань і ненормальність дохідності."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1697,9 +2889,18 @@
       },
       {
         "lvl": "III",
-        "name": "Combinatorial Purged Cross-Validation",
-        "tag": "Validation",
-        "desc": "Generates many realistic backtest paths from a single dataset (López de Prado).",
+        "name": {
+          "en": "Combinatorial Purged Cross-Validation",
+          "uk": "Комбінаторна purged крос-валідація"
+        },
+        "tag": {
+          "en": "Validation",
+          "uk": "Валідація"
+        },
+        "desc": {
+          "en": "Generates many realistic backtest paths from a single dataset (Lopez de Prado).",
+          "uk": "Генерує безліч реалістичних бектест-траєкторій з одного набору даних (Лопес де Прадо)."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1708,19 +2909,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "22"
+    ]
   },
   {
     "id": "systemic",
-    "title": "Systemic Risk & Network Models",
-    "desc": "Risk that lives in the connections between institutions, not inside any one of them.",
+    "num": "23",
+    "title": {
+      "en": "Systemic Risk & Network Models",
+      "uk": "Системний ризик та мережеві моделі"
+    },
+    "desc": {
+      "en": "Risk that lives in the connections between institutions, not inside any one of them.",
+      "uk": "Ризик, що живе у зв'язках між установами, а не всередині якоїсь однієї з них."
+    },
     "items": [
       {
         "lvl": "II",
-        "name": "Network Centrality Measures",
-        "tag": "Systemic",
-        "desc": "Degree, eigenvector and betweenness centrality flag systemically important nodes.",
+        "name": {
+          "en": "Network Centrality Measures",
+          "uk": "Міри мережевої центральності"
+        },
+        "tag": {
+          "en": "Systemic",
+          "uk": "Системний"
+        },
+        "desc": {
+          "en": "Degree, eigenvector and betweenness centrality flag systemically important nodes.",
+          "uk": "Ступенева, власновекторна центральність і центральність посередництва позначають системно важливі вузли."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1731,9 +2947,18 @@
       },
       {
         "lvl": "III",
-        "name": "DebtRank",
-        "tag": "Systemic",
-        "desc": "Models cascading distress propagation through a network of interbank exposures.",
+        "name": {
+          "en": "DebtRank",
+          "uk": "DebtRank"
+        },
+        "tag": {
+          "en": "Systemic",
+          "uk": "Системний"
+        },
+        "desc": {
+          "en": "Models cascading distress propagation through a network of interbank exposures.",
+          "uk": "Моделює каскадне поширення дистресу через мережу міжбанківських експозицій."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1744,9 +2969,18 @@
       },
       {
         "lvl": "III",
-        "name": "CoVaR",
-        "tag": "Systemic",
-        "desc": "The system's VaR conditional on one given institution being in distress.",
+        "name": {
+          "en": "CoVaR",
+          "uk": "CoVaR"
+        },
+        "tag": {
+          "en": "Systemic",
+          "uk": "Системний"
+        },
+        "desc": {
+          "en": "The system's VaR conditional on one given institution being in distress.",
+          "uk": "VaR системи за умови, що конкретна установа перебуває в дистресі."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1757,9 +2991,18 @@
       },
       {
         "lvl": "III",
-        "name": "Marginal Expected Shortfall",
-        "tag": "Systemic",
-        "desc": "A firm's expected loss conditional on a systemic market-wide downturn.",
+        "name": {
+          "en": "Marginal Expected Shortfall",
+          "uk": "Маргінальні очікувані втрати (MES)"
+        },
+        "tag": {
+          "en": "Systemic",
+          "uk": "Системний"
+        },
+        "desc": {
+          "en": "A firm's expected loss conditional on a systemic market-wide downturn.",
+          "uk": "Очікувана втрата фірми за умови системного загальноринкового спаду."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1770,9 +3013,18 @@
       },
       {
         "lvl": "III",
-        "name": "Antibenford Subgraphs",
-        "tag": "Systemic",
-        "desc": "Flags financial-network subgraphs whose transaction digits violate Benford's Law.",
+        "name": {
+          "en": "Antibenford Subgraphs",
+          "uk": "Антибенфордові підграфи"
+        },
+        "tag": {
+          "en": "Systemic",
+          "uk": "Системний"
+        },
+        "desc": {
+          "en": "Flags financial-network subgraphs whose transaction digits violate Benford's Law.",
+          "uk": "Позначає підграфи фінансової мережі, цифри транзакцій яких порушують закон Бенфорда."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1781,19 +3033,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "23"
+    ]
   },
   {
     "id": "fraud",
-    "title": "Fraud & Market-Manipulation Detection",
-    "desc": "Named patterns regulators specifically look for, rather than generic statistical outliers.",
+    "num": "24",
+    "title": {
+      "en": "Fraud & Market-Manipulation Detection",
+      "uk": "Виявлення шахрайства та маніпуляцій на ринку"
+    },
+    "desc": {
+      "en": "Named patterns regulators specifically look for, rather than generic statistical outliers.",
+      "uk": "Конкретні патерни, які цілеспрямовано шукають регулятори, а не загальні статистичні викиди."
+    },
     "items": [
       {
         "lvl": "II",
-        "name": "Wash-Trading Detection",
-        "tag": "Fraud",
-        "desc": "Pattern-matching for self-dealing trades that transfer no genuine economic risk.",
+        "name": {
+          "en": "Wash-Trading Detection",
+          "uk": "Виявлення wash trading"
+        },
+        "tag": {
+          "en": "Fraud",
+          "uk": "Шахрайство"
+        },
+        "desc": {
+          "en": "Pattern-matching for self-dealing trades that transfer no genuine economic risk.",
+          "uk": "Пошук патернів самоугод, які не передають справжнього економічного ризику."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1804,9 +3071,18 @@
       },
       {
         "lvl": "II",
-        "name": "Spoofing / Layering Detection",
-        "tag": "Fraud",
-        "desc": "Flags large orders placed and cancelled with no intent to execute, to move the mid-price.",
+        "name": {
+          "en": "Spoofing / Layering Detection",
+          "uk": "Виявлення спуфінгу / лейерингу"
+        },
+        "tag": {
+          "en": "Fraud",
+          "uk": "Шахрайство"
+        },
+        "desc": {
+          "en": "Flags large orders placed and cancelled with no intent to execute, to move the mid-price.",
+          "uk": "Позначає великі заявки, виставлені й скасовані без наміру виконання, щоб зрушити середню ціну."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1817,9 +3093,18 @@
       },
       {
         "lvl": "III",
-        "name": "Pump-and-Dump Pattern Detection",
-        "tag": "Fraud",
-        "desc": "Detects the volume-and-price signature of coordinated promotion-then-sell schemes.",
+        "name": {
+          "en": "Pump-and-Dump Pattern Detection",
+          "uk": "Виявлення патерну pump-and-dump"
+        },
+        "tag": {
+          "en": "Fraud",
+          "uk": "Шахрайство"
+        },
+        "desc": {
+          "en": "Detects the volume-and-price signature of coordinated promotion-then-sell schemes.",
+          "uk": "Виявляє сигнатуру обсягу й ціни скоординованих схем просування-потім-продаж."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1830,9 +3115,18 @@
       },
       {
         "lvl": "III",
-        "name": "Benford's Law Digit Analysis",
-        "tag": "Fraud",
-        "desc": "Flags transaction datasets whose leading-digit distribution deviates from the expected law.",
+        "name": {
+          "en": "Benford's Law Digit Analysis",
+          "uk": "Цифровий аналіз за законом Бенфорда"
+        },
+        "tag": {
+          "en": "Fraud",
+          "uk": "Шахрайство"
+        },
+        "desc": {
+          "en": "Flags transaction datasets whose leading-digit distribution deviates from the expected law.",
+          "uk": "Позначає набори транзакцій, розподіл перших цифр яких відхиляється від очікуваного закону."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1841,19 +3135,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "24"
+    ]
   },
   {
     "id": "alt-data",
-    "title": "Alternative Data & Feature Engineering",
-    "desc": "What actually feeds the model, upstream of the architecture itself.",
+    "num": "25",
+    "title": {
+      "en": "Alternative Data & Feature Engineering",
+      "uk": "Альтернативні дані та інженерія ознак"
+    },
+    "desc": {
+      "en": "What actually feeds the model, upstream of the architecture itself.",
+      "uk": "Що насправді живить модель, вище за самою архітектурою."
+    },
     "items": [
       {
         "lvl": "II",
-        "name": "Technical Indicators (RSI, MACD, Bollinger)",
-        "tag": "Alt data",
-        "desc": "Classical rule-based features still widely used as inputs to ML models.",
+        "name": {
+          "en": "Technical Indicators (RSI, MACD, Bollinger)",
+          "uk": "Технічні індикатори (RSI, MACD, Боллінджер)"
+        },
+        "tag": {
+          "en": "Alt data",
+          "uk": "Альт. дані"
+        },
+        "desc": {
+          "en": "Classical rule-based features still widely used as inputs to ML models.",
+          "uk": "Класичні ознаки на правилах, які й досі широко використовуються як вхід для моделей МН."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1864,9 +3173,18 @@
       },
       {
         "lvl": "III",
-        "name": "Order-Flow Imbalance",
-        "tag": "Alt data",
-        "desc": "Net buy-versus-sell pressure from the order book as a short-horizon predictive feature.",
+        "name": {
+          "en": "Order-Flow Imbalance",
+          "uk": "Дисбаланс потоку заявок"
+        },
+        "tag": {
+          "en": "Alt data",
+          "uk": "Альт. дані"
+        },
+        "desc": {
+          "en": "Net buy-versus-sell pressure from the order book as a short-horizon predictive feature.",
+          "uk": "Чистий тиск купівлі проти продажу з книги заявок як прогнозна ознака короткого горизонту."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1877,9 +3195,18 @@
       },
       {
         "lvl": "III",
-        "name": "Satellite / Geospatial Data",
-        "tag": "Alt data",
-        "desc": "Parking-lot counts or shipping traffic as alternative predictors of company activity.",
+        "name": {
+          "en": "Satellite / Geospatial Data",
+          "uk": "Супутникові / геопросторові дані"
+        },
+        "tag": {
+          "en": "Alt data",
+          "uk": "Альт. дані"
+        },
+        "desc": {
+          "en": "Parking-lot counts or shipping traffic as alternative predictors of company activity.",
+          "uk": "Підрахунок машин на парковках чи вантажний трафік як альтернативні предиктори активності компанії."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1890,9 +3217,18 @@
       },
       {
         "lvl": "III",
-        "name": "Web-Scraped & App-Usage Signals",
-        "tag": "Alt data",
-        "desc": "Search trends, app downloads and job postings as leading indicators.",
+        "name": {
+          "en": "Web-Scraped & App-Usage Signals",
+          "uk": "Сигнали веб-скрейпінгу та використання застосунків"
+        },
+        "tag": {
+          "en": "Alt data",
+          "uk": "Альт. дані"
+        },
+        "desc": {
+          "en": "Search trends, app downloads and job postings as leading indicators.",
+          "uk": "Пошукові тренди, завантаження застосунків і вакансії як випереджальні індикатори."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1901,19 +3237,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "25"
+    ]
   },
   {
     "id": "search",
-    "title": "Hyperparameter & Architecture Search",
-    "desc": "Tuning the model that tunes the market.",
+    "num": "26",
+    "title": {
+      "en": "Hyperparameter & Architecture Search",
+      "uk": "Пошук гіперпараметрів та архітектури"
+    },
+    "desc": {
+      "en": "Tuning the model that tunes the market.",
+      "uk": "Налаштування моделі, яка налаштовується під ринок."
+    },
     "items": [
       {
         "lvl": "II",
-        "name": "Grid / Random Search",
-        "tag": "Search",
-        "desc": "The baseline systematic and stochastic approaches to hyperparameter search.",
+        "name": {
+          "en": "Grid / Random Search",
+          "uk": "Пошук по сітці / випадковий пошук"
+        },
+        "tag": {
+          "en": "Search",
+          "uk": "Пошук"
+        },
+        "desc": {
+          "en": "The baseline systematic and stochastic approaches to hyperparameter search.",
+          "uk": "Базові систематичний і стохастичний підходи до пошуку гіперпараметрів."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1924,9 +3275,18 @@
       },
       {
         "lvl": "III",
-        "name": "Bayesian Optimization",
-        "tag": "Search",
-        "desc": "Models the hyperparameter response surface to search more efficiently than grid or random search.",
+        "name": {
+          "en": "Bayesian Optimization",
+          "uk": "Баєсівська оптимізація"
+        },
+        "tag": {
+          "en": "Search",
+          "uk": "Пошук"
+        },
+        "desc": {
+          "en": "Models the hyperparameter response surface to search more efficiently than grid or random search.",
+          "uk": "Моделює поверхню відгуку гіперпараметрів для ефективнішого пошуку, ніж сітковий чи випадковий."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1937,9 +3297,18 @@
       },
       {
         "lvl": "III",
-        "name": "Genetic Algorithms",
-        "tag": "Search",
-        "desc": "Evolutionary search over hyperparameters or fuzzy-rule structures.",
+        "name": {
+          "en": "Genetic Algorithms",
+          "uk": "Генетичні алгоритми"
+        },
+        "tag": {
+          "en": "Search",
+          "uk": "Пошук"
+        },
+        "desc": {
+          "en": "Evolutionary search over hyperparameters or fuzzy-rule structures.",
+          "uk": "Еволюційний пошук по гіперпараметрах чи структурах нечітких правил."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1950,9 +3319,18 @@
       },
       {
         "lvl": "III",
-        "name": "Particle Swarm Optimization",
-        "tag": "Search",
-        "desc": "A swarm-based metaheuristic common in neuro-fuzzy and portfolio-weight tuning.",
+        "name": {
+          "en": "Particle Swarm Optimization",
+          "uk": "Оптимізація роєм частинок"
+        },
+        "tag": {
+          "en": "Search",
+          "uk": "Пошук"
+        },
+        "desc": {
+          "en": "A swarm-based metaheuristic common in neuro-fuzzy and portfolio-weight tuning.",
+          "uk": "Роєва метаевристика, поширена в нейро-нечіткому налаштуванні та вагах портфеля."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1961,19 +3339,34 @@
           "more": ""
         }
       }
-    ],
-    "num": "26"
+    ]
   },
   {
     "id": "metrics",
-    "title": "Evaluation Metrics",
-    "desc": "How to know whether any of the above actually worked.",
+    "num": "27",
+    "title": {
+      "en": "Evaluation Metrics",
+      "uk": "Метрики оцінювання"
+    },
+    "desc": {
+      "en": "How to know whether any of the above actually worked.",
+      "uk": "Як дізнатись, чи щось із вищезгаданого дійсно спрацювало."
+    },
     "items": [
       {
         "lvl": "I",
-        "name": "Sharpe / Sortino Ratio",
-        "tag": "Metric",
-        "desc": "Risk-adjusted return measured against total volatility or downside volatility only.",
+        "name": {
+          "en": "Sharpe / Sortino Ratio",
+          "uk": "Коефіцієнт Шарпа / Сортіно"
+        },
+        "tag": {
+          "en": "Metric",
+          "uk": "Метрика"
+        },
+        "desc": {
+          "en": "Risk-adjusted return measured against total volatility or downside volatility only.",
+          "uk": "Скоригована на ризик дохідність відносно загальної волатильності або лише низхідної."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1984,9 +3377,18 @@
       },
       {
         "lvl": "I",
-        "name": "Precision / Recall / F1",
-        "tag": "Metric",
-        "desc": "Standard classification metrics, critical for reading imbalanced anomaly-detection results.",
+        "name": {
+          "en": "Precision / Recall / F1",
+          "uk": "Precision / Recall / F1"
+        },
+        "tag": {
+          "en": "Metric",
+          "uk": "Метрика"
+        },
+        "desc": {
+          "en": "Standard classification metrics, critical for reading imbalanced anomaly-detection results.",
+          "uk": "Стандартні метрики класифікації, критичні для читання незбалансованих результатів виявлення аномалій."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -1997,9 +3399,18 @@
       },
       {
         "lvl": "II",
-        "name": "AUROC vs AUPRC",
-        "tag": "Metric",
-        "desc": "ROC can mislead on imbalanced fraud data; AUPRC is the more reliable metric there.",
+        "name": {
+          "en": "AUROC vs AUPRC",
+          "uk": "AUROC проти AUPRC"
+        },
+        "tag": {
+          "en": "Metric",
+          "uk": "Метрика"
+        },
+        "desc": {
+          "en": "ROC can mislead on imbalanced fraud data; AUPRC is the more reliable metric there.",
+          "uk": "ROC може вводити в оману на незбалансованих даних шахрайства; AUPRC там надійніша метрика."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -2010,9 +3421,18 @@
       },
       {
         "lvl": "II",
-        "name": "Calmar Ratio / Max Drawdown",
-        "tag": "Metric",
-        "desc": "Return measured against the worst peak-to-trough loss the strategy suffered.",
+        "name": {
+          "en": "Calmar Ratio / Max Drawdown",
+          "uk": "Коефіцієнт Калмара / максимальна просадка"
+        },
+        "tag": {
+          "en": "Metric",
+          "uk": "Метрика"
+        },
+        "desc": {
+          "en": "Return measured against the worst peak-to-trough loss the strategy suffered.",
+          "uk": "Дохідність, виміряна відносно найгіршої втрати від піку до дна, якої зазнала стратегія."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -2023,9 +3443,18 @@
       },
       {
         "lvl": "III",
-        "name": "F-beta / F4 Metric",
-        "tag": "Metric",
-        "desc": "Weights recall over precision when missing a manipulation costs more than a false alarm.",
+        "name": {
+          "en": "F-beta / F4 Metric",
+          "uk": "Метрика F-beta / F4"
+        },
+        "tag": {
+          "en": "Metric",
+          "uk": "Метрика"
+        },
+        "desc": {
+          "en": "Weights recall over precision when missing a manipulation costs more than a false alarm.",
+          "uk": "Надає більшу вагу повноті над точністю, коли пропуск маніпуляції коштує дорожче за хибну тривогу."
+        },
         "links": {
           "paper": "",
           "hf": "",
@@ -2034,7 +3463,6 @@
           "more": ""
         }
       }
-    ],
-    "num": "27"
+    ]
   }
 ]

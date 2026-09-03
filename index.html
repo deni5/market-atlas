@@ -18,31 +18,33 @@
       <div class="topbar-right">
         <div class="search-box">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input id="searchBox" type="search" placeholder="Пошук моделей…" aria-label="Пошук моделей">
+          <input id="searchBox" type="search" placeholder="…" aria-label="Search models">
         </div>
-        <button class="icon-btn" id="themeToggle" type="button" aria-label="Перемкнути тему">☾</button>
-        <div class="lang-toggle" aria-hidden="true"><span class="active">UK</span><span>EN</span></div>
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle theme">☾</button>
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <span id="langUk">UK</span><span id="langEn">EN</span>
+        </div>
       </div>
     </div>
-    <nav class="topnav" id="topNav" aria-label="Каталог тем"></nav>
+    <nav class="topnav" id="topNav" aria-label="Topic catalogue"></nav>
   </div>
 </header>
 
 <div class="wrap">
   <section class="hero">
-    <p class="eyebrow">АТЛАС — МОДЕЛІ ДЛЯ ЦІН, РИЗИКУ Й АНОМАЛІЙ НА РИНКАХ</p>
-    <h1>Атлас моделей ринкового прогнозування</h1>
-    <p>Польовий довідник методів — від класичної статистики до автоенкодерів, трансформерів і нечіткої логіки — які застосовуються для прогнозування цін, оцінки ризику та виявлення аномалій і маніпуляцій на фінансових ринках.</p>
-    <p>Кожен запис має рівень складності (I — базовий, II — середній, III — просунутий) і коротку категорію моделі. Пошук і фільтри працюють одразу по всьому каталогу.</p>
-    <p class="credit">Структура натхненна проєктом <a href="https://volodymyr-sokolov.github.io/atlases/crypto/" target="_blank" rel="noopener">Crypto·Atlas</a> Володимира Соколова, адаптована для тематики ринкових моделей.</p>
+    <p class="eyebrow" id="heroEyebrow"></p>
+    <h1 id="heroTitle"></h1>
+    <p id="heroP1"></p>
+    <p id="heroP2"></p>
+    <p class="credit" id="heroCredit"></p>
   </section>
 
   <section class="filters">
-    <p class="filters-label">Фільтруйте каталог — клацніть на рівень, щоб увімкнути/вимкнути:</p>
+    <p class="filters-label" id="filtersLabel"></p>
     <div class="chip-row" id="levelChips">
-      <div class="chip on" data-lvl="I"><span class="k">I</span> Базовий</div>
-      <div class="chip on" data-lvl="II"><span class="k">II</span> Середній</div>
-      <div class="chip on" data-lvl="III"><span class="k">III</span> Просунутий</div>
+      <div class="chip on" data-lvl="I"><span class="k">I</span> <span id="levelILabel"></span></div>
+      <div class="chip on" data-lvl="II"><span class="k">II</span> <span id="levelIILabel"></span></div>
+      <div class="chip on" data-lvl="III"><span class="k">III</span> <span id="levelIIILabel"></span></div>
     </div>
     <div class="meta-row">
       <span class="count-pill" id="metaLine">…</span>
@@ -51,10 +53,10 @@
 
   <main class="content" id="topicsContainer"></main>
 
-  <div class="empty-state hidden" id="emptyState">Нічого не знайдено. Спробуйте інший запит або увімкніть усі рівні.</div>
+  <div class="empty-state hidden" id="emptyState"></div>
 
   <footer class="page-footer">
-    Довідковий каталог, зібраний на основі академічної та галузевої літератури про кількісні фінанси й машинне навчання. Не є інвестиційною порадою.
+    <span id="footerText"></span>
   </footer>
 </div>
 

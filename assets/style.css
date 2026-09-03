@@ -108,8 +108,10 @@ a { color: inherit; }
   font-family: var(--mono);
   font-size: 12px;
 }
-.lang-toggle span { padding: 8px 12px; color: var(--ink-soft); cursor: default; }
-.lang-toggle span.active { background: var(--mint); color: #0B0E17; font-weight: 600; }
+.lang-toggle span { padding: 8px 12px; color: var(--ink-soft); cursor: pointer; user-select: none; }
+.lang-toggle span:hover { color: var(--ink); }
+.lang-toggle span.active { background: var(--mint); color: #0B0E17; font-weight: 600; cursor: default; }
+.lang-toggle span.active:hover { color: #0B0E17; }
 
 .topnav {
   display: flex;
