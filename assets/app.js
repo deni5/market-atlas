@@ -175,6 +175,21 @@ const DEMO_STRINGS = {
     garchCallout:
       "GARCH(1,1) — стандартна модель для щоденного розрахунку VaR: ω, α і β оцінюються методом максимальної правдоподібності на історичних дохідностях, а прогнозована σₜ підставляється напряму у формулу VaR = z·σₜ·√1 (для одноденного горизонту).",
     garchChartCaption: "σₜ (річна волатильність, %) на синтетичному ряді шоків з кластером волатильності",
+    isoTrees: "кількість дерев",
+    isoContam: "поріг аномальності (частка з найвищим score)",
+    isoLegendNormal: "нормальна",
+    isoLegendAnomaly: "аномалія",
+    isoCallout:
+      "Isolation Forest працює за O(n·log n) і не потребує навчання на самих аномаліях — тому це стандартний перший фільтр для real-time скринінгу транзакцій і торгової активності перед тим, як передати підозрілі випадки складнішій (і повільнішій) моделі.",
+    isoAvgPath: "середня довжина шляху E(h(x))",
+    isoScore: "score s(x) = 2^(-E(h)/c(n))",
+    isoNormalPt: "нормальна точка",
+    isoAnomalyPt: "явна аномалія",
+    bsCallout:
+      "Формула Блека-Шоулза — основа маркет-мейкінгу опціонів: N(d₁) є дельтою хеджу, а розв'язання формули відносно σ при заданій ринковій ціні дає implied volatility — саме те число, яким торгують на практиці, а не саму ціну.",
+    bsCall: "Колл",
+    bsPut: "Пут",
+    bsChartCaption: "Ціна опціону як функція спотової ціни S (крапка — поточні параметри)",
   },
   en: {
     steps: "steps:",
@@ -183,6 +198,21 @@ const DEMO_STRINGS = {
     garchCallout:
       "GARCH(1,1) is the standard model behind daily VaR: ω, α and β are fit by maximum likelihood on historical returns, and the resulting forecast σₜ plugs directly into VaR = z·σₜ·√1 for a one-day horizon.",
     garchChartCaption: "σₜ (annualised volatility, %) over a synthetic shock series with a volatility cluster",
+    isoTrees: "number of trees",
+    isoContam: "anomaly threshold (top-score fraction)",
+    isoLegendNormal: "normal",
+    isoLegendAnomaly: "anomaly",
+    isoCallout:
+      "Isolation Forest runs in O(n·log n) and needs no training examples of anomalies — which makes it the standard first-pass filter for real-time transaction and trading-activity screening, before flagged cases get handed to a heavier, slower model.",
+    isoAvgPath: "average path length E(h(x))",
+    isoScore: "score s(x) = 2^(-E(h)/c(n))",
+    isoNormalPt: "normal point",
+    isoAnomalyPt: "explicit outlier",
+    bsCallout:
+      "The Black-Scholes formula underpins options market-making: N(d₁) is the hedge delta, and inverting the formula for σ given the market price yields implied volatility — the number actually traded, not the price itself.",
+    bsCall: "Call",
+    bsPut: "Put",
+    bsChartCaption: "Option price as a function of spot price S (dot marks the current parameters)",
   },
 };
 
@@ -299,8 +329,299 @@ function mountGarchDemo(panel) {
   render();
 }
 
+// ---------------------------------------------------------------------------
+// Isolation Forest demo — real isolation-tree ensemble (not a simulation):
+// random feature + random split recursively partitions a fixed 2-D point
+// set; anomalies need far fewer splits to isolate, giving a shorter average
+// path length and a higher anomaly score s(x) = 2^(-E(h(x))/c(n)).
+// ---------------------------------------------------------------------------
+
+const ISO_POINTS = [
+  [-0.256, 0.511], [-0.226, -0.315], [-0.93, -0.213], [1.112, 0.424], [1.037, 0.249],
+  [0.395, 0.185], [-1.666, 0.855], [0.506, 0.499], [-1.691, -1.744], [-0.89, -0.468],
+  [0.305, -0.046], [0.521, -0.642], [0.309, 0.394], [-0.661, 1.718], [0.557, 1.197],
+  [-0.62, -0.74], [-0.344, -0.106], [0.632, 0.248], [-0.447, -0.957], [-0.521, 1.221],
+  [-0.808, 0.245], [0.427, -1.49], [0.048, 1.306], [-2.014, -0.322], [-0.106, -0.817],
+  [0.497, -0.062], [-1.465, 0.828], [0.669, 0.946], [1.441, 0.362], [0.119, -1.299],
+  [0.615, -0.612], [-0.453, -1.265], [-0.968, -0.531], [1.289, -2.032], [-1.458, 0.239],
+  [1.443, 0.578], [-1.9, -2.518], [0.357, -0.736], [-1.12, 0.977], [1.102, 0.157],
+  [0.246, 0.434], [1.594, 0.619], [0.519, 0.548], [-1.568, 1.282], [0.955, 0.53],
+  [-1.974, -0.634], [4.2, 3.8], [-4.5, 2.1], [3.6, -4.4], [-3.9, -3.6], [5.1, 0.3], [0.2, 5.3],
+];
+const ISO_ANOMALY_IDX = [46, 47, 48, 49, 50, 51]; // the 6 explicit outliers, for reference
+
+function cFactor(n) {
+  if (n <= 1) return 0;
+  return 2 * (Math.log(n - 1) + 0.5772156649) - (2 * (n - 1)) / n;
+}
+
+// simple deterministic PRNG so trees are reproducible across renders unless
+// the person explicitly asks for a new random ensemble (not exposed here —
+// re-mounting always regrows a fresh forest, which is part of the point).
+function buildIsoTree(indices, depth, heightLimit, rnd) {
+  if (indices.length <= 1 || depth >= heightLimit) {
+    return { leaf: true, size: indices.length };
+  }
+  const feature = rnd() < 0.5 ? 0 : 1;
+  let min = Infinity, max = -Infinity;
+  for (const i of indices) {
+    const v = ISO_POINTS[i][feature];
+    if (v < min) min = v;
+    if (v > max) max = v;
+  }
+  if (min === max) return { leaf: true, size: indices.length };
+  const split = min + rnd() * (max - min);
+  const left = indices.filter((i) => ISO_POINTS[i][feature] < split);
+  const right = indices.filter((i) => ISO_POINTS[i][feature] >= split);
+  return {
+    leaf: false,
+    feature,
+    split,
+    left: buildIsoTree(left, depth + 1, heightLimit, rnd),
+    right: buildIsoTree(right, depth + 1, heightLimit, rnd),
+  };
+}
+
+function pathLength(point, node, depth) {
+  if (node.leaf) return depth + cFactor(node.size);
+  const branch = point[node.feature] < node.split ? node.left : node.right;
+  return pathLength(point, branch, depth + 1);
+}
+
+function mulberry32(seed) {
+  return function () {
+    seed |= 0;
+    seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function mountIsoForestDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const n = ISO_POINTS.length;
+  const W = 340, H = 340, PAD = 20;
+  const xs = ISO_POINTS.map((p) => p[0]), ys = ISO_POINTS.map((p) => p[1]);
+  const xMin = Math.min(...xs), xMax = Math.max(...xs);
+  const yMin = Math.min(...ys), yMax = Math.max(...ys);
+  const px = (x) => PAD + ((x - xMin) / (xMax - xMin)) * (W - 2 * PAD);
+  const py = (y) => H - PAD - ((y - yMin) / (yMax - yMin)) * (H - 2 * PAD);
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="isoSvg"></svg>
+        <p class="demo-note" style="margin-top:8px">
+          <span style="color:var(--mint)">●</span> ${S.isoLegendNormal} &nbsp;
+          <span style="color:var(--level-3)">●</span> ${S.isoLegendAnomaly}
+        </p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row">
+            <label>${S.isoTrees} <span class="val" id="nTreesVal">60</span></label>
+            <input type="range" id="nTreesSlider" min="5" max="150" step="5" value="60">
+          </div>
+          <div class="demo-slider-row">
+            <label>${S.isoContam} <span class="val" id="contamVal">12%</span></label>
+            <input type="range" id="contamSlider" min="4" max="40" step="1" value="12">
+          </div>
+        </div>
+        <div class="demo-steps" id="isoSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout">
+      <p class="eyebrow2">${S.inFinance}</p>
+      <p>${S.isoCallout}</p>
+    </div>
+  `;
+
+  const svg = panel.querySelector("#isoSvg");
+  const nTreesSlider = panel.querySelector("#nTreesSlider");
+  const contamSlider = panel.querySelector("#contamSlider");
+
+  function render() {
+    const nTrees = parseInt(nTreesSlider.value, 10);
+    const contamPct = parseInt(contamSlider.value, 10);
+    panel.querySelector("#nTreesVal").textContent = nTrees;
+    panel.querySelector("#contamVal").textContent = contamPct + "%";
+
+    const rnd = mulberry32(1234567);
+    const heightLimit = Math.ceil(Math.log2(Math.max(n, 2)));
+    const allIdx = ISO_POINTS.map((_, i) => i);
+    const trees = [];
+    for (let k = 0; k < nTrees; k++) trees.push(buildIsoTree(allIdx, 0, heightLimit, rnd));
+
+    const avgPath = ISO_POINTS.map((p) => {
+      let sum = 0;
+      for (const tree of trees) sum += pathLength(p, tree, 0);
+      return sum / nTrees;
+    });
+    const c = cFactor(n);
+    const scores = avgPath.map((h) => Math.pow(2, -h / c));
+
+    const nFlag = Math.max(1, Math.round((contamPct / 100) * n));
+    const sortedIdx = allIdx.slice().sort((a, b) => scores[b] - scores[a]);
+    const flagged = new Set(sortedIdx.slice(0, nFlag));
+
+    svg.innerHTML = ISO_POINTS.map((p, i) => {
+      const isFlagged = flagged.has(i);
+      return `<circle cx="${px(p[0]).toFixed(1)}" cy="${py(p[1]).toFixed(1)}" r="4.5" fill="${isFlagged ? "var(--level-3)" : "var(--mint)"}" opacity="${isFlagged ? "0.95" : "0.65"}" />`;
+    }).join("");
+
+    const exampleAnomaly = 47; // (-4.5, 2.1)
+    const exampleNormal = 4;   // near-center point
+    const lines = [
+      `${S.isoNormalPt} (${ISO_POINTS[exampleNormal][0]}, ${ISO_POINTS[exampleNormal][1]}):`,
+      `  ${S.isoAvgPath} = ${avgPath[exampleNormal].toFixed(2)}`,
+      `  ${S.isoScore} = ${scores[exampleNormal].toFixed(3)}`,
+      ``,
+      `${S.isoAnomalyPt} (${ISO_POINTS[exampleAnomaly][0]}, ${ISO_POINTS[exampleAnomaly][1]}):`,
+      `  ${S.isoAvgPath} = ${avgPath[exampleAnomaly].toFixed(2)}`,
+      `  ${S.isoScore} = ${scores[exampleAnomaly].toFixed(3)}`,
+    ];
+    panel.querySelector("#isoSteps").textContent = lines.join("\n");
+  }
+
+  [nTreesSlider, contamSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// Black-Scholes-Merton demo
+// ---------------------------------------------------------------------------
+
+function erf(x) {
+  const sign = x < 0 ? -1 : 1;
+  x = Math.abs(x);
+  const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741, a4 = -1.453152027, a5 = 1.061405429, p = 0.3275911;
+  const tt = 1 / (1 + p * x);
+  const y = 1 - (((((a5 * tt + a4) * tt) + a3) * tt + a2) * tt + a1) * tt * Math.exp(-x * x);
+  return sign * y;
+}
+function normCDF(x) {
+  return 0.5 * (1 + erf(x / Math.SQRT2));
+}
+function bsPrice(S, K, T, r, sigma) {
+  const d1 = (Math.log(S / K) + (r + (sigma * sigma) / 2) * T) / (sigma * Math.sqrt(T));
+  const d2 = d1 - sigma * Math.sqrt(T);
+  const call = S * normCDF(d1) - K * Math.exp(-r * T) * normCDF(d2);
+  const put = K * Math.exp(-r * T) * normCDF(-d2) - S * normCDF(-d1);
+  return { d1, d2, call, put };
+}
+
+function mountBlackScholesDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 34;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="bsSvg">
+          <path id="bsCallPath" fill="none" stroke="var(--mint)" stroke-width="2" />
+          <path id="bsPutPath" fill="none" stroke="var(--level-2)" stroke-width="2" />
+          <circle id="bsDotCall" r="4" fill="var(--mint)" />
+          <circle id="bsDotPut" r="4" fill="var(--level-2)" />
+        </svg>
+        <p class="demo-note" style="margin-top:8px">
+          <span style="color:var(--mint)">●</span> ${S.bsCall} &nbsp;
+          <span style="color:var(--level-2)">●</span> ${S.bsPut} — ${S.bsChartCaption}
+        </p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row">
+            <label>S (spot) <span class="val" id="sVal">100</span></label>
+            <input type="range" id="sSlider" min="20" max="200" step="1" value="100">
+          </div>
+          <div class="demo-slider-row">
+            <label>K (strike) <span class="val" id="kVal">100</span></label>
+            <input type="range" id="kSlider" min="20" max="200" step="1" value="100">
+          </div>
+          <div class="demo-slider-row">
+            <label>σ (volatility) <span class="val" id="sigVal">0.20</span></label>
+            <input type="range" id="sigSlider" min="0.05" max="0.8" step="0.01" value="0.20">
+          </div>
+          <div class="demo-slider-row">
+            <label>T (years) <span class="val" id="tVal">1.00</span></label>
+            <input type="range" id="tSlider" min="0.05" max="2" step="0.05" value="1.00">
+          </div>
+          <div class="demo-slider-row">
+            <label>r (risk-free) <span class="val" id="rVal">0.03</span></label>
+            <input type="range" id="rSlider" min="0" max="0.1" step="0.005" value="0.03">
+          </div>
+        </div>
+        <div class="demo-steps" id="bsSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout">
+      <p class="eyebrow2">${S.inFinance}</p>
+      <p>${S.bsCallout}</p>
+    </div>
+  `;
+
+  const els = ["sSlider", "kSlider", "sigSlider", "tSlider", "rSlider"].map((id) => panel.querySelector("#" + id));
+  const [sSlider, kSlider, sigSlider, tSlider, rSlider] = els;
+
+  function render() {
+    const Sv = parseFloat(sSlider.value);
+    const K = parseFloat(kSlider.value);
+    const sigma = parseFloat(sigSlider.value);
+    const T = parseFloat(tSlider.value);
+    const r = parseFloat(rSlider.value);
+
+    panel.querySelector("#sVal").textContent = Sv.toFixed(0);
+    panel.querySelector("#kVal").textContent = K.toFixed(0);
+    panel.querySelector("#sigVal").textContent = sigma.toFixed(2);
+    panel.querySelector("#tVal").textContent = T.toFixed(2);
+    panel.querySelector("#rVal").textContent = r.toFixed(3);
+
+    const nPts = 60;
+    const sMin = 1, sMax = 200;
+    const callCurve = [], putCurve = [];
+    for (let i = 0; i < nPts; i++) {
+      const s = sMin + (i / (nPts - 1)) * (sMax - sMin);
+      const { call, put } = bsPrice(s, K, T, r, sigma);
+      callCurve.push(call);
+      putCurve.push(put);
+    }
+    const maxY = Math.max(...callCurve, ...putCurve, 1);
+    const x = (i) => PAD + (i / (nPts - 1)) * (W - 2 * PAD);
+    const y = (v) => H - PAD - (v / maxY) * (H - 2 * PAD);
+    const pathOf = (arr) => arr.map((v, i) => `${i === 0 ? "M" : "L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+
+    panel.querySelector("#bsCallPath").setAttribute("d", pathOf(callCurve));
+    panel.querySelector("#bsPutPath").setAttribute("d", pathOf(putCurve));
+
+    const { d1, d2, call, put } = bsPrice(Sv, K, T, r, sigma);
+    const curX = PAD + ((Sv - sMin) / (sMax - sMin)) * (W - 2 * PAD);
+    panel.querySelector("#bsDotCall").setAttribute("cx", curX.toFixed(1));
+    panel.querySelector("#bsDotCall").setAttribute("cy", y(call).toFixed(1));
+    panel.querySelector("#bsDotPut").setAttribute("cx", curX.toFixed(1));
+    panel.querySelector("#bsDotPut").setAttribute("cy", y(put).toFixed(1));
+
+    const lines = [
+      `${S.steps}`,
+      `  d1 = (ln(S/K) + (r + σ²/2)T) / (σ√T) = ${d1.toFixed(4)}`,
+      `  d2 = d1 - σ√T = ${d2.toFixed(4)}`,
+      `  N(d1) = ${normCDF(d1).toFixed(4)}`,
+      `  N(d2) = ${normCDF(d2).toFixed(4)}`,
+      ``,
+      `  ${S.bsCall} = S·N(d1) - K·e^(-rT)·N(d2) = ${call.toFixed(2)}`,
+      `  ${S.bsPut}  = K·e^(-rT)·N(-d2) - S·N(-d1) = ${put.toFixed(2)}`,
+    ];
+    panel.querySelector("#bsSteps").textContent = lines.join("\n");
+  }
+
+  els.forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
 const DEMOS = {
   "volatility::GARCH(1,1)": { mount: mountGarchDemo },
+  "unsupervised-outliers::Isolation Forest": { mount: mountIsoForestDemo },
+  "derivatives::Black-Scholes-Merton": { mount: mountBlackScholesDemo },
 };
 
 function applyFilters() {
