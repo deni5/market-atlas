@@ -982,24 +982,28 @@ function mountVarDemo(panel) {
     const z = invNormCDF(conf);
     const sigmaH = sigmaAnnual * Math.sqrt(h / 252);
     const varAmount = PV * z * sigmaH;
+    const sigmaDollar = PV * sigmaH;
 
-    const nPts = 100;
-    const xMin = -4, xMax = 4;
+    // fixed dollar-P&L domain so the curve visibly narrows/widens with σ and
+    // horizon, instead of always being redrawn in the same normalized shape
+    const nPts = 120;
+    const domain = 100000; // ± $100k window
+    const xMin = -domain, xMax = domain;
     const x = (i) => PAD + (i / (nPts - 1)) * (W - 2 * PAD);
     const xVal = (i) => xMin + (i / (nPts - 1)) * (xMax - xMin);
     const pdfVals = [];
-    for (let i = 0; i < nPts; i++) pdfVals.push(normPDF(xVal(i)));
+    for (let i = 0; i < nPts; i++) pdfVals.push(normPDF(xVal(i) / sigmaDollar) / sigmaDollar);
     const maxPdf = Math.max(...pdfVals);
     const y = (v) => H - PAD - (v / maxPdf) * (H - 2 * PAD);
 
     panel.querySelector("#varCurve").setAttribute("d", pdfVals.map((v, i) => `${i === 0 ? "M" : "L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" "));
 
-    const cutoffZ = -z;
+    const cutoffDollar = -varAmount;
     let areaPts = `M ${x(0).toFixed(1)} ${y(0).toFixed(1)} `;
     for (let i = 0; i < nPts; i++) {
-      if (xVal(i) <= cutoffZ) areaPts += `L ${x(i).toFixed(1)} ${y(pdfVals[i]).toFixed(1)} `;
+      if (xVal(i) <= cutoffDollar) areaPts += `L ${x(i).toFixed(1)} ${y(pdfVals[i]).toFixed(1)} `;
     }
-    const cutoffX = PAD + ((cutoffZ - xMin) / (xMax - xMin)) * (W - 2 * PAD);
+    const cutoffX = PAD + ((Math.max(cutoffDollar, xMin) - xMin) / (xMax - xMin)) * (W - 2 * PAD);
     areaPts += `L ${cutoffX.toFixed(1)} ${y(0).toFixed(1)} Z`;
     panel.querySelector("#varArea").setAttribute("d", areaPts);
 
