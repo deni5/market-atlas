@@ -204,6 +204,16 @@ const DEMO_STRINGS = {
     kalmanChartCaption: "Сірий пунктир — справжній сигнал, крапки — зашумлені виміри, зелена лінія — оцінка фільтра Калмана",
     kalmanCallout: "Фільтр Калмана — основа динамічних бета-моделей і сплайн-згладжування кривої дохідності в реальному часі: він оптимально зважує нову зашумлену інформацію проти попереднього прогнозу, а не просто усереднює.",
     kalmanRmse: "RMSE фільтра проти сирих вимірів",
+    hmmCallout: "HMM лежить в основі детекторів зміни ринкового режиму: коли P(стрес) різко зростає, портфельні системи автоматично знижують плече чи перемикають модель ризику — раніше, ніж це видно на голому графіку ціни.",
+    vasCallout: "Модель Васічека — основа побудови кривої дохідності облігацій і ціноутворення процентних деривативів; параметр κ визначає, наскільки швидко ринок 'забуває' шок і повертається до довгострокової норми θ.",
+    hkCallout: "Процес Хоукса моделює кластеризацію угод у книзі заявок: одна велика угода підвищує ймовірність наступної — саме ця самозбуджувальна динаміка лежить в основі сучасних моделей мікроструктурного ризику виконання.",
+    fcmCallout: "На відміну від жорсткої кластеризації (K-means), нечітка кластеризація дає кожному активу чи клієнту частку належності до кількох сегментів ризику одночасно — природніше для прикордонних випадків, які на практиці трапляються постійно.",
+    knnCallout: "kNN — швидкий базовий класифікатор для скорингу нових позик чи транзакцій за подібністю до вже класифікованих історичних випадків, без потреби навчати окрему модель заздалегідь.",
+    rfCallout: "Ансамбль дерев усереднює шум окремих слабких моделей: жодне дерево не бачить усіх даних (bootstrap) і не бачить усіх ознак на кожному розбитті — тому колективний прогноз набагато стабільніший за одне дерево рішень.",
+    shCallout: "Коефіцієнт Шарпа дуже чутливий до обраного часового вікна — стратегія, 'блискуча' за один період, може виглядати посередньо за інший. Саме тому серйозний бектест завжди перевіряє стабільність метрики на кількох підвіконах, а не одне число за весь період.",
+    aucCallout: "На розбалансованих даних (мало шахрайства серед мільйонів транзакцій) ROC-крива може виглядати оманливо оптимістично, тоді як PR-крива чесно показує, що точність падає при спробі зловити більше позитивних випадків — саме тому AUPRC є надійнішою метрикою для детекції аномалій.",
+    hestCallout: "На відміну від GARCH, де волатильність — детермінована функція минулих шоків, у моделі Хестона волатильність сама є випадковим процесом — це дає точнішу калібровку 'усмішки волатильності' опціонів на практиці.",
+    merCallout: "Модель Мертона напряму зв'язує кредитний ризик із ринком акцій: якщо волатильність акцій компанії різко зростає, це сигналізує про зростання ймовірності дефолту ще до будь-якої зміни кредитного рейтингу.",
   },
   en: {
     steps: "steps:",
@@ -241,6 +251,16 @@ const DEMO_STRINGS = {
     kalmanChartCaption: "Grey dashed — true signal, dots — noisy measurements, green line — Kalman filter estimate",
     kalmanCallout: "The Kalman filter underlies real-time dynamic-beta models and yield-curve smoothing: it optimally weighs new noisy information against the prior forecast, rather than simply averaging.",
     kalmanRmse: "filter RMSE vs raw measurements",
+    hmmCallout: "HMMs underpin regime-change detectors: when P(stress) spikes, portfolio systems automatically cut leverage or switch risk models — earlier than a raw price chart alone would reveal.",
+    vasCallout: "The Vasicek model underlies bond yield-curve construction and interest-rate derivative pricing; κ determines how fast the market 'forgets' a shock and reverts to the long-run level θ.",
+    hkCallout: "The Hawkes process models order-book clustering: one large trade raises the likelihood of the next — this self-exciting dynamic is exactly what modern microstructure execution-risk models are built on.",
+    fcmCallout: "Unlike hard clustering (K-means), fuzzy clustering gives each asset or client partial membership across several risk segments at once — a more natural fit for borderline cases, which in practice are constant.",
+    knnCallout: "kNN is a fast baseline classifier for scoring new loans or transactions by similarity to already-classified historical cases, with no need to train a separate model upfront.",
+    rfCallout: "An ensemble of trees averages out the noise of individual weak models: no single tree sees all the data (bootstrap) or all the features at every split — so the collective prediction is far more stable than any one decision tree.",
+    shCallout: "The Sharpe ratio is highly sensitive to the chosen time window — a strategy that looks 'brilliant' over one period can look mediocre over another. That's exactly why a serious backtest always checks the metric's stability across several sub-windows, not a single number for the whole period.",
+    aucCallout: "On imbalanced data (little fraud among millions of transactions), the ROC curve can look deceptively optimistic, while the PR curve honestly shows precision collapsing as you try to catch more positives — which is exactly why AUPRC is the more reliable metric for anomaly detection.",
+    hestCallout: "Unlike GARCH, where volatility is a deterministic function of past shocks, in the Heston model volatility is itself a random process — giving a materially better fit to the observed options volatility smile in practice.",
+    merCallout: "The Merton model directly links credit risk to the equity market: if a company's stock volatility spikes sharply, that signals rising default probability before any credit-rating change catches up.",
   },
 };
 
@@ -1122,6 +1142,814 @@ function mountKalmanDemo(panel) {
   render();
 }
 
+// ---------------------------------------------------------------------------
+// Shared axis-rendering helper for all charts from here on: draws a light
+// grid, tick labels and axis titles so numbers on screen mean something.
+// ---------------------------------------------------------------------------
+function axesSVG(opts) {
+  const {
+    W, H, pad, xMin, xMax, yMin, yMax,
+    xTicks = 4, yTicks = 4,
+    xFmt = (v) => v.toFixed(1), yFmt = (v) => v.toFixed(1),
+    xLabel = "", yLabel = "",
+  } = opts;
+  const x = (v) => pad + ((v - xMin) / (xMax - xMin)) * (W - 2 * pad);
+  const y = (v) => H - pad - ((v - yMin) / (yMax - yMin)) * (H - 2 * pad);
+  let svg = "";
+  for (let i = 0; i <= xTicks; i++) {
+    const v = xMin + (i / xTicks) * (xMax - xMin);
+    const xx = x(v);
+    svg += `<line class="axis-grid" x1="${xx.toFixed(1)}" y1="${pad}" x2="${xx.toFixed(1)}" y2="${H - pad}" />`;
+    svg += `<text class="axis-tick" x="${xx.toFixed(1)}" y="${H - pad + 13}" text-anchor="middle">${xFmt(v)}</text>`;
+  }
+  for (let i = 0; i <= yTicks; i++) {
+    const v = yMin + (i / yTicks) * (yMax - yMin);
+    const yy = y(v);
+    svg += `<line class="axis-grid" x1="${pad}" y1="${yy.toFixed(1)}" x2="${W - pad}" y2="${yy.toFixed(1)}" />`;
+    svg += `<text class="axis-tick" x="${pad - 5}" y="${(yy + 3).toFixed(1)}" text-anchor="end">${yFmt(v)}</text>`;
+  }
+  svg += `<line class="axis-line" x1="${pad}" y1="${H - pad}" x2="${W - pad}" y2="${H - pad}" />`;
+  svg += `<line class="axis-line" x1="${pad}" y1="${pad}" x2="${pad}" y2="${H - pad}" />`;
+  if (xLabel) svg += `<text class="axis-label" x="${W - pad}" y="${H - 3}" text-anchor="end">${xLabel}</text>`;
+  if (yLabel) svg += `<text class="axis-label" x="${pad}" y="11" text-anchor="start">${yLabel}</text>`;
+  return { x, y, svg };
+}
+
+// ---------------------------------------------------------------------------
+// 1. Hidden Markov Model — forward-algorithm regime filter
+// ---------------------------------------------------------------------------
+function hmmForward(obs, pStay, mean0, std0, mean1, std1) {
+  const A = [[pStay, 1 - pStay], [1 - pStay, pStay]];
+  let alpha = [0.5, 0.5];
+  const probState1 = [];
+  for (let tI = 0; tI < obs.length; tI++) {
+    const e0 = normPDF((obs[tI] - mean0) / std0) / std0;
+    const e1 = normPDF((obs[tI] - mean1) / std1) / std1;
+    let a0, a1;
+    if (tI === 0) { a0 = alpha[0] * e0; a1 = alpha[1] * e1; }
+    else {
+      const pred0 = alpha[0] * A[0][0] + alpha[1] * A[1][0];
+      const pred1 = alpha[0] * A[0][1] + alpha[1] * A[1][1];
+      a0 = pred0 * e0; a1 = pred1 * e1;
+    }
+    const norm = a0 + a1 || 1;
+    alpha = [a0 / norm, a1 / norm];
+    probState1.push(alpha[1]);
+  }
+  return probState1;
+}
+
+function mountHmmDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+  const obs = GARCH_EPS;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="hmmSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row">
+            <label>${LANG === "uk" ? "стійкість режиму (P стати)" : "regime persistence (P stay)"} <span class="val" id="hmmPVal">0.90</span></label>
+            <input type="range" id="hmmP" min="0.5" max="0.99" step="0.01" value="0.90">
+          </div>
+          <div class="demo-slider-row">
+            <label>${LANG === "uk" ? "σ стрес-режиму" : "stress-regime σ"} <span class="val" id="hmmStdVal">2.50%</span></label>
+            <input type="range" id="hmmStd" min="1" max="5" step="0.1" value="2.5">
+          </div>
+        </div>
+        <div class="demo-steps" id="hmmSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.hmmCallout}</p></div>
+  `;
+
+  const svg = panel.querySelector("#hmmSvg");
+  const pSlider = panel.querySelector("#hmmP");
+  const stdSlider = panel.querySelector("#hmmStd");
+
+  function render() {
+    const pStay = parseFloat(pSlider.value);
+    const std1 = parseFloat(stdSlider.value) / 100;
+    panel.querySelector("#hmmPVal").textContent = pStay.toFixed(2);
+    panel.querySelector("#hmmStdVal").textContent = (std1 * 100).toFixed(2) + "%";
+
+    const probs = hmmForward(obs, pStay, 0, 0.006, 0, std1);
+    const { x, y, svg: axesSvg } = axesSVG({
+      W, H, pad: PAD, xMin: 0, xMax: obs.length - 1, yMin: 0, yMax: 1,
+      xTicks: 4, yTicks: 4, xFmt: (v) => Math.round(v), yFmt: (v) => v.toFixed(1),
+      xLabel: LANG === "uk" ? "t (день)" : "t (day)", yLabel: "P(стрес)",
+    });
+    const path = probs.map((v, i) => `${i === 0 ? "M" : "L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${path}" fill="none" stroke="var(--level-3)" stroke-width="2" />`;
+
+    const lines = [
+      `${S.steps}`,
+      `  α_t(1) ∝ Σ_j α_{t-1}(j)·A(j,1) · e_1(y_t)`,
+      `  P(стрес | t=${obs.length-1}) = ${probs[probs.length-1].toFixed(3)}`,
+    ];
+    panel.querySelector("#hmmSteps").textContent = lines.join("\n");
+  }
+  [pSlider, stdSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 2. Vasicek short-rate model
+// ---------------------------------------------------------------------------
+function vasicekPath(r0, kappa, theta, sigma, n, dt, rnd) {
+  let r = r0; const path = [r];
+  for (let i = 0; i < n; i++) {
+    const dW = (rnd() - 0.5) * Math.sqrt(12 * dt);
+    r = r + kappa * (theta - r) * dt + sigma * dW;
+    path.push(r);
+  }
+  return path;
+}
+
+function mountVasicekDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="vasSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>κ (mean-reversion speed) <span class="val" id="vasKVal">1.50</span></label><input type="range" id="vasK" min="0.1" max="4" step="0.1" value="1.5"></div>
+          <div class="demo-slider-row"><label>θ (long-run rate) <span class="val" id="vasThVal">4.0%</span></label><input type="range" id="vasTh" min="0" max="10" step="0.1" value="4.0"></div>
+          <div class="demo-slider-row"><label>σ (rate volatility) <span class="val" id="vasSigVal">2.0%</span></label><input type="range" id="vasSig" min="0.2" max="6" step="0.1" value="2.0"></div>
+        </div>
+        <div class="demo-steps" id="vasSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.vasCallout}</p></div>
+  `;
+
+  const kSlider = panel.querySelector("#vasK"), thSlider = panel.querySelector("#vasTh"), sigSlider = panel.querySelector("#vasSig");
+  const svg = panel.querySelector("#vasSvg");
+  const n = 100, dt = 0.05;
+
+  function render() {
+    const kappa = parseFloat(kSlider.value), theta = parseFloat(thSlider.value) / 100, sigma = parseFloat(sigSlider.value) / 100;
+    panel.querySelector("#vasKVal").textContent = kappa.toFixed(2);
+    panel.querySelector("#vasThVal").textContent = (theta * 100).toFixed(1) + "%";
+    panel.querySelector("#vasSigVal").textContent = (sigma * 100).toFixed(1) + "%";
+
+    const rnd = mulberry32(99);
+    const path = vasicekPath(0.01, kappa, theta, sigma, n, dt, rnd);
+    const yMin = Math.min(...path, 0) - 0.01, yMax = Math.max(...path, theta) + 0.01;
+    const { x, y, svg: axesSvg } = axesSVG({
+      W, H, pad: PAD, xMin: 0, xMax: n, yMin, yMax, xTicks: 4, yTicks: 4,
+      xFmt: (v) => (v * dt).toFixed(1), yFmt: (v) => (v * 100).toFixed(1) + "%",
+      xLabel: "t (years)", yLabel: "r",
+    });
+    const pathD = path.map((v, i) => `${i === 0 ? "M" : "L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const thetaLine = `M ${x(0)} ${y(theta).toFixed(1)} L ${x(n)} ${y(theta).toFixed(1)}`;
+    svg.innerHTML = axesSvg
+      + `<path d="${thetaLine}" fill="none" stroke="var(--level-2)" stroke-width="1.5" stroke-dasharray="3 3" />`
+      + `<path d="${pathD}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    const lines = [`${S.steps}`, `  dr = κ(θ - r)dt + σ·dW`, `  r(0)=1.00%,  r(T)=${(path[path.length-1]*100).toFixed(2)}%,  θ=${(theta*100).toFixed(2)}%`];
+    panel.querySelector("#vasSteps").textContent = lines.join("\n");
+  }
+  [kSlider, thSlider, sigSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 3. Hawkes process — self-exciting event simulation (thinning algorithm)
+// ---------------------------------------------------------------------------
+function simulateHawkes(mu, alpha, beta, Tmax, rnd) {
+  const events = [];
+  let t = 0;
+  while (t < Tmax) {
+    let lam = mu;
+    for (const te of events) lam += alpha * Math.exp(-beta * (t - te));
+    const lambdaBar = lam + alpha;
+    const w = -Math.log(rnd()) / lambdaBar;
+    t += w;
+    if (t >= Tmax) break;
+    let lamT = mu;
+    for (const te of events) lamT += alpha * Math.exp(-beta * (t - te));
+    if (rnd() <= lamT / lambdaBar) events.push(t);
+  }
+  return events;
+}
+
+function mountHawkesDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+  const Tmax = 20;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="hawkesSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>μ (baseline rate) <span class="val" id="hkMuVal">0.50</span></label><input type="range" id="hkMu" min="0.05" max="2" step="0.05" value="0.50"></div>
+          <div class="demo-slider-row"><label>α (excitation) <span class="val" id="hkAlphaVal">1.20</span></label><input type="range" id="hkAlpha" min="0" max="3" step="0.05" value="1.20"></div>
+          <div class="demo-slider-row"><label>β (decay) <span class="val" id="hkBetaVal">2.00</span></label><input type="range" id="hkBeta" min="0.2" max="5" step="0.1" value="2.00"></div>
+        </div>
+        <div class="demo-steps" id="hkSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.hkCallout}</p></div>
+  `;
+
+  const muSlider = panel.querySelector("#hkMu"), aSlider = panel.querySelector("#hkAlpha"), bSlider = panel.querySelector("#hkBeta");
+  const svg = panel.querySelector("#hawkesSvg");
+
+  function render() {
+    const mu = parseFloat(muSlider.value), alpha = parseFloat(aSlider.value), beta = parseFloat(bSlider.value);
+    panel.querySelector("#hkMuVal").textContent = mu.toFixed(2);
+    panel.querySelector("#hkAlphaVal").textContent = alpha.toFixed(2);
+    panel.querySelector("#hkBetaVal").textContent = beta.toFixed(2);
+    const stable = alpha < beta;
+
+    const rnd = mulberry32(42);
+    const events = simulateHawkes(mu, alpha, Math.max(beta, 0.01), Tmax, rnd);
+
+    const nPts = 200;
+    const intensity = [];
+    for (let i = 0; i < nPts; i++) {
+      const t = (i / (nPts - 1)) * Tmax;
+      let lam = mu;
+      for (const te of events) if (te <= t) lam += alpha * Math.exp(-beta * (t - te));
+      intensity.push(lam);
+    }
+    const maxLam = Math.max(...intensity, mu * 1.2);
+    const { x, y, svg: axesSvg } = axesSVG({
+      W, H, pad: PAD, xMin: 0, xMax: Tmax, yMin: 0, yMax: maxLam, xTicks: 4, yTicks: 4,
+      xFmt: (v) => v.toFixed(0), yFmt: (v) => v.toFixed(1),
+      xLabel: "t", yLabel: "λ(t)",
+    });
+    const lamPath = intensity.map((v, i) => `${i === 0 ? "M" : "L"} ${x((i/(nPts-1))*Tmax).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const ticks = events.map((te) => `<line x1="${x(te).toFixed(1)}" y1="${H-PAD}" x2="${x(te).toFixed(1)}" y2="${H-PAD+6}" stroke="var(--level-3)" stroke-width="1.5" />`).join("");
+    svg.innerHTML = axesSvg + `<path d="${lamPath}" fill="none" stroke="var(--mint)" stroke-width="2" />` + ticks;
+
+    const lines = [
+      `${S.steps}`,
+      `  λ(t) = μ + Σ α·e^(-β(t-tᵢ))`,
+      `  ${LANG === "uk" ? "кількість подій за" : "events over"} T=${Tmax}: ${events.length}`,
+      `  ${LANG === "uk" ? "стаціонарність (α<β)" : "stationarity (α<β)"}: ${stable ? (LANG==="uk"?"так":"yes") : (LANG==="uk"?"НІ — вибухає":"NO — explosive")}`,
+    ];
+    panel.querySelector("#hkSteps").textContent = lines.join("\n");
+  }
+  [muSlider, aSlider, bSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 4. Fuzzy C-Means clustering
+// ---------------------------------------------------------------------------
+const FCM_POINTS = [[-2,-2],[-2.2,-1.8],[-1.8,-2.1],[-2.1,-2.3],[-1.9,-1.7],[-2.3,-2.0],
+  [2,2],[2.2,1.8],[1.8,2.1],[2.1,2.3],[1.9,1.7],[2.3,2.0],[0,0.2],[-0.3,0.1],[0.2,-0.2]];
+
+function fcmRun(points, c, m, iterations) {
+  const n = points.length;
+  let centers = [points[0].slice(), points[6].slice()];
+  let U;
+  function updateU() {
+    U = points.map((p) => {
+      const d = centers.map((cc) => Math.hypot(p[0]-cc[0], p[1]-cc[1]) + 1e-6);
+      return d.map((dj) => {
+        let sum = 0;
+        for (let k = 0; k < c; k++) sum += Math.pow(dj / d[k], 2 / (m - 1));
+        return 1 / sum;
+      });
+    });
+  }
+  updateU();
+  for (let it = 0; it < iterations; it++) {
+    for (let j = 0; j < c; j++) {
+      let sw = 0, sx = 0, sy = 0;
+      for (let i = 0; i < n; i++) { const w = Math.pow(U[i][j], m); sw += w; sx += w*points[i][0]; sy += w*points[i][1]; }
+      centers[j] = [sx/sw, sy/sw];
+    }
+    updateU();
+  }
+  return { centers, U };
+}
+
+function mountFcmDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 300, PAD = 30;
+  const xs = FCM_POINTS.map(p=>p[0]), ys = FCM_POINTS.map(p=>p[1]);
+  const xMin = Math.min(...xs)-0.5, xMax = Math.max(...xs)+0.5;
+  const yMin = Math.min(...ys)-0.5, yMax = Math.max(...ys)+0.5;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="fcmSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>m (${LANG==="uk"?"нечіткість":"fuzziness"}) <span class="val" id="fcmMVal">2.00</span></label><input type="range" id="fcmM" min="1.1" max="4" step="0.1" value="2.00"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"ітерації":"iterations"} <span class="val" id="fcmIterVal">15</span></label><input type="range" id="fcmIter" min="1" max="30" step="1" value="15"></div>
+        </div>
+        <div class="demo-steps" id="fcmSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.fcmCallout}</p></div>
+  `;
+
+  const mSlider = panel.querySelector("#fcmM"), iterSlider = panel.querySelector("#fcmIter");
+  const svg = panel.querySelector("#fcmSvg");
+
+  function render() {
+    const m = parseFloat(mSlider.value), iterations = parseInt(iterSlider.value, 10);
+    panel.querySelector("#fcmMVal").textContent = m.toFixed(2);
+    panel.querySelector("#fcmIterVal").textContent = iterations;
+
+    const { centers, U } = fcmRun(FCM_POINTS, 2, m, iterations);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin, yMax, xTicks: 4, yTicks: 4, xFmt: (v)=>v.toFixed(1), yFmt: (v)=>v.toFixed(1) });
+
+    const dots = FCM_POINTS.map((p,i) => {
+      const w1 = U[i][0];
+      // blend mint (cluster0) and amber (cluster1) by membership weight
+      const col = w1 > 0.5 ? `color-mix(in srgb, var(--mint) ${Math.round(w1*100)}%, var(--level-2))` : `color-mix(in srgb, var(--level-2) ${Math.round((1-w1)*100)}%, var(--mint))`;
+      return `<circle cx="${x(p[0]).toFixed(1)}" cy="${y(p[1]).toFixed(1)}" r="5" fill="${col}" opacity="0.85" />`;
+    }).join("");
+    const centerMarks = centers.map((c,ci) => `<circle cx="${x(c[0]).toFixed(1)}" cy="${y(c[1]).toFixed(1)}" r="7" fill="none" stroke="${ci===0?"var(--mint)":"var(--level-2)"}" stroke-width="2.5" />`).join("");
+    svg.innerHTML = axesSvg + dots + centerMarks;
+
+    const lines = [`${S.steps}`, `  c1=(${centers[0][0].toFixed(2)}, ${centers[0][1].toFixed(2)})  c2=(${centers[1][0].toFixed(2)}, ${centers[1][1].toFixed(2)})`, `  U((0,0.2)) = [${U[12][0].toFixed(2)}, ${U[12][1].toFixed(2)}]`];
+    panel.querySelector("#fcmSteps").textContent = lines.join("\n");
+  }
+  [mSlider, iterSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 5. k-Nearest Neighbours
+// ---------------------------------------------------------------------------
+const KNN_DATA = [[-2,-2,'A'],[-1.8,-2.2,'A'],[-2.1,-1.9,'A'],[-1.9,-2.4,'A'],[-2.3,-1.7,'A'],
+  [2,2,'B'],[1.8,2.1,'B'],[2.2,1.9,'B'],[2.1,1.7,'B'],[1.7,2.3,'B'],
+  [0.3,-1.5,'A'],[-1.5,0.4,'B'],[0.5,1.6,'B'],[-0.6,-1.4,'A']];
+
+function knnPredict(dataset, query, k) {
+  const withDist = dataset.map(([xx,yy,label]) => ({dist: Math.hypot(xx-query[0], yy-query[1]), label}));
+  withDist.sort((a,b)=>a.dist-b.dist);
+  const top = withDist.slice(0,k);
+  const votes = {};
+  for (const t of top) votes[t.label] = (votes[t.label]||0)+1;
+  const winner = Object.entries(votes).sort((a,b)=>b[1]-a[1])[0][0];
+  return { winner, top };
+}
+
+function mountKnnDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 300, PAD = 30;
+  const xMin=-3.2, xMax=3.2, yMin=-3.2, yMax=3.2;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="knnSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>k <span class="val" id="knnKVal">3</span></label><input type="range" id="knnK" min="1" max="9" step="1" value="3"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"запит X":"query X"} <span class="val" id="knnQxVal">0.00</span></label><input type="range" id="knnQx" min="-3" max="3" step="0.1" value="0"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"запит Y":"query Y"} <span class="val" id="knnQyVal">0.00</span></label><input type="range" id="knnQy" min="-3" max="3" step="0.1" value="0"></div>
+        </div>
+        <div class="demo-steps" id="knnSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.knnCallout}</p></div>
+  `;
+
+  const kSlider = panel.querySelector("#knnK"), qxSlider = panel.querySelector("#knnQx"), qySlider = panel.querySelector("#knnQy");
+  const svg = panel.querySelector("#knnSvg");
+
+  function render() {
+    const k = parseInt(kSlider.value, 10), qx = parseFloat(qxSlider.value), qy = parseFloat(qySlider.value);
+    panel.querySelector("#knnKVal").textContent = k;
+    panel.querySelector("#knnQxVal").textContent = qx.toFixed(2);
+    panel.querySelector("#knnQyVal").textContent = qy.toFixed(2);
+
+    const { winner, top } = knnPredict(KNN_DATA, [qx,qy], k);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin, yMax, xTicks:4, yTicks:4, xFmt:(v)=>v.toFixed(0), yFmt:(v)=>v.toFixed(0) });
+
+    const topSet = new Set(top.map(t=>t.dist));
+    const dots = KNN_DATA.map(([xx,yy,label]) => {
+      const isTop = top.some(t => Math.abs(t.dist - Math.hypot(xx-qx,yy-qy)) < 1e-9);
+      const col = label === 'A' ? 'var(--mint)' : 'var(--level-2)';
+      return `<circle cx="${x(xx).toFixed(1)}" cy="${y(yy).toFixed(1)}" r="${isTop?6:4.5}" fill="${col}" stroke="${isTop?'var(--ink)':'none'}" stroke-width="${isTop?1.5:0}" opacity="0.9" />`;
+    }).join("");
+    const queryDot = `<circle cx="${x(qx).toFixed(1)}" cy="${y(qy).toFixed(1)}" r="6" fill="${winner==='A'?'var(--mint)':'var(--level-2)'}" stroke="var(--level-3)" stroke-width="2.5" />`;
+    svg.innerHTML = axesSvg + dots + queryDot;
+
+    const lines = [`${S.steps}`, `  ${LANG==="uk"?"найближчі":"nearest"} ${k}: ` + top.map(t=>t.label).join(", "), `  ${LANG==="uk"?"прогноз":"prediction"} = ${winner}`];
+    panel.querySelector("#knnSteps").textContent = lines.join("\n");
+  }
+  [kSlider, qxSlider, qySlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 6. Random Forest — small CART ensemble, majority-vote decision region
+// ---------------------------------------------------------------------------
+const RF_DATA = [[-2,-2,'A'],[-1.8,-2.2,'A'],[-2.1,-1.9,'A'],[-1.9,-2.4,'A'],[-2.3,-1.7,'A'],[-1.6,-1.8,'A'],
+  [2,2,'B'],[1.8,2.1,'B'],[2.2,1.9,'B'],[2.1,1.7,'B'],[1.7,2.3,'B'],[1.9,1.6,'B']];
+
+function giniImpurity(labels) {
+  const counts = {}; for (const l of labels) counts[l] = (counts[l]||0)+1;
+  let g = 1; for (const kk in counts) { const p = counts[kk]/labels.length; g -= p*p; }
+  return g;
+}
+function rfBuildStump(data, rnd) {
+  let best = null;
+  for (let trial = 0; trial < 6; trial++) {
+    const feat = rnd() < 0.5 ? 0 : 1;
+    const vals = data.map((d) => d[feat]);
+    const lo = Math.min(...vals), hi = Math.max(...vals);
+    if (lo === hi) continue;
+    const thresh = lo + rnd() * (hi - lo);
+    const left = data.filter((d) => d[feat] < thresh);
+    const right = data.filter((d) => d[feat] >= thresh);
+    if (left.length === 0 || right.length === 0) continue;
+    const g = (left.length*giniImpurity(left.map(d=>d[2])) + right.length*giniImpurity(right.map(d=>d[2])))/data.length;
+    if (!best || g < best.g) best = { feat, thresh, g, left, right };
+  }
+  return best;
+}
+function rfMajority(rows) {
+  const counts = {}; for (const r of rows) counts[r[2]] = (counts[r[2]]||0)+1;
+  return Object.entries(counts).sort((a,b)=>b[1]-a[1])[0][0];
+}
+function rfBuildTree(data, depth, maxDepth, rnd) {
+  if (depth >= maxDepth || new Set(data.map(d=>d[2])).size === 1 || data.length < 2) return { leaf: true, label: rfMajority(data) };
+  const split = rfBuildStump(data, rnd);
+  if (!split) return { leaf: true, label: rfMajority(data) };
+  return { leaf: false, feat: split.feat, thresh: split.thresh, left: rfBuildTree(split.left, depth+1, maxDepth, rnd), right: rfBuildTree(split.right, depth+1, maxDepth, rnd) };
+}
+function rfPredictTree(tree, point) {
+  if (tree.leaf) return tree.label;
+  return point[tree.feat] < tree.thresh ? rfPredictTree(tree.left, point) : rfPredictTree(tree.right, point);
+}
+function rfBootstrap(data, rnd) {
+  const out = []; for (let i = 0; i < data.length; i++) out.push(data[Math.floor(rnd()*data.length)]);
+  return out;
+}
+function rfPredict(data, point, nTrees, maxDepth, rnd) {
+  let votesA = 0, votesB = 0;
+  for (let t = 0; t < nTrees; t++) {
+    const sample = rfBootstrap(data, rnd);
+    const tree = rfBuildTree(sample, 0, maxDepth, rnd);
+    if (rfPredictTree(tree, point) === 'A') votesA++; else votesB++;
+  }
+  return votesA >= votesB ? 'A' : 'B';
+}
+
+function mountRfDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 300, PAD = 30;
+  const xMin=-3.2, xMax=3.2, yMin=-3.2, yMax=3.2;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="rfSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"кількість дерев":"number of trees"} <span class="val" id="rfNVal">25</span></label><input type="range" id="rfN" min="1" max="60" step="1" value="25"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"макс. глибина":"max depth"} <span class="val" id="rfDVal">3</span></label><input type="range" id="rfD" min="1" max="5" step="1" value="3"></div>
+        </div>
+        <div class="demo-steps" id="rfSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.rfCallout}</p></div>
+  `;
+
+  const nSlider = panel.querySelector("#rfN"), dSlider = panel.querySelector("#rfD");
+  const svg = panel.querySelector("#rfSvg");
+
+  function render() {
+    const nTrees = parseInt(nSlider.value, 10), maxDepth = parseInt(dSlider.value, 10);
+    panel.querySelector("#rfNVal").textContent = nTrees;
+    panel.querySelector("#rfDVal").textContent = maxDepth;
+
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin, yMax, xTicks:4, yTicks:4, xFmt:(v)=>v.toFixed(0), yFmt:(v)=>v.toFixed(0) });
+
+    const rnd = mulberry32(7);
+    const grid = [];
+    const gridN = 22;
+    for (let gi = 0; gi < gridN; gi++) {
+      for (let gj = 0; gj < gridN; gj++) {
+        const gx = xMin + (gi/(gridN-1))*(xMax-xMin);
+        const gy = yMin + (gj/(gridN-1))*(yMax-yMin);
+        const pred = rfPredict(RF_DATA, [gx,gy], nTrees, maxDepth, rnd);
+        grid.push(`<rect x="${(x(gx)-6).toFixed(1)}" y="${(y(gy)-6).toFixed(1)}" width="12" height="12" fill="${pred==='A'?'var(--mint)':'var(--level-2)'}" opacity="0.18" />`);
+      }
+    }
+    const dots = RF_DATA.map(([xx,yy,label]) => `<circle cx="${x(xx).toFixed(1)}" cy="${y(yy).toFixed(1)}" r="5" fill="${label==='A'?'var(--mint)':'var(--level-2)'}" stroke="var(--ink)" stroke-width="0.5" />`).join("");
+    svg.innerHTML = axesSvg + grid.join("") + dots;
+
+    const lines = [`${S.steps}`, `  ${LANG==="uk"?"кожне дерево навчається на bootstrap-вибірці":"each tree trains on a bootstrap sample"}`, `  ${LANG==="uk"?"прогноз = голосування більшості з":"prediction = majority vote of"} ${nTrees} ${LANG==="uk"?"дерев":"trees"}`];
+    panel.querySelector("#rfSteps").textContent = lines.join("\n");
+  }
+  [nSlider, dSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 7. Sharpe / Sortino Ratio — window sensitivity
+// ---------------------------------------------------------------------------
+function sharpeSortino(returns, rfDaily) {
+  const excess = returns.map((r) => r - rfDaily);
+  const mean = excess.reduce((a,b)=>a+b,0) / excess.length;
+  const std = Math.sqrt(excess.reduce((a,b)=>a+(b-mean)**2,0) / excess.length);
+  const downside = excess.filter((r) => r < 0);
+  const dstd = Math.sqrt(downside.reduce((a,b)=>a+b*b,0) / excess.length);
+  return { sharpe: (mean/std)*Math.sqrt(252), sortino: (mean/dstd)*Math.sqrt(252) };
+}
+
+function mountSharpeDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+  const returns = GARCH_EPS;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="shSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"вікно, початок":"window start"} <span class="val" id="shStartVal">0</span></label><input type="range" id="shStart" min="0" max="25" step="1" value="0"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"вікно, довжина":"window length"} <span class="val" id="shLenVal">40</span></label><input type="range" id="shLen" min="10" max="40" step="1" value="40"></div>
+          <div class="demo-slider-row"><label>rf (${LANG==="uk"?"річна":"annual"}) <span class="val" id="shRfVal">3.0%</span></label><input type="range" id="shRf" min="0" max="8" step="0.5" value="3.0"></div>
+        </div>
+        <div class="demo-steps" id="shSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.shCallout}</p></div>
+  `;
+
+  const startSlider = panel.querySelector("#shStart"), lenSlider = panel.querySelector("#shLen"), rfSlider = panel.querySelector("#shRf");
+  const svg = panel.querySelector("#shSvg");
+
+  function render() {
+    let start = parseInt(startSlider.value, 10);
+    let len = parseInt(lenSlider.value, 10);
+    if (start + len > returns.length) start = returns.length - len;
+    panel.querySelector("#shStartVal").textContent = start;
+    panel.querySelector("#shLenVal").textContent = len;
+    const rfAnnual = parseFloat(rfSlider.value) / 100;
+    panel.querySelector("#shRfVal").textContent = (rfAnnual*100).toFixed(1) + "%";
+
+    const window_ = returns.slice(start, start+len);
+    const { sharpe, sortino } = sharpeSortino(window_, rfAnnual/252);
+
+    const equity = [1];
+    for (const r of window_) equity.push(equity[equity.length-1]*(1+r));
+    const yMin = Math.min(...equity)*0.98, yMax = Math.max(...equity)*1.02;
+    const { x, y, svg: axesSvg } = axesSVG({
+      W, H, pad: PAD, xMin: 0, xMax: equity.length-1, yMin, yMax, xTicks:4, yTicks:4,
+      xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(2), xLabel: "t", yLabel: LANG==="uk"?"капітал":"equity",
+    });
+    const path = equity.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${path}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    const lines = [`${S.steps}`, `  Sharpe = (mean(excess)/std(excess))·√252 = ${sharpe.toFixed(3)}`, `  Sortino = (mean(excess)/downside_std)·√252 = ${sortino.toFixed(3)}`];
+    panel.querySelector("#shSteps").textContent = lines.join("\n");
+  }
+  [startSlider, lenSlider, rfSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 8. AUROC vs AUPRC on a fixed imbalanced score set
+// ---------------------------------------------------------------------------
+const AUC_SCORES = [];
+const AUC_LABELS = [];
+(function seedAucData() {
+  const rnd = mulberry32(555);
+  for (let i = 0; i < 90; i++) { AUC_SCORES.push(rnd()*0.6); AUC_LABELS.push(0); }
+  for (let i = 0; i < 10; i++) { AUC_SCORES.push(0.25 + rnd()*0.75); AUC_LABELS.push(1); }
+})();
+
+function mountAucDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="aucSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"поріг класифікації":"classification threshold"} <span class="val" id="aucThVal">0.50</span></label><input type="range" id="aucTh" min="0" max="1" step="0.01" value="0.50"></div>
+          <div class="demo-slider-row">
+            <label style="justify-content:flex-start;gap:14px">
+              <span><span style="color:var(--mint)">●</span> ROC</span>
+              <span><span style="color:var(--level-2)">●</span> PR</span>
+            </label>
+          </div>
+        </div>
+        <div class="demo-steps" id="aucSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.aucCallout}</p></div>
+  `;
+
+  const thSlider = panel.querySelector("#aucTh");
+  const svg = panel.querySelector("#aucSvg");
+  const P = AUC_LABELS.filter((l)=>l===1).length, N = AUC_LABELS.filter((l)=>l===0).length;
+
+  function metricsAt(th) {
+    let tp=0, fp=0;
+    for (let i=0;i<AUC_SCORES.length;i++) {
+      const pred = AUC_SCORES[i] >= th ? 1 : 0;
+      if (pred===1 && AUC_LABELS[i]===1) tp++;
+      else if (pred===1 && AUC_LABELS[i]===0) fp++;
+    }
+    return { tpr: tp/(P||1), fpr: fp/(N||1), precision: (tp+fp)>0 ? tp/(tp+fp) : 1 };
+  }
+
+  function render() {
+    const th = parseFloat(thSlider.value);
+    panel.querySelector("#aucThVal").textContent = th.toFixed(2);
+
+    const nPts = 41;
+    const roc = [], pr = [];
+    for (let i = 0; i < nPts; i++) {
+      const t = i/(nPts-1);
+      const m = metricsAt(t);
+      roc.push([m.fpr, m.tpr]);
+      pr.push([m.tpr, m.precision]);
+    }
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin:0, xMax:1, yMin:0, yMax:1, xTicks:4, yTicks:4, xFmt:(v)=>v.toFixed(1), yFmt:(v)=>v.toFixed(1), xLabel: LANG==="uk"?"FPR / Recall":"FPR / Recall", yLabel: "TPR / Precision" });
+
+    const rocPath = roc.map((p,i)=>`${i===0?"M":"L"} ${x(p[0]).toFixed(1)} ${y(p[1]).toFixed(1)}`).join(" ");
+    const prPath = pr.map((p,i)=>`${i===0?"M":"L"} ${x(p[0]).toFixed(1)} ${y(p[1]).toFixed(1)}`).join(" ");
+    const diag = `M ${x(0)} ${y(0)} L ${x(1)} ${y(1)}`;
+
+    const cur = metricsAt(th);
+    svg.innerHTML = axesSvg
+      + `<path d="${diag}" fill="none" stroke="var(--ink-faint)" stroke-width="1" stroke-dasharray="3 3" />`
+      + `<path d="${rocPath}" fill="none" stroke="var(--mint)" stroke-width="2" />`
+      + `<path d="${prPath}" fill="none" stroke="var(--level-2)" stroke-width="2" />`
+      + `<circle cx="${x(cur.fpr).toFixed(1)}" cy="${y(cur.tpr).toFixed(1)}" r="5" fill="var(--mint)" stroke="var(--level-3)" stroke-width="2" />`
+      + `<circle cx="${x(cur.tpr).toFixed(1)}" cy="${y(cur.precision).toFixed(1)}" r="5" fill="var(--level-2)" stroke="var(--level-3)" stroke-width="2" />`;
+
+    let aucRoc = 0; for (let i=1;i<roc.length;i++) aucRoc += Math.abs(roc[i-1][0]-roc[i][0]) * (roc[i-1][1]+roc[i][1])/2;
+    const lines = [`${S.steps}`, `  ${LANG==="uk"?"дані":"data"}: ${P} ${LANG==="uk"?"позитивних":"positives"} / ${N} ${LANG==="uk"?"негативних":"negatives"} (${LANG==="uk"?"дисбаланс":"imbalanced"})`, `  TPR=${cur.tpr.toFixed(2)}  FPR=${cur.fpr.toFixed(2)}  Precision=${cur.precision.toFixed(2)}`, `  AUROC ≈ ${aucRoc.toFixed(3)}`];
+    panel.querySelector("#aucSteps").textContent = lines.join("\n");
+  }
+  thSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 9. Heston-style CIR variance path (stochastic volatility)
+// ---------------------------------------------------------------------------
+function cirPath(v0, kappa, theta, xi, n, dt, rnd) {
+  let v = v0; const path = [v];
+  for (let i = 0; i < n; i++) {
+    const dW = (rnd() - 0.5) * Math.sqrt(12 * dt);
+    v = Math.max(0, v + kappa*(theta-v)*dt + xi*Math.sqrt(Math.max(v,0))*dW);
+    path.push(v);
+  }
+  return path;
+}
+
+function mountHestonDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+  const n = 150, dt = 0.02;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="hestSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>κ (${LANG==="uk"?"швидкість повернення":"reversion speed"}) <span class="val" id="hestKVal">2.00</span></label><input type="range" id="hestK" min="0.1" max="6" step="0.1" value="2.00"></div>
+          <div class="demo-slider-row"><label>θ (long-run var) <span class="val" id="hestThVal">4.0%</span></label><input type="range" id="hestTh" min="1" max="12" step="0.5" value="4.0"></div>
+          <div class="demo-slider-row"><label>ξ (vol-of-vol) <span class="val" id="hestXiVal">0.30</span></label><input type="range" id="hestXi" min="0.05" max="1" step="0.05" value="0.30"></div>
+        </div>
+        <div class="demo-steps" id="hestSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.hestCallout}</p></div>
+  `;
+
+  const kSlider = panel.querySelector("#hestK"), thSlider = panel.querySelector("#hestTh"), xiSlider = panel.querySelector("#hestXi");
+  const svg = panel.querySelector("#hestSvg");
+
+  function render() {
+    const kappa = parseFloat(kSlider.value);
+    const theta = parseFloat(thSlider.value) / 100;
+    const xi = parseFloat(xiSlider.value);
+    panel.querySelector("#hestKVal").textContent = kappa.toFixed(2);
+    panel.querySelector("#hestThVal").textContent = (theta*100).toFixed(1) + "%";
+    panel.querySelector("#hestXiVal").textContent = xi.toFixed(2);
+
+    const rnd = mulberry32(321);
+    const vPath = cirPath(theta, kappa, theta, xi, n, dt, rnd);
+    const volPath = vPath.map((v) => Math.sqrt(v));
+    const yMax = Math.max(...volPath) * 1.15;
+    const { x, y, svg: axesSvg } = axesSVG({
+      W, H, pad: PAD, xMin: 0, xMax: n, yMin: 0, yMax, xTicks: 4, yTicks: 4,
+      xFmt: (v)=>(v*dt).toFixed(1), yFmt: (v)=>(v*100).toFixed(0)+"%", xLabel: "t (years)", yLabel: "σ",
+    });
+    const path = volPath.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const thetaLine = `M ${x(0)} ${y(Math.sqrt(theta)).toFixed(1)} L ${x(n)} ${y(Math.sqrt(theta)).toFixed(1)}`;
+    svg.innerHTML = axesSvg
+      + `<path d="${thetaLine}" fill="none" stroke="var(--level-2)" stroke-width="1.5" stroke-dasharray="3 3" />`
+      + `<path d="${path}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    const lines = [`${S.steps}`, `  dv = κ(θ - v)dt + ξ√v·dW`, `  min σ = ${(Math.min(...volPath)*100).toFixed(2)}%,  max σ = ${(Math.max(...volPath)*100).toFixed(2)}%`];
+    panel.querySelector("#hestSteps").textContent = lines.join("\n");
+  }
+  [kSlider, thSlider, xiSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 10. Merton structural credit model
+// ---------------------------------------------------------------------------
+function mertonModel(V, D, sigmaV, T, r) {
+  const d1 = (Math.log(V/D) + (r + sigmaV*sigmaV/2)*T) / (sigmaV*Math.sqrt(T));
+  const d2 = d1 - sigmaV*Math.sqrt(T);
+  const pd = normCDF(-d2);
+  const equity = V*normCDF(d1) - D*Math.exp(-r*T)*normCDF(d2);
+  return { d1, d2, pd, equity };
+}
+
+function mountMertonDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="mertonSvg"></svg>
+        <p class="demo-note" style="margin-top:8px">${LANG==="uk"?"Розподіл вартості активів на момент T; червона зона — дефолт (V < D)":"Distribution of asset value at T; red zone is default (V < D)"}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>V (${LANG==="uk"?"вартість активів":"asset value"}) <span class="val" id="merVVal">120</span></label><input type="range" id="merV" min="80" max="200" step="1" value="120"></div>
+          <div class="demo-slider-row"><label>D (face value of debt) <span class="val" id="merDVal">100</span></label><input type="range" id="merD" min="50" max="150" step="1" value="100"></div>
+          <div class="demo-slider-row"><label>σV (asset volatility) <span class="val" id="merSigVal">30%</span></label><input type="range" id="merSig" min="5" max="80" step="1" value="30"></div>
+          <div class="demo-slider-row"><label>T (years) <span class="val" id="merTVal">1.0</span></label><input type="range" id="merT" min="0.25" max="5" step="0.25" value="1.0"></div>
+        </div>
+        <div class="demo-steps" id="merSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.merCallout}</p></div>
+  `;
+
+  const ids = ["merV","merD","merSig","merT"];
+  const els = ids.map((id) => panel.querySelector("#"+id));
+  const svg = panel.querySelector("#mertonSvg");
+  const r = 0.03;
+
+  function render() {
+    const V = parseFloat(els[0].value), D = parseFloat(els[1].value), sigmaV = parseFloat(els[2].value)/100, T = parseFloat(els[3].value);
+    panel.querySelector("#merVVal").textContent = V.toFixed(0);
+    panel.querySelector("#merDVal").textContent = D.toFixed(0);
+    panel.querySelector("#merSigVal").textContent = (sigmaV*100).toFixed(0)+"%";
+    panel.querySelector("#merTVal").textContent = T.toFixed(2);
+
+    const { d1, d2, pd, equity } = mertonModel(V, D, sigmaV, T, r);
+
+    // lognormal terminal asset-value distribution
+    const nPts = 100;
+    const mu = Math.log(V) + (r - sigmaV*sigmaV/2)*T;
+    const sd = sigmaV*Math.sqrt(T);
+    const vMin = Math.exp(mu - 4*sd), vMax = Math.exp(mu + 4*sd);
+    const { x, y, svg: axesSvg } = axesSVG({
+      W, H, pad: PAD, xMin: vMin, xMax: vMax, yMin: 0, yMax: 1, xTicks: 4, yTicks: 0,
+      xFmt: (v) => v.toFixed(0), yFmt: () => "", xLabel: "V(T)", yLabel: "",
+    });
+    const pdfVals = [];
+    for (let i = 0; i < nPts; i++) {
+      const v = vMin + (i/(nPts-1))*(vMax-vMin);
+      const pdf = v > 0 ? normPDF((Math.log(v)-mu)/sd) / (v*sd) : 0;
+      pdfVals.push(pdf);
+    }
+    const maxPdf = Math.max(...pdfVals);
+    const yScaled = (p) => H - PAD - (p/maxPdf)*(H-2*PAD);
+    const curve = pdfVals.map((p,i)=>`${i===0?"M":"L"} ${x(vMin+(i/(nPts-1))*(vMax-vMin)).toFixed(1)} ${yScaled(p).toFixed(1)}`).join(" ");
+
+    let areaD = `M ${x(vMin).toFixed(1)} ${yScaled(0).toFixed(1)} `;
+    for (let i = 0; i < nPts; i++) {
+      const v = vMin + (i/(nPts-1))*(vMax-vMin);
+      if (v <= D) areaD += `L ${x(v).toFixed(1)} ${yScaled(pdfVals[i]).toFixed(1)} `;
+    }
+    const cutoffX = x(Math.min(D, vMax));
+    areaD += `L ${cutoffX.toFixed(1)} ${yScaled(0).toFixed(1)} Z`;
+
+    const dLineX = x(D);
+    svg.innerHTML = axesSvg
+      + `<path d="${areaD}" fill="var(--level-3)" opacity="0.35" stroke="none" />`
+      + `<path d="${curve}" fill="none" stroke="var(--mint)" stroke-width="2" />`
+      + `<line x1="${dLineX.toFixed(1)}" y1="${PAD}" x2="${dLineX.toFixed(1)}" y2="${H-PAD}" stroke="var(--level-2)" stroke-width="1.5" stroke-dasharray="3 3" />`;
+
+    const lines = [`${S.steps}`, `  d2 = ${d2.toFixed(4)}`, `  PD = N(-d2) = ${(pd*100).toFixed(2)}%`, `  ${LANG==="uk"?"вартість акціонерного капіталу":"equity value"} = ${equity.toFixed(2)}`];
+    panel.querySelector("#merSteps").textContent = lines.join("\n");
+  }
+  els.forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+
 const DEMOS = {
   "volatility::GARCH(1,1)": { mount: mountGarchDemo },
   "unsupervised-outliers::Isolation Forest": { mount: mountIsoForestDemo },
@@ -1131,6 +1959,16 @@ const DEMOS = {
   "portfolio::Markowitz Mean-Variance": { mount: mountMarkowitzDemo },
   "risk-measures::Parametric (Variance-Covariance) VaR": { mount: mountVarDemo },
   "time-series::Kalman Filter (state-space)": { mount: mountKalmanDemo },
+  "regime::Hidden Markov Model": { mount: mountHmmDemo },
+  "rates::Vasicek Model": { mount: mountVasicekDemo },
+  "microstructure::Hawkes Process": { mount: mountHawkesDemo },
+  "fuzzy::Fuzzy C-Means Clustering": { mount: mountFcmDemo },
+  "classical-ml::k-Nearest Neighbours": { mount: mountKnnDemo },
+  "classical-ml::Random Forest": { mount: mountRfDemo },
+  "metrics::Sharpe / Sortino Ratio": { mount: mountSharpeDemo },
+  "metrics::AUROC vs AUPRC": { mount: mountAucDemo },
+  "volatility::Heston Stochastic Volatility": { mount: mountHestonDemo },
+  "credit::Merton Structural Model": { mount: mountMertonDemo },
 };
 
 function applyFilters() {

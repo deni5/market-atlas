@@ -294,6 +294,10 @@ a { color: inherit; }
 
 .demo-chart-wrap { border: 1px solid var(--card-border); border-radius: 8px; padding: 10px; background: var(--card); }
 .demo-chart-wrap svg { width: 100%; height: auto; display: block; }
+.axis-grid line { stroke: var(--rule); stroke-width: 1; }
+.axis-line { stroke: var(--ink-faint); stroke-width: 1; }
+.axis-tick { font-family: var(--mono); font-size: 9px; fill: var(--ink-faint); }
+.axis-label { font-family: var(--mono); font-size: 10px; fill: var(--ink-soft); }
 
 .demo-controls { display: flex; flex-direction: column; gap: 14px; }
 .demo-slider-row label {
