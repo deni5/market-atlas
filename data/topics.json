@@ -1,0 +1,2040 @@
+[
+  {
+    "id": "time-series",
+    "title": "Classical Time-Series Models",
+    "desc": "The statistical backbone under every later forecasting method — trend, seasonality and autoregression.",
+    "items": [
+      {
+        "lvl": "I",
+        "name": "ARIMA / ARMA",
+        "tag": "Stat",
+        "desc": "Box–Jenkins autoregressive–moving-average models for stationary return series.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "I",
+        "name": "Holt–Winters Exponential Smoothing",
+        "tag": "Stat",
+        "desc": "Recursively weighted trend and seasonality forecasting.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "VAR (Vector Autoregression)",
+        "tag": "Stat",
+        "desc": "Models several interdependent series jointly, each as a function of all series' own lags.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "VECM",
+        "tag": "Stat",
+        "desc": "VAR extended for series that are individually non-stationary but jointly cointegrated.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "SARIMAX",
+        "tag": "Stat",
+        "desc": "ARIMA with seasonal terms and exogenous regressors, e.g. macro variables.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Kalman Filter (state-space)",
+        "tag": "Stat",
+        "desc": "Recursive Bayesian estimation of an unobserved state, e.g. a time-varying beta.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "01"
+  },
+  {
+    "id": "volatility",
+    "title": "Volatility Models",
+    "desc": "Conditional-variance models — the input every VaR, option and risk-parity calculation depends on.",
+    "items": [
+      {
+        "lvl": "I",
+        "name": "ARCH",
+        "tag": "Vol",
+        "desc": "Engle's model: today's variance depends on yesterday's squared residual.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "I",
+        "name": "GARCH(1,1)",
+        "tag": "Vol",
+        "desc": "Bollerslev's generalised ARCH — the industry-standard volatility workhorse.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "EGARCH",
+        "tag": "Vol",
+        "desc": "Captures the leverage effect: volatility reacts asymmetrically to positive and negative shocks.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "GJR-GARCH",
+        "tag": "Vol",
+        "desc": "Threshold GARCH variant modelling the leverage effect via an explicit indicator term.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Realized Volatility (RV)",
+        "tag": "Vol",
+        "desc": "Estimates volatility from summed squared high-frequency intraday returns.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Heston Stochastic Volatility",
+        "tag": "Vol",
+        "desc": "Volatility follows its own stochastic process rather than a deterministic function of past returns.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "HAR-RV",
+        "tag": "Vol",
+        "desc": "Regresses realized volatility on its own daily, weekly and monthly averages.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "02"
+  },
+  {
+    "id": "factor",
+    "title": "Factor & Asset-Pricing Models",
+    "desc": "What ‘normal’ expected return looks like — the baseline every anomaly and mispricing is measured against.",
+    "items": [
+      {
+        "lvl": "I",
+        "name": "CAPM",
+        "tag": "Factor",
+        "desc": "Single-factor model: expected return is driven by market beta alone.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Fama–French 3-Factor",
+        "tag": "Factor",
+        "desc": "Adds size (SMB) and value (HML) factors on top of CAPM's market factor.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Fama–French 5-Factor",
+        "tag": "Factor",
+        "desc": "Further adds profitability (RMW) and investment (CMA) factors.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "APT",
+        "tag": "Factor",
+        "desc": "Multi-factor pricing without CAPM's market-equilibrium assumptions.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "IPCA",
+        "tag": "Factor",
+        "desc": "Latent-factor model in which factor loadings are instrumented by observable firm characteristics.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Autoencoder Asset Pricing",
+        "tag": "Autoencoder",
+        "desc": "A neural autoencoder learns nonlinear factor exposures directly from returns and characteristics (Gu–Kelly–Xiu).",
+        "used_by": "related to → PRAGMA-style banking-event foundation models",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "03"
+  },
+  {
+    "id": "risk-measures",
+    "title": "Risk Measures",
+    "desc": "Turning a return distribution into a single number a risk desk can act on.",
+    "items": [
+      {
+        "lvl": "I",
+        "name": "Value-at-Risk (VaR)",
+        "tag": "Risk",
+        "desc": "The loss that will not be exceeded with a given confidence level over a given horizon.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Historical Simulation VaR",
+        "tag": "Risk",
+        "desc": "Nonparametric VaR read directly off the empirical distribution of past returns.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Parametric (Variance–Covariance) VaR",
+        "tag": "Risk",
+        "desc": "Assumes normally distributed returns; fast, but understates tail risk.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Conditional VaR / Expected Shortfall",
+        "tag": "Risk",
+        "desc": "The average loss beyond the VaR threshold; a coherent risk measure VaR itself is not.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Monte Carlo VaR",
+        "tag": "Risk",
+        "desc": "Simulates thousands of price paths to build the loss distribution directly.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Extreme Value Theory (GPD)",
+        "tag": "Risk",
+        "desc": "Models the tail of the loss distribution directly via the Generalized Pareto Distribution.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Copula-based Risk Models",
+        "tag": "Risk",
+        "desc": "Models the joint dependence between assets separately from each asset's own marginal distribution.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "04"
+  },
+  {
+    "id": "portfolio",
+    "title": "Portfolio Optimization",
+    "desc": "Turning return and risk estimates into position sizes.",
+    "items": [
+      {
+        "lvl": "I",
+        "name": "Markowitz Mean–Variance",
+        "tag": "Portfolio",
+        "desc": "The original efficient frontier: maximise return for a given level of variance.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Black–Litterman",
+        "tag": "Portfolio",
+        "desc": "Blends market-equilibrium returns with an investor's subjective views via Bayesian updating.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Risk Parity",
+        "tag": "Portfolio",
+        "desc": "Allocates so each asset contributes equally to portfolio risk, not equally to capital.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Kelly Criterion",
+        "tag": "Portfolio",
+        "desc": "Optimal bet-sizing to maximise the long-run geometric growth rate of capital.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "CVaR Optimization",
+        "tag": "Portfolio",
+        "desc": "Rockafellar–Uryasev formulation minimising tail risk directly, solvable as a linear program.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Hierarchical Risk Parity",
+        "tag": "Portfolio",
+        "desc": "Uses hierarchical clustering on the correlation matrix, avoiding unstable matrix inversion.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "05"
+  },
+  {
+    "id": "credit",
+    "title": "Credit Risk Models",
+    "desc": "Estimating the probability and cost of a counterparty defaulting.",
+    "items": [
+      {
+        "lvl": "II",
+        "name": "Merton Structural Model",
+        "tag": "Credit",
+        "desc": "Treats equity as a call option on firm assets to infer default probability.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "KMV Model",
+        "tag": "Credit",
+        "desc": "Commercial extension of Merton estimating a market-implied ‘distance to default’.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Logistic Regression Scorecard",
+        "tag": "Credit",
+        "desc": "The classical statistical credit-scoring model for probability of default.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "CreditMetrics",
+        "tag": "Credit",
+        "desc": "Portfolio credit-risk framework built on rating transition (migration) matrices.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Reduced-Form (Intensity) Models",
+        "tag": "Credit",
+        "desc": "Models default as a jump process with a hazard rate, rather than an asset-value trigger.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "06"
+  },
+  {
+    "id": "classical-ml",
+    "title": "Classical Machine Learning",
+    "desc": "Supervised tabular models for direction, return and default prediction.",
+    "items": [
+      {
+        "lvl": "I",
+        "name": "Linear / Logistic Regression",
+        "tag": "ML",
+        "desc": "Baseline parametric models for return magnitude or price-direction prediction.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "I",
+        "name": "k-Nearest Neighbours",
+        "tag": "ML",
+        "desc": "Predicts by similarity to the most comparable historical market states.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Support Vector Machines",
+        "tag": "ML",
+        "desc": "Margin-maximising classifier or regressor, common for price-direction prediction.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Decision Trees (CART)",
+        "tag": "ML",
+        "desc": "Interpretable rule-based splits over market and fundamental features.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Random Forest",
+        "tag": "Ensemble",
+        "desc": "A bagged ensemble of decision trees; a robust baseline for tabular financial data.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Gradient Boosting (XGBoost / LightGBM / CatBoost)",
+        "tag": "Ensemble",
+        "desc": "Sequential boosting of weak learners; the dominant benchmark for tabular financial features.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "07"
+  },
+  {
+    "id": "unsupervised-outliers",
+    "title": "Unsupervised Outlier Methods",
+    "desc": "Flag the point that doesn't belong, without ever being shown a labelled anomaly.",
+    "items": [
+      {
+        "lvl": "II",
+        "name": "Isolation Forest",
+        "tag": "Outlier",
+        "desc": "Isolates points by random partitioning; anomalies need far fewer splits to isolate.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Local Outlier Factor",
+        "tag": "Outlier",
+        "desc": "Flags points whose local density is much lower than their neighbours'.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "One-Class SVM",
+        "tag": "Outlier",
+        "desc": "Learns a boundary around normal data; anything outside it is scored anomalous.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "DBSCAN",
+        "tag": "Outlier",
+        "desc": "Density-based clustering; points left in low-density regions are labelled outliers.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Elliptic Envelope",
+        "tag": "Outlier",
+        "desc": "Fits a robust covariance estimate and flags points outside the resulting ellipsoid.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Deep Isolation Forest",
+        "tag": "Outlier",
+        "desc": "Replaces axis-aligned splits with random neural-network projections for high-dimensional data.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "08"
+  },
+  {
+    "id": "sequential-dl",
+    "title": "Sequential Deep Learning",
+    "desc": "Neural architectures built to carry information forward through time.",
+    "items": [
+      {
+        "lvl": "I",
+        "name": "Recurrent Neural Network (RNN)",
+        "tag": "Seq DL",
+        "desc": "The base recurrent architecture for sequential and time-series data.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "LSTM",
+        "tag": "Seq DL",
+        "desc": "Gated RNN that solves the vanishing-gradient problem over long sequences.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "GRU",
+        "tag": "Seq DL",
+        "desc": "A simplified LSTM variant with fewer parameters and comparable performance.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Seq2Seq (Encoder–Decoder)",
+        "tag": "Seq DL",
+        "desc": "Maps an input sequence to an output sequence, e.g. multi-step forecasting.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "CNN-LSTM Hybrid",
+        "tag": "Seq DL",
+        "desc": "Convolutional feature extraction feeding a recurrent temporal model.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "ConvLSTM",
+        "tag": "Seq DL",
+        "desc": "Convolutional gates inside the LSTM cell; captures joint spatial–temporal structure.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "09"
+  },
+  {
+    "id": "attention",
+    "title": "Attention & Transformer Models",
+    "desc": "Self-attention replacing recurrence — the current state of the art for long financial sequences.",
+    "items": [
+      {
+        "lvl": "II",
+        "name": "Transformer",
+        "tag": "Attention",
+        "desc": "Self-attention over the full sequence; the base architecture behind every model below.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Informer",
+        "tag": "Attention",
+        "desc": "Sparse ProbSparse attention for efficient long-sequence time-series forecasting.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Autoformer",
+        "tag": "Attention",
+        "desc": "Decomposition plus auto-correlation, replacing standard self-attention for trend and seasonality.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "FEDformer",
+        "tag": "Attention",
+        "desc": "Frequency-domain (Fourier/Wavelet) enhanced Transformer; a strong recent benchmark on S&P 500 / NASDAQ series.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Anomaly Transformer",
+        "tag": "Attention",
+        "desc": "Flags anomalies via the discrepancy between local and global attention patterns.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Temporal Fusion Transformer",
+        "tag": "Attention",
+        "desc": "Interpretable multi-horizon forecasting combining LSTM, attention and variable-selection gates.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "10"
+  },
+  {
+    "id": "autoencoders",
+    "title": "Autoencoders & Representation Learning",
+    "desc": "Learn what ‘normal’ compresses to; large reconstruction error is the anomaly signal.",
+    "items": [
+      {
+        "lvl": "II",
+        "name": "Vanilla Autoencoder",
+        "tag": "Autoencoder",
+        "desc": "Reconstruction-error anomaly scoring over tabular market features.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "LSTM-Autoencoder",
+        "tag": "Autoencoder",
+        "desc": "Sequence-to-sequence reconstruction for time-series anomaly detection.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Variational Autoencoder",
+        "tag": "Autoencoder",
+        "desc": "A probabilistic latent space; anomaly score combines reconstruction error and KL-divergence.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Convolutional Autoencoder",
+        "tag": "Autoencoder",
+        "desc": "A 1-D convolutional encoder/decoder over price-and-volume windows.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Denoising / Sparse Autoencoder",
+        "tag": "Autoencoder",
+        "desc": "Trained to reconstruct clean data from corrupted input, forcing more robust features.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Transformer Autoencoder for Order Books",
+        "tag": "Autoencoder",
+        "desc": "Reconstructs limit-order-book sub-sequences to flag trade-based manipulation.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "11"
+  },
+  {
+    "id": "generative",
+    "title": "Generative Models",
+    "desc": "Learn the data-generating process itself; a sample the model can't explain is the anomaly.",
+    "items": [
+      {
+        "lvl": "III",
+        "name": "GAN",
+        "tag": "Generative",
+        "desc": "A generator/discriminator pair; the discriminator's failure to tell real from fake flags anomalies.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "TimeGAN",
+        "tag": "Generative",
+        "desc": "A GAN framework explicitly preserving temporal dynamics for realistic synthetic financial series.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "TAnoGAN",
+        "tag": "Generative",
+        "desc": "GAN-based anomaly detector using the generator's reconstruction loss on time-series windows.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "GAN-LSTM Hybrid",
+        "tag": "Generative",
+        "desc": "An LSTM-based generator and discriminator; a strong recent benchmark for sequential anomaly detection.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Diffusion Models for Time Series",
+        "tag": "Generative",
+        "desc": "Iterative denoising generative process; an emerging alternative to GANs for synthetic market data.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "12"
+  },
+  {
+    "id": "graph",
+    "title": "Graph-Based Models",
+    "desc": "Assets, accounts and counterparties as nodes — the anomaly is in the structure, not just one series.",
+    "items": [
+      {
+        "lvl": "II",
+        "name": "Graph Neural Network",
+        "tag": "Graph",
+        "desc": "Propagates information across nodes connected by edges such as correlation or transaction flow.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Graph Attention Network",
+        "tag": "Graph",
+        "desc": "A GNN variant that weighs each neighbour's contribution via a learned attention score.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Graph Autoencoder",
+        "tag": "Graph",
+        "desc": "Reconstructs an adjacency or correlation matrix; a large error flags a structural anomaly.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "GNN + Transformer Hybrids",
+        "tag": "Graph",
+        "desc": "Combine relational (graph) and temporal (attention) structure for systemic anomaly discovery.",
+        "used_by": "used by → anti-money-laundering transaction monitoring",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "13"
+  },
+  {
+    "id": "fuzzy",
+    "title": "Fuzzy Logic & Neuro-Fuzzy Systems",
+    "desc": "Where the boundary between ‘normal’ and ‘anomalous’ is itself uncertain, not just the data.",
+    "items": [
+      {
+        "lvl": "II",
+        "name": "Fuzzy C-Means Clustering",
+        "tag": "Fuzzy",
+        "desc": "Soft clustering: each point holds partial membership across several risk clusters at once.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "ANFIS",
+        "tag": "Fuzzy",
+        "desc": "Fuzzy if-then rules whose parameters are tuned by neural-network gradient learning.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Fuzzy Rule-Based Fraud Scoring",
+        "tag": "Fuzzy",
+        "desc": "Clusters financial and non-financial variables into fraud-risk categories for expert review.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Fuzzy Semi-Supervised Outlier Detection",
+        "tag": "Fuzzy",
+        "desc": "Treats volatility-outlier detection as fuzzy classification rather than hard-threshold regression.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Genetic-Fuzzy Hybrids",
+        "tag": "Fuzzy",
+        "desc": "Evolutionary algorithms tune fuzzy-rule and attention parameters jointly.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "14"
+  },
+  {
+    "id": "rl",
+    "title": "Reinforcement Learning for Markets",
+    "desc": "Learning a trading or hedging policy from trial, error and reward — not from a labelled dataset.",
+    "items": [
+      {
+        "lvl": "II",
+        "name": "Q-Learning",
+        "tag": "RL",
+        "desc": "Tabular value-based RL for simple, discrete trading-action policies.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Deep Q-Network",
+        "tag": "RL",
+        "desc": "Neural-network Q-function approximation for higher-dimensional market states.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Policy Gradient / REINFORCE",
+        "tag": "RL",
+        "desc": "Directly optimises a stochastic trading policy via gradient ascent on expected return.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Proximal Policy Optimization",
+        "tag": "RL",
+        "desc": "A stable, clipped policy-gradient method common in modern portfolio-management RL.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Actor–Critic (A2C/A3C)",
+        "tag": "RL",
+        "desc": "Combines a policy (actor) with a value estimator (critic) for lower-variance training.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "DDPG",
+        "tag": "RL",
+        "desc": "An actor–critic method for continuous action spaces, e.g. position sizing.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "15"
+  },
+  {
+    "id": "microstructure",
+    "title": "Market Microstructure Models",
+    "desc": "What happens inside the order book, tick by tick.",
+    "items": [
+      {
+        "lvl": "II",
+        "name": "Kyle's Lambda",
+        "tag": "Microstructure",
+        "desc": "Models the price impact of informed order flow; the classical price-impact benchmark.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Glosten–Milgrom Model",
+        "tag": "Microstructure",
+        "desc": "Models the bid–ask spread as compensation for adverse selection from informed traders.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Hawkes Process",
+        "tag": "Microstructure",
+        "desc": "A self-exciting point process: one trade raises the likelihood of the next, in clusters.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Autoregressive Conditional Duration",
+        "tag": "Microstructure",
+        "desc": "Models the time between trade arrivals rather than the price level itself.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Limit Order Book Simulation",
+        "tag": "Microstructure",
+        "desc": "Agent-based or statistical reconstruction of order-book dynamics for stress-testing detectors.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "16"
+  },
+  {
+    "id": "regime",
+    "title": "Regime-Switching & State-Space Models",
+    "desc": "The market's own statistical rules change over time; these models let the rules switch too.",
+    "items": [
+      {
+        "lvl": "II",
+        "name": "Hidden Markov Model",
+        "tag": "Regime",
+        "desc": "A latent discrete regime — bull, bear, high-volatility — drives the observed returns.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Markov-Switching GARCH",
+        "tag": "Regime",
+        "desc": "Combines regime-switching with conditional heteroskedasticity.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Particle Filter",
+        "tag": "Regime",
+        "desc": "A nonlinear, non-Gaussian extension of the Kalman filter via sequential sampling.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Change-Point Detection (CUSUM, Bayesian Online)",
+        "tag": "Regime",
+        "desc": "Flags a structural break in a series' statistical properties in real time.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "17"
+  },
+  {
+    "id": "derivatives",
+    "title": "Stochastic Processes for Derivatives",
+    "desc": "Pricing the contracts written on top of the underlying market.",
+    "items": [
+      {
+        "lvl": "I",
+        "name": "Black–Scholes–Merton",
+        "tag": "Derivatives",
+        "desc": "Closed-form option pricing under geometric Brownian motion.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Binomial / Trinomial Trees",
+        "tag": "Derivatives",
+        "desc": "Discrete-time lattice approximations for American and exotic option pricing.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Heston Model",
+        "tag": "Derivatives",
+        "desc": "A stochastic-volatility extension of Black–Scholes that captures the volatility smile.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Jump-Diffusion (Merton, Kou)",
+        "tag": "Derivatives",
+        "desc": "Adds discontinuous price jumps on top of the continuous diffusion process.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Monte Carlo Option Pricing",
+        "tag": "Derivatives",
+        "desc": "Simulates many price paths to price path-dependent and exotic derivatives.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "18"
+  },
+  {
+    "id": "rates",
+    "title": "Fixed-Income & Term-Structure Models",
+    "desc": "Modelling the shape of the yield curve and how it moves.",
+    "items": [
+      {
+        "lvl": "II",
+        "name": "Vasicek Model",
+        "tag": "Rates",
+        "desc": "A mean-reverting short-rate model; the classical one-factor term-structure benchmark.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "CIR Model",
+        "tag": "Rates",
+        "desc": "A Vasicek variant that guarantees non-negative interest rates.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Nelson–Siegel / Svensson",
+        "tag": "Rates",
+        "desc": "A parsimonious parametric fit to the entire yield curve at once.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Hull–White Model",
+        "tag": "Rates",
+        "desc": "Extends Vasicek with a time-dependent drift, fitting the current curve exactly.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "19"
+  },
+  {
+    "id": "nlp",
+    "title": "Sentiment & NLP-Based Models",
+    "desc": "Turning unstructured text — news, filings, social feeds — into a market signal.",
+    "items": [
+      {
+        "lvl": "II",
+        "name": "Lexicon-Based Sentiment Scoring",
+        "tag": "NLP",
+        "desc": "Dictionary-driven polarity scores extracted from news or social-media text.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Latent Dirichlet Allocation",
+        "tag": "NLP",
+        "desc": "Unsupervised topic modelling to surface emerging narrative risk themes.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "FinBERT / Financial Transformers",
+        "tag": "NLP",
+        "desc": "Domain-fine-tuned language models for sentence-level market-sentiment classification.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Event-Study NLP Signals",
+        "tag": "NLP",
+        "desc": "Extracts structured event tags — earnings surprise, guidance cut — from unstructured filings.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "20"
+  },
+  {
+    "id": "xai",
+    "title": "Explainability & Interpretability",
+    "desc": "Once a model flags something, someone has to be able to say why.",
+    "items": [
+      {
+        "lvl": "II",
+        "name": "SHAP",
+        "tag": "XAI",
+        "desc": "Game-theoretic feature attribution that works for any black-box prediction.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "LIME",
+        "tag": "XAI",
+        "desc": "Fits a simple local surrogate model to explain one individual prediction.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Attention-Weight Visualization",
+        "tag": "XAI",
+        "desc": "Inspects a Transformer's attention map to see which time-steps drove a flag.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "DIFFI for Isolation Forest",
+        "tag": "XAI",
+        "desc": "Depth-based feature-importance scoring specific to isolation-forest anomaly detectors.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "21"
+  },
+  {
+    "id": "validation",
+    "title": "Model Validation & Backtesting",
+    "desc": "A model that looks great on history and fails live almost always failed here first.",
+    "items": [
+      {
+        "lvl": "I",
+        "name": "Walk-Forward Split",
+        "tag": "Validation",
+        "desc": "A chronological train/test split that respects the arrow of time and avoids look-ahead bias.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Purged / Embargoed k-Fold CV",
+        "tag": "Validation",
+        "desc": "A cross-validation variant that removes leakage from overlapping financial-label windows.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "White's Reality Check / SPA Test",
+        "tag": "Validation",
+        "desc": "Statistical tests correcting for data-snooping bias across many backtested strategies.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Deflated Sharpe Ratio",
+        "tag": "Validation",
+        "desc": "Adjusts the Sharpe ratio for the number of trials run and for non-normal returns.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Combinatorial Purged Cross-Validation",
+        "tag": "Validation",
+        "desc": "Generates many realistic backtest paths from a single dataset (López de Prado).",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "22"
+  },
+  {
+    "id": "systemic",
+    "title": "Systemic Risk & Network Models",
+    "desc": "Risk that lives in the connections between institutions, not inside any one of them.",
+    "items": [
+      {
+        "lvl": "II",
+        "name": "Network Centrality Measures",
+        "tag": "Systemic",
+        "desc": "Degree, eigenvector and betweenness centrality flag systemically important nodes.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "DebtRank",
+        "tag": "Systemic",
+        "desc": "Models cascading distress propagation through a network of interbank exposures.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "CoVaR",
+        "tag": "Systemic",
+        "desc": "The system's VaR conditional on one given institution being in distress.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Marginal Expected Shortfall",
+        "tag": "Systemic",
+        "desc": "A firm's expected loss conditional on a systemic market-wide downturn.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Antibenford Subgraphs",
+        "tag": "Systemic",
+        "desc": "Flags financial-network subgraphs whose transaction digits violate Benford's Law.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "23"
+  },
+  {
+    "id": "fraud",
+    "title": "Fraud & Market-Manipulation Detection",
+    "desc": "Named patterns regulators specifically look for, rather than generic statistical outliers.",
+    "items": [
+      {
+        "lvl": "II",
+        "name": "Wash-Trading Detection",
+        "tag": "Fraud",
+        "desc": "Pattern-matching for self-dealing trades that transfer no genuine economic risk.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Spoofing / Layering Detection",
+        "tag": "Fraud",
+        "desc": "Flags large orders placed and cancelled with no intent to execute, to move the mid-price.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Pump-and-Dump Pattern Detection",
+        "tag": "Fraud",
+        "desc": "Detects the volume-and-price signature of coordinated promotion-then-sell schemes.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Benford's Law Digit Analysis",
+        "tag": "Fraud",
+        "desc": "Flags transaction datasets whose leading-digit distribution deviates from the expected law.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "24"
+  },
+  {
+    "id": "alt-data",
+    "title": "Alternative Data & Feature Engineering",
+    "desc": "What actually feeds the model, upstream of the architecture itself.",
+    "items": [
+      {
+        "lvl": "II",
+        "name": "Technical Indicators (RSI, MACD, Bollinger)",
+        "tag": "Alt data",
+        "desc": "Classical rule-based features still widely used as inputs to ML models.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Order-Flow Imbalance",
+        "tag": "Alt data",
+        "desc": "Net buy-versus-sell pressure from the order book as a short-horizon predictive feature.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Satellite / Geospatial Data",
+        "tag": "Alt data",
+        "desc": "Parking-lot counts or shipping traffic as alternative predictors of company activity.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Web-Scraped & App-Usage Signals",
+        "tag": "Alt data",
+        "desc": "Search trends, app downloads and job postings as leading indicators.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "25"
+  },
+  {
+    "id": "search",
+    "title": "Hyperparameter & Architecture Search",
+    "desc": "Tuning the model that tunes the market.",
+    "items": [
+      {
+        "lvl": "II",
+        "name": "Grid / Random Search",
+        "tag": "Search",
+        "desc": "The baseline systematic and stochastic approaches to hyperparameter search.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Bayesian Optimization",
+        "tag": "Search",
+        "desc": "Models the hyperparameter response surface to search more efficiently than grid or random search.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Genetic Algorithms",
+        "tag": "Search",
+        "desc": "Evolutionary search over hyperparameters or fuzzy-rule structures.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "Particle Swarm Optimization",
+        "tag": "Search",
+        "desc": "A swarm-based metaheuristic common in neuro-fuzzy and portfolio-weight tuning.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "26"
+  },
+  {
+    "id": "metrics",
+    "title": "Evaluation Metrics",
+    "desc": "How to know whether any of the above actually worked.",
+    "items": [
+      {
+        "lvl": "I",
+        "name": "Sharpe / Sortino Ratio",
+        "tag": "Metric",
+        "desc": "Risk-adjusted return measured against total volatility or downside volatility only.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "I",
+        "name": "Precision / Recall / F1",
+        "tag": "Metric",
+        "desc": "Standard classification metrics, critical for reading imbalanced anomaly-detection results.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "AUROC vs AUPRC",
+        "tag": "Metric",
+        "desc": "ROC can mislead on imbalanced fraud data; AUPRC is the more reliable metric there.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "II",
+        "name": "Calmar Ratio / Max Drawdown",
+        "tag": "Metric",
+        "desc": "Return measured against the worst peak-to-trough loss the strategy suffered.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      },
+      {
+        "lvl": "III",
+        "name": "F-beta / F4 Metric",
+        "tag": "Metric",
+        "desc": "Weights recall over precision when missing a manipulation costs more than a false alarm.",
+        "links": {
+          "paper": "",
+          "hf": "",
+          "kaggle": "",
+          "wiki": "",
+          "more": ""
+        }
+      }
+    ],
+    "num": "27"
+  }
+]
