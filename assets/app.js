@@ -190,6 +190,20 @@ const DEMO_STRINGS = {
     bsCall: "Колл",
     bsPut: "Пут",
     bsChartCaption: "Ціна опціону як функція спотової ціни S (крапка — поточні параметри)",
+    capmChartCaption: "Лінія ринку цінних паперів (SML): очікувана дохідність як функція β",
+    capmCallout: "CAPM — стандартна ставка дисконтування у DCF-оцінці (вартість власного капіталу) і базовий бенчмарк для виміру альфи менеджера: дохідність понад те, що дає сам ринковий ризик.",
+    kellyChartCaption: "Темп зростання капіталу g(f) залежно від частки ставки f; крапка — оптимум f*",
+    kellyCallout: "Full Kelly дає теоретично оптимальний темп зростання, але дуже волатильний на практиці — тому трейдери зазвичай використовують half-Kelly (f*/2) як компроміс між зростанням і просадками.",
+    kellyFstar: "f* = p - (1-p)/b",
+    markoChartCaption: "Ефективна межа: волатильність (X) проти дохідності (Y) для двох активів при різних вагах",
+    markoCallout: "Це геометрична суть диверсифікації: якщо кореляція активів менша за 1, комбінований портфель може мати нижчу волатильність, ніж будь-який актив окремо — саме це видно на вигині кривої вліво від прямої лінії.",
+    markoMinVar: "мінімальна дисперсія при w =",
+    varChartCaption: "Розподіл P&L портфеля; червона зона — втрати за межею VaR",
+    varCallout: "VaR — регуляторний стандарт (Basel), але не каже нічого про розмір втрати ЗА межею порогу. Саме тому Expected Shortfall (CVaR) вважається кращою мірою для екстремальних сценаріїв.",
+    varResult: "VaR =",
+    kalmanChartCaption: "Сірий пунктир — справжній сигнал, крапки — зашумлені виміри, зелена лінія — оцінка фільтра Калмана",
+    kalmanCallout: "Фільтр Калмана — основа динамічних бета-моделей і сплайн-згладжування кривої дохідності в реальному часі: він оптимально зважує нову зашумлену інформацію проти попереднього прогнозу, а не просто усереднює.",
+    kalmanRmse: "RMSE фільтра проти сирих вимірів",
   },
   en: {
     steps: "steps:",
@@ -213,6 +227,20 @@ const DEMO_STRINGS = {
     bsCall: "Call",
     bsPut: "Put",
     bsChartCaption: "Option price as a function of spot price S (dot marks the current parameters)",
+    capmChartCaption: "Security Market Line (SML): expected return as a function of β",
+    capmCallout: "CAPM is the standard discount rate in DCF valuation (cost of equity) and the baseline benchmark for measuring a manager's alpha: return earned above and beyond what market risk alone would justify.",
+    kellyChartCaption: "Capital growth rate g(f) as a function of bet fraction f; dot marks the optimum f*",
+    kellyCallout: "Full Kelly gives the theoretically optimal growth rate but is very volatile in practice — traders typically use half-Kelly (f*/2) as a trade-off between growth and drawdowns.",
+    kellyFstar: "f* = p - (1-p)/b",
+    markoChartCaption: "Efficient frontier: volatility (X) vs return (Y) for two assets at varying weights",
+    markoCallout: "This is the geometry of diversification: whenever asset correlation is below 1, a combined portfolio can have lower volatility than either asset alone — that's exactly the leftward bulge visible in the curve.",
+    markoMinVar: "minimum variance at w =",
+    varChartCaption: "Portfolio P&L distribution; the red zone is losses beyond the VaR threshold",
+    varCallout: "VaR is the regulatory standard (Basel), but says nothing about the size of a loss BEYOND the threshold. That's exactly why Expected Shortfall (CVaR) is considered the better measure for extreme scenarios.",
+    varResult: "VaR =",
+    kalmanChartCaption: "Grey dashed — true signal, dots — noisy measurements, green line — Kalman filter estimate",
+    kalmanCallout: "The Kalman filter underlies real-time dynamic-beta models and yield-curve smoothing: it optimally weighs new noisy information against the prior forecast, rather than simply averaging.",
+    kalmanRmse: "filter RMSE vs raw measurements",
   },
 };
 
@@ -618,10 +646,487 @@ function mountBlackScholesDemo(panel) {
   render();
 }
 
+// ---------------------------------------------------------------------------
+// CAPM demo
+// ---------------------------------------------------------------------------
+
+function mountCapmDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="capmSvg">
+          <path id="capmLine" fill="none" stroke="var(--mint)" stroke-width="2" />
+          <circle id="capmDot" r="5" fill="var(--level-3)" />
+        </svg>
+        <p class="demo-note" style="margin-top:8px">${S.capmChartCaption}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row">
+            <label>β (beta) <span class="val" id="capmBetaVal">1.20</span></label>
+            <input type="range" id="capmBeta" min="0" max="2.5" step="0.05" value="1.20">
+          </div>
+          <div class="demo-slider-row">
+            <label>Rf (risk-free) <span class="val" id="capmRfVal">3.0%</span></label>
+            <input type="range" id="capmRf" min="0" max="8" step="0.1" value="3.0">
+          </div>
+          <div class="demo-slider-row">
+            <label>E(Rm) (market return) <span class="val" id="capmRmVal">8.0%</span></label>
+            <input type="range" id="capmRm" min="2" max="15" step="0.1" value="8.0">
+          </div>
+        </div>
+        <div class="demo-steps" id="capmSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout">
+      <p class="eyebrow2">${S.inFinance}</p>
+      <p>${S.capmCallout}</p>
+    </div>
+  `;
+
+  const betaSlider = panel.querySelector("#capmBeta");
+  const rfSlider = panel.querySelector("#capmRf");
+  const rmSlider = panel.querySelector("#capmRm");
+  const betaMax = 2.5;
+
+  function render() {
+    const beta = parseFloat(betaSlider.value);
+    const rf = parseFloat(rfSlider.value) / 100;
+    const rm = parseFloat(rmSlider.value) / 100;
+    panel.querySelector("#capmBetaVal").textContent = beta.toFixed(2);
+    panel.querySelector("#capmRfVal").textContent = (rf * 100).toFixed(1) + "%";
+    panel.querySelector("#capmRmVal").textContent = (rm * 100).toFixed(1) + "%";
+
+    const expReturn = rf + beta * (rm - rf);
+    const yAtZero = rf, yAtMax = rf + betaMax * (rm - rf);
+    const maxY = Math.max(yAtMax, expReturn, rm) * 1.15;
+    const minY = Math.min(0, yAtZero) - 0.01;
+    const x = (b) => PAD + (b / betaMax) * (W - 2 * PAD);
+    const y = (v) => H - PAD - ((v - minY) / (maxY - minY)) * (H - 2 * PAD);
+
+    panel.querySelector("#capmLine").setAttribute("d", `M ${x(0)} ${y(yAtZero)} L ${x(betaMax)} ${y(yAtMax)}`);
+    panel.querySelector("#capmDot").setAttribute("cx", x(beta));
+    panel.querySelector("#capmDot").setAttribute("cy", y(expReturn));
+
+    const lines = [
+      `${S.steps}`,
+      `  E(R) = Rf + β·(E(Rm) - Rf)`,
+      `  E(R) = ${(rf*100).toFixed(2)}% + ${beta.toFixed(2)}·(${(rm*100).toFixed(2)}% - ${(rf*100).toFixed(2)}%)`,
+      `  E(R) = ${(expReturn*100).toFixed(2)}%`,
+    ];
+    panel.querySelector("#capmSteps").textContent = lines.join("\n");
+  }
+
+  [betaSlider, rfSlider, rmSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// Kelly Criterion demo
+// ---------------------------------------------------------------------------
+
+function mountKellyDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 34;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="kellySvg">
+          <path id="kellyLine" fill="none" stroke="var(--mint)" stroke-width="2" />
+          <circle id="kellyDot" r="5" fill="var(--level-3)" />
+        </svg>
+        <p class="demo-note" style="margin-top:8px">${S.kellyChartCaption}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row">
+            <label>p (win probability) <span class="val" id="kellyPVal">0.55</span></label>
+            <input type="range" id="kellyP" min="0.30" max="0.90" step="0.01" value="0.55">
+          </div>
+          <div class="demo-slider-row">
+            <label>b (win/loss ratio) <span class="val" id="kellyBVal">1.20</span></label>
+            <input type="range" id="kellyB" min="0.3" max="3" step="0.05" value="1.20">
+          </div>
+        </div>
+        <div class="demo-steps" id="kellySteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout">
+      <p class="eyebrow2">${S.inFinance}</p>
+      <p>${S.kellyCallout}</p>
+    </div>
+  `;
+
+  const pSlider = panel.querySelector("#kellyP");
+  const bSlider = panel.querySelector("#kellyB");
+
+  function render() {
+    const p = parseFloat(pSlider.value);
+    const b = parseFloat(bSlider.value);
+    panel.querySelector("#kellyPVal").textContent = p.toFixed(2);
+    panel.querySelector("#kellyBVal").textContent = b.toFixed(2);
+
+    const fstar = Math.max(0, Math.min(0.98, p - (1 - p) / b));
+
+    const nPts = 60;
+    const fMax = 0.98;
+    const curve = [];
+    for (let i = 0; i < nPts; i++) {
+      const f = (i / (nPts - 1)) * fMax;
+      const g = p * Math.log(1 + f * b) + (1 - p) * Math.log(Math.max(1 - f, 1e-6));
+      curve.push(g);
+    }
+    const maxG = Math.max(...curve), minG = Math.min(...curve);
+    const x = (i) => PAD + (i / (nPts - 1)) * (W - 2 * PAD);
+    const y = (v) => H - PAD - ((v - minG) / (maxG - minG || 1)) * (H - 2 * PAD);
+    panel.querySelector("#kellyLine").setAttribute("d", curve.map((v, i) => `${i === 0 ? "M" : "L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" "));
+
+    const dotIdx = (fstar / fMax) * (nPts - 1);
+    const gStar = p * Math.log(1 + fstar * b) + (1 - p) * Math.log(Math.max(1 - fstar, 1e-6));
+    panel.querySelector("#kellyDot").setAttribute("cx", x(dotIdx));
+    panel.querySelector("#kellyDot").setAttribute("cy", y(gStar));
+
+    const lines = [
+      `${S.steps}`,
+      `  ${S.kellyFstar}`,
+      `  f* = ${p.toFixed(2)} - (1-${p.toFixed(2)})/${b.toFixed(2)} = ${fstar.toFixed(4)}`,
+      `  g(f*) = ${gStar.toFixed(5)}`,
+    ];
+    panel.querySelector("#kellySteps").textContent = lines.join("\n");
+  }
+
+  [pSlider, bSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// Markowitz two-asset efficient frontier demo
+// ---------------------------------------------------------------------------
+
+function mountMarkowitzDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 280, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="markoSvg">
+          <path id="markoCurve" fill="none" stroke="var(--mint)" stroke-width="2" />
+          <circle id="markoDot1" r="4.5" fill="var(--level-2)" />
+          <circle id="markoDot2" r="4.5" fill="var(--level-2)" />
+          <circle id="markoDotMin" r="5" fill="var(--level-3)" />
+        </svg>
+        <p class="demo-note" style="margin-top:8px">${S.markoChartCaption}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row">
+            <label>R1 <span class="val" id="markoR1Val">10%</span></label>
+            <input type="range" id="markoR1" min="0" max="25" step="0.5" value="10">
+          </div>
+          <div class="demo-slider-row">
+            <label>R2 <span class="val" id="markoR2Val">6%</span></label>
+            <input type="range" id="markoR2" min="0" max="25" step="0.5" value="6">
+          </div>
+          <div class="demo-slider-row">
+            <label>σ1 <span class="val" id="markoS1Val">15%</span></label>
+            <input type="range" id="markoS1" min="2" max="45" step="0.5" value="15">
+          </div>
+          <div class="demo-slider-row">
+            <label>σ2 <span class="val" id="markoS2Val">25%</span></label>
+            <input type="range" id="markoS2" min="2" max="45" step="0.5" value="25">
+          </div>
+          <div class="demo-slider-row">
+            <label>ρ (correlation) <span class="val" id="markoRhoVal">0.30</span></label>
+            <input type="range" id="markoRho" min="-1" max="1" step="0.05" value="0.30">
+          </div>
+        </div>
+        <div class="demo-steps" id="markoSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout">
+      <p class="eyebrow2">${S.inFinance}</p>
+      <p>${S.markoCallout}</p>
+    </div>
+  `;
+
+  const ids = ["markoR1", "markoR2", "markoS1", "markoS2", "markoRho"];
+  const els = ids.map((id) => panel.querySelector("#" + id));
+
+  function render() {
+    const r1 = parseFloat(els[0].value) / 100, r2 = parseFloat(els[1].value) / 100;
+    const s1 = parseFloat(els[2].value) / 100, s2 = parseFloat(els[3].value) / 100;
+    const rho = parseFloat(els[4].value);
+    panel.querySelector("#markoR1Val").textContent = (r1*100).toFixed(1) + "%";
+    panel.querySelector("#markoR2Val").textContent = (r2*100).toFixed(1) + "%";
+    panel.querySelector("#markoS1Val").textContent = (s1*100).toFixed(1) + "%";
+    panel.querySelector("#markoS2Val").textContent = (s2*100).toFixed(1) + "%";
+    panel.querySelector("#markoRhoVal").textContent = rho.toFixed(2);
+
+    const nPts = 80;
+    const pts = [];
+    for (let i = 0; i < nPts; i++) {
+      const w = -0.4 + (i / (nPts - 1)) * 1.8; // allow slight short-selling to reveal full curve
+      const ret = w * r1 + (1 - w) * r2;
+      const vol = Math.sqrt(w*w*s1*s1 + (1-w)*(1-w)*s2*s2 + 2*w*(1-w)*rho*s1*s2);
+      pts.push([vol, ret]);
+    }
+    const volMax = Math.max(...pts.map((p) => p[0]), s1, s2) * 1.1;
+    const retVals = pts.map((p) => p[1]);
+    const retMax = Math.max(...retVals, r1, r2) * 1.15;
+    const retMin = Math.min(...retVals, r1, r2, 0) - 0.01;
+    const x = (v) => PAD + (v / volMax) * (W - 2 * PAD);
+    const y = (v) => H - PAD - ((v - retMin) / (retMax - retMin)) * (H - 2 * PAD);
+
+    panel.querySelector("#markoCurve").setAttribute("d", pts.map((p, i) => `${i === 0 ? "M" : "L"} ${x(p[0]).toFixed(1)} ${y(p[1]).toFixed(1)}`).join(" "));
+    panel.querySelector("#markoDot1").setAttribute("cx", x(s1)); panel.querySelector("#markoDot1").setAttribute("cy", y(r1));
+    panel.querySelector("#markoDot2").setAttribute("cx", x(s2)); panel.querySelector("#markoDot2").setAttribute("cy", y(r2));
+
+    const denom = s1*s1 + s2*s2 - 2*rho*s1*s2;
+    const wmv = denom !== 0 ? (s2*s2 - rho*s1*s2) / denom : 0.5;
+    const volMin = Math.sqrt(wmv*wmv*s1*s1 + (1-wmv)*(1-wmv)*s2*s2 + 2*wmv*(1-wmv)*rho*s1*s2);
+    const retMin_ = wmv * r1 + (1 - wmv) * r2;
+    panel.querySelector("#markoDotMin").setAttribute("cx", x(volMin)); panel.querySelector("#markoDotMin").setAttribute("cy", y(retMin_));
+
+    const lines = [
+      `${S.steps}`,
+      `  σp(w) = √(w²σ1² + (1-w)²σ2² + 2w(1-w)ρσ1σ2)`,
+      `  ${S.markoMinVar} ${wmv.toFixed(3)}`,
+      `  σp(wmv) = ${(volMin*100).toFixed(2)}%,  Rp(wmv) = ${(retMin_*100).toFixed(2)}%`,
+    ];
+    panel.querySelector("#markoSteps").textContent = lines.join("\n");
+  }
+
+  els.forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// Parametric (Variance-Covariance) VaR demo
+// ---------------------------------------------------------------------------
+
+function invNormCDF(p) {
+  const a = [-3.969683028665376e+01, 2.209460984245205e+02, -2.759285104469687e+02, 1.383577518672690e+02, -3.066479806614716e+01, 2.506628277459239e+00];
+  const b = [-5.447609879822406e+01, 1.615858368580409e+02, -1.556989798598866e+02, 6.680131188771972e+01, -1.328068155288572e+01];
+  const c = [-7.784894002430293e-03, -3.223964580411365e-01, -2.400758277161838e+00, -2.549732539343734e+00, 4.374664141464968e+00, 2.938163982698783e+00];
+  const d = [7.784695709041462e-03, 3.224671290700398e-01, 2.445134137142996e+00, 3.754408661907416e+00];
+  const plow = 0.02425, phigh = 1 - plow;
+  let q, r;
+  if (p < plow) {
+    q = Math.sqrt(-2 * Math.log(p));
+    return (((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5]) / ((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);
+  } else if (p <= phigh) {
+    q = p - 0.5; r = q * q;
+    return (((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5]) * q / (((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1);
+  } else {
+    q = Math.sqrt(-2 * Math.log(1 - p));
+    return -(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5]) / ((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);
+  }
+}
+function normPDF(x) { return Math.exp(-x*x/2) / Math.sqrt(2*Math.PI); }
+
+function mountVarDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="varSvg">
+          <path id="varArea" fill="var(--level-3)" opacity="0.35" stroke="none" />
+          <path id="varCurve" fill="none" stroke="var(--mint)" stroke-width="2" />
+        </svg>
+        <p class="demo-note" style="margin-top:8px">${S.varChartCaption}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row">
+            <label>${LANG === "uk" ? "довірчий рівень" : "confidence level"} <span class="val" id="varConfVal">95%</span></label>
+            <input type="range" id="varConf" min="90" max="99.9" step="0.1" value="95">
+          </div>
+          <div class="demo-slider-row">
+            <label>σ (${LANG === "uk" ? "річна волатильність" : "annual volatility"}) <span class="val" id="varSigVal">20%</span></label>
+            <input type="range" id="varSig" min="5" max="60" step="1" value="20">
+          </div>
+          <div class="demo-slider-row">
+            <label>${LANG === "uk" ? "горизонт (днів)" : "horizon (days)"} <span class="val" id="varHVal">1</span></label>
+            <input type="range" id="varH" min="1" max="20" step="1" value="1">
+          </div>
+        </div>
+        <div class="demo-steps" id="varSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout">
+      <p class="eyebrow2">${S.inFinance}</p>
+      <p>${S.varCallout}</p>
+    </div>
+  `;
+
+  const confSlider = panel.querySelector("#varConf");
+  const sigSlider = panel.querySelector("#varSig");
+  const hSlider = panel.querySelector("#varH");
+  const PV = 1000000;
+
+  function render() {
+    const conf = parseFloat(confSlider.value) / 100;
+    const sigmaAnnual = parseFloat(sigSlider.value) / 100;
+    const h = parseInt(hSlider.value, 10);
+    panel.querySelector("#varConfVal").textContent = (conf*100).toFixed(1) + "%";
+    panel.querySelector("#varSigVal").textContent = (sigmaAnnual*100).toFixed(0) + "%";
+    panel.querySelector("#varHVal").textContent = h;
+
+    const z = invNormCDF(conf);
+    const sigmaH = sigmaAnnual * Math.sqrt(h / 252);
+    const varAmount = PV * z * sigmaH;
+
+    const nPts = 100;
+    const xMin = -4, xMax = 4;
+    const x = (i) => PAD + (i / (nPts - 1)) * (W - 2 * PAD);
+    const xVal = (i) => xMin + (i / (nPts - 1)) * (xMax - xMin);
+    const pdfVals = [];
+    for (let i = 0; i < nPts; i++) pdfVals.push(normPDF(xVal(i)));
+    const maxPdf = Math.max(...pdfVals);
+    const y = (v) => H - PAD - (v / maxPdf) * (H - 2 * PAD);
+
+    panel.querySelector("#varCurve").setAttribute("d", pdfVals.map((v, i) => `${i === 0 ? "M" : "L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" "));
+
+    const cutoffZ = -z;
+    let areaPts = `M ${x(0).toFixed(1)} ${y(0).toFixed(1)} `;
+    for (let i = 0; i < nPts; i++) {
+      if (xVal(i) <= cutoffZ) areaPts += `L ${x(i).toFixed(1)} ${y(pdfVals[i]).toFixed(1)} `;
+    }
+    const cutoffX = PAD + ((cutoffZ - xMin) / (xMax - xMin)) * (W - 2 * PAD);
+    areaPts += `L ${cutoffX.toFixed(1)} ${y(0).toFixed(1)} Z`;
+    panel.querySelector("#varArea").setAttribute("d", areaPts);
+
+    const lines = [
+      `${S.steps}`,
+      `  z(${(conf*100).toFixed(1)}%) = ${z.toFixed(4)}`,
+      `  σ_h = σ·√(h/252) = ${sigmaAnnual.toFixed(2)}·√(${h}/252) = ${sigmaH.toFixed(4)}`,
+      `  ${S.varResult} PV·z·σ_h = ${PV.toLocaleString()}·${z.toFixed(3)}·${sigmaH.toFixed(4)}`,
+      `  ${S.varResult} $${Math.round(varAmount).toLocaleString()}`,
+    ];
+    panel.querySelector("#varSteps").textContent = lines.join("\n");
+  }
+
+  [confSlider, sigSlider, hSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// Kalman Filter (1-D local-level model) demo
+// ---------------------------------------------------------------------------
+
+const KALMAN_TRUE = [50.15, 50.4, 50.746, 51.184, 51.705, 52.299, 52.954, 53.655, 54.388, 55.137, 55.884, 56.614, 57.309, 57.956, 58.54, 59.049, 59.473, 59.805, 60.04, 60.175, 60.21, 60.15, 59.999, 59.766, 59.462, 59.099, 58.692, 58.256, 57.806, 57.361, 56.935, 56.546, 56.208, 55.935, 55.738, 55.627, 55.609, 55.689, 55.87, 56.149];
+const KALMAN_MEAS = [47.09, 51.344, 53.233, 49.901, 48.383, 52.135, 54.149, 56.4, 51.348, 51.905, 57.649, 57.799, 61.143, 60.412, 58.286, 58.363, 65.899, 59.083, 58.078, 57.329, 60.449, 60.513, 59.137, 59.611, 60.145, 60.83, 61.434, 58.781, 53.332, 59.115, 53.386, 56.117, 52.524, 55.94, 53.792, 56.162, 63.86, 55.567, 57.976, 52.841];
+
+function kalmanRun(Q, R) {
+  let x = KALMAN_MEAS[0], P = 4;
+  const est = [x];
+  for (let i = 1; i < KALMAN_MEAS.length; i++) {
+    const xPred = x, PPred = P + Q;
+    const K = PPred / (PPred + R);
+    x = xPred + K * (KALMAN_MEAS[i] - xPred);
+    P = (1 - K) * PPred;
+    est.push(x);
+  }
+  return est;
+}
+
+function mountKalmanDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 28;
+  const n = KALMAN_TRUE.length;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="kalmanSvg">
+          <path id="kalmanTruePath" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4 3" />
+          <path id="kalmanEstPath" fill="none" stroke="var(--mint)" stroke-width="2" />
+          <g id="kalmanDots"></g>
+        </svg>
+        <p class="demo-note" style="margin-top:8px">${S.kalmanChartCaption}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row">
+            <label>Q (process noise) <span class="val" id="kalmanQVal">0.50</span></label>
+            <input type="range" id="kalmanQ" min="0.01" max="5" step="0.01" value="0.50">
+          </div>
+          <div class="demo-slider-row">
+            <label>R (measurement noise) <span class="val" id="kalmanRVal">6.0</span></label>
+            <input type="range" id="kalmanR" min="0.5" max="15" step="0.1" value="6.0">
+          </div>
+        </div>
+        <div class="demo-steps" id="kalmanSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout">
+      <p class="eyebrow2">${S.inFinance}</p>
+      <p>${S.kalmanCallout}</p>
+    </div>
+  `;
+
+  const qSlider = panel.querySelector("#kalmanQ");
+  const rSlider = panel.querySelector("#kalmanR");
+
+  const allVals = KALMAN_TRUE.concat(KALMAN_MEAS);
+  const vMin = Math.min(...allVals) - 2, vMax = Math.max(...allVals) + 2;
+  const x = (i) => PAD + (i / (n - 1)) * (W - 2 * PAD);
+  const y = (v) => H - PAD - ((v - vMin) / (vMax - vMin)) * (H - 2 * PAD);
+
+  panel.querySelector("#kalmanTruePath").setAttribute(
+    "d", KALMAN_TRUE.map((v, i) => `${i === 0 ? "M" : "L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ")
+  );
+  panel.querySelector("#kalmanDots").innerHTML = KALMAN_MEAS.map(
+    (v, i) => `<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="2.5" fill="var(--level-2)" opacity="0.6" />`
+  ).join("");
+
+  function render() {
+    const Q = parseFloat(qSlider.value);
+    const R = parseFloat(rSlider.value);
+    panel.querySelector("#kalmanQVal").textContent = Q.toFixed(2);
+    panel.querySelector("#kalmanRVal").textContent = R.toFixed(1);
+
+    const est = kalmanRun(Q, R);
+    panel.querySelector("#kalmanEstPath").setAttribute("d", est.map((v, i) => `${i === 0 ? "M" : "L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" "));
+
+    function rmse(a, b) { let s = 0; for (let i = 0; i < a.length; i++) s += (a[i]-b[i])**2; return Math.sqrt(s/a.length); }
+    const rmseFilter = rmse(est, KALMAN_TRUE);
+    const rmseRaw = rmse(KALMAN_MEAS, KALMAN_TRUE);
+
+    const K1 = (4 + Q) / (4 + Q + R);
+    const x1 = KALMAN_MEAS[0] + K1 * (KALMAN_MEAS[1] - KALMAN_MEAS[0]);
+
+    const lines = [
+      `${S.steps}`,
+      `  K1 = P_pred/(P_pred+R) = ${K1.toFixed(4)}`,
+      `  x1 = x0 + K1·(y1 - x0) = ${x1.toFixed(3)}`,
+      ``,
+      `  ${S.kalmanRmse}:`,
+      `  RMSE(filter) = ${rmseFilter.toFixed(3)}   RMSE(raw) = ${rmseRaw.toFixed(3)}`,
+    ];
+    panel.querySelector("#kalmanSteps").textContent = lines.join("\n");
+  }
+
+  [qSlider, rSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
 const DEMOS = {
   "volatility::GARCH(1,1)": { mount: mountGarchDemo },
   "unsupervised-outliers::Isolation Forest": { mount: mountIsoForestDemo },
   "derivatives::Black-Scholes-Merton": { mount: mountBlackScholesDemo },
+  "factor::CAPM": { mount: mountCapmDemo },
+  "portfolio::Kelly Criterion": { mount: mountKellyDemo },
+  "portfolio::Markowitz Mean-Variance": { mount: mountMarkowitzDemo },
+  "risk-measures::Parametric (Variance-Covariance) VaR": { mount: mountVarDemo },
+  "time-series::Kalman Filter (state-space)": { mount: mountKalmanDemo },
 };
 
 function applyFilters() {
