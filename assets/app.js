@@ -258,6 +258,36 @@ const DEMO_STRINGS = {
     centralityEigen: "власновекторна центральність",
     calmarCallout: "Хедж-фонди й CTA-стратегії (trend-following) часто звітують саме Calmar, а не Sharpe — інвесторів у ці стратегії найбільше цікавить психологічна витривалість до просадки капіталу, а не статистична волатильність по днях.",
     calmarDD: "просадка від піку",
+    lstmCallout: "На відміну від статичного предиктора з фіксованим вікном, LSTM накопичує інформацію в прихованому стані невизначено довго — саме тому LSTM-генератори й дискримінатори в GAN-LSTM Hybrid перевершують feedforward-архітектури на послідовних фінансових даних із довготривалою залежністю.",
+    lstmLossLbl: "похибка передбачення (MSE)",
+    transformerCallout: "Кожен рядок матриці уваги — це розподіл 'куди дивиться' токен серед усіх інших, включно з собою. У фінансових трансформерах (FEDformer, Informer) саме такий механізм дозволяє моделі динамічно зважувати, які історичні періоди найрелевантніші для поточного прогнозу — без фіксованого вікна, як у GARCH чи ARIMA.",
+    transformerScale: "температура (1/√d)",
+    vaeCallout: "β-VAE ілюструє фундаментальний компроміс: сильніша вага KL-члена (β) змушує латентний простір точніше відповідати N(0,1) — зручно для генерації нових зразків — але за рахунок гіршої реконструкції. Автоенкодери для ціноутворення активів (Gu-Kelly-Xiu) стикаються з тим самим trade-off між регуляризацією латентного простору й точністю відтворення факторів.",
+    vaeBeta: "β (вага KL-члена)",
+    vaeRecon: "похибка реконструкції",
+    vaeLatentStats: "статистика латентного простору z",
+    gnnCallout: "Кожен шар message passing 'розмиває' ознаки вузла з його сусідами — рівно так само, як GNN у моніторингу транзакцій поширює 'підозрілість' від відомого шахрайського рахунку до пов'язаних з ним рахунків через кілька кроків мережі, навіть якщо вони самі виглядають цілком нормально.",
+    gnnLayers: "кількість шарів message passing",
+    qlearningCallout: "Q-навчання не потребує моделі середовища — воно вчиться напряму з досвіду методом проб і помилок. У фінансах це основа алгоритмічних торгових агентів і систем оптимального виконання великих ордерів, де явна модель динаміки ринку невідома чи занадто складна для формалізації.",
+    qlearningEpisodes: "епізоди навчання",
+    qlearningPolicy: "вивчена політика (найкраща дія на стан)",
+    sentimentCallout: "Лексиконний підхід швидкий і повністю прозорий (на відміну від FinBERT), але вразливий до заперечень і сарказму ('не зростання, а падіння' — обидва слова зі списку скасовують одне одного неправильно). Це причина, чому на практиці лексикони часто використовують як baseline, а не фінальну модель.",
+    sentimentScore: "оцінка настрою",
+    sentimentHits: "знайдено слів зі словника",
+    shapCallout: "Ключова властивість Shapley-values — ефективність: сума внесків усіх ознак точно дорівнює різниці між прогнозом і базовим значенням, без залишку. Це єдиний метод атрибуції ознак з математично гарантованою узгодженістю — тому регулятори дедалі частіше вимагають саме SHAP для пояснення відмов у кредиті.",
+    shapSum: "сума SHAP-значень",
+    shapCheck: "має точно дорівнювати f(x) − f(baseline)",
+    wfCallout: "На відміну від звичайної k-fold крос-валідації, яка перемішує дані випадково, walk-forward завжди тренується лише на минулому й тестується на майбутньому — це єдиний коректний спосіб оцінити стратегію без витоку інформації з майбутнього (look-ahead bias), фатальної помилки бектестингу.",
+    wfFold: "фолд",
+    wfTrain: "тренування",
+    wfTest: "тест",
+    benfordCallout: "Реальні фінансові дані (суми транзакцій, бухгалтерські записи) природно слідують закону Бенфорда через мультиплікативну природу економічних процесів. Сфабриковані числа, які людина вигадує 'на око', зазвичай мають набагато рівномірніший розподіл перших цифр — саме на цьому відхиленні базуються алгоритми виявлення бухгалтерського шахрайства (forensic accounting).",
+    benfordReal: "реальні дані",
+    benfordFake: "сфабриковані дані",
+    benfordExpected: "закон Бенфорда (теорія)",
+    techCallout: "Хоча це найпростіші індикатори у весь список моделей цього атласу, RSI і смуги Боллінджера досі становлять левову частку сигналів у роздрібній алгоритмічній торгівлі — не через теоретичну перевагу, а через простоту імплементації й повну прозорість логіки для нетехнічних трейдерів.",
+    techRsiLbl: "RSI (14)",
+    techBollLbl: "смуги Боллінджера",
   },
   en: {
     steps: "steps:",
@@ -349,6 +379,36 @@ const DEMO_STRINGS = {
     centralityEigen: "eigenvector centrality",
     calmarCallout: "Hedge funds and CTA (trend-following) strategies often report Calmar rather than Sharpe — investors in these strategies care most about psychological tolerance for a drawdown, not day-to-day statistical volatility.",
     calmarDD: "drawdown from peak",
+    lstmCallout: "Unlike a static predictor with a fixed window, an LSTM accumulates information in its hidden state indefinitely — which is exactly why LSTM generators and discriminators in a GAN-LSTM Hybrid outperform feedforward architectures on sequential financial data with long-range dependency.",
+    lstmLossLbl: "prediction loss (MSE)",
+    transformerCallout: "Each row of the attention matrix is a distribution over 'where this token looks' among all others, including itself. In financial transformers (FEDformer, Informer) this exact mechanism lets the model dynamically weigh which historical periods are most relevant to the current forecast — with no fixed window, unlike GARCH or ARIMA.",
+    transformerScale: "temperature (1/√d)",
+    vaeCallout: "The β-VAE illustrates a fundamental trade-off: a stronger KL-term weight (β) forces the latent space to match N(0,1) more closely — convenient for generating new samples — at the cost of reconstruction quality. Autoencoder asset-pricing models (Gu-Kelly-Xiu) face the exact same trade-off between latent-space regularisation and factor-reconstruction accuracy.",
+    vaeBeta: "β (KL-term weight)",
+    vaeRecon: "reconstruction error",
+    vaeLatentStats: "latent-space z statistics",
+    gnnCallout: "Each message-passing layer 'blurs' a node's features with its neighbours' — exactly how a GNN in transaction monitoring propagates 'suspiciousness' from a known fraudulent account to connected accounts over several network hops, even when those accounts look entirely normal on their own.",
+    gnnLayers: "number of message-passing layers",
+    qlearningCallout: "Q-learning needs no model of the environment — it learns directly from trial-and-error experience. In finance this underlies algorithmic trading agents and optimal-execution systems for large orders, where an explicit model of market dynamics is unknown or too complex to formalise.",
+    qlearningEpisodes: "training episodes",
+    qlearningPolicy: "learned policy (best action per state)",
+    sentimentCallout: "The lexicon approach is fast and fully transparent (unlike FinBERT), but vulnerable to negation and sarcasm ('not growth, but a decline' — both listed words cancel each other incorrectly). That's why in practice lexicons are often used as a baseline, not the final model.",
+    sentimentScore: "sentiment score",
+    sentimentHits: "dictionary words matched",
+    shapCallout: "The key property of Shapley values is efficiency: the sum of every feature's contribution exactly equals the gap between the prediction and the baseline, with no leftover. It's the only feature-attribution method with a mathematically guaranteed consistency — which is why regulators increasingly require SHAP specifically to explain credit denials.",
+    shapSum: "sum of SHAP values",
+    shapCheck: "must exactly equal f(x) − f(baseline)",
+    wfCallout: "Unlike ordinary k-fold cross-validation, which shuffles data randomly, walk-forward always trains only on the past and tests on the future — the only correct way to evaluate a strategy without look-ahead bias, a fatal backtesting mistake.",
+    wfFold: "fold",
+    wfTrain: "train",
+    wfTest: "test",
+    benfordCallout: "Real financial data (transaction amounts, accounting records) naturally follows Benford's Law because of the multiplicative nature of economic processes. Fabricated numbers a person makes up 'by eye' typically have a far more uniform distribution of leading digits — that exact deviation is what forensic-accounting fraud detection is built on.",
+    benfordReal: "real data",
+    benfordFake: "fabricated data",
+    benfordExpected: "Benford's Law (theory)",
+    techCallout: "Even though these are the simplest indicators in this entire atlas, RSI and Bollinger Bands still account for the lion's share of signals in retail algorithmic trading — not from theoretical superiority, but from ease of implementation and complete transparency of logic for non-technical traders.",
+    techRsiLbl: "RSI (14)",
+    techBollLbl: "Bollinger Bands",
   },
 };
 
@@ -3300,6 +3360,757 @@ function mountCalmarDemo(panel) {
 }
 
 
+// ---------------------------------------------------------------------------
+// 26. LSTM — real one-step predictor trained via numerical BPTT on an AR(2)
+// series with genuine 2-lag memory, so the learning curve is visibly clean.
+// ---------------------------------------------------------------------------
+const LSTM_DEMO_SEQ = (function () {
+  const rnd = mulberry32(5);
+  let x1 = 0, x2 = 0; const out = [x2, x1];
+  for (let i = 2; i < 40; i++) { const xv = 0.5*x1 + 0.4*x2 + 0.3*gaussFrom(rnd); out.push(xv); x2 = x1; x1 = xv; }
+  return out;
+})();
+
+function mountLstmDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="lstmDemoSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--ink-faint)">●</span> ${LANG==="uk"?"справжній ряд":"actual series"} &nbsp; <span style="color:var(--mint)">●</span> ${LANG==="uk"?"прогноз LSTM":"LSTM prediction"}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"кроки навчання":"training steps"} <span class="val" id="lstmDemoStepsVal">300</span></label><input type="range" id="lstmDemoSteps" min="0" max="600" step="20" value="300"></div>
+        </div>
+        <div class="demo-steps" id="lstmDemoStepsPanel"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.lstmCallout}</p></div>
+  `;
+
+  const stepsSlider = panel.querySelector("#lstmDemoSteps");
+  const svg = panel.querySelector("#lstmDemoSvg");
+
+  function render() {
+    const steps = parseInt(stepsSlider.value, 10);
+    panel.querySelector("#lstmDemoStepsVal").textContent = steps;
+
+    const { loss, preds } = trainLstmCell(LSTM_DEMO_SEQ, steps, 0.3);
+    const actual = LSTM_DEMO_SEQ.slice(1);
+    const allVals = actual.concat(preds);
+    const yMin = Math.min(...allVals)-0.2, yMax = Math.max(...allVals)+0.2;
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: actual.length-1, yMin, yMax, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(1), xLabel: "t", yLabel: "x" });
+    const actualPath = actual.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const predPath = preds.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg
+      + `<path d="${actualPath}" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4 3" />`
+      + `<path d="${predPath}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    const lines = [`${S.steps}`, `  ${LANG==="uk"?"дані: AR(2)-ряд зі справжньою 2-лаговою пам'яттю":"data: an AR(2) series with genuine 2-lag memory"}`, `  ${S.lstmLossLbl} = ${loss.toExponential(3)}`];
+    panel.querySelector("#lstmDemoStepsPanel").textContent = lines.join("\n");
+  }
+  stepsSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 27. Transformer — real scaled dot-product self-attention on a toy sequence
+// ---------------------------------------------------------------------------
+function softmaxFn(arr) { const m = Math.max(...arr); const ex = arr.map((v)=>Math.exp(v-m)); const s = ex.reduce((a,b)=>a+b,0); return ex.map((v)=>v/s); }
+function selfAttention(Q, K, V, scale) {
+  const scores = Q.map((qi) => K.map((kj) => qi.reduce((s,v,d)=>s+v*kj[d],0)/scale));
+  const weights = scores.map((row) => softmaxFn(row));
+  const out = weights.map((row) => {
+    const o = new Array(V[0].length).fill(0);
+    row.forEach((w,j) => { V[j].forEach((v,d) => { o[d] += w*v; }); });
+    return o;
+  });
+  return { weights, out };
+}
+const TRANSFORMER_TOKENS = ["price↑", "price↓", "price↑↑", "price flat"];
+const TRANSFORMER_Q = [[1,0],[0,1],[1,1],[-1,0]];
+const TRANSFORMER_V = [[1,0],[0,1],[0.5,0.5],[-1,-1]];
+
+function mountTransformerDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const cellSize = 46, gridPad = 90;
+  const n = TRANSFORMER_TOKENS.length;
+  const W = gridPad + cellSize*n + 20, H = gridPad + cellSize*n + 20;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="attnSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${S.transformerScale} <span class="val" id="attnScaleVal">0.71</span></label><input type="range" id="attnScale" min="0.2" max="3" step="0.05" value="0.71"></div>
+        </div>
+        <div class="demo-steps" id="attnSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.transformerCallout}</p></div>
+  `;
+
+  const scaleSlider = panel.querySelector("#attnScale");
+  const svg = panel.querySelector("#attnSvg");
+
+  function render() {
+    const invScale = parseFloat(scaleSlider.value);
+    panel.querySelector("#attnScaleVal").textContent = invScale.toFixed(2);
+    const scale = 1/invScale;
+
+    const { weights } = selfAttention(TRANSFORMER_Q, TRANSFORMER_Q, TRANSFORMER_V, scale);
+
+    let cells = "";
+    for (let i = 0; i < n; i++) {
+      cells += `<text x="${gridPad-8}" y="${gridPad+i*cellSize+cellSize/2+4}" text-anchor="end" font-family="var(--mono)" font-size="10" fill="var(--ink-soft)">${TRANSFORMER_TOKENS[i]}</text>`;
+      cells += `<text x="${gridPad+i*cellSize+cellSize/2}" y="${gridPad-10}" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-soft)" transform="rotate(-30 ${gridPad+i*cellSize+cellSize/2} ${gridPad-10})">${TRANSFORMER_TOKENS[i]}</text>`;
+      for (let j = 0; j < n; j++) {
+        const w = weights[i][j];
+        const cx = gridPad + j*cellSize, cy = gridPad + i*cellSize;
+        cells += `<rect x="${cx}" y="${cy}" width="${cellSize-2}" height="${cellSize-2}" fill="var(--mint)" opacity="${w.toFixed(3)}" />`;
+        cells += `<text x="${cx+cellSize/2-1}" y="${cy+cellSize/2+3}" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="${w>0.4?'var(--bg)':'var(--ink-soft)'}">${w.toFixed(2)}</text>`;
+      }
+    }
+    svg.innerHTML = cells;
+
+    const lines = [`${S.steps}`, `  scores = Q·Kᵀ / √scale`, `  weights = softmax(scores)`, `  ${LANG==="uk"?"рядок 0 сума":"row 0 sum"} = ${weights[0].reduce((a,b)=>a+b,0).toFixed(4)} (${LANG==="uk"?"завжди 1":"always 1"})`];
+    panel.querySelector("#attnSteps").textContent = lines.join("\n");
+  }
+  scaleSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 28. Variational Autoencoder — real ELBO gradient descent (beta-VAE)
+// ---------------------------------------------------------------------------
+function trainVae(steps, lr, betaKL, seed) {
+  const rnd = mulberry32(seed);
+  const dataMean = 3, dataStd = 1.5;
+  let a=0.5,b=0,c=0,d=0,e=0.5,f=0;
+  const batch = 8;
+  for (let s = 0; s < steps; s++) {
+    let ga=0,gb=0,gc=0,gd=0,ge=0,gf=0;
+    for (let i = 0; i < batch; i++) {
+      const xv = dataMean + dataStd*gaussFrom(rnd);
+      const mu = a*xv+b, logvar = c*xv+d;
+      const std = Math.exp(0.5*logvar);
+      const epsv = gaussFrom(rnd);
+      const z = mu + std*epsv;
+      const xhat = e*z+f;
+      const dRecon_dxhat = 2*(xhat-xv);
+      ge += dRecon_dxhat*z; gf += dRecon_dxhat;
+      const dRecon_dmu = dRecon_dxhat*e;
+      const dRecon_dlogvar = dRecon_dxhat*e*0.5*std*epsv;
+      const dKL_dmu = mu, dKL_dlogvar = 0.5*(Math.exp(logvar)-1);
+      const dLoss_dmu = dRecon_dmu + betaKL*dKL_dmu;
+      const dLoss_dlogvar = dRecon_dlogvar + betaKL*dKL_dlogvar;
+      ga += dLoss_dmu*xv; gb += dLoss_dmu;
+      gc += dLoss_dlogvar*xv; gd += dLoss_dlogvar;
+    }
+    a -= lr*ga/batch; b -= lr*gb/batch; c -= lr*gc/batch; d -= lr*gd/batch; e -= lr*ge/batch; f -= lr*gf/batch;
+  }
+  const testRnd = mulberry32(seed+1);
+  const N = 300; const zs = []; let reconErr = 0;
+  for (let i = 0; i < N; i++) {
+    const xv = dataMean + dataStd*gaussFrom(testRnd);
+    const mu = a*xv+b, logvar = c*xv+d, std = Math.exp(0.5*logvar);
+    const z = mu + std*gaussFrom(testRnd);
+    zs.push(z);
+    reconErr += (e*z+f-xv)**2;
+  }
+  const latentMean = zs.reduce((s,v)=>s+v,0)/N;
+  const latentVar = zs.reduce((s,v)=>s+(v-latentMean)**2,0)/N;
+  return { a,b,c,d,e,f, reconErr: reconErr/N, latentMean, latentVar, zs };
+}
+
+function mountVaeDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="vaeSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--ink-faint)">●</span> N(0,1) target &nbsp; <span style="color:var(--mint)">●</span> ${LANG==="uk"?"розподіл z":"z distribution"}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${S.vaeBeta} <span class="val" id="vaeBetaVal">0.30</span></label><input type="range" id="vaeBeta" min="0.001" max="2" step="0.01" value="0.30"></div>
+        </div>
+        <div class="demo-steps" id="vaeSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.vaeCallout}</p></div>
+  `;
+
+  const betaSlider = panel.querySelector("#vaeBeta");
+  const svg = panel.querySelector("#vaeSvg");
+
+  function render() {
+    const betaKL = parseFloat(betaSlider.value);
+    panel.querySelector("#vaeBetaVal").textContent = betaKL.toFixed(2);
+
+    const { reconErr, latentMean, latentVar, zs } = trainVae(250, 0.015, betaKL, 5);
+
+    const xMin = -6, xMax = 8;
+    const nBins = 35;
+    const counts = new Array(nBins).fill(0);
+    for (const v of zs) { const bi = Math.min(nBins-1, Math.max(0, Math.floor((v-xMin)/(xMax-xMin)*nBins))); counts[bi]++; }
+    const maxCount = Math.max(...counts, 1);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin: 0, yMax: maxCount, xTicks: 5, yTicks: 0, xFmt: (v)=>v.toFixed(0), yFmt: ()=>"", xLabel: "z" });
+    let bars = "";
+    for (let i = 0; i < nBins; i++) {
+      const bx = xMin + (i/nBins)*(xMax-xMin);
+      const h = (counts[i]/maxCount)*(H-2*PAD);
+      bars += `<rect x="${x(bx).toFixed(1)}" y="${(H-PAD-h).toFixed(1)}" width="${((x(bx+(xMax-xMin)/nBins)-x(bx))-1).toFixed(1)}" height="${h.toFixed(1)}" fill="var(--mint)" opacity="0.8" />`;
+    }
+    // overlay standard normal target curve (scaled to same peak height for visual comparison)
+    const nPts=80; const stdCurve=[];
+    for (let i=0;i<nPts;i++){ const xv=xMin+(i/(nPts-1))*(xMax-xMin); stdCurve.push(normPDF(xv)); }
+    const maxStd = Math.max(...stdCurve);
+    const stdPath = stdCurve.map((v,i)=>`${i===0?"M":"L"} ${x(xMin+(i/(nPts-1))*(xMax-xMin)).toFixed(1)} ${(H-PAD-(v/maxStd)*(H-2*PAD)*0.9).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + bars + `<path d="${stdPath}" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4 3" />`;
+
+    const lines = [`${S.steps}`, `  ${S.vaeRecon} = ${reconErr.toFixed(3)}`, `  ${S.vaeLatentStats}: mean=${latentMean.toFixed(2)}  var=${latentVar.toFixed(2)}`, `  (${LANG==="uk"?"мета: mean→0, var→1":"target: mean→0, var→1"})`];
+    panel.querySelector("#vaeSteps").textContent = lines.join("\n");
+  }
+  betaSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 29. Graph Neural Network — real GCN message-passing
+// ---------------------------------------------------------------------------
+function gcnLayer(Ahat, H, Wm) {
+  const AH = Ahat.map((row) => { const out = new Array(H[0].length).fill(0); row.forEach((a,j) => { H[j].forEach((h,d) => { out[d] += a*h; }); }); return out; });
+  const AHW = AH.map((row) => Wm[0].map((_,c2) => row.reduce((s,v,r)=>s+v*Wm[r][c2],0)));
+  return AHW.map((row) => row.map((v) => Math.max(0,v)));
+}
+function normalizeAdjGnn(A) {
+  const n = A.length;
+  const Aself = A.map((row,i) => row.map((v,j) => v+(i===j?1:0)));
+  const deg = Aself.map((row) => row.reduce((a,b)=>a+b,0));
+  return Aself.map((row,i) => row.map((v,j) => v/Math.sqrt(deg[i]*deg[j])));
+}
+const GNN_ADJ = [[0,1,1,0,0,0],[1,0,0,0,0,0],[1,0,0,0,0,0],[0,0,0,0,1,0],[0,0,0,1,0,1],[0,0,0,0,1,0]];
+const GNN_POS = [[170,150],[80,90],[80,210],[280,90],[280,150],[280,210]];
+const GNN_H0 = [[1,0],[0.9,0.1],[0.8,0.2],[0,1],[0.1,0.9],[0.2,0.8]];
+const GNN_AHAT = normalizeAdjGnn(GNN_ADJ);
+const GNN_W = [[1,0],[0,1]];
+
+function mountGnnDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 300;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="gnnSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${S.gnnLayers} <span class="val" id="gnnLayersVal">1</span></label><input type="range" id="gnnLayers" min="0" max="4" step="1" value="1"></div>
+        </div>
+        <div class="demo-steps" id="gnnSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.gnnCallout}</p></div>
+  `;
+
+  const layersSlider = panel.querySelector("#gnnLayers");
+  const svg = panel.querySelector("#gnnSvg");
+
+  function render() {
+    const nLayers = parseInt(layersSlider.value, 10);
+    panel.querySelector("#gnnLayersVal").textContent = nLayers;
+
+    let H_cur = GNN_H0;
+    for (let l = 0; l < nLayers; l++) H_cur = gcnLayer(GNN_AHAT, H_cur, GNN_W);
+
+    let edges = "";
+    for (let i = 0; i < GNN_ADJ.length; i++) for (let j = i+1; j < GNN_ADJ.length; j++) {
+      if (GNN_ADJ[i][j]) edges += `<line x1="${GNN_POS[i][0]}" y1="${GNN_POS[i][1]}" x2="${GNN_POS[j][0]}" y2="${GNN_POS[j][1]}" stroke="var(--rule)" stroke-width="1.5" />`;
+    }
+    const nodes = GNN_POS.map((p,i) => {
+      const feat = H_cur[i];
+      const t2 = Math.max(0, Math.min(1, feat[1]/(feat[0]+feat[1]+1e-6)));
+      const col = `color-mix(in srgb, var(--mint) ${Math.round((1-t2)*100)}%, var(--level-2))`;
+      return `<circle cx="${p[0]}" cy="${p[1]}" r="16" fill="${col}" opacity="0.85" />`;
+    }).join("");
+    svg.innerHTML = edges + nodes;
+
+    const lines = [`${S.steps}`, `  H' = ReLU(Â·H·W)`, `  ${LANG==="uk"?"ознаки вузлів":"node features"}:`, H_cur.map((f,i)=>`  [${i}]: (${f[0].toFixed(2)}, ${f[1].toFixed(2)})`).join("\n")];
+    panel.querySelector("#gnnSteps").textContent = lines.join("\n");
+  }
+  layersSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 30. Q-Learning — real tabular RL on a mean-reverting trading environment
+// ---------------------------------------------------------------------------
+function qlearningEnvStep(state, rnd) {
+  let nextRet;
+  if (state === 2) nextRet = gaussFrom(rnd)*0.01 - 0.003;
+  else if (state === 0) nextRet = gaussFrom(rnd)*0.01 + 0.003;
+  else nextRet = gaussFrom(rnd)*0.01;
+  const nextState = nextRet > 0.002 ? 2 : nextRet < -0.002 ? 0 : 1;
+  return { nextRet, nextState };
+}
+function trainQLearning(episodes, alpha, gammaV, epsilon, rnd) {
+  const nStates = 3, nActions = 3;
+  let Q = Array.from({length:nStates}, () => new Array(nActions).fill(0));
+  const positionMap = [-1,0,1];
+  for (let ep = 0; ep < episodes; ep++) {
+    let state = 1;
+    for (let t = 0; t < 20; t++) {
+      let action;
+      if (rnd() < epsilon) action = Math.floor(rnd()*nActions);
+      else action = Q[state].indexOf(Math.max(...Q[state]));
+      const { nextRet, nextState } = qlearningEnvStep(state, rnd);
+      const reward = positionMap[action]*nextRet;
+      Q[state][action] += alpha*(reward + gammaV*Math.max(...Q[nextState]) - Q[state][action]);
+      state = nextState;
+    }
+  }
+  return Q;
+}
+
+function mountQlearningDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 220, PAD = 30;
+  const stateLabels = LANG==="uk" ? ["впало","стабільно","зросло"] : ["fell","flat","rose"];
+  const actionLabels = LANG==="uk" ? ["продати","тримати","купити"] : ["sell","hold","buy"];
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="qlSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${S.qlearningEpisodes} <span class="val" id="qlEpVal">400</span></label><input type="range" id="qlEp" min="0" max="1000" step="20" value="400"></div>
+        </div>
+        <div class="demo-steps" id="qlSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.qlearningCallout}</p></div>
+  `;
+
+  const epSlider = panel.querySelector("#qlEp");
+  const svg = panel.querySelector("#qlSvg");
+  const cellW = 70, cellH = 40;
+
+  function render() {
+    const episodes = parseInt(epSlider.value, 10);
+    panel.querySelector("#qlEpVal").textContent = episodes;
+
+    const rnd = mulberry32(3);
+    const Q = trainQLearning(episodes, 0.1, 0.9, 0.2, rnd);
+    const flat = Q.flat();
+    const maxQ = Math.max(...flat.map(Math.abs), 1e-6);
+
+    let cells = "";
+    for (let s = 0; s < 3; s++) {
+      cells += `<text x="${PAD-6}" y="${PAD+s*cellH+cellH/2+4}" text-anchor="end" font-family="var(--mono)" font-size="10" fill="var(--ink-soft)">${stateLabels[s]}</text>`;
+      for (let a = 0; a < 3; a++) {
+        const v = Q[s][a];
+        const t2 = (v/maxQ+1)/2;
+        const col = t2>0.5 ? `color-mix(in srgb, var(--mint) ${Math.round((t2-0.5)*200)}%, var(--card))` : `color-mix(in srgb, var(--level-3) ${Math.round((0.5-t2)*200)}%, var(--card))`;
+        const cx = PAD+40+a*cellW, cy = PAD+s*cellH;
+        const isBest = Q[s].indexOf(Math.max(...Q[s])) === a;
+        cells += `<rect x="${cx}" y="${cy}" width="${cellW-4}" height="${cellH-4}" fill="${col}" stroke="${isBest?'var(--level-2)':'var(--rule)'}" stroke-width="${isBest?2:1}" />`;
+        cells += `<text x="${cx+(cellW-4)/2}" y="${cy+(cellH-4)/2+4}" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink)">${v.toFixed(3)}</text>`;
+      }
+    }
+    for (let a=0;a<3;a++) cells += `<text x="${PAD+40+a*cellW+(cellW-4)/2}" y="${PAD-8}" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-soft)">${actionLabels[a]}</text>`;
+    svg.innerHTML = cells;
+
+    const policy = Q.map((row) => actionLabels[row.indexOf(Math.max(...row))]);
+    const lines = [`${S.steps}`, `  Q(s,a) ← Q(s,a) + α[r + γ·max Q(s',a') − Q(s,a)]`, `  ${S.qlearningPolicy}:`, `  ${stateLabels[0]}→${policy[0]}   ${stateLabels[1]}→${policy[1]}   ${stateLabels[2]}→${policy[2]}`];
+    panel.querySelector("#qlSteps").textContent = lines.join("\n");
+  }
+  epSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 31. Lexicon-based sentiment scoring
+// ---------------------------------------------------------------------------
+const SENTIMENT_LEXICON = {
+  surge:2, growth:2, beat:2, strong:1, record:2, gain:1, rally:2, upgrade:1, profit:1, outperform:2,
+  miss:-2, decline:-2, weak:-1, loss:-2, crash:-3, downgrade:-1, plunge:-3, warning:-1, cut:-1, layoffs:-2,
+};
+const SENTIMENT_HEADLINES = [
+  "Company reports record growth and strong beat on earnings",
+  "Stock plunges after profit warning and downgrade",
+  "Shares rally on unexpected gain despite market decline",
+  "Firm announces layoffs amid weak outlook and cut guidance",
+];
+function scoreSentiment(text) {
+  const words = text.toLowerCase().split(/\W+/);
+  let score = 0, hits = 0;
+  const matched = [];
+  for (const w of words) if (SENTIMENT_LEXICON[w] !== undefined) { score += SENTIMENT_LEXICON[w]; hits++; matched.push([w,SENTIMENT_LEXICON[w]]); }
+  return { score, hits, matched };
+}
+
+function mountSentimentDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 220, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="sentSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"заголовок":"headline"} <span class="val" id="sentIdxVal">1</span></label><input type="range" id="sentIdx" min="0" max="${SENTIMENT_HEADLINES.length-1}" step="1" value="0"></div>
+        </div>
+        <div class="demo-steps" id="sentSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.sentimentCallout}</p></div>
+  `;
+
+  const idxSlider = panel.querySelector("#sentIdx");
+  const svg = panel.querySelector("#sentSvg");
+
+  function render() {
+    const idx = parseInt(idxSlider.value, 10);
+    panel.querySelector("#sentIdxVal").textContent = idx+1;
+    const headline = SENTIMENT_HEADLINES[idx];
+    const { score, hits, matched } = scoreSentiment(headline);
+
+    const words = headline.split(/\s+/);
+    const xStep = (W-2*PAD)/words.length;
+    let cells = "";
+    words.forEach((w, i) => {
+      const clean = w.toLowerCase().replace(/[^a-z]/g,"");
+      const val = SENTIMENT_LEXICON[clean];
+      const col = val === undefined ? "var(--card-border)" : val > 0 ? "var(--mint)" : "var(--level-3)";
+      cells += `<rect x="${PAD+i*xStep}" y="${H/2-18}" width="${xStep-4}" height="36" fill="${col}" opacity="${val===undefined?0.15:0.7}" rx="4" />`;
+      cells += `<text x="${PAD+i*xStep+(xStep-4)/2}" y="${H/2+4}" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink)">${w}</text>`;
+    });
+    svg.innerHTML = cells;
+
+    const lines = [`${S.steps}`, `  "${headline}"`, `  ${S.sentimentScore} = ${score >= 0 ? "+" : ""}${score}`, `  ${S.sentimentHits}: ${hits} (${matched.map(([w,v])=>`${w}:${v>0?"+":""}${v}`).join(", ")})`];
+    panel.querySelector("#sentSteps").textContent = lines.join("\n");
+  }
+  idxSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 32. SHAP — exact Shapley values via full coalition enumeration
+// ---------------------------------------------------------------------------
+function shapModelPredict(features, w, bv) { return w.reduce((s,wi,i)=>s+wi*features[i],0)+bv; }
+function powersetIdx(arr) { return arr.reduce((subsets,v)=>subsets.concat(subsets.map((s)=>[...s,v])), [[]]); }
+function factorialFn(k) { return k<=1 ? 1 : k*factorialFn(k-1); }
+function shapleyValues(features, baseline, w, bv) {
+  const n = features.length;
+  const shap = new Array(n).fill(0);
+  const idx = Array.from({length:n}, (_,i)=>i);
+  const allSubsets = powersetIdx(idx);
+  for (let i = 0; i < n; i++) {
+    let total = 0;
+    for (const Sset of allSubsets) {
+      if (Sset.includes(i)) continue;
+      function valueOf(subset) { const vec = features.map((fv,j)=>subset.includes(j)?fv:baseline[j]); return shapModelPredict(vec,w,bv); }
+      const marginal = valueOf([...Sset,i]) - valueOf(Sset);
+      const weight = factorialFn(Sset.length)*factorialFn(n-Sset.length-1)/factorialFn(n);
+      total += weight*marginal;
+    }
+    shap[i] = total;
+  }
+  return shap;
+}
+const SHAP_W = [0.5,-0.3,0.8,0.2], SHAP_B = 0.1, SHAP_BASELINE = [0,0,0,0];
+const SHAP_FEATURE_NAMES = ["debt/equity","liquidity","growth","volatility"];
+
+function mountShapDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 220, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="shapSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${SHAP_FEATURE_NAMES[0]} <span class="val" id="shapF0Val">2.0</span></label><input type="range" id="shapF0" min="-3" max="3" step="0.1" value="2.0"></div>
+          <div class="demo-slider-row"><label>${SHAP_FEATURE_NAMES[1]} <span class="val" id="shapF1Val">1.0</span></label><input type="range" id="shapF1" min="-3" max="3" step="0.1" value="1.0"></div>
+          <div class="demo-slider-row"><label>${SHAP_FEATURE_NAMES[2]} <span class="val" id="shapF2Val">3.0</span></label><input type="range" id="shapF2" min="-3" max="3" step="0.1" value="3.0"></div>
+          <div class="demo-slider-row"><label>${SHAP_FEATURE_NAMES[3]} <span class="val" id="shapF3Val">0.5</span></label><input type="range" id="shapF3" min="-3" max="3" step="0.1" value="0.5"></div>
+        </div>
+        <div class="demo-steps" id="shapSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.shapCallout}</p></div>
+  `;
+
+  const els = [0,1,2,3].map((i) => panel.querySelector("#shapF"+i));
+  const svg = panel.querySelector("#shapSvg");
+
+  function render() {
+    const features = els.map((el) => parseFloat(el.value));
+    features.forEach((v,i) => { panel.querySelector(`#shapF${i}Val`).textContent = v.toFixed(1); });
+
+    const shap = shapleyValues(features, SHAP_BASELINE, SHAP_W, SHAP_B);
+    const maxAbs = Math.max(...shap.map(Math.abs), 0.1);
+    const barH = 30, gap = 12;
+    const midX = W/2;
+    let bars = "";
+    shap.forEach((v,i) => {
+      const yTop = PAD + i*(barH+gap);
+      const bw = (Math.abs(v)/maxAbs)*(W/2-PAD-20);
+      const xStart = v >= 0 ? midX : midX - bw;
+      bars += `<rect x="${xStart.toFixed(1)}" y="${yTop}" width="${bw.toFixed(1)}" height="${barH}" fill="${v>=0?'var(--mint)':'var(--level-3)'}" opacity="0.85" />`;
+      bars += `<text x="${midX < xStart ? xStart-4 : xStart+bw+4}" y="${yTop+barH/2+4}" text-anchor="${v>=0?'start':'end'}" font-family="var(--mono)" font-size="10" fill="var(--ink)">${v.toFixed(2)}</text>`;
+      bars += `<text x="10" y="${yTop+barH/2+4}" font-family="var(--mono)" font-size="10" fill="var(--ink-soft)">${SHAP_FEATURE_NAMES[i]}</text>`;
+    });
+    bars += `<line x1="${midX}" y1="${PAD-10}" x2="${midX}" y2="${PAD+4*(barH+gap)}" stroke="var(--rule)" stroke-width="1" />`;
+    svg.innerHTML = bars;
+
+    const predFull = shapModelPredict(features, SHAP_W, SHAP_B);
+    const predBaseline = shapModelPredict(SHAP_BASELINE, SHAP_W, SHAP_B);
+    const sumShap = shap.reduce((a,b)=>a+b,0);
+    const lines = [`${S.steps}`, `  ${S.shapSum} = ${sumShap.toFixed(4)}`, `  f(x)-f(baseline) = ${(predFull-predBaseline).toFixed(4)}`, `  ${S.shapCheck} ✓`];
+    panel.querySelector("#shapSteps").textContent = lines.join("\n");
+  }
+  els.forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 33. Walk-Forward Split
+// ---------------------------------------------------------------------------
+function walkForwardSplits(n, trainSize, testSize, step) {
+  const splits = [];
+  let start = 0;
+  while (start+trainSize+testSize <= n) {
+    splits.push({ trainStart:start, trainEnd:start+trainSize, testStart:start+trainSize, testEnd:start+trainSize+testSize });
+    start += step;
+  }
+  return splits;
+}
+
+function mountWalkForwardDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 220, PAD = 40;
+  const N = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="wfSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--mint)">■</span> ${S.wfTrain} &nbsp; <span style="color:var(--level-2)">■</span> ${S.wfTest}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"розмір train":"train size"} <span class="val" id="wfTrainVal">15</span></label><input type="range" id="wfTrain" min="5" max="25" step="1" value="15"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"розмір test":"test size"} <span class="val" id="wfTestVal">5</span></label><input type="range" id="wfTest" min="2" max="10" step="1" value="5"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"крок":"step"} <span class="val" id="wfStepVal">5</span></label><input type="range" id="wfStep" min="1" max="10" step="1" value="5"></div>
+        </div>
+        <div class="demo-steps" id="wfSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.wfCallout}</p></div>
+  `;
+
+  const els = ["wfTrain","wfTest","wfStep"].map((id) => panel.querySelector("#"+id));
+  const svg = panel.querySelector("#wfSvg");
+
+  function render() {
+    const [trainSize, testSize, step] = els.map((el) => parseInt(el.value,10));
+    panel.querySelector("#wfTrainVal").textContent = trainSize;
+    panel.querySelector("#wfTestVal").textContent = testSize;
+    panel.querySelector("#wfStepVal").textContent = step;
+
+    const splits = walkForwardSplits(N, trainSize, testSize, step);
+    const rowH = 18, rowGap = 4;
+    const xScale = (W-2*PAD)/N;
+    let bars = "";
+    splits.forEach((sp, i) => {
+      const yy = PAD + i*(rowH+rowGap);
+      bars += `<rect x="${PAD+sp.trainStart*xScale}" y="${yy}" width="${(sp.trainEnd-sp.trainStart)*xScale}" height="${rowH}" fill="var(--mint)" opacity="0.75" />`;
+      bars += `<rect x="${PAD+sp.testStart*xScale}" y="${yy}" width="${(sp.testEnd-sp.testStart)*xScale}" height="${rowH}" fill="var(--level-2)" opacity="0.85" />`;
+      bars += `<text x="${PAD-6}" y="${yy+rowH/2+4}" text-anchor="end" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">${i+1}</text>`;
+    });
+    const axisY = PAD + splits.length*(rowH+rowGap) + 10;
+    bars += `<line x1="${PAD}" y1="${axisY}" x2="${PAD+N*xScale}" y2="${axisY}" stroke="var(--ink-faint)" stroke-width="1" />`;
+    for (let t = 0; t <= N; t += 10) bars += `<text x="${PAD+t*xScale}" y="${axisY+14}" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">${t}</text>`;
+    svg.innerHTML = bars;
+
+    const lines = [`${S.steps}`, `  ${splits.length} ${S.wfFold}${splits.length===1?"":LANG==="uk"?"и":"s"}`];
+    panel.querySelector("#wfSteps").textContent = lines.join("\n");
+  }
+  els.forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 34. Benford's Law digit analysis
+// ---------------------------------------------------------------------------
+function leadingDigit(xv) { xv = Math.abs(xv); while (xv >= 10) xv /= 10; while (xv < 1 && xv > 0) xv *= 10; return Math.floor(xv); }
+function benfordExpected(d) { return Math.log10(1+1/d); }
+const BENFORD_REAL = (function () {
+  const rnd = mulberry32(50); const out = [];
+  for (let i = 0; i < 500; i++) { let v = 1; for (let k = 0; k < 8; k++) v *= (0.5+rnd()*1.5); out.push(v*1000); }
+  return out;
+})();
+const BENFORD_FAKE = (function () {
+  const rnd = mulberry32(51); const out = [];
+  for (let i = 0; i < 500; i++) out.push(100+rnd()*9900);
+  return out;
+})();
+function digitHistogram(data) { const counts = new Array(10).fill(0); for (const v of data) counts[leadingDigit(v)]++; return counts.map((c)=>c/data.length); }
+
+function mountBenfordDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="benSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--mint)">■</span> ${S.benfordReal} / ${S.benfordFake} &nbsp; <span style="color:var(--ink-faint)">●</span> ${S.benfordExpected}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row">
+            <label style="justify-content:flex-start;gap:10px"><input type="radio" name="benMode" id="benReal" value="real" checked style="width:auto"> ${S.benfordReal}</label>
+          </div>
+          <div class="demo-slider-row">
+            <label style="justify-content:flex-start;gap:10px"><input type="radio" name="benMode" id="benFake" value="fake" style="width:auto"> ${S.benfordFake}</label>
+          </div>
+        </div>
+        <div class="demo-steps" id="benSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.benfordCallout}</p></div>
+  `;
+
+  const realRadio = panel.querySelector("#benReal"), fakeRadio = panel.querySelector("#benFake");
+  const svg = panel.querySelector("#benSvg");
+
+  function render() {
+    const useReal = realRadio.checked;
+    const hist = digitHistogram(useReal ? BENFORD_REAL : BENFORD_FAKE);
+    const expected = Array.from({length:9}, (_,i) => benfordExpected(i+1));
+
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0.5, xMax: 9.5, yMin: 0, yMax: 0.35, xTicks: 9, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>(v*100).toFixed(0)+"%", xLabel: LANG==="uk"?"перша цифра":"leading digit", yLabel: LANG==="uk"?"частка":"frequency" });
+    let bars = "";
+    for (let d = 1; d <= 9; d++) {
+      const bw = 0.5;
+      bars += `<rect x="${(x(d-bw/2)).toFixed(1)}" y="${y(hist[d]).toFixed(1)}" width="${(x(d+bw/2)-x(d-bw/2)).toFixed(1)}" height="${(H-PAD-y(hist[d])).toFixed(1)}" fill="var(--mint)" opacity="0.8" />`;
+    }
+    const expectedPath = expected.map((v,i)=>`${i===0?"M":"L"} ${x(i+1).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const expectedDots = expected.map((v,i)=>`<circle cx="${x(i+1).toFixed(1)}" cy="${y(v).toFixed(1)}" r="3" fill="var(--ink-faint)" />`).join("");
+    svg.innerHTML = axesSvg + bars + `<path d="${expectedPath}" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4 3" />` + expectedDots;
+
+    let chi2 = 0;
+    for (let d = 1; d <= 9; d++) chi2 += ((hist[d]-expected[d-1])**2)/expected[d-1];
+    const lines = [`${S.steps}`, `  P(d) = log₁₀(1 + 1/d)`, `  χ² ${LANG==="uk"?"відхилення від закону Бенфорда":"deviation from Benford"} = ${chi2.toFixed(3)}`];
+    panel.querySelector("#benSteps").textContent = lines.join("\n");
+  }
+  [realRadio, fakeRadio].forEach((el) => el.addEventListener("change", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 35. Technical Indicators (RSI, Bollinger Bands)
+// ---------------------------------------------------------------------------
+function smaCalc(arr, period, i) { if (i<period-1) return null; let s=0; for(let k=0;k<period;k++) s+=arr[i-k]; return s/period; }
+function stdDevCalc(arr, period, i, mean) { if (i<period-1) return null; let s=0; for(let k=0;k<period;k++) s+=(arr[i-k]-mean)**2; return Math.sqrt(s/period); }
+function rsiCalc(prices, period) {
+  const out = new Array(prices.length).fill(null);
+  for (let i = period; i < prices.length; i++) {
+    let gains = 0, losses = 0;
+    for (let k = i-period+1; k <= i; k++) { const diff = prices[k]-prices[k-1]; if (diff>0) gains+=diff; else losses-=diff; }
+    const avgGain = gains/period, avgLoss = losses/period;
+    const rs = avgLoss===0 ? 100 : avgGain/avgLoss;
+    out[i] = 100 - 100/(1+rs);
+  }
+  return out;
+}
+const TECH_PRICE = (function () {
+  const rnd = mulberry32(60);
+  let price = [100];
+  for (let i = 0; i < 60; i++) price.push(price[price.length-1]*(1+gaussFrom(rnd)*0.018));
+  return price;
+})();
+
+function mountTechDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 300, PAD = 34;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="techSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"період Боллінджера":"Bollinger period"} <span class="val" id="techBollPVal">20</span></label><input type="range" id="techBollP" min="10" max="30" step="1" value="20"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"множник σ":"σ multiplier"} <span class="val" id="techBollKVal">2.0</span></label><input type="range" id="techBollK" min="1" max="3" step="0.1" value="2.0"></div>
+          <div class="demo-slider-row"><label>${S.techRsiLbl} ${LANG==="uk"?"період":"period"} <span class="val" id="techRsiPVal">14</span></label><input type="range" id="techRsiP" min="5" max="21" step="1" value="14"></div>
+        </div>
+        <div class="demo-steps" id="techSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.techCallout}</p></div>
+  `;
+
+  const els = ["techBollP","techBollK","techRsiP"].map((id) => panel.querySelector("#"+id));
+  const svg = panel.querySelector("#techSvg");
+
+  function render() {
+    const [bollPeriod, bollK, rsiPeriod] = [parseInt(els[0].value,10), parseFloat(els[1].value), parseInt(els[2].value,10)];
+    panel.querySelector("#techBollPVal").textContent = bollPeriod;
+    panel.querySelector("#techBollKVal").textContent = bollK.toFixed(1);
+    panel.querySelector("#techRsiPVal").textContent = rsiPeriod;
+
+    const upper = [], lower = [], mid = [];
+    for (let i = 0; i < TECH_PRICE.length; i++) {
+      const m = smaCalc(TECH_PRICE, bollPeriod, i);
+      const sd = m!==null ? stdDevCalc(TECH_PRICE, bollPeriod, i, m) : null;
+      mid.push(m); upper.push(m!==null ? m+bollK*sd : null); lower.push(m!==null ? m-bollK*sd : null);
+    }
+    const rsiVals = rsiCalc(TECH_PRICE, rsiPeriod);
+
+    const priceH = H*0.62, rsiH = H*0.28, gap = H*0.1;
+    const yMinP = Math.min(...TECH_PRICE)*0.95, yMaxP = Math.max(...TECH_PRICE)*1.05;
+    const { x, y } = axesSVG({ W, H: priceH+PAD, pad: PAD, xMin: 0, xMax: TECH_PRICE.length-1, yMin: yMinP, yMax: yMaxP, xTicks: 1, yTicks: 1, xFmt: ()=>"", yFmt: ()=>"" });
+    const { svg: axesSvgPrice } = axesSVG({ W, H: priceH, pad: PAD, xMin: 0, xMax: TECH_PRICE.length-1, yMin: yMinP, yMax: yMaxP, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(0), yLabel: "price" });
+
+    function pathOf(arr, yFn) { let d=""; let started=false; arr.forEach((v,i)=>{ if(v===null){started=false;return;} d+= (started?"L":"M")+` ${x(i).toFixed(1)} ${yFn(v).toFixed(1)} `; started=true; }); return d; }
+    const pricePath = pathOf(TECH_PRICE, y);
+    const upperPath = pathOf(upper, y);
+    const lowerPath = pathOf(lower, y);
+    const midPath = pathOf(mid, y);
+
+    const rsiYmin=0, rsiYmax=100;
+    const rsiY = (v) => priceH + gap + rsiH - ((v-rsiYmin)/(rsiYmax-rsiYmin))*rsiH;
+    const rsiPath = pathOf(rsiVals, rsiY);
+    const rsi30 = rsiY(30), rsi70 = rsiY(70);
+
+    svg.innerHTML = `<svg viewBox="0 0 ${W} ${H}">` + axesSvgPrice
+      + `<path d="${upperPath}" fill="none" stroke="var(--level-2)" stroke-width="1" stroke-dasharray="3 2" />`
+      + `<path d="${lowerPath}" fill="none" stroke="var(--level-2)" stroke-width="1" stroke-dasharray="3 2" />`
+      + `<path d="${midPath}" fill="none" stroke="var(--ink-faint)" stroke-width="1" stroke-dasharray="2 2" />`
+      + `<path d="${pricePath}" fill="none" stroke="var(--mint)" stroke-width="2" />`
+      + `<line x1="${PAD}" y1="${rsi30.toFixed(1)}" x2="${W-PAD}" y2="${rsi30.toFixed(1)}" stroke="var(--rule)" stroke-width="1" stroke-dasharray="2 2" />`
+      + `<line x1="${PAD}" y1="${rsi70.toFixed(1)}" x2="${W-PAD}" y2="${rsi70.toFixed(1)}" stroke="var(--rule)" stroke-width="1" stroke-dasharray="2 2" />`
+      + `<text x="${W-PAD}" y="${rsi70.toFixed(1)-3}" text-anchor="end" class="axis-tick">70</text>`
+      + `<text x="${W-PAD}" y="${rsi30.toFixed(1)-3}" text-anchor="end" class="axis-tick">30</text>`
+      + `<path d="${rsiPath}" fill="none" stroke="var(--level-3)" stroke-width="1.5" />`
+      + `</svg>`;
+
+    const lastRsi = rsiVals[rsiVals.length-1];
+    const lines = [`${S.steps}`, `  RSI = 100 − 100/(1+avgGain/avgLoss)`, `  ${LANG==="uk"?"поточний RSI":"current RSI"} = ${lastRsi?lastRsi.toFixed(1):"—"}`, `  ${LANG==="uk"?"смуги Боллінджера":"Bollinger"}: mid=${mid[mid.length-1]?.toFixed(2)} upper=${upper[upper.length-1]?.toFixed(2)} lower=${lower[lower.length-1]?.toFixed(2)}`];
+    panel.querySelector("#techSteps").textContent = lines.join("\n");
+  }
+  els.forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+
 const DEMOS = {
   "volatility::GARCH(1,1)": { mount: mountGarchDemo },
   "unsupervised-outliers::Isolation Forest": { mount: mountIsoForestDemo },
@@ -3334,6 +4145,16 @@ const DEMOS = {
   "search::Bayesian Optimization": { mount: mountBoDemo },
   "systemic::Network Centrality Measures": { mount: mountCentralityDemo },
   "metrics::Calmar Ratio / Max Drawdown": { mount: mountCalmarDemo },
+  "sequential-dl::LSTM": { mount: mountLstmDemo },
+  "attention::Transformer": { mount: mountTransformerDemo },
+  "autoencoders::Variational Autoencoder": { mount: mountVaeDemo },
+  "graph::Graph Neural Network": { mount: mountGnnDemo },
+  "rl::Q-Learning": { mount: mountQlearningDemo },
+  "nlp::Lexicon-Based Sentiment Scoring": { mount: mountSentimentDemo },
+  "xai::SHAP": { mount: mountShapDemo },
+  "validation::Walk-Forward Split": { mount: mountWalkForwardDemo },
+  "fraud::Benford's Law Digit Analysis": { mount: mountBenfordDemo },
+  "alt-data::Technical Indicators (RSI, MACD, Bollinger)": { mount: mountTechDemo },
 };
 
 function applyFilters() {
