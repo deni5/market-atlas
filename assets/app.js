@@ -214,6 +214,50 @@ const DEMO_STRINGS = {
     aucCallout: "На розбалансованих даних (мало шахрайства серед мільйонів транзакцій) ROC-крива може виглядати оманливо оптимістично, тоді як PR-крива чесно показує, що точність падає при спробі зловити більше позитивних випадків — саме тому AUPRC є надійнішою метрикою для детекції аномалій.",
     hestCallout: "На відміну від GARCH, де волатильність — детермінована функція минулих шоків, у моделі Хестона волатильність сама є випадковим процесом — це дає точнішу калібровку 'усмішки волатильності' опціонів на практиці.",
     merCallout: "Модель Мертона напряму зв'язує кредитний ризик із ринком акцій: якщо волатильність акцій компанії різко зростає, це сигналізує про зростання ймовірності дефолту ще до будь-якої зміни кредитного рейтингу.",
+    ganCallout: "Дивіться, як середнє генератора сходиться до цільового значення, а дисперсія натомість колапсує до майже нуля — це справжній mode collapse, добре задокументована патологія навчання GAN, а не помилка в цьому демо. Саме тому production-моделі на кшталт TimeGAN додають додаткові штрафи (supervised loss), щоб стабілізувати навчання.",
+    ganStepsLbl: "крок навчання",
+    ganMeanStd: "середнє / σ генератора",
+    timeganCallout: "TimeGAN додає до звичайної adversarial-втрати ще й supervised loss на збереження автокореляційної структури — без цього генератор може ідеально відтворити розподіл значень, але зруйнувати часову послідовність (як шафл праворуч при λ=0), що робить синтетичні дані непридатними для бектестингу стратегій.",
+    timeganLambda: "λ (вага збереження часової структури)",
+    timeganAcfOrig: "ACF оригіналу",
+    timeganAcfGen: "ACF згенерованого",
+    tanoganCallout: "На відміну від звичайного автоенкодера, TAnoGAN оптимізує не ваги мережі, а сам латентний вектор z для кожного тестового вікна окремо — якщо навіть найкращий можливий z не може відтворити вікно, воно виходить за межі 'многовиду нормальності', вивченого генератором.",
+    tanoganWindow: "тестове вікно (індекс початку)",
+    tanoganSteps: "кроки градієнтного спуску",
+    tanoganLoss: "похибка реконструкції",
+    tanoganRegime: "режим",
+    ganlstmCallout: "Одновузловий LSTM тут реально натренований через backpropagation-through-time і вдвічі точніший за 'статичний' (без пам'яті) предиктор саме на ряді з дволаговою залежністю — це і є механічна причина, чому GAN з LSTM-генератором/дискримінатором перевершує звичайні feedforward-GAN на послідовних фінансових даних.",
+    ganlstmSteps: "кроки навчання",
+    ganlstmLoss: "похибка передбачення (MSE)",
+    diffusionCallout: "Прямий дифузійний процес — точна, аналітична формула (без навчання): будь-яка складна структура даних, включно з мультимодальним розподілом дохідностей у різних ринкових режимах, поступово перетворюється на чистий гаусів шум. Модель навчається лише зворотному кроку — прибирати цей шум крок за кроком — саме тому дифузійні моделі можуть генерувати реалістичні синтетичні ринкові сценарії з нуля.",
+    diffusionStep: "крок дифузії t",
+    egarchCallout: "На відміну від симетричного GARCH, EGARCH явно моделює 'ефект левериджу': падіння ціни на 2% зазвичай підвищує майбутню волатильність сильніше, ніж зростання на ті самі 2%. Ігнорування цієї асиметрії систематично недооцінює хвостовий ризик саме тоді, коли він найдорожчий — під час обвалів ринку.",
+    egarchAsym: "асиметрія: реакція на +2% проти −2% шок",
+    binomialCallout: "На відміну від закритої формули Блека-Шоулза, дерево природно підтримує дострокове виконання — тому це стандартний метод оцінки американських опціонів на акції та ETF, де можливість виконати опціон у будь-який момент має реальну вартість.",
+    binomialAmerican: "американський пут",
+    binomialEuropean: "європейський пут",
+    binomialPremium: "премія за дострокове виконання",
+    mcCallout: "Монте-Карло — єдиний практичний метод для екзотичних деривативів (азійські опціони на середню ціну, кошикові опціони на кілька корельованих активів), де ні закрита формула, ні дерево не справляються з розмірністю задачі. Точність зростає повільно — як 1/√N, тому подвоєння точності вимагає вчетверо більше симуляцій.",
+    mcConverge: "збіжність до теоретичної ціни Блека-Шоулза",
+    dbscanCallout: "На відміну від k-means, DBSCAN не вимагає заздалегідь знати кількість кластерів і природно виявляє кластери довільної форми — а точки, що не потрапляють у жодну щільну область, автоматично класифікуються як шум. Це робить його зручним для сегментації клієнтів за патернами активності, де кластери рідко бувають опуклими.",
+    dbscanNoise: "шум",
+    dbscanCluster: "кластер",
+    svmCallout: "SVM шукає межу з максимальним відступом (margin) між класами — лише точки на самій межі (опорні вектори) впливають на розв'язок. Класичний вибір для прогнозу напрямку ціни на невеликих табличних наборах ознак, надійніший за логістичну регресію при нелінійних межах.",
+    svmSupportVec: "опорний вектор",
+    cartCallout: "Кожен прогноз дерева пояснюється ланцюжком умов 'якщо ознака > поріг' — повна інтерпретованість, недоступна нейромережам. Окреме дерево рідко використовується як фінальна модель через схильність до перенавчання, але саме воно лежить в основі Random Forest і градієнтного бустингу.",
+    cusumCallout: "CUSUM оптимальний за швидкістю виявлення зсуву заданого розміру при фіксованому рівні хибних тривог. У фінансах використовується для виявлення зламу режиму волатильності чи кореляції в реальному часі — коли модель ризику, відкалібрована на 'старому' режимі, раптово перестає бути валідною.",
+    cusumDetected: "виявлено зсув на кроці",
+    cusumNotDetected: "зсув ще не виявлено",
+    boCallout: "Баєсівська оптимізація будує сурогатну модель (гауссів процес) невідомої функції 'гіперпараметри → якість' і обирає наступну точку тестування, максимізуючи очікуване покращення — на порядок ефективніше за grid search, коли кожна оцінка (тренування моделі) коштує годин обчислень на GPU.",
+    boIteration: "ітерація",
+    boBestFound: "найкраще знайдене значення",
+    boTrueUnknown: "справжня функція (невідома оптимізатору)",
+    boGpMean: "середнє гауссового процесу",
+    centralityCallout: "Регулятори (ФРС, ЄЦБ) використовують мережеву центральність міжбанківських зв'язків для виявлення системно важливих інститутів (SIFI). Банк може мати мало прямих зв'язків, але критичну важливість через з'єднання з іншими хабами — власновекторна центральність вловлює це, а проста ступенева — ні.",
+    centralityDegree: "ступенева центральність",
+    centralityEigen: "власновекторна центральність",
+    calmarCallout: "Хедж-фонди й CTA-стратегії (trend-following) часто звітують саме Calmar, а не Sharpe — інвесторів у ці стратегії найбільше цікавить психологічна витривалість до просадки капіталу, а не статистична волатильність по днях.",
+    calmarDD: "просадка від піку",
   },
   en: {
     steps: "steps:",
@@ -261,6 +305,50 @@ const DEMO_STRINGS = {
     aucCallout: "On imbalanced data (little fraud among millions of transactions), the ROC curve can look deceptively optimistic, while the PR curve honestly shows precision collapsing as you try to catch more positives — which is exactly why AUPRC is the more reliable metric for anomaly detection.",
     hestCallout: "Unlike GARCH, where volatility is a deterministic function of past shocks, in the Heston model volatility is itself a random process — giving a materially better fit to the observed options volatility smile in practice.",
     merCallout: "The Merton model directly links credit risk to the equity market: if a company's stock volatility spikes sharply, that signals rising default probability before any credit-rating change catches up.",
+    ganCallout: "Watch the generator's mean converge to the target while its variance collapses toward zero instead — this is real mode collapse, a well-documented GAN training pathology, not a bug in this demo. It's exactly why production models like TimeGAN add extra losses (a supervised loss) to stabilise training.",
+    ganStepsLbl: "training step",
+    ganMeanStd: "generator mean / σ",
+    timeganCallout: "TimeGAN adds a supervised loss on top of the usual adversarial loss to preserve autocorrelation structure — without it, a generator can perfectly match the value distribution while destroying the temporal sequence (like the shuffle at λ=0 on the right), which makes synthetic data useless for backtesting strategies.",
+    timeganLambda: "λ (temporal-structure preservation weight)",
+    timeganAcfOrig: "original ACF",
+    timeganAcfGen: "generated ACF",
+    tanoganCallout: "Unlike a plain autoencoder, TAnoGAN doesn't optimise network weights — it optimises the latent vector z itself for each test window separately. If even the best possible z can't reconstruct the window, that window falls outside the 'manifold of normal' the generator learned.",
+    tanoganWindow: "test window (start index)",
+    tanoganSteps: "gradient-descent steps",
+    tanoganLoss: "reconstruction loss",
+    tanoganRegime: "regime",
+    ganlstmCallout: "The single-unit LSTM here is genuinely trained via backpropagation-through-time, and it's twice as accurate as a 'static' memoryless predictor precisely on a series with two-lag dependency — that's the mechanistic reason a GAN with an LSTM generator/discriminator beats a plain feedforward GAN on sequential financial data.",
+    ganlstmSteps: "training steps",
+    ganlstmLoss: "prediction loss (MSE)",
+    diffusionCallout: "The forward diffusion process is an exact, analytical formula — no training involved: any complex data structure, including a multi-modal return distribution across different market regimes, gradually turns into pure Gaussian noise. The model only ever learns the reverse step — removing that noise one step at a time — which is exactly why diffusion models can generate realistic synthetic market scenarios from scratch.",
+    diffusionStep: "diffusion step t",
+    egarchCallout: "Unlike symmetric GARCH, EGARCH explicitly models the 'leverage effect': a 2% price drop typically raises future volatility more than a 2% rise does. Ignoring this asymmetry systematically underestimates tail risk exactly when it's most expensive — during market crashes.",
+    egarchAsym: "asymmetry: response to +2% vs −2% shock",
+    binomialCallout: "Unlike the closed-form Black-Scholes formula, the tree naturally supports early exercise — making it the standard method for pricing American equity and ETF options, where the ability to exercise at any point has real value.",
+    binomialAmerican: "American put",
+    binomialEuropean: "European put",
+    binomialPremium: "early-exercise premium",
+    mcCallout: "Monte Carlo is the only practical method for exotic derivatives (Asian options on an average price, basket options on several correlated assets) where neither a closed form nor a tree can handle the dimensionality. Accuracy improves slowly — as 1/√N — so doubling precision requires four times as many simulations.",
+    mcConverge: "convergence to the theoretical Black-Scholes price",
+    dbscanCallout: "Unlike k-means, DBSCAN doesn't need to know the number of clusters in advance and naturally finds clusters of arbitrary shape — points that fall outside any dense region are automatically labelled noise. That makes it well suited to segmenting clients by activity pattern, where clusters are rarely convex.",
+    dbscanNoise: "noise",
+    dbscanCluster: "cluster",
+    svmCallout: "SVM looks for the boundary with the maximum margin between classes — only points right on that boundary (support vectors) affect the solution. A classic choice for price-direction prediction on small tabular feature sets, more robust than logistic regression when boundaries are non-linear.",
+    svmSupportVec: "support vector",
+    cartCallout: "Every prediction the tree makes is explained by a chain of 'if feature > threshold' conditions — full interpretability that neural networks don't offer. A single tree is rarely used as a final model, being prone to overfitting, but it's exactly what Random Forest and gradient boosting are built from.",
+    cusumCallout: "CUSUM is optimal for detecting a shift of a given size at the fastest possible speed for a fixed false-alarm rate. In finance it's used to detect a break in the volatility or correlation regime in real time — the moment a risk model calibrated on the 'old' regime suddenly stops being valid.",
+    cusumDetected: "shift detected at step",
+    cusumNotDetected: "no shift detected yet",
+    boCallout: "Bayesian optimization builds a surrogate model (a Gaussian process) of the unknown 'hyperparameters → quality' function and picks the next point to test by maximising expected improvement — an order of magnitude more efficient than grid search when every evaluation (training a model) costs hours of GPU time.",
+    boIteration: "iteration",
+    boBestFound: "best value found",
+    boTrueUnknown: "true function (unknown to the optimizer)",
+    boGpMean: "Gaussian process mean",
+    centralityCallout: "Regulators (the Fed, the ECB) use interbank-network centrality to identify systemically important institutions (SIFIs). A bank can have few direct links yet be critically important through its connections to other hubs — eigenvector centrality captures this; plain degree centrality does not.",
+    centralityDegree: "degree centrality",
+    centralityEigen: "eigenvector centrality",
+    calmarCallout: "Hedge funds and CTA (trend-following) strategies often report Calmar rather than Sharpe — investors in these strategies care most about psychological tolerance for a drawdown, not day-to-day statistical volatility.",
+    calmarDD: "drawdown from peak",
   },
 };
 
@@ -1950,6 +2038,1268 @@ function mountMertonDemo(panel) {
 }
 
 
+// ---------------------------------------------------------------------------
+// 11. GAN — a real 1-D Gaussian-matching GAN trained via gradient descent
+// (linear generator G(z)=a·z+b, logistic discriminator D(x)=sigmoid(w·x+c)).
+// Deliberately left un-stabilised so mode collapse is visible and honestly
+// explained, rather than hidden behind extra tricks.
+// ---------------------------------------------------------------------------
+function gaussFrom(rnd) {
+  const u1 = Math.max(rnd(), 1e-9), u2 = rnd();
+  return Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+}
+function sigmoidFn(v) { return 1 / (1 + Math.exp(-v)); }
+
+function trainGan(steps, lr, seed) {
+  const rnd = mulberry32(seed);
+  const targetMean = 3, targetStd = 1.2;
+  let a = 0.5, b = 0, w = 0.05, c = 0;
+  const batch = 16;
+  for (let s = 0; s < steps; s++) {
+    let gw = 0, gc = 0;
+    for (let i = 0; i < batch; i++) {
+      const real = targetMean + targetStd * gaussFrom(rnd);
+      const z = gaussFrom(rnd);
+      const fake = a * z + b;
+      const Dreal = sigmoidFn(w * real + c), Dfake = sigmoidFn(w * fake + c);
+      gw += -((1 - Dreal) * real - Dfake * fake);
+      gc += -((1 - Dreal) - Dfake);
+    }
+    w -= lr * gw / batch; c -= lr * gc / batch;
+    let ga = 0, gb = 0;
+    for (let i = 0; i < batch; i++) {
+      const z = gaussFrom(rnd);
+      const fake = a * z + b;
+      const Dfake = sigmoidFn(w * fake + c);
+      const dLdfake = -(1 - Dfake) * w;
+      ga += dLdfake * z; gb += dLdfake;
+    }
+    a -= lr * ga / batch; b -= lr * gb / batch;
+  }
+  return { a, b, w, c, rnd };
+}
+
+function mountGanDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="ganSvg"></svg>
+        <p class="demo-note" style="margin-top:8px">
+          <span style="color:var(--ink-faint)">●</span> ${LANG==="uk"?"справжній розподіл":"real distribution"} &nbsp;
+          <span style="color:var(--mint)">●</span> ${LANG==="uk"?"розподіл генератора":"generator distribution"}
+        </p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${S.ganStepsLbl} <span class="val" id="ganStepsVal">100</span></label><input type="range" id="ganSteps" min="0" max="500" step="10" value="100"></div>
+          <div class="demo-slider-row"><label>learning rate <span class="val" id="ganLrVal">0.020</span></label><input type="range" id="ganLr" min="0.005" max="0.06" step="0.005" value="0.020"></div>
+        </div>
+        <div class="demo-steps" id="ganSteps2"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.ganCallout}</p></div>
+  `;
+
+  const stepsSlider = panel.querySelector("#ganSteps");
+  const lrSlider = panel.querySelector("#ganLr");
+  const svg = panel.querySelector("#ganSvg");
+  const targetMean = 3, targetStd = 1.2;
+
+  function render() {
+    const steps = parseInt(stepsSlider.value, 10);
+    const lr = parseFloat(lrSlider.value);
+    panel.querySelector("#ganStepsVal").textContent = steps;
+    panel.querySelector("#ganLrVal").textContent = lr.toFixed(3);
+
+    const { a, b, w, c, rnd } = trainGan(steps, lr, 1);
+    const genSamples = [];
+    for (let i = 0; i < 600; i++) genSamples.push(a * gaussFrom(rnd) + b);
+    const genMean = genSamples.reduce((x,y)=>x+y,0)/genSamples.length;
+    const genStd = Math.sqrt(genSamples.reduce((s,v)=>s+(v-genMean)**2,0)/genSamples.length);
+
+    const xMin = -2, xMax = 8;
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin: 0, yMax: 1, xTicks: 5, yTicks: 0, xFmt: (v)=>v.toFixed(0), yFmt: ()=>"", xLabel: "x" });
+
+    const nPts = 100;
+    function densityCurve(mean, std) {
+      const vals = [];
+      for (let i = 0; i < nPts; i++) {
+        const xv = xMin + (i/(nPts-1))*(xMax-xMin);
+        vals.push(normPDF((xv-mean)/std)/std);
+      }
+      return vals;
+    }
+    const realCurve = densityCurve(targetMean, targetStd);
+    const genCurve = densityCurve(genMean, Math.max(genStd, 0.02));
+    const maxD = Math.max(...realCurve, ...genCurve);
+    const ys = (v) => H - PAD - (v/maxD)*(H-2*PAD);
+    const toPath = (curve) => curve.map((v,i) => `${i===0?"M":"L"} ${x(xMin+(i/(nPts-1))*(xMax-xMin)).toFixed(1)} ${ys(v).toFixed(1)}`).join(" ");
+
+    svg.innerHTML = axesSvg
+      + `<path d="${toPath(realCurve)}" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4 3" />`
+      + `<path d="${toPath(genCurve)}" fill="none" stroke="var(--mint)" stroke-width="2.5" />`;
+
+    const lines = [`${S.steps}`, `  target: mean=${targetMean.toFixed(2)}, σ=${targetStd.toFixed(2)}`, `  ${S.ganMeanStd}: mean=${genMean.toFixed(2)}, σ=${genStd.toFixed(3)}`, `  G(z)=${a.toFixed(3)}·z+${b.toFixed(3)}   D(x)=sigmoid(${w.toFixed(3)}·x+${c.toFixed(3)})`];
+    panel.querySelector("#ganSteps2").textContent = lines.join("\n");
+  }
+  [stepsSlider, lrSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 12. TimeGAN concept — real ACF preservation vs naive resampling
+// ---------------------------------------------------------------------------
+function genAR1(n, phi, sigma, rnd) {
+  let xv = 0; const out = [xv];
+  for (let i = 1; i < n; i++) { xv = phi * xv + sigma * gaussFrom(rnd); out.push(xv); }
+  return out;
+}
+function acfCalc(series, lag) {
+  const n = series.length;
+  const mean = series.reduce((a,b)=>a+b,0) / n;
+  let num = 0, den = 0;
+  for (let i = 0; i < n; i++) den += (series[i]-mean) ** 2;
+  for (let i = 0; i < n - lag; i++) num += (series[i]-mean) * (series[i+lag]-mean);
+  return num / den;
+}
+function estimatePhi(series) {
+  let num = 0, den = 0;
+  for (let i = 1; i < series.length; i++) { num += series[i]*series[i-1]; den += series[i-1]**2; }
+  return num / den;
+}
+
+const TIMEGAN_ORIGINAL = (function () {
+  const rnd = mulberry32(3);
+  return genAR1(60, 0.7, 1, rnd);
+})();
+const TIMEGAN_PHI_HAT = estimatePhi(TIMEGAN_ORIGINAL);
+
+function mountTimeganDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="tganSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${S.timeganLambda} <span class="val" id="tganLamVal">0.00</span></label><input type="range" id="tganLam" min="0" max="1" step="0.05" value="0"></div>
+        </div>
+        <div class="demo-steps" id="tganSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.timeganCallout}</p></div>
+  `;
+
+  const lamSlider = panel.querySelector("#tganLam");
+  const svg = panel.querySelector("#tganSvg");
+
+  function render() {
+    const lambda = parseFloat(lamSlider.value);
+    panel.querySelector("#tganLamVal").textContent = lambda.toFixed(2);
+
+    const rnd = mulberry32(22);
+    const phiUsed = lambda * TIMEGAN_PHI_HAT;
+    let xv = 0; const gen = [xv];
+    for (let i = 1; i < TIMEGAN_ORIGINAL.length; i++) { xv = phiUsed*xv + 1*gaussFrom(rnd); gen.push(xv); }
+
+    const lags = [1,2,3,4,5];
+    const acfOrig = lags.map((l) => acfCalc(TIMEGAN_ORIGINAL, l));
+    const acfGen = lags.map((l) => acfCalc(gen, l));
+
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0.5, xMax: 5.5, yMin: -0.3, yMax: 1, xTicks: 5, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(1), xLabel: "lag", yLabel: "ACF" });
+
+    let bars = "";
+    lags.forEach((l, i) => {
+      const bw = 0.15;
+      const xo = l - 0.12, xg = l + 0.12;
+      const yo0 = y(0), yoV = y(acfOrig[i]);
+      const ygV = y(acfGen[i]);
+      bars += `<rect x="${(x(xo)-8).toFixed(1)}" y="${Math.min(yo0,yoV).toFixed(1)}" width="16" height="${Math.abs(yoV-yo0).toFixed(1)}" fill="var(--ink-faint)" opacity="0.6" />`;
+      bars += `<rect x="${(x(xg)-8).toFixed(1)}" y="${Math.min(yo0,ygV).toFixed(1)}" width="16" height="${Math.abs(ygV-yo0).toFixed(1)}" fill="var(--mint)" opacity="0.85" />`;
+    });
+    svg.innerHTML = axesSvg + bars;
+
+    const lines = [`${S.steps}`, `  φ̂ (${LANG==="uk"?"оцінено з даних":"estimated from data"}) = ${TIMEGAN_PHI_HAT.toFixed(3)}`, `  ${S.timeganAcfOrig} lag1 = ${acfOrig[0].toFixed(3)}`, `  ${S.timeganAcfGen} lag1 = ${acfGen[0].toFixed(3)}`];
+    panel.querySelector("#tganSteps").textContent = lines.join("\n");
+  }
+  lamSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 13. TAnoGAN concept — latent-space gradient descent for anomaly scoring
+// ---------------------------------------------------------------------------
+const TANOGAN_W = 5;
+const TANOGAN_MANIFOLD = (function () {
+  const calmWindows = [];
+  for (let i = 0; i <= 15 - TANOGAN_W; i++) calmWindows.push(GARCH_EPS.slice(i, i + TANOGAN_W));
+  function meanVec(mat) { const w = mat[0].length; const m = new Array(w).fill(0); for (const row of mat) for (let j=0;j<w;j++) m[j]+=row[j]; return m.map((v)=>v/mat.length); }
+  function subMat(mat, m) { return mat.map((row) => row.map((v,j)=>v-m[j])); }
+  function matVec(mat, vec) { return mat.map((row) => row.reduce((s,v,j)=>s+v*vec[j],0)); }
+  function vecMatT(mat, vec) { const w = mat[0].length; const out = new Array(w).fill(0); for (let i=0;i<mat.length;i++) for (let j=0;j<w;j++) out[j]+=mat[i][j]*vec[i]; return out; }
+  function normV(v) { return Math.sqrt(v.reduce((s,x2)=>s+x2*x2,0)); }
+  function powerIter(mat, iters) {
+    let v = mat[0].map((_,j) => Math.sin(j+1));
+    for (let it=0; it<iters; it++) { const Xv = matVec(mat,v); const XtXv = vecMatT(mat,Xv); const n = normV(XtXv); v = XtXv.map((val)=>val/n); }
+    return v;
+  }
+  const mean0 = meanVec(calmWindows);
+  const centered = subMat(calmWindows, mean0);
+  const pc1 = powerIter(centered, 50);
+  const proj1 = matVec(centered, pc1);
+  const centered2 = centered.map((row,i) => row.map((v,j)=>v - proj1[i]*pc1[j]));
+  const pc2 = powerIter(centered2, 50);
+  return { mean0, pc1, pc2 };
+})();
+
+function tanoganG(z1, z2) {
+  const { mean0, pc1, pc2 } = TANOGAN_MANIFOLD;
+  return mean0.map((m,j) => m + z1*pc1[j] + z2*pc2[j]);
+}
+function tanoganLoss(window_, z1, z2) {
+  const g = tanoganG(z1, z2);
+  let s = 0; for (let j = 0; j < TANOGAN_W; j++) s += (g[j]-window_[j]) ** 2;
+  return s;
+}
+function tanoganGD(window_, steps, lr) {
+  let z1 = 0, z2 = 0;
+  const epsD = 1e-5;
+  const trace = [];
+  for (let s = 0; s < steps; s++) {
+    let g1 = (tanoganLoss(window_,z1+epsD,z2)-tanoganLoss(window_,z1-epsD,z2))/(2*epsD);
+    let g2 = (tanoganLoss(window_,z1,z2+epsD)-tanoganLoss(window_,z1,z2-epsD))/(2*epsD);
+    const gn = Math.sqrt(g1*g1+g2*g2);
+    if (gn > 1) { g1/=gn; g2/=gn; }
+    z1 -= lr*g1; z2 -= lr*g2;
+    if (s % Math.max(1,Math.floor(steps/40)) === 0) trace.push(tanoganLoss(window_,z1,z2));
+  }
+  trace.push(tanoganLoss(window_,z1,z2));
+  return { z1, z2, loss: tanoganLoss(window_,z1,z2), trace };
+}
+
+function mountTanoganDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+  const maxStart = GARCH_EPS.length - TANOGAN_W;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="tanoSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${S.tanoganWindow} <span class="val" id="tanoWinVal">2</span></label><input type="range" id="tanoWin" min="0" max="${maxStart}" step="1" value="2"></div>
+          <div class="demo-slider-row"><label>${S.tanoganSteps} <span class="val" id="tanoStepsVal">300</span></label><input type="range" id="tanoSteps" min="20" max="500" step="20" value="300"></div>
+        </div>
+        <div class="demo-steps" id="tanoStepsPanel"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.tanoganCallout}</p></div>
+  `;
+
+  const winSlider = panel.querySelector("#tanoWin");
+  const stepsSlider = panel.querySelector("#tanoSteps");
+  const svg = panel.querySelector("#tanoSvg");
+
+  function render() {
+    const start = parseInt(winSlider.value, 10);
+    const steps = parseInt(stepsSlider.value, 10);
+    panel.querySelector("#tanoWinVal").textContent = start;
+    panel.querySelector("#tanoStepsVal").textContent = steps;
+
+    const window_ = GARCH_EPS.slice(start, start+TANOGAN_W);
+    const { z1, z2, loss, trace } = tanoganGD(window_, steps, 0.05);
+    const regime = start < 16 ? (LANG==="uk"?"спокійний":"calm") : (LANG==="uk"?"стресовий":"stress");
+
+    const maxLoss = Math.max(...trace, 1e-6);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: trace.length-1, yMin: 0, yMax: maxLoss, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toExponential(1), xLabel: LANG==="uk"?"крок (масштаб.)":"step (scaled)", yLabel: LANG==="uk"?"похибка":"loss" });
+    const path = trace.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${path}" fill="none" stroke="var(--level-3)" stroke-width="2" />`;
+
+    const lines = [`${S.steps}`, `  ${S.tanoganRegime}: ${regime}`, `  window = [${window_.map(v=>v.toFixed(4)).join(", ")}]`, `  z* = (${z1.toFixed(3)}, ${z2.toFixed(3)})`, `  ${S.tanoganLoss} = ${loss.toExponential(3)}`];
+    panel.querySelector("#tanoStepsPanel").textContent = lines.join("\n");
+  }
+  [winSlider, stepsSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 14. GAN-LSTM Hybrid concept — real BPTT-trained single-unit LSTM cell
+// vs a memoryless one-lag dense predictor, on a series with 2-lag memory.
+// ---------------------------------------------------------------------------
+function tanhFn(v) { return Math.tanh(v); }
+function lstmForward(params, seq) {
+  let h = 0, cState = 0;
+  const preds = [];
+  for (let tt = 0; tt < seq.length - 1; tt++) {
+    const xv = seq[tt];
+    const f = sigmoidFn(params.Wf*xv + params.Uf*h + params.bf);
+    const ii = sigmoidFn(params.Wi*xv + params.Ui*h + params.bi);
+    const o = sigmoidFn(params.Wo*xv + params.Uo*h + params.bo);
+    const cHat = tanhFn(params.Wc*xv + params.Uc*h + params.bc);
+    cState = f*cState + ii*cHat;
+    h = o*tanhFn(cState);
+    preds.push(params.Wy*h + params.by);
+  }
+  return preds;
+}
+function lstmLossFn(params, seq) {
+  const preds = lstmForward(params, seq);
+  let s = 0; for (let tt = 0; tt < preds.length; tt++) s += (preds[tt]-seq[tt+1]) ** 2;
+  return s / preds.length;
+}
+function trainLstmCell(seq, steps, lr) {
+  let params = { Wf:0.1,Uf:0.1,bf:0, Wi:0.1,Ui:0.1,bi:0, Wo:0.1,Uo:0.1,bo:0, Wc:0.1,Uc:0.1,bc:0, Wy:0.5,by:0 };
+  const keys = Object.keys(params);
+  const epsD = 1e-4;
+  const lossTrace = [];
+  const sampleEvery = Math.max(1, Math.floor(steps/30));
+  for (let s = 0; s < steps; s++) {
+    const grads = {};
+    for (const k of keys) {
+      const p1 = { ...params }; p1[k] += epsD;
+      const p2 = { ...params }; p2[k] -= epsD;
+      grads[k] = (lstmLossFn(p1,seq)-lstmLossFn(p2,seq)) / (2*epsD);
+    }
+    for (const k of keys) params[k] -= lr*grads[k];
+    if (s % sampleEvery === 0) lossTrace.push(lstmLossFn(params, seq));
+  }
+  lossTrace.push(lstmLossFn(params, seq));
+  return { params, loss: lstmLossFn(params, seq), lossTrace };
+}
+function trainDensePredictor(seq, steps, lr) {
+  let w = 0.1, b = 0;
+  const lossTrace = [];
+  const sampleEvery = Math.max(1, Math.floor(steps/30));
+  function loss(ww,bb) { let s=0; for (let tt=0;tt<seq.length-1;tt++) s += (ww*seq[tt]+bb-seq[tt+1])**2; return s/(seq.length-1); }
+  for (let s = 0; s < steps; s++) {
+    let gw = 0, gb = 0;
+    for (let tt = 0; tt < seq.length - 1; tt++) { const pred = w*seq[tt]+b; const err = pred-seq[tt+1]; gw += 2*err*seq[tt]; gb += 2*err; }
+    gw /= seq.length-1; gb /= seq.length-1;
+    w -= lr*gw; b -= lr*gb;
+    if (s % sampleEvery === 0) lossTrace.push(loss(w,b));
+  }
+  lossTrace.push(loss(w,b));
+  return { w, b, loss: loss(w,b), lossTrace };
+}
+const GANLSTM_SEQ = (function () {
+  const rnd = mulberry32(5);
+  let x1 = 0, x2 = 0; const out = [x2, x1];
+  for (let i = 2; i < 40; i++) { const xv = 0.5*x1 + 0.4*x2 + 0.3*gaussFrom(rnd); out.push(xv); x2 = x1; x1 = xv; }
+  return out;
+})();
+
+function mountGanLstmDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="glSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--mint)">●</span> LSTM &nbsp; <span style="color:var(--level-2)">●</span> ${LANG==="uk"?"статичний (1 лаг)":"static (1-lag)"}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${S.ganlstmSteps} <span class="val" id="glStepsVal">300</span></label><input type="range" id="glSteps" min="20" max="600" step="20" value="300"></div>
+        </div>
+        <div class="demo-steps" id="glStepsPanel"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.ganlstmCallout}</p></div>
+  `;
+
+  const stepsSlider = panel.querySelector("#glSteps");
+  const svg = panel.querySelector("#glSvg");
+
+  function render() {
+    const steps = parseInt(stepsSlider.value, 10);
+    panel.querySelector("#glStepsVal").textContent = steps;
+
+    const lstmResult = trainLstmCell(GANLSTM_SEQ, steps, 0.3);
+    const denseResult = trainDensePredictor(GANLSTM_SEQ, steps, 0.3);
+
+    const maxLoss = Math.max(...lstmResult.lossTrace, ...denseResult.lossTrace);
+    const nT = Math.max(lstmResult.lossTrace.length, denseResult.lossTrace.length);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: nT-1, yMin: 0, yMax: maxLoss, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(3), xLabel: LANG==="uk"?"крок (масштаб.)":"step (scaled)", yLabel: "MSE" });
+    const lstmPath = lstmResult.lossTrace.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const densePath = denseResult.lossTrace.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg
+      + `<path d="${densePath}" fill="none" stroke="var(--level-2)" stroke-width="2" />`
+      + `<path d="${lstmPath}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    const ratio = denseResult.loss / lstmResult.loss;
+    const lines = [`${S.steps}`, `  ${LANG==="uk"?"дані: AR(2)-ряд, справжня залежність від 2 лагів":"data: an AR(2) series, genuine 2-lag dependency"}`, `  LSTM ${S.ganlstmLoss} = ${lstmResult.loss.toExponential(3)}`, `  ${LANG==="uk"?"статичний":"static"} ${S.ganlstmLoss} = ${denseResult.loss.toExponential(3)}`, `  ${LANG==="uk"?"відношення":"ratio"} = ${ratio.toFixed(2)}×`];
+    panel.querySelector("#glStepsPanel").textContent = lines.join("\n");
+  }
+  stepsSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 15. Diffusion Models — real forward variance-preserving diffusion process
+// ---------------------------------------------------------------------------
+function betaSchedule(T, betaStart, betaEnd) {
+  const betas = [];
+  for (let tt = 0; tt < T; tt++) betas.push(betaStart + (betaEnd-betaStart)*tt/(T-1));
+  return betas;
+}
+function alphaBarsCalc(betas) {
+  const alphas = betas.map((bv) => 1-bv);
+  const bars = []; let prod = 1;
+  for (const av of alphas) { prod *= av; bars.push(prod); }
+  return bars;
+}
+const DIFFUSION_T = 60;
+const DIFFUSION_BARS = alphaBarsCalc(betaSchedule(DIFFUSION_T, 0.0001, 0.1));
+const DIFFUSION_X0 = (function () {
+  const rnd = mulberry32(9);
+  const out = [];
+  for (let i = 0; i < 400; i++) { const comp = rnd() < 0.5 ? -2 : 2; out.push(comp + 0.5*gaussFrom(rnd)); }
+  return out;
+})();
+
+function mountDiffusionDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="diffSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${S.diffusionStep} <span class="val" id="diffTVal">0</span></label><input type="range" id="diffT" min="0" max="${DIFFUSION_T-1}" step="1" value="0"></div>
+        </div>
+        <div class="demo-steps" id="diffSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.diffusionCallout}</p></div>
+  `;
+
+  const tSlider = panel.querySelector("#diffT");
+  const svg = panel.querySelector("#diffSvg");
+
+  function render() {
+    const tIdx = parseInt(tSlider.value, 10);
+    panel.querySelector("#diffTVal").textContent = tIdx;
+
+    const alphaBar = DIFFUSION_BARS[tIdx];
+    const rnd = mulberry32(100+tIdx);
+    const xt = DIFFUSION_X0.map((x0) => Math.sqrt(alphaBar)*x0 + Math.sqrt(1-alphaBar)*gaussFrom(rnd));
+
+    const xMin = -6, xMax = 6;
+    const nBins = 40;
+    const counts = new Array(nBins).fill(0);
+    for (const v of xt) { const bi = Math.min(nBins-1, Math.max(0, Math.floor((v-xMin)/(xMax-xMin)*nBins))); counts[bi]++; }
+    const maxCount = Math.max(...counts, 1);
+
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin: 0, yMax: maxCount, xTicks: 6, yTicks: 0, xFmt: (v)=>v.toFixed(0), yFmt: ()=>"", xLabel: "x", yLabel: "" });
+    let bars = "";
+    for (let i = 0; i < nBins; i++) {
+      const bx = xMin + (i/nBins)*(xMax-xMin);
+      const bw = (xMax-xMin)/nBins;
+      const h = (counts[i]/maxCount) * (H-2*PAD);
+      bars += `<rect x="${x(bx).toFixed(1)}" y="${(H-PAD-h).toFixed(1)}" width="${(x(bx+bw)-x(bx)-1).toFixed(1)}" height="${h.toFixed(1)}" fill="var(--mint)" opacity="0.8" />`;
+    }
+    svg.innerHTML = axesSvg + bars;
+
+    const mean = xt.reduce((a,b)=>a+b,0)/xt.length;
+    const varr = xt.reduce((s,v)=>s+(v-mean)**2,0)/xt.length;
+    const lines = [`${S.steps}`, `  x_t = √ᾱ_t·x₀ + √(1-ᾱ_t)·ε`, `  ᾱ_${tIdx} = ${alphaBar.toFixed(4)}`, `  mean(x_t)=${mean.toFixed(3)}  var(x_t)=${varr.toFixed(3)}  ${LANG==="uk"?"(при t→T: mean→0, var→1)":"(as t→T: mean→0, var→1)"}`];
+    panel.querySelector("#diffSteps").textContent = lines.join("\n");
+  }
+  tSlider.addEventListener("input", render);
+  render();
+}
+
+
+// ---------------------------------------------------------------------------
+// 16. EGARCH
+// ---------------------------------------------------------------------------
+function egarchSeries(omega, alpha, beta, gamma) {
+  const EAbsZ = Math.sqrt(2/Math.PI);
+  let logSigma2 = omega / (1 - beta);
+  const out = [];
+  for (let i = 0; i < GARCH_EPS.length; i++) {
+    const sigma = Math.sqrt(Math.exp(logSigma2));
+    const z = GARCH_EPS[i] / Math.max(sigma, 1e-8);
+    logSigma2 = omega + beta*logSigma2 + alpha*(Math.abs(z)-EAbsZ) + gamma*z;
+    out.push(Math.exp(logSigma2));
+  }
+  return out;
+}
+
+function mountEgarchDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="egarchSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>ω <span class="val" id="egOmegaVal">-0.10</span></label><input type="range" id="egOmega" min="-0.5" max="0" step="0.01" value="-0.10"></div>
+          <div class="demo-slider-row"><label>α <span class="val" id="egAlphaVal">0.15</span></label><input type="range" id="egAlpha" min="0" max="0.4" step="0.01" value="0.15"></div>
+          <div class="demo-slider-row"><label>β <span class="val" id="egBetaVal">0.90</span></label><input type="range" id="egBeta" min="0.5" max="0.98" step="0.01" value="0.90"></div>
+          <div class="demo-slider-row"><label>γ (${LANG==="uk"?"асиметрія":"asymmetry"}) <span class="val" id="egGammaVal">-0.15</span></label><input type="range" id="egGamma" min="-0.4" max="0.1" step="0.01" value="-0.15"></div>
+        </div>
+        <div class="demo-steps" id="egSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.egarchCallout}</p></div>
+  `;
+
+  const els = ["egOmega","egAlpha","egBeta","egGamma"].map((id) => panel.querySelector("#"+id));
+  const svg = panel.querySelector("#egarchSvg");
+
+  function render() {
+    const [omega, alpha, beta, gamma] = els.map((el) => parseFloat(el.value));
+    panel.querySelector("#egOmegaVal").textContent = omega.toFixed(2);
+    panel.querySelector("#egAlphaVal").textContent = alpha.toFixed(2);
+    panel.querySelector("#egBetaVal").textContent = beta.toFixed(2);
+    panel.querySelector("#egGammaVal").textContent = gamma.toFixed(2);
+
+    const sigma2 = egarchSeries(omega, alpha, beta, gamma);
+    const annualPct = sigma2.map((v) => Math.sqrt(v*252)*100);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: annualPct.length-1, yMin: 0, yMax: Math.max(...annualPct)*1.15, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(0)+"%", xLabel: "t", yLabel: "σₜ" });
+    const path = annualPct.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${path}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    // one-step asymmetry check from a shared starting sigma2
+    const sigma0 = Math.sqrt(Math.exp(omega/(1-beta)));
+    const EAbsZ = Math.sqrt(2/Math.PI);
+    function step(shock) {
+      const z = shock/sigma0;
+      return Math.sqrt(Math.exp(omega + beta*(omega/(1-beta)) + alpha*(Math.abs(z)-EAbsZ) + gamma*z))*Math.sqrt(252)*100;
+    }
+    const posResp = step(0.02), negResp = step(-0.02);
+    const lines = [`${S.steps}`, `  log(σₜ²) = ω + β·log(σₜ₋₁²) + α·(|z|-E|z|) + γ·z`, `  ${S.egarchAsym}:`, `  +2% -> σ=${posResp.toFixed(1)}%   −2% -> σ=${negResp.toFixed(1)}%`];
+    panel.querySelector("#egSteps").textContent = lines.join("\n");
+  }
+  els.forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 17. Binomial / Trinomial option pricing tree (CRR)
+// ---------------------------------------------------------------------------
+function binomialPrice(S, K, T, r, sigma, n, isPut, american) {
+  const dt = T/n, u = Math.exp(sigma*Math.sqrt(dt)), d = 1/u;
+  const p = (Math.exp(r*dt)-d)/(u-d);
+  const disc = Math.exp(-r*dt);
+  let values = [];
+  for (let i = 0; i <= n; i++) {
+    const ST = S*Math.pow(u,n-i)*Math.pow(d,i);
+    values.push(isPut ? Math.max(K-ST,0) : Math.max(ST-K,0));
+  }
+  for (let stp = n-1; stp >= 0; stp--) {
+    const newValues = [];
+    for (let i = 0; i <= stp; i++) {
+      let val = disc*(p*values[i]+(1-p)*values[i+1]);
+      if (american) {
+        const ST = S*Math.pow(u,stp-i)*Math.pow(d,i);
+        const exercise = isPut ? Math.max(K-ST,0) : Math.max(ST-K,0);
+        val = Math.max(val, exercise);
+      }
+      newValues.push(val);
+    }
+    values = newValues;
+  }
+  return values[0];
+}
+
+function mountBinomialDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 300, PAD = 20;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="binSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>S <span class="val" id="binSVal">100</span></label><input type="range" id="binS" min="60" max="140" step="1" value="100"></div>
+          <div class="demo-slider-row"><label>K <span class="val" id="binKVal">100</span></label><input type="range" id="binK" min="60" max="140" step="1" value="100"></div>
+          <div class="demo-slider-row"><label>σ <span class="val" id="binSigVal">20%</span></label><input type="range" id="binSig" min="5" max="60" step="1" value="20"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"кроки дерева (для ціни)":"tree steps (pricing)"} <span class="val" id="binNVal">100</span></label><input type="range" id="binN" min="10" max="300" step="10" value="100"></div>
+        </div>
+        <div class="demo-steps" id="binSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.binomialCallout}</p></div>
+  `;
+
+  const els = ["binS","binK","binSig","binN"].map((id) => panel.querySelector("#"+id));
+  const svg = panel.querySelector("#binSvg");
+  const T = 1, r = 0.03;
+  const visualSteps = 5;
+
+  function render() {
+    const [Sv, K, sigPct, n] = els.map((el) => parseFloat(el.value));
+    const sigma = sigPct/100;
+    panel.querySelector("#binSVal").textContent = Sv.toFixed(0);
+    panel.querySelector("#binKVal").textContent = K.toFixed(0);
+    panel.querySelector("#binSigVal").textContent = sigPct.toFixed(0)+"%";
+    panel.querySelector("#binNVal").textContent = n;
+
+    // small visual tree (fixed 5 steps) regardless of pricing-n
+    const dt = T/visualSteps, u = Math.exp(sigma*Math.sqrt(dt)), d = 1/u;
+    const xStep = (W-2*PAD)/visualSteps;
+    let nodes = "", lines2 = "";
+    const positions = [];
+    for (let stp = 0; stp <= visualSteps; stp++) {
+      positions.push([]);
+      for (let i = 0; i <= stp; i++) {
+        const price = Sv*Math.pow(u,stp-i)*Math.pow(d,i);
+        const px = PAD + stp*xStep;
+        const py = H/2 + (i - stp/2)*(H-2*PAD)/(visualSteps+1);
+        positions[stp].push([px,py,price]);
+        nodes += `<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="3" fill="var(--mint)" />`;
+        if (stp>0) {
+          const [px0,py0] = positions[stp-1][i<stp?i:i-1] || positions[stp-1][Math.min(i,stp-1)];
+        }
+      }
+    }
+    for (let stp=1; stp<=visualSteps; stp++) {
+      for (let i=0;i<stp;i++) {
+        const [px0,py0] = positions[stp-1][i];
+        const [pxU,pyU] = positions[stp][i];
+        const [pxD,pyD] = positions[stp][i+1];
+        lines2 += `<line x1="${px0.toFixed(1)}" y1="${py0.toFixed(1)}" x2="${pxU.toFixed(1)}" y2="${pyU.toFixed(1)}" stroke="var(--rule)" stroke-width="1" />`;
+        lines2 += `<line x1="${px0.toFixed(1)}" y1="${py0.toFixed(1)}" x2="${pxD.toFixed(1)}" y2="${pyD.toFixed(1)}" stroke="var(--rule)" stroke-width="1" />`;
+      }
+    }
+    svg.innerHTML = lines2 + nodes;
+
+    const amPut = binomialPrice(Sv,K,T,r,sigma,n,true,true);
+    const euPut = binomialPrice(Sv,K,T,r,sigma,n,true,false);
+    const euCall = binomialPrice(Sv,K,T,r,sigma,n,false,false);
+    const bsRef = bsPrice(Sv,K,T,r,sigma).call;
+
+    const lines = [`${S.steps}`, `  u=e^(σ√Δt)=${u.toFixed(4)}  d=1/u=${d.toFixed(4)}`, `  ${LANG==="uk"?"європ. колл (дерево)":"Eur call (tree)"} = ${euCall.toFixed(3)}   BS = ${bsRef.toFixed(3)}`, `  ${S.binomialAmerican} = ${amPut.toFixed(3)}   ${S.binomialEuropean} = ${euPut.toFixed(3)}`, `  ${S.binomialPremium} = ${(amPut-euPut).toFixed(3)}`];
+    panel.querySelector("#binSteps").textContent = lines.join("\n");
+  }
+  els.forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 18. Monte Carlo option pricing
+// ---------------------------------------------------------------------------
+function mcCallPrice(S, K, T, r, sigma, N, rnd) {
+  let sum = 0;
+  const paths = [];
+  const nStore = Math.min(N, 40);
+  for (let i = 0; i < N; i++) {
+    const ST = S*Math.exp((r-sigma*sigma/2)*T + sigma*Math.sqrt(T)*gaussFrom(rnd));
+    sum += Math.max(ST-K, 0);
+    if (i < nStore) paths.push(ST);
+  }
+  return { price: Math.exp(-r*T)*sum/N, paths };
+}
+
+function mountMcDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="mcSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>N (${LANG==="uk"?"кількість шляхів":"number of paths"}) <span class="val" id="mcNVal">500</span></label><input type="range" id="mcN" min="50" max="5000" step="50" value="500"></div>
+        </div>
+        <div class="demo-steps" id="mcSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.mcCallout}</p></div>
+  `;
+
+  const nSlider = panel.querySelector("#mcN");
+  const svg = panel.querySelector("#mcSvg");
+  const Sv = 100, K = 100, T = 1, r = 0.05, sigma = 0.2;
+  const bsRef = bsPrice(Sv,K,T,r,sigma).call;
+
+  function render() {
+    const N = parseInt(nSlider.value, 10);
+    panel.querySelector("#mcNVal").textContent = N;
+
+    const rnd = mulberry32(1);
+    const { price, paths } = mcCallPrice(Sv, K, T, r, sigma, N, rnd);
+
+    const nBins = 30;
+    const xMin = 40, xMax = 200;
+    const counts = new Array(nBins).fill(0);
+    for (const v of paths) { const bi = Math.min(nBins-1, Math.max(0, Math.floor((v-xMin)/(xMax-xMin)*nBins))); counts[bi]++; }
+    const maxCount = Math.max(...counts, 1);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin: 0, yMax: maxCount, xTicks: 5, yTicks: 0, xFmt: (v)=>v.toFixed(0), yFmt: ()=>"", xLabel: "S_T", yLabel: "" });
+    let bars = "";
+    for (let i = 0; i < nBins; i++) {
+      const bx = xMin + (i/nBins)*(xMax-xMin);
+      const h = (counts[i]/maxCount)*(H-2*PAD);
+      const inMoney = bx >= K;
+      bars += `<rect x="${x(bx).toFixed(1)}" y="${(H-PAD-h).toFixed(1)}" width="${((x(bx+(xMax-xMin)/nBins)-x(bx))-1).toFixed(1)}" height="${h.toFixed(1)}" fill="${inMoney?"var(--mint)":"var(--ink-faint)"}" opacity="0.75" />`;
+    }
+    const kX = x(K);
+    svg.innerHTML = axesSvg + bars + `<line x1="${kX.toFixed(1)}" y1="${PAD}" x2="${kX.toFixed(1)}" y2="${H-PAD}" stroke="var(--level-2)" stroke-width="1.5" stroke-dasharray="3 3" />`;
+
+    const lines = [`${S.steps}`, `  MC ${LANG==="uk"?"ціна":"price"} = ${price.toFixed(3)}`, `  Black-Scholes ${LANG==="uk"?"еталон":"reference"} = ${bsRef.toFixed(3)}`, `  ${S.mcConverge}: |${LANG==="uk"?"похибка":"error"}| = ${Math.abs(price-bsRef).toFixed(3)}`];
+    panel.querySelector("#mcSteps").textContent = lines.join("\n");
+  }
+  nSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 19. DBSCAN
+// ---------------------------------------------------------------------------
+const DBSCAN_POINTS = (function () {
+  const rnd = mulberry32(4);
+  const pts = [];
+  for (let i = 0; i < 25; i++) pts.push([-2+gaussFrom(rnd)*0.4, -2+gaussFrom(rnd)*0.4]);
+  for (let i = 0; i < 25; i++) pts.push([2+gaussFrom(rnd)*0.4, 2+gaussFrom(rnd)*0.4]);
+  for (let i = 0; i < 6; i++) pts.push([rnd()*8-4, rnd()*8-4]);
+  return pts;
+})();
+
+function dbscanRun(points, eps, minPts) {
+  const n = points.length;
+  const labels = new Array(n).fill(undefined);
+  function regionQuery(i) {
+    const neigh = [];
+    for (let j = 0; j < n; j++) if (Math.hypot(points[i][0]-points[j][0],points[i][1]-points[j][1]) <= eps) neigh.push(j);
+    return neigh;
+  }
+  let clusterId = 0;
+  for (let i = 0; i < n; i++) {
+    if (labels[i] !== undefined) continue;
+    const neighbors = regionQuery(i);
+    if (neighbors.length < minPts) { labels[i] = -1; continue; }
+    labels[i] = clusterId;
+    const seeds = neighbors.slice();
+    for (let k = 0; k < seeds.length; k++) {
+      const j = seeds[k];
+      if (labels[j] === -1) labels[j] = clusterId;
+      if (labels[j] !== undefined) continue;
+      labels[j] = clusterId;
+      const jNeighbors = regionQuery(j);
+      if (jNeighbors.length >= minPts) seeds.push(...jNeighbors);
+    }
+    clusterId++;
+  }
+  return { labels, nClusters: clusterId };
+}
+
+function mountDbscanDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 300, PAD = 20;
+  const palette = ["var(--mint)", "var(--level-2)", "var(--level-1)", "#7aa2e8"];
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="dbSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>ε (${LANG==="uk"?"радіус":"radius"}) <span class="val" id="dbEpsVal">0.80</span></label><input type="range" id="dbEps" min="0.2" max="2.5" step="0.05" value="0.80"></div>
+          <div class="demo-slider-row"><label>minPts <span class="val" id="dbMinVal">4</span></label><input type="range" id="dbMin" min="2" max="10" step="1" value="4"></div>
+        </div>
+        <div class="demo-steps" id="dbSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.dbscanCallout}</p></div>
+  `;
+
+  const epsSlider = panel.querySelector("#dbEps"), minSlider = panel.querySelector("#dbMin");
+  const svg = panel.querySelector("#dbSvg");
+  const xs = DBSCAN_POINTS.map((p)=>p[0]), ys = DBSCAN_POINTS.map((p)=>p[1]);
+  const xMin = Math.min(...xs)-0.5, xMax = Math.max(...xs)+0.5, yMin = Math.min(...ys)-0.5, yMax = Math.max(...ys)+0.5;
+
+  function render() {
+    const eps = parseFloat(epsSlider.value), minPts = parseInt(minSlider.value, 10);
+    panel.querySelector("#dbEpsVal").textContent = eps.toFixed(2);
+    panel.querySelector("#dbMinVal").textContent = minPts;
+
+    const { labels, nClusters } = dbscanRun(DBSCAN_POINTS, eps, minPts);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin, yMax, xTicks: 4, yTicks: 4, xFmt: (v)=>v.toFixed(1), yFmt: (v)=>v.toFixed(1) });
+    const dots = DBSCAN_POINTS.map((p,i) => {
+      const lbl = labels[i];
+      const col = lbl === -1 ? "var(--ink-faint)" : palette[lbl % palette.length];
+      return `<circle cx="${x(p[0]).toFixed(1)}" cy="${y(p[1]).toFixed(1)}" r="${lbl===-1?3:5}" fill="${col}" opacity="${lbl===-1?0.5:0.9}" />`;
+    }).join("");
+    svg.innerHTML = axesSvg + dots;
+
+    const nNoise = labels.filter((l)=>l===-1).length;
+    const lines = [`${S.steps}`, `  ${nClusters} ${S.dbscanCluster}${nClusters===1?"":LANG==="uk"?"и":"s"}, ${nNoise} ${S.dbscanNoise}`];
+    panel.querySelector("#dbSteps").textContent = lines.join("\n");
+  }
+  [epsSlider, minSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 20. Support Vector Machine (soft-margin, gradient descent on hinge loss)
+// ---------------------------------------------------------------------------
+const SVM_DATA = [[-2,-2,-1],[-1.8,-2.2,-1],[-2.1,-1.9,-1],[-1.6,-1.7,-1],[-1.9,-2.4,-1],
+  [2,2,1],[1.8,2.1,1],[2.2,1.9,1],[1.7,1.6,1],[2.1,2.3,1]];
+
+function trainSvm(data, steps, lr, C) {
+  let w1 = 0.1, w2 = 0.1, b = 0;
+  for (let s = 0; s < steps; s++) {
+    let gw1 = 0, gw2 = 0, gb = 0;
+    for (const [x1,x2,yv] of data) {
+      const margin = yv*(w1*x1+w2*x2+b);
+      if (margin < 1) { gw1 += -C*yv*x1; gw2 += -C*yv*x2; gb += -C*yv; }
+    }
+    gw1 = w1 + gw1/data.length; gw2 = w2 + gw2/data.length; gb = gb/data.length;
+    w1 -= lr*gw1; w2 -= lr*gw2; b -= lr*gb;
+  }
+  return { w1, w2, b };
+}
+
+function mountSvmDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 300, PAD = 20;
+  const xMin=-3.2, xMax=3.2, yMin=-3.2, yMax=3.2;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="svmSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>C (${LANG==="uk"?"регуляризація":"regularization"}) <span class="val" id="svmCVal">1.0</span></label><input type="range" id="svmC" min="0.1" max="5" step="0.1" value="1.0"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"кроки навчання":"training steps"} <span class="val" id="svmStepsVal">300</span></label><input type="range" id="svmSteps" min="10" max="500" step="10" value="300"></div>
+        </div>
+        <div class="demo-steps" id="svmStepsPanel"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.svmCallout}</p></div>
+  `;
+
+  const cSlider = panel.querySelector("#svmC"), stepsSlider = panel.querySelector("#svmSteps");
+  const svg = panel.querySelector("#svmSvg");
+
+  function render() {
+    const C = parseFloat(cSlider.value), steps = parseInt(stepsSlider.value, 10);
+    panel.querySelector("#svmCVal").textContent = C.toFixed(1);
+    panel.querySelector("#svmStepsVal").textContent = steps;
+
+    const { w1, w2, b } = trainSvm(SVM_DATA, steps, 0.02, C);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin, yMax, xTicks: 4, yTicks: 4, xFmt: (v)=>v.toFixed(0), yFmt: (v)=>v.toFixed(0) });
+
+    // decision boundary line: w1*x1+w2*x2+b=0  =>  x2 = -(w1*x1+b)/w2
+    function boundaryY(x1v) { return -(w1*x1v+b)/w2; }
+    const lineD = `M ${x(xMin).toFixed(1)} ${y(boundaryY(xMin)).toFixed(1)} L ${x(xMax).toFixed(1)} ${y(boundaryY(xMax)).toFixed(1)}`;
+    function marginY(x1v, side) { return -(w1*x1v+b-side)/w2; }
+    const marginPlus = `M ${x(xMin).toFixed(1)} ${y(marginY(xMin,1)).toFixed(1)} L ${x(xMax).toFixed(1)} ${y(marginY(xMax,1)).toFixed(1)}`;
+    const marginMinus = `M ${x(xMin).toFixed(1)} ${y(marginY(xMin,-1)).toFixed(1)} L ${x(xMax).toFixed(1)} ${y(marginY(xMax,-1)).toFixed(1)}`;
+
+    const dots = SVM_DATA.map(([x1v,x2v,yv]) => {
+      const margin = Math.abs(yv*(w1*x1v+w2*x2v+b) - 1) < 0.3;
+      return `<circle cx="${x(x1v).toFixed(1)}" cy="${y(x2v).toFixed(1)}" r="${margin?6:4.5}" fill="${yv===1?"var(--mint)":"var(--level-2)"}" stroke="${margin?"var(--level-3)":"none"}" stroke-width="2" />`;
+    }).join("");
+
+    svg.innerHTML = axesSvg
+      + `<path d="${marginPlus}" stroke="var(--rule)" stroke-width="1" stroke-dasharray="3 3" fill="none" />`
+      + `<path d="${marginMinus}" stroke="var(--rule)" stroke-width="1" stroke-dasharray="3 3" fill="none" />`
+      + `<path d="${lineD}" stroke="var(--ink)" stroke-width="2" fill="none" />`
+      + dots;
+
+    const nCorrect = SVM_DATA.filter(([x1v,x2v,yv]) => Math.sign(w1*x1v+w2*x2v+b)===yv).length;
+    const lines = [`${S.steps}`, `  w=(${w1.toFixed(3)}, ${w2.toFixed(3)})  b=${b.toFixed(3)}`, `  ${LANG==="uk"?"точність":"accuracy"} = ${nCorrect}/${SVM_DATA.length}`];
+    panel.querySelector("#svmStepsPanel").textContent = lines.join("\n");
+  }
+  [cSlider, stepsSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 21. Decision Tree (CART) — full tree, decision-region visualization
+// ---------------------------------------------------------------------------
+const CART_DATA = [[-2,-2,'A'],[-1.8,-2.2,'A'],[-2.1,-1.9,'A'],[2,2,'B'],[1.8,2.1,'B'],[2.2,1.9,'B'],[-2,2,'A'],[-1.7,1.8,'A'],[2,-2,'B'],[1.9,-1.8,'B']];
+
+function giniImpurityFn(labels) { const counts={}; for (const l of labels) counts[l]=(counts[l]||0)+1; let g=1; for (const k in counts) { const p=counts[k]/labels.length; g-=p*p; } return g; }
+function bestSplitCart(data) {
+  let best = null;
+  for (let feat = 0; feat < 2; feat++) {
+    const vals = [...new Set(data.map((d)=>d[feat]))].sort((a,b)=>a-b);
+    for (let i = 0; i < vals.length-1; i++) {
+      const thresh = (vals[i]+vals[i+1])/2;
+      const left = data.filter((d)=>d[feat]<thresh), right = data.filter((d)=>d[feat]>=thresh);
+      if (left.length===0 || right.length===0) continue;
+      const g = (left.length*giniImpurityFn(left.map((d)=>d[2])) + right.length*giniImpurityFn(right.map((d)=>d[2])))/data.length;
+      if (!best || g < best.g) best = { feat, thresh, g, left, right };
+    }
+  }
+  return best;
+}
+function majorityCart(rows) { const c={}; for (const r of rows) c[r[2]]=(c[r[2]]||0)+1; return Object.entries(c).sort((a,b)=>b[1]-a[1])[0][0]; }
+function buildCART(data, depth, maxDepth) {
+  if (depth >= maxDepth || new Set(data.map((d)=>d[2])).size===1 || data.length<2) return { leaf: true, label: majorityCart(data) };
+  const split = bestSplitCart(data);
+  if (!split) return { leaf: true, label: majorityCart(data) };
+  return { leaf: false, feat: split.feat, thresh: split.thresh, left: buildCART(split.left,depth+1,maxDepth), right: buildCART(split.right,depth+1,maxDepth) };
+}
+function predictCART(tree, point) { if (tree.leaf) return tree.label; return point[tree.feat] < tree.thresh ? predictCART(tree.left,point) : predictCART(tree.right,point); }
+function cartDepth(tree) { return tree.leaf ? 0 : 1+Math.max(cartDepth(tree.left), cartDepth(tree.right)); }
+function cartLeaves(tree) { return tree.leaf ? 1 : cartLeaves(tree.left)+cartLeaves(tree.right); }
+
+function mountCartDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 300, PAD = 20;
+  const xMin=-3.2, xMax=3.2, yMin=-3.2, yMax=3.2;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="cartSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"макс. глибина":"max depth"} <span class="val" id="cartDepthVal">3</span></label><input type="range" id="cartDepth" min="1" max="5" step="1" value="3"></div>
+        </div>
+        <div class="demo-steps" id="cartSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.cartCallout}</p></div>
+  `;
+
+  const depthSlider = panel.querySelector("#cartDepth");
+  const svg = panel.querySelector("#cartSvg");
+
+  function render() {
+    const maxDepth = parseInt(depthSlider.value, 10);
+    panel.querySelector("#cartDepthVal").textContent = maxDepth;
+
+    const tree = buildCART(CART_DATA, 0, maxDepth);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin, yMax, xTicks: 4, yTicks: 4, xFmt: (v)=>v.toFixed(0), yFmt: (v)=>v.toFixed(0) });
+
+    const gridN = 26, regions = [];
+    for (let gi = 0; gi < gridN; gi++) for (let gj = 0; gj < gridN; gj++) {
+      const gx = xMin + (gi/(gridN-1))*(xMax-xMin), gy = yMin + (gj/(gridN-1))*(yMax-yMin);
+      const pred = predictCART(tree, [gx,gy]);
+      regions.push(`<rect x="${(x(gx)-6).toFixed(1)}" y="${(y(gy)-6).toFixed(1)}" width="12" height="12" fill="${pred==='A'?'var(--mint)':'var(--level-2)'}" opacity="0.18" />`);
+    }
+    const dots = CART_DATA.map(([xx,yy,label]) => `<circle cx="${x(xx).toFixed(1)}" cy="${y(yy).toFixed(1)}" r="5" fill="${label==='A'?'var(--mint)':'var(--level-2)'}" stroke="var(--ink)" stroke-width="0.5" />`).join("");
+    svg.innerHTML = axesSvg + regions.join("") + dots;
+
+    const lines = [`${S.steps}`, `  ${LANG==="uk"?"глибина":"depth"}=${cartDepth(tree)}  ${LANG==="uk"?"листків":"leaves"}=${cartLeaves(tree)}`, `  ${LANG==="uk"?"точність на тренуванні":"training accuracy"} = ${CART_DATA.filter((d)=>predictCART(tree,d)===d[2]).length}/${CART_DATA.length}`];
+    panel.querySelector("#cartSteps").textContent = lines.join("\n");
+  }
+  depthSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 22. CUSUM change-point detection
+// ---------------------------------------------------------------------------
+function cusumCalc(series, mu0, k) {
+  let Sv = 0; const out = [];
+  for (const xv of series) { Sv = Math.max(0, Sv + (xv-mu0-k)); out.push(Sv); }
+  return out;
+}
+const CUSUM_SERIES = (function () {
+  const rnd = mulberry32(8);
+  const before = Array.from({length:30}, () => gaussFrom(rnd)*1+0);
+  const after = Array.from({length:30}, () => gaussFrom(rnd)*1+2.5);
+  return before.concat(after);
+})();
+
+function mountCusumDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="cusumSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>h (${LANG==="uk"?"поріг":"threshold"}) <span class="val" id="cuHVal">5.0</span></label><input type="range" id="cuH" min="1" max="12" step="0.5" value="5.0"></div>
+          <div class="demo-slider-row"><label>k (${LANG==="uk"?"допуск дрейфу":"drift allowance"}) <span class="val" id="cuKVal">0.50</span></label><input type="range" id="cuK" min="0.1" max="1.5" step="0.05" value="0.50"></div>
+        </div>
+        <div class="demo-steps" id="cuSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.cusumCallout}</p></div>
+  `;
+
+  const hSlider = panel.querySelector("#cuH"), kSlider = panel.querySelector("#cuK");
+  const svg = panel.querySelector("#cusumSvg");
+
+  function render() {
+    const h = parseFloat(hSlider.value), k = parseFloat(kSlider.value);
+    panel.querySelector("#cuHVal").textContent = h.toFixed(1);
+    panel.querySelector("#cuKVal").textContent = k.toFixed(2);
+
+    const cusumVals = cusumCalc(CUSUM_SERIES, 0, k);
+    const detectIdx = cusumVals.findIndex((v) => v > h);
+    const maxS = Math.max(...cusumVals, h)*1.1;
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: cusumVals.length-1, yMin: 0, yMax: maxS, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(1), xLabel: "t", yLabel: "Sₜ" });
+    const path = cusumVals.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const hLine = `M ${x(0)} ${y(h).toFixed(1)} L ${x(cusumVals.length-1)} ${y(h).toFixed(1)}`;
+    let detectMark = "";
+    if (detectIdx >= 0) detectMark = `<line x1="${x(detectIdx).toFixed(1)}" y1="${PAD}" x2="${x(detectIdx).toFixed(1)}" y2="${H-PAD}" stroke="var(--level-3)" stroke-width="1.5" stroke-dasharray="3 3" />`;
+    svg.innerHTML = axesSvg + `<path d="${hLine}" fill="none" stroke="var(--level-2)" stroke-width="1.5" stroke-dasharray="4 3" />` + `<path d="${path}" fill="none" stroke="var(--mint)" stroke-width="2" />` + detectMark;
+
+    const lines = [`${S.steps}`, `  Sₜ = max(0, Sₜ₋₁ + (xₜ − μ₀ − k))`, detectIdx>=0 ? `  ${S.cusumDetected} t=${detectIdx} (${LANG==="uk"?"справжній зсув: t=30":"true shift: t=30"})` : `  ${S.cusumNotDetected}`];
+    panel.querySelector("#cuSteps").textContent = lines.join("\n");
+  }
+  [hSlider, kSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 23. Bayesian Optimization (real Gaussian Process + Expected Improvement)
+// ---------------------------------------------------------------------------
+function rbfKernel(x1, x2, l, sigmaF) { return sigmaF*sigmaF*Math.exp(-0.5*((x1-x2)/l)**2); }
+function matInvSmall(A) {
+  const n = A.length;
+  const M = A.map((row,i) => row.concat(Array.from({length:n}, (_,j) => i===j?1:0)));
+  for (let i = 0; i < n; i++) {
+    let pivot = M[i][i]; if (Math.abs(pivot)<1e-10) pivot=1e-10;
+    for (let j = 0; j < 2*n; j++) M[i][j] /= pivot;
+    for (let k = 0; k < n; k++) { if (k===i) continue; const factor=M[k][i]; for (let j=0;j<2*n;j++) M[k][j] -= factor*M[i][j]; }
+  }
+  return M.map((row) => row.slice(n));
+}
+function matVecMulSmall(A, v) { return A.map((row) => row.reduce((s,a,j)=>s+a*v[j],0)); }
+function gpPosterior(Xtrain, Ytrain, xTest, l, sigmaF, noise) {
+  const K = Xtrain.map((xi) => Xtrain.map((xj) => rbfKernel(xi,xj,l,sigmaF)+(xi===xj?noise:0)));
+  const Kinv = matInvSmall(K);
+  const kStar = Xtrain.map((xi) => rbfKernel(xi,xTest,l,sigmaF));
+  const alpha = matVecMulSmall(Kinv, Ytrain);
+  const mean = kStar.reduce((s,kv,i)=>s+kv*alpha[i],0);
+  const kInvK = matVecMulSmall(Kinv, kStar);
+  const varr = rbfKernel(xTest,xTest,l,sigmaF) - kStar.reduce((s,kv,i)=>s+kv*kInvK[i],0);
+  return { mean, std: Math.sqrt(Math.max(varr,1e-8)) };
+}
+function trueObjective(xv) {
+  return Math.sin(xv*1.3)*2 + 0.1*xv;
+}
+function expectedImprovement(mean, std, fBest) {
+  if (std < 1e-9) return 0;
+  const zz = (mean-fBest)/std;
+  return (mean-fBest)*normCDF(zz) + std*normPDF(zz);
+}
+function runBO(iterations) {
+  let Xs = [-4, 0, 4];
+  let Ys = Xs.map(trueObjective);
+  const history = [{ Xs: Xs.slice(), Ys: Ys.slice() }];
+  for (let it = 0; it < iterations; it++) {
+    let bestX = null, bestEI = -1;
+    for (let xi = -5; xi <= 5; xi += 0.1) {
+      if (Xs.some((x0) => Math.abs(x0-xi)<0.05)) continue;
+      const { mean, std } = gpPosterior(Xs, Ys, xi, 1.5, 1.5, 0.01);
+      const ei = expectedImprovement(mean, std, Math.max(...Ys));
+      if (ei > bestEI) { bestEI = ei; bestX = xi; }
+    }
+    Xs.push(bestX); Ys.push(trueObjective(bestX));
+    history.push({ Xs: Xs.slice(), Ys: Ys.slice() });
+  }
+  return { Xs, Ys, history };
+}
+
+function mountBoDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="boSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--ink-faint)">●</span> ${S.boTrueUnknown} &nbsp; <span style="color:var(--mint)">●</span> ${S.boGpMean}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${S.boIteration} <span class="val" id="boIterVal">3</span></label><input type="range" id="boIter" min="0" max="12" step="1" value="3"></div>
+        </div>
+        <div class="demo-steps" id="boSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.boCallout}</p></div>
+  `;
+
+  const iterSlider = panel.querySelector("#boIter");
+  const svg = panel.querySelector("#boSvg");
+  const xMin = -5, xMax = 5;
+
+  function render() {
+    const iterations = parseInt(iterSlider.value, 10);
+    panel.querySelector("#boIterVal").textContent = iterations;
+
+    const { Xs, Ys } = runBO(iterations);
+    const nPts = 80;
+    const trueCurve = [], meanCurve = [];
+    for (let i = 0; i < nPts; i++) {
+      const xv = xMin + (i/(nPts-1))*(xMax-xMin);
+      trueCurve.push(trueObjective(xv));
+      const { mean } = gpPosterior(Xs, Ys, xv, 1.5, 1.5, 0.01);
+      meanCurve.push(mean);
+    }
+    const allY = trueCurve.concat(meanCurve).concat(Ys);
+    const yMinC = Math.min(...allY)-0.3, yMaxC = Math.max(...allY)+0.3;
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin: yMinC, yMax: yMaxC, xTicks: 5, yTicks: 4, xFmt: (v)=>v.toFixed(0), yFmt: (v)=>v.toFixed(1), xLabel: "x (hyperparameter)", yLabel: "f(x)" });
+    const trueLine = trueCurve.map((v,i)=>`${i===0?"M":"L"} ${x(xMin+(i/(nPts-1))*(xMax-xMin)).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const meanLine = meanCurve.map((v,i)=>`${i===0?"M":"L"} ${x(xMin+(i/(nPts-1))*(xMax-xMin)).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const sampledDots = Xs.map((xv,i) => `<circle cx="${x(xv).toFixed(1)}" cy="${y(Ys[i]).toFixed(1)}" r="5" fill="var(--level-3)" />`).join("");
+
+    svg.innerHTML = axesSvg
+      + `<path d="${trueLine}" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4 3" />`
+      + `<path d="${meanLine}" fill="none" stroke="var(--mint)" stroke-width="2" />`
+      + sampledDots;
+
+    const bestY = Math.max(...Ys);
+    const lines = [`${S.steps}`, `  ${LANG==="uk"?"вибірок":"samples"}: ${Xs.length}`, `  ${S.boBestFound} = ${bestY.toFixed(3)}`];
+    panel.querySelector("#boSteps").textContent = lines.join("\n");
+  }
+  iterSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 24. Network centrality (degree vs eigenvector, power iteration with shift)
+// ---------------------------------------------------------------------------
+const CENTRALITY_ADJ = [
+  [0,1,1,1,0,0],
+  [1,0,0,0,0,0],
+  [1,0,0,0,0,0],
+  [1,0,0,0,0,0],
+  [0,0,0,0,0,1],
+  [0,0,0,0,1,0],
+];
+const CENTRALITY_POS = [[170,150],[80,80],[80,150],[80,220],[280,110],[280,190]];
+
+function degreeCentrality(adj) { return adj.map((row) => row.reduce((a,b)=>a+b,0)); }
+function eigenCentralityCalc(adj, iters, shift) {
+  const n = adj.length;
+  let v = new Array(n).fill(1);
+  for (let it = 0; it < iters; it++) {
+    const nv = adj.map((row,i) => row.reduce((s,a,j)=>s+a*v[j],0) + shift*v[i]);
+    const norm = Math.sqrt(nv.reduce((s,xv)=>s+xv*xv,0)) || 1;
+    v = nv.map((xv) => xv/norm);
+  }
+  return v;
+}
+
+function mountCentralityDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 300;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="centSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row">
+            <label style="justify-content:flex-start;gap:10px">
+              <input type="radio" name="centMode" id="centDeg" value="deg" checked style="width:auto"> ${S.centralityDegree}
+            </label>
+          </div>
+          <div class="demo-slider-row">
+            <label style="justify-content:flex-start;gap:10px">
+              <input type="radio" name="centMode" id="centEig" value="eig" style="width:auto"> ${S.centralityEigen}
+            </label>
+          </div>
+        </div>
+        <div class="demo-steps" id="centSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.centralityCallout}</p></div>
+  `;
+
+  const degRadio = panel.querySelector("#centDeg"), eigRadio = panel.querySelector("#centEig");
+  const svg = panel.querySelector("#centSvg");
+
+  function render() {
+    const useDeg = degRadio.checked;
+    const deg = degreeCentrality(CENTRALITY_ADJ);
+    const eig = eigenCentralityCalc(CENTRALITY_ADJ, 60, 1.0);
+    const vals = useDeg ? deg : eig;
+    const maxV = Math.max(...vals);
+
+    let edges = "";
+    for (let i = 0; i < CENTRALITY_ADJ.length; i++) for (let j = i+1; j < CENTRALITY_ADJ.length; j++) {
+      if (CENTRALITY_ADJ[i][j]) edges += `<line x1="${CENTRALITY_POS[i][0]}" y1="${CENTRALITY_POS[i][1]}" x2="${CENTRALITY_POS[j][0]}" y2="${CENTRALITY_POS[j][1]}" stroke="var(--rule)" stroke-width="1.5" />`;
+    }
+    const nodes = CENTRALITY_POS.map((p,i) => {
+      const r = 8 + 20*(vals[i]/maxV);
+      return `<circle cx="${p[0]}" cy="${p[1]}" r="${r.toFixed(1)}" fill="var(--mint)" opacity="0.8" /><text x="${p[0]}" y="${p[1]+4}" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--bg)">${i}</text>`;
+    }).join("");
+    svg.innerHTML = edges + nodes;
+
+    const lines = [`${S.steps}`, `  ${S.centralityDegree}: [${deg.join(", ")}]`, `  ${S.centralityEigen}: [${eig.map((v)=>v.toFixed(2)).join(", ")}]`, `  (${LANG==="uk"?"вузол 0 = хаб; вузли 1,2,3 мають ту саму ступеневу центральність, що й пара 4-5, але вищу власновекторну":"node 0 = hub; nodes 1,2,3 share the same degree as the 4-5 pair but higher eigenvector centrality"})`];
+    panel.querySelector("#centSteps").textContent = lines.join("\n");
+  }
+  [degRadio, eigRadio].forEach((el) => el.addEventListener("change", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 25. Calmar Ratio / Max Drawdown
+// ---------------------------------------------------------------------------
+function maxDrawdownCalc(equity) {
+  let peak = equity[0], maxDD = 0, peakIdx=0, troughIdx=0, curPeakIdx=0;
+  for (let i=0;i<equity.length;i++) {
+    if (equity[i] > peak) { peak = equity[i]; curPeakIdx = i; }
+    const dd = (peak-equity[i])/peak;
+    if (dd > maxDD) { maxDD = dd; peakIdx = curPeakIdx; troughIdx = i; }
+  }
+  return { maxDD, peakIdx, troughIdx };
+}
+function equityFromParams(driftAnnual, volAnnual, seed) {
+  const rnd = mulberry32(seed);
+  let eq = [1];
+  const driftDaily = driftAnnual/252, volDaily = volAnnual/Math.sqrt(252);
+  for (let i = 0; i < 252; i++) eq.push(eq[eq.length-1]*(1+driftDaily+gaussFrom(rnd)*volDaily));
+  return eq;
+}
+
+function mountCalmarDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="calSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"річний дрейф":"annual drift"} <span class="val" id="calDriftVal">8%</span></label><input type="range" id="calDrift" min="-10" max="25" step="1" value="8"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"річна волатильність":"annual volatility"} <span class="val" id="calVolVal">20%</span></label><input type="range" id="calVol" min="5" max="50" step="1" value="20"></div>
+        </div>
+        <div class="demo-steps" id="calSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.calmarCallout}</p></div>
+  `;
+
+  const driftSlider = panel.querySelector("#calDrift"), volSlider = panel.querySelector("#calVol");
+  const svg = panel.querySelector("#calSvg");
+
+  function render() {
+    const driftPct = parseFloat(driftSlider.value), volPct = parseFloat(volSlider.value);
+    panel.querySelector("#calDriftVal").textContent = driftPct.toFixed(0)+"%";
+    panel.querySelector("#calVolVal").textContent = volPct.toFixed(0)+"%";
+
+    const eq = equityFromParams(driftPct/100, volPct/100, 77);
+    const { maxDD, peakIdx, troughIdx } = maxDrawdownCalc(eq);
+    const totalReturn = eq[eq.length-1]/eq[0];
+    const cagr = Math.pow(totalReturn, 252/eq.length/252) - 1; // approx annualised from 1-yr series ~ totalReturn-1
+    const cagrSimple = totalReturn - 1;
+    const calmarRatio = maxDD > 0.001 ? cagrSimple/maxDD : 0;
+
+    const yMin = Math.min(...eq)*0.95, yMax = Math.max(...eq)*1.05;
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: eq.length-1, yMin, yMax, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(2), xLabel: "t", yLabel: LANG==="uk"?"капітал":"equity" });
+    const path = eq.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const ddZone = `<line x1="${x(peakIdx).toFixed(1)}" y1="${y(eq[peakIdx]).toFixed(1)}" x2="${x(troughIdx).toFixed(1)}" y2="${y(eq[troughIdx]).toFixed(1)}" stroke="var(--level-3)" stroke-width="2" stroke-dasharray="4 2" />`;
+    svg.innerHTML = axesSvg + `<path d="${path}" fill="none" stroke="var(--mint)" stroke-width="2" />` + ddZone;
+
+    const lines = [`${S.steps}`, `  CAGR ≈ ${(cagrSimple*100).toFixed(1)}%`, `  ${S.calmarDD} (MaxDD) = ${(maxDD*100).toFixed(1)}%`, `  Calmar = CAGR / MaxDD = ${calmarRatio.toFixed(2)}`];
+    panel.querySelector("#calSteps").textContent = lines.join("\n");
+  }
+  [driftSlider, volSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+
 const DEMOS = {
   "volatility::GARCH(1,1)": { mount: mountGarchDemo },
   "unsupervised-outliers::Isolation Forest": { mount: mountIsoForestDemo },
@@ -1969,6 +3319,21 @@ const DEMOS = {
   "metrics::AUROC vs AUPRC": { mount: mountAucDemo },
   "volatility::Heston Stochastic Volatility": { mount: mountHestonDemo },
   "credit::Merton Structural Model": { mount: mountMertonDemo },
+  "generative::GAN": { mount: mountGanDemo },
+  "generative::TimeGAN": { mount: mountTimeganDemo },
+  "generative::TAnoGAN": { mount: mountTanoganDemo },
+  "generative::GAN-LSTM Hybrid": { mount: mountGanLstmDemo },
+  "generative::Diffusion Models for Time Series": { mount: mountDiffusionDemo },
+  "volatility::EGARCH": { mount: mountEgarchDemo },
+  "derivatives::Binomial / Trinomial Trees": { mount: mountBinomialDemo },
+  "derivatives::Monte Carlo Option Pricing": { mount: mountMcDemo },
+  "unsupervised-outliers::DBSCAN": { mount: mountDbscanDemo },
+  "classical-ml::Support Vector Machines": { mount: mountSvmDemo },
+  "classical-ml::Decision Trees (CART)": { mount: mountCartDemo },
+  "regime::Change-Point Detection (CUSUM, Bayesian Online)": { mount: mountCusumDemo },
+  "search::Bayesian Optimization": { mount: mountBoDemo },
+  "systemic::Network Centrality Measures": { mount: mountCentralityDemo },
+  "metrics::Calmar Ratio / Max Drawdown": { mount: mountCalmarDemo },
 };
 
 function applyFilters() {
