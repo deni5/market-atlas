@@ -401,6 +401,39 @@ const DEMO_STRINGS = {
     gbmAnalysis: "Забагато дерев із заввеликим learning rate веде до перенавчання на шум тренувальних даних — на практиці кількість дерев підбирають через early stopping на валідаційній вибірці, а не фіксують заздалегідь.",
     gbmTrees: "кількість дерев",
     gbmMse: "похибка (MSE)",
+    atCallout: "Anomaly Transformer виявляє аномалії не за величиною значення, а за 'розбіжністю асоціації' — наскільки патерн уваги в цій точці відрізняється від очікуваного локального сусідства. Аномальні точки важче узгодити з простим локальним пріором, бо вони порушують звичну часову структуру.",
+    atAnalysis: "Це спрощена ілюстрація механізму на основі схожості значень, а не справжня натренована увага трансформера — реальний Anomaly Transformer навчає Q/K/V ваги на великому корпусі, тому розбіжність асоціації там набагато різкіша, ніж у цьому демо.",
+    atDiscrepancy: "розбіжність асоціації",
+    anfisCallout: "ANFIS поєднує інтерпретованість нечіткої логіки (правила 'якщо x низьке, то...') з градієнтним навчанням нейромереж — на відміну від нейромережі-чорної скриньки, кожен параметр ANFIS має прозорий сенс: центр і ширина нечіткої множини, нахил лінійного правила.",
+    anfisAnalysis: "Кількість нечітких множин і форма функції належності (тут — гаусова) фіксуються заздалегідь дизайнером, а не навчаються структурно — це головне обмеження ANFIS порівняно з повністю навченими нейромережами.",
+    anfisRules: "нечіткі правила: low/high",
+    gmCallout: "Модель Гльостена-Мілгрома пояснює, чому спред існує навіть без витрат на обробку замовлень: маркет-мейкер встановлює ask вище, а bid нижче справедливої вартості, щоб компенсувати очікувані збитки від угод з поінформованими трейдерами.",
+    gmAnalysis: "Модель припускає лише один раунд торгівлі й бінарну новину (добра/погана) — реальні ринки мають безперервний потік інформації різної якості, тому емпіричні оцінки компоненти спреду через несприятливий відбір складніші за цю базову модель.",
+    gmSpread: "спред (ask - bid)",
+    ldaCallout: "LDA виявляє приховані 'теми' в текстах без жодної розмітки — кожен документ представлений як суміш тем, а кожна тема як розподіл ймовірностей слів. У фінансах це дозволяє автоматично виявляти наративні ризик-теми в потоці новин, не задаючи наперед список ключових слів.",
+    ldaAnalysis: "Кількість тем K потрібно задати заздалегідь — забагато тем дає надто вузькі, погано інтерпретовані кластери слів, замало — змішує різні наративи в одну тему.",
+    ldaTopics: "розподіл слів за темами",
+    ofiCallout: "Дисбаланс потоку заявок — один із найсильніших короткострокових предикторів руху ціни на мілісекундному горизонті: стійкий перевищення обсягу заявок на купівлю над продажем передбачає майбутнє зростання ціни ще до того, як воно відобразиться в самій ціні.",
+    ofiAnalysis: "OFI найкраще працює на дуже коротких горизонтах (секунди-хвилини); на довших горизонтах сигнал швидко розмивається іншими факторами, тому це переважно інструмент high-frequency трейдингу, а не портфельного інвестування.",
+    ofiValue: "OFI",
+    evtCallout: "На відміну від припущення нормального розподілу, теорія екстремальних значень моделює лише хвіст розподілу окремо — це дає набагато точнішу оцінку VaR на дуже високих довірчих рівнях (99%, 99.9%), де нормальний розподіл систематично недооцінює ризик.",
+    evtAnalysis: "Оцінка параметра форми ξ чутлива до вибору порогу — забагато перевищень (низький поріг) змішує тіло розподілу з хвостом, замало (високий поріг) залишає надто мало даних для стабільної оцінки.",
+    evtXi: "параметр форми ξ",
+    evtVaR: "GPD-оцінка VaR",
+    copulaCallout: "Копула розділяє дві частини спільного розподілу: маргінальні розподіли кожного активу окремо і структуру залежності між ними. Це дозволяє моделювати 'спільні обвали' (tail dependence) навіть коли кожен актив окремо має цілком звичайний розподіл.",
+    copulaAnalysis: "Гаусова копула (використана тут) має нульову хвостову залежність за конструкцією — вона систематично недооцінює ймовірність одночасних екстремальних подій; саме ця властивість критикувалась як один із факторів кризи 2008 року в моделях CDO.",
+    copulaRho: "ρ (кореляція в копулі)",
+    copulaJointTail: "спільна ймовірність хвоста P(U<5%, V<5%)",
+    hwCallout2: "На відміну від простого експоненційного згладжування, потрійне згладжування Хольта-Вінтерса окремо відстежує рівень, тренд і сезонність — це стандартний вибір для рядів із чіткою повторюваною сезонністю (квартальні продажі, місячні обсяги торгів).",
+    hwAnalysis2: "Метод передбачає стабільну адитивну сезонність фіксованого періоду — якщо сезонний патерн змінюється з часом чи має мультиплікативну природу (зростає пропорційно рівню), потрібна мультиплікативна версія моделі.",
+    hwMseLbl: "похибка підгонки (MSE)",
+    acCallout2: "Actor-Critic поєднує переваги обох підходів: критик (оцінювач цінності) знижує дисперсію навчання порівняно з чистим Policy Gradient, а актор (політика) дозволяє працювати з неперервними чи великими просторами дій, де табличне Q-навчання непрактичне.",
+    acAnalysis2: "TD-помилка (різниця між фактичною винагородою і оцінкою критика) — це сигнал навчання для обох компонентів одночасно; якщо критик оцінює погано, актор отримує зашумлений сигнал і навчається повільніше чи нестабільніше.",
+    acCriticValue: "оцінка критика V(s)",
+    kmvCallout: "На відміну від класичного Мертона, який напряму задає волатильність активів, KMV ітеративно розв'язує систему рівнянь, щоб знайти неспостережувану ринкову вартість і волатильність активів компанії із спостережуваних ринкових даних про акції.",
+    kmvAnalysis: "Модель Moody's KMV на практиці калібрує 'відстань до дефолту' на емпіричну базу дефолтів для перетворення DD у фактичну ймовірність (EDF), а не використовує теоретичну нормальну формулу напряму, як у цьому спрощеному демо.",
+    kmvDD: "відстань до дефолту (DD)",
+    kmvPD: "ймовірність дефолту (PD)",
   },
   en: {
     steps: "steps:",
@@ -626,6 +659,39 @@ const DEMO_STRINGS = {
     gbmAnalysis: "Too many trees with too high a learning rate leads to overfitting the training data's noise — in practice the number of trees is chosen via early stopping on a validation set, not fixed in advance.",
     gbmTrees: "number of trees",
     gbmMse: "error (MSE)",
+    atCallout: "The Anomaly Transformer flags anomalies not by value magnitude but by 'association discrepancy' — how much the attention pattern at a point differs from what its local neighbourhood would predict. Anomalous points are harder to reconcile with a simple local prior because they break the usual temporal structure.",
+    atAnalysis: "This is a simplified illustration of the mechanism based on value similarity, not a genuinely trained transformer's attention — a real Anomaly Transformer learns Q/K/V weights on a large corpus, so its association discrepancy is far sharper than in this demo.",
+    atDiscrepancy: "association discrepancy",
+    anfisCallout: "ANFIS combines the interpretability of fuzzy logic (rules like 'if x is low, then...') with neural-network gradient learning — unlike a black-box neural net, every ANFIS parameter has a transparent meaning: a fuzzy set's centre and width, a linear rule's slope.",
+    anfisAnalysis: "The number of fuzzy sets and the membership-function shape (Gaussian here) are fixed by the designer in advance rather than learned structurally — that's ANFIS's main limitation compared to a fully trained neural network.",
+    anfisRules: "fuzzy rules: low/high",
+    gmCallout: "The Glosten-Milgrom model explains why a spread exists even with zero order-processing cost: a market maker sets the ask above and the bid below fair value to compensate for expected losses when trading against informed counterparties.",
+    gmAnalysis: "The model assumes just one round of trading and binary news (good/bad) — real markets have a continuous flow of information of varying quality, so empirical estimates of the adverse-selection spread component are more involved than this baseline model.",
+    gmSpread: "spread (ask - bid)",
+    ldaCallout: "LDA discovers hidden 'topics' in text with no labelling at all — each document is represented as a mixture of topics, and each topic as a probability distribution over words. In finance this lets you automatically surface narrative risk themes in a news stream without pre-specifying a keyword list.",
+    ldaAnalysis: "The number of topics K must be set in advance — too many topics gives narrow, poorly interpretable word clusters, too few blends distinct narratives into one topic.",
+    ldaTopics: "word distribution by topic",
+    ofiCallout: "Order-flow imbalance is one of the strongest short-horizon predictors of price movement at the millisecond scale: a sustained excess of buy over sell order volume forecasts a future price rise before it shows up in the price itself.",
+    ofiAnalysis: "OFI works best over very short horizons (seconds to minutes); at longer horizons the signal is quickly diluted by other factors, so it's mostly a high-frequency trading tool rather than a portfolio-investing one.",
+    ofiValue: "OFI",
+    evtCallout: "Unlike assuming a normal distribution, extreme value theory models only the tail of the distribution separately — giving a far more accurate VaR estimate at very high confidence levels (99%, 99.9%), where a normal distribution systematically understates risk.",
+    evtAnalysis: "The shape-parameter ξ estimate is sensitive to the threshold choice — too many exceedances (low threshold) mixes the body of the distribution with the tail, too few (high threshold) leaves too little data for a stable estimate.",
+    evtXi: "shape parameter ξ",
+    evtVaR: "GPD-based VaR",
+    copulaCallout: "A copula separates two parts of a joint distribution: each asset's own marginal distribution and the dependence structure between them. This lets you model 'joint crashes' (tail dependence) even when each asset alone has a perfectly ordinary distribution.",
+    copulaAnalysis: "The Gaussian copula (used here) has zero tail dependence by construction — it systematically understates the probability of simultaneous extreme events; this exact property was criticised as one factor behind the 2008 crisis in CDO models.",
+    copulaRho: "ρ (copula correlation)",
+    copulaJointTail: "joint tail probability P(U<5%, V<5%)",
+    hwCallout2: "Unlike simple exponential smoothing, Holt-Winters triple smoothing separately tracks level, trend and seasonality — the standard choice for series with clear repeating seasonality (quarterly sales, monthly trading volumes).",
+    hwAnalysis2: "The method assumes stable additive seasonality of a fixed period — if the seasonal pattern shifts over time or is multiplicative in nature (grows proportionally to the level), a multiplicative version of the model is needed instead.",
+    hwMseLbl: "fit error (MSE)",
+    acCallout2: "Actor-Critic combines the advantages of both approaches: the critic (value estimator) reduces training variance compared to plain Policy Gradient, while the actor (policy) handles continuous or large action spaces where tabular Q-learning is impractical.",
+    acAnalysis2: "The TD error (the gap between the actual reward and the critic's estimate) is the training signal for both components at once — if the critic estimates poorly, the actor gets a noisier signal and learns more slowly or unstably.",
+    acCriticValue: "critic estimate V(s)",
+    kmvCallout: "Unlike classical Merton, which directly specifies asset volatility, KMV iteratively solves a system of equations to recover a firm's unobservable asset value and asset volatility from observable equity market data.",
+    kmvAnalysis: "Moody's KMV in practice calibrates 'distance to default' against an empirical default database to convert DD into an actual probability (EDF), rather than using the theoretical normal-distribution formula directly, as this simplified demo does.",
+    kmvDD: "distance to default (DD)",
+    kmvPD: "probability of default (PD)",
   },
 };
 
@@ -6556,6 +6622,652 @@ function mountGbmDemo(panel) {
 }
 
 
+// ---------------------------------------------------------------------------
+// 66. Anomaly Transformer — association discrepancy
+// ---------------------------------------------------------------------------
+function softmaxAT(arr) { const m = Math.max(...arr); const ex = arr.map((v)=>Math.exp(v-m)); const s = ex.reduce((a,b)=>a+b,0); return ex.map((v)=>v/s); }
+function priorAssociation(n, sigma) {
+  return Array.from({length:n}, (_,i) => {
+    const row = Array.from({length:n}, (_,j) => Math.exp(-((i-j)**2)/(2*sigma*sigma)));
+    const s = row.reduce((a,b)=>a+b,0);
+    return row.map((v) => v/s);
+  });
+}
+function seriesAssociation(seq, sharpness) {
+  return seq.map((qi) => { const scores = seq.map((kj) => -Math.abs(qi-kj)*sharpness); return softmaxAT(scores); });
+}
+function klDivAT(p,q) { let s=0; for (let i=0;i<p.length;i++) if (p[i]>1e-10) s += p[i]*Math.log(p[i]/(q[i]+1e-10)); return s; }
+function associationDiscrepancy(prior, series) { return prior.map((row,i) => klDivAT(row,series[i])+klDivAT(series[i],row)); }
+
+function mountAnomalyTransformerDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 230, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="atSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>σ (${LANG==="uk"?"ширина пріора":"prior width"}) <span class="val" id="atSigmaVal">2.0</span></label><input type="range" id="atSigma" min="0.5" max="5" step="0.5" value="2.0"></div>
+        </div>
+        <div class="demo-steps" id="atSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.atCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.atAnalysis}</p></div>
+    ${relatedLinksHTML(["attention","unsupervised-outliers"])}
+  `;
+
+  const sigmaSlider = panel.querySelector("#atSigma");
+  const svg = panel.querySelector("#atSvg");
+
+  function render() {
+    const sigma = parseFloat(sigmaSlider.value);
+    panel.querySelector("#atSigmaVal").textContent = sigma.toFixed(1);
+
+    const prior = priorAssociation(GARCH_EPS.length, sigma);
+    const series = seriesAssociation(GARCH_EPS, 10);
+    const disc = associationDiscrepancy(prior, series);
+
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: disc.length-1, yMin: 0, yMax: Math.max(...disc)*1.1, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(1), xLabel: "t", yLabel: S.atDiscrepancy });
+    const path = disc.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${path}" fill="none" stroke="var(--level-3)" stroke-width="2" />`;
+
+    const calmAvg = disc.slice(0,20).reduce((a,b)=>a+b,0)/20;
+    const stressAvg = disc.slice(20).reduce((a,b)=>a+b,0)/20;
+    const lines = [`${S.steps}`, `  ${LANG==="uk"?"спокійний період":"calm period"} avg = ${calmAvg.toFixed(3)}`, `  ${LANG==="uk"?"стресовий період":"stress period"} avg = ${stressAvg.toFixed(3)}`];
+    panel.querySelector("#atSteps").textContent = lines.join("\n");
+  }
+  sigmaSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 67. ANFIS — real gradient-trained neuro-fuzzy system
+// ---------------------------------------------------------------------------
+function gaussMF(xv, c, sigma) { return Math.exp(-((xv-c)**2)/(2*sigma*sigma)); }
+function anfisForward(xv, params) {
+  const muLow = gaussMF(xv, params.cLow, params.sLow);
+  const muHigh = gaussMF(xv, params.cHigh, params.sHigh);
+  const wSum = muLow+muHigh || 1e-9;
+  const nLow = muLow/wSum, nHigh = muHigh/wSum;
+  return nLow*(params.pLow*xv+params.qLow) + nHigh*(params.pHigh*xv+params.qHigh);
+}
+function anfisLoss(data, params) { let s=0; for (const [xv,yv] of data) s += (anfisForward(xv,params)-yv)**2; return s/data.length; }
+function trainANFIS(data, steps, lr) {
+  let params = { cLow:-1, sLow:1, cHigh:1, sHigh:1, pLow:0.1, qLow:0, pHigh:0.1, qHigh:0 };
+  const keys = Object.keys(params); const eps = 1e-4;
+  for (let s = 0; s < steps; s++) {
+    for (const k of keys) {
+      const p1 = {...params}; p1[k]+=eps;
+      const p2 = {...params}; p2[k]-=eps;
+      params[k] -= lr*(anfisLoss(data,p1)-anfisLoss(data,p2))/(2*eps);
+    }
+  }
+  return { params, loss: anfisLoss(data,params) };
+}
+const ANFIS_DATA = (function () { const out=[]; for (let xv=-3;xv<=3;xv+=0.3) out.push([xv, xv<0?xv*xv:2*xv]); return out; })();
+
+function mountAnfisDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 260, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="anfisSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--ink-faint)">●</span> ${LANG==="uk"?"справжня функція":"true function"} &nbsp; <span style="color:var(--mint)">●</span> ANFIS</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"кроки навчання":"training steps"} <span class="val" id="anfisStepsVal">200</span></label><input type="range" id="anfisSteps" min="0" max="500" step="20" value="200"></div>
+        </div>
+        <div class="demo-steps" id="anfisStepsPanel"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.anfisCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.anfisAnalysis}</p></div>
+    ${relatedLinksHTML(["fuzzy","sequential-dl"])}
+  `;
+
+  const stepsSlider = panel.querySelector("#anfisSteps");
+  const svg = panel.querySelector("#anfisSvg");
+
+  function render() {
+    const steps = parseInt(stepsSlider.value, 10);
+    panel.querySelector("#anfisStepsVal").textContent = steps;
+
+    const { params, loss } = trainANFIS(ANFIS_DATA, steps, 0.05);
+    const trueVals = ANFIS_DATA.map((d) => d[1]);
+    const predVals = ANFIS_DATA.map((d) => anfisForward(d[0], params));
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: -3, xMax: 3, yMin: Math.min(...trueVals)-0.5, yMax: Math.max(...trueVals)+0.5, xTicks: 4, yTicks: 4, xFmt: (v)=>v.toFixed(0), yFmt: (v)=>v.toFixed(0) });
+    const truePath = ANFIS_DATA.map((d,i)=>`${i===0?"M":"L"} ${x(d[0]).toFixed(1)} ${y(trueVals[i]).toFixed(1)}`).join(" ");
+    const predPath = ANFIS_DATA.map((d,i)=>`${i===0?"M":"L"} ${x(d[0]).toFixed(1)} ${y(predVals[i]).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${truePath}" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4 3" />` + `<path d="${predPath}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    const lines = [`${S.steps}`, `  ${S.anfisRules}: c=(${params.cLow.toFixed(2)}, ${params.cHigh.toFixed(2)})`, `  MSE = ${loss.toFixed(4)}`];
+    panel.querySelector("#anfisStepsPanel").textContent = lines.join("\n");
+  }
+  stepsSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 68. Glosten-Milgrom Model
+// ---------------------------------------------------------------------------
+function glostenMilgrom(pInformed, v0, deltaV) {
+  const vHigh = v0+deltaV, vLow = v0-deltaV;
+  const pBuyGivenHigh = pInformed*1 + (1-pInformed)*0.5;
+  const pBuyGivenLow = pInformed*0 + (1-pInformed)*0.5;
+  const pBuy = 0.5*pBuyGivenHigh + 0.5*pBuyGivenLow;
+  const ask = (vHigh*0.5*pBuyGivenHigh + vLow*0.5*pBuyGivenLow)/pBuy;
+  const pSellGivenHigh = 1-pBuyGivenHigh, pSellGivenLow = 1-pBuyGivenLow;
+  const pSell = 0.5*pSellGivenHigh + 0.5*pSellGivenLow;
+  const bid = (vHigh*0.5*pSellGivenHigh + vLow*0.5*pSellGivenLow)/pSell;
+  return { ask, bid, spread: ask-bid };
+}
+
+function mountGlostenMilgromDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 220, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="gmSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>π (${LANG==="uk"?"частка поінформованих":"informed fraction"}) <span class="val" id="gmPiVal">0.30</span></label><input type="range" id="gmPi" min="0" max="0.9" step="0.05" value="0.30"></div>
+          <div class="demo-slider-row"><label>ΔV (${LANG==="uk"?"розмір новини":"news size"}) <span class="val" id="gmDvVal">5</span></label><input type="range" id="gmDv" min="1" max="15" step="1" value="5"></div>
+        </div>
+        <div class="demo-steps" id="gmSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.gmCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.gmAnalysis}</p></div>
+    ${relatedLinksHTML(["microstructure"])}
+  `;
+
+  const piSlider = panel.querySelector("#gmPi"), dvSlider = panel.querySelector("#gmDv");
+  const svg = panel.querySelector("#gmSvg");
+  const v0 = 100;
+
+  function render() {
+    const pInformed = parseFloat(piSlider.value), deltaV = parseFloat(dvSlider.value);
+    panel.querySelector("#gmPiVal").textContent = pInformed.toFixed(2);
+    panel.querySelector("#gmDvVal").textContent = deltaV;
+
+    const { ask, bid, spread } = glostenMilgrom(pInformed, v0, deltaV);
+    const yMin = v0-deltaV-2, yMax = v0+deltaV+2;
+    const y = (v) => H-PAD-((v-yMin)/(yMax-yMin))*(H-2*PAD);
+    svg.innerHTML = `
+      <line x1="${PAD}" y1="${y(v0).toFixed(1)}" x2="${W-PAD}" y2="${y(v0).toFixed(1)}" stroke="var(--ink-faint)" stroke-width="1" stroke-dasharray="3 3" />
+      <text x="${W-PAD+4}" y="${y(v0).toFixed(1)}" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">v0</text>
+      <rect x="${PAD+60}" y="${y(ask).toFixed(1)}" width="60" height="${(y(bid)-y(ask)).toFixed(1)}" fill="var(--mint)" opacity="0.25" />
+      <line x1="${PAD+60}" y1="${y(ask).toFixed(1)}" x2="${PAD+120}" y2="${y(ask).toFixed(1)}" stroke="var(--level-3)" stroke-width="2" />
+      <text x="${PAD+125}" y="${y(ask).toFixed(1)+4}" font-family="var(--mono)" font-size="10" fill="var(--level-3)">ask=${ask.toFixed(2)}</text>
+      <line x1="${PAD+60}" y1="${y(bid).toFixed(1)}" x2="${PAD+120}" y2="${y(bid).toFixed(1)}" stroke="var(--mint)" stroke-width="2" />
+      <text x="${PAD+125}" y="${y(bid).toFixed(1)+4}" font-family="var(--mono)" font-size="10" fill="var(--mint)">bid=${bid.toFixed(2)}</text>
+    `;
+
+    const lines = [`${S.steps}`, `  ${S.gmSpread} = ${spread.toFixed(3)}`];
+    panel.querySelector("#gmSteps").textContent = lines.join("\n");
+  }
+  [piSlider, dvSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 69. Latent Dirichlet Allocation — real Gibbs sampling
+// ---------------------------------------------------------------------------
+function ldaGibbs(docs, K, V, alpha, beta, iterations, rnd) {
+  const D = docs.length;
+  let z = docs.map((doc) => doc.map(() => Math.floor(rnd()*K)));
+  const nDK = Array.from({length:D}, () => new Array(K).fill(0));
+  const nKW = Array.from({length:K}, () => new Array(V).fill(0));
+  const nK = new Array(K).fill(0);
+  docs.forEach((doc,d) => doc.forEach((w,i) => { nDK[d][z[d][i]]++; nKW[z[d][i]][w]++; nK[z[d][i]]++; }));
+  for (let iter = 0; iter < iterations; iter++) {
+    docs.forEach((doc,d) => doc.forEach((w,i) => {
+      const oldZ = z[d][i];
+      nDK[d][oldZ]--; nKW[oldZ][w]--; nK[oldZ]--;
+      const probs = [];
+      for (let k = 0; k < K; k++) probs.push((nDK[d][k]+alpha)*(nKW[k][w]+beta)/(nK[k]+V*beta));
+      const sum = probs.reduce((a,b)=>a+b,0);
+      const r = rnd()*sum; let cum = 0, newZ = 0;
+      for (let k = 0; k < K; k++) { cum += probs[k]; if (r <= cum) { newZ = k; break; } }
+      z[d][i] = newZ; nDK[d][newZ]++; nKW[newZ][w]++; nK[newZ]++;
+    }));
+  }
+  return { nKW };
+}
+const LDA_VOCAB = ["market","growth","profit","crash","loss","decline"];
+const LDA_DOCS = [[0,1,2],[1,2,0],[2,1,1],[0,2,1],[0,3,4],[3,4,5],[4,3,3],[0,4,5]];
+
+function mountLdaDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 200, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="ldaSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"ітерації Гіббса":"Gibbs iterations"} <span class="val" id="ldaIterVal">200</span></label><input type="range" id="ldaIter" min="0" max="500" step="20" value="200"></div>
+        </div>
+        <div class="demo-steps" id="ldaSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.ldaCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.ldaAnalysis}</p></div>
+    ${relatedLinksHTML(["nlp"])}
+  `;
+
+  const iterSlider = panel.querySelector("#ldaIter");
+  const svg = panel.querySelector("#ldaSvg");
+
+  function render() {
+    const iterations = parseInt(iterSlider.value, 10);
+    panel.querySelector("#ldaIterVal").textContent = iterations;
+
+    const { nKW } = ldaGibbs(LDA_DOCS, 2, LDA_VOCAB.length, 0.1, 0.1, iterations, mulberry32(7));
+    const maxCount = Math.max(...nKW.flat(), 1);
+    const barH = 25, colors = ["var(--level-3)", "var(--mint)"];
+    let bars = "";
+    nKW.forEach((row,k) => {
+      row.forEach((count,w) => {
+        const bw = (count/maxCount)*140;
+        bars += `<rect x="${PAD+70}" y="${PAD+k*(barH*3+10)+w*barH}" width="${bw.toFixed(1)}" height="${barH-3}" fill="${colors[k]}" opacity="0.7" />`;
+        bars += `<text x="${PAD+65}" y="${PAD+k*(barH*3+10)+w*barH+barH/2+3}" text-anchor="end" font-family="var(--mono)" font-size="9" fill="var(--ink-soft)">${LDA_VOCAB[w]}</text>`;
+      });
+    });
+    svg.innerHTML = bars;
+
+    const lines = [`${S.steps}`, `  ${S.ldaTopics}:`, ...nKW.map((row,k) => `  topic${k}: ` + LDA_VOCAB.map((w,i)=>`${w}:${row[i]}`).join(" "))];
+    panel.querySelector("#ldaSteps").textContent = lines.join("\n");
+  }
+  iterSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 70. Order-Flow Imbalance
+// ---------------------------------------------------------------------------
+function orderFlowImbalance(bidSize, askSize) { return (bidSize-askSize)/(bidSize+askSize); }
+const OFI_SERIES = (function () { const rnd = mulberry32(11); const out=[]; for (let i=0;i<50;i++) out.push({bid: 50+gaussFrom(rnd)*20+i*0.3, ask: 50-gaussFrom(rnd)*5+i*0.1}); return out; })();
+
+function mountOfiDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="ofiSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--mint)">●</span> OFI &nbsp; <span style="color:var(--level-2)">●</span> ${LANG==="uk"?"ціновий вплив":"price impact"}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>λ (${LANG==="uk"?"коефіцієнт впливу":"impact coefficient"}) <span class="val" id="ofiLambdaVal">0.002</span></label><input type="range" id="ofiLambda" min="0.0005" max="0.01" step="0.0005" value="0.002"></div>
+        </div>
+        <div class="demo-steps" id="ofiSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.ofiCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.ofiAnalysis}</p></div>
+    ${relatedLinksHTML(["alt-data","microstructure"])}
+  `;
+
+  const lambdaSlider = panel.querySelector("#ofiLambda");
+  const svg = panel.querySelector("#ofiSvg");
+
+  function render() {
+    const lambda = parseFloat(lambdaSlider.value);
+    panel.querySelector("#ofiLambdaVal").textContent = lambda.toFixed(4);
+
+    const ofiVals = OFI_SERIES.map((d) => orderFlowImbalance(d.bid, d.ask));
+    const priceImpact = ofiVals.map((v) => v/lambda*0.002);
+    const allVals = ofiVals.concat(priceImpact.map((v)=>v));
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: ofiVals.length-1, yMin: -1, yMax: 1, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(1), xLabel: "t" });
+    const ofiPath = ofiVals.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const impactPath = priceImpact.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(Math.max(-1,Math.min(1,v))).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${ofiPath}" fill="none" stroke="var(--mint)" stroke-width="2" />` + `<path d="${impactPath}" fill="none" stroke="var(--level-2)" stroke-width="1.5" stroke-dasharray="3 2" />`;
+
+    const lines = [`${S.steps}`, `  ${S.ofiValue} = (bidSize - askSize)/(bidSize + askSize)`, `  ${S.ofiValue} range: [${Math.min(...ofiVals).toFixed(2)}, ${Math.max(...ofiVals).toFixed(2)}]`];
+    panel.querySelector("#ofiSteps").textContent = lines.join("\n");
+  }
+  lambdaSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 71. Extreme Value Theory (GPD)
+// ---------------------------------------------------------------------------
+function fitGPD(exceedances) {
+  const n = exceedances.length;
+  const mean = exceedances.reduce((a,b)=>a+b,0)/n;
+  const variance = exceedances.reduce((s,xv)=>s+(xv-mean)**2,0)/n;
+  const xi = 0.5*(mean*mean/variance - 1);
+  const sigma = 0.5*mean*(mean*mean/variance + 1);
+  return { xi, sigma };
+}
+function gpdVaR(xi, sigma, threshold, nExceed, nTotal, confidence) {
+  const p = (1-confidence)*nTotal/nExceed;
+  if (Math.abs(xi) < 1e-6) return threshold - sigma*Math.log(p);
+  return threshold + (sigma/xi)*(Math.pow(p,-xi)-1);
+}
+const EVT_RETURNS = (function () { const rnd = mulberry32(13); const out=[]; for (let i=0;i<2000;i++) out.push(-gaussFrom(rnd)*0.015); return out; })();
+
+function mountEvtDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 240, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="evtSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"поріг (топ N%)":"threshold (top N%)"} <span class="val" id="evtThreshVal">5%</span></label><input type="range" id="evtThresh" min="2" max="15" step="1" value="5"></div>
+        </div>
+        <div class="demo-steps" id="evtSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.evtCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.evtAnalysis}</p></div>
+    ${relatedLinksHTML(["risk-measures"])}
+  `;
+
+  const threshSlider = panel.querySelector("#evtThresh");
+  const svg = panel.querySelector("#evtSvg");
+
+  function render() {
+    const threshPct = parseInt(threshSlider.value, 10);
+    panel.querySelector("#evtThreshVal").textContent = threshPct+"%";
+
+    const nExceedTarget = Math.floor(threshPct/100*EVT_RETURNS.length);
+    const sorted = EVT_RETURNS.slice().sort((a,b)=>b-a);
+    const threshold = sorted[nExceedTarget-1] || sorted[0];
+    const exceedances = EVT_RETURNS.filter((xv) => xv > threshold).map((xv) => xv-threshold);
+    const { xi, sigma } = fitGPD(exceedances);
+    const var99 = gpdVaR(xi, sigma, threshold, exceedances.length, EVT_RETURNS.length, 0.99);
+    const empVar99 = sorted[Math.floor(0.01*EVT_RETURNS.length)];
+
+    const nBins = 25;
+    const xMin = 0, xMax = Math.max(...exceedances)*1.1;
+    const counts = new Array(nBins).fill(0);
+    for (const v of exceedances) { const bi = Math.min(nBins-1, Math.max(0, Math.floor(v/xMax*nBins))); counts[bi]++; }
+    const maxCount = Math.max(...counts, 1);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin: 0, yMax: maxCount, xTicks: 4, yTicks: 0, xFmt: (v)=>(v*100).toFixed(1)+"%", yFmt: ()=>"", xLabel: LANG==="uk"?"перевищення":"exceedance" });
+    let bars = "";
+    for (let i = 0; i < nBins; i++) { const bx = (i/nBins)*xMax; const h = (counts[i]/maxCount)*(H-2*PAD); bars += `<rect x="${x(bx).toFixed(1)}" y="${(H-PAD-h).toFixed(1)}" width="${((x(bx+xMax/nBins)-x(bx))-1).toFixed(1)}" height="${h.toFixed(1)}" fill="var(--mint)" opacity="0.75" />`; }
+    svg.innerHTML = axesSvg + bars;
+
+    const lines = [`${S.steps}`, `  ${S.evtXi} = ${xi.toFixed(3)}`, `  ${S.evtVaR}(99%) = ${(var99*100).toFixed(2)}%`, `  ${LANG==="uk"?"емпіричний":"empirical"} VaR(99%) = ${(empVar99*100).toFixed(2)}%`];
+    panel.querySelector("#evtSteps").textContent = lines.join("\n");
+  }
+  threshSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 72. Gaussian Copula
+// ---------------------------------------------------------------------------
+function choleskyDecomp(Sigma) {
+  const n = Sigma.length;
+  const L = Array.from({length:n}, () => new Array(n).fill(0));
+  for (let i = 0; i < n; i++) for (let j = 0; j <= i; j++) {
+    let sum = 0; for (let k = 0; k < j; k++) sum += L[i][k]*L[j][k];
+    if (i===j) L[i][j] = Math.sqrt(Sigma[i][i]-sum); else L[i][j] = (Sigma[i][j]-sum)/L[j][j];
+  }
+  return L;
+}
+function normCDFcop(xv) { const sign = xv<0?-1:1; xv = Math.abs(xv); const a1=0.254829592,a2=-0.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=0.3275911; const tt=1/(1+p*xv/Math.SQRT2); const yv=1-(((((a5*tt+a4)*tt)+a3)*tt+a2)*tt+a1)*tt*Math.exp(-xv*xv/2); return 0.5*(1+sign*yv); }
+function simulateGaussianCopula(rho, n, rnd) {
+  const L = choleskyDecomp([[1,rho],[rho,1]]);
+  const pairs = [];
+  for (let i = 0; i < n; i++) { const z1=gaussFrom(rnd), z2=gaussFrom(rnd); const x1=L[0][0]*z1, x2=L[1][0]*z1+L[1][1]*z2; pairs.push([normCDFcop(x1), normCDFcop(x2)]); }
+  return pairs;
+}
+
+function mountCopulaDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 300, H = 300, PAD = 20;
+  let seed = 15;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="copSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${S.copulaRho} <span class="val" id="copRhoVal">0.50</span></label><input type="range" id="copRho" min="-0.9" max="0.9" step="0.05" value="0.50"></div>
+          <button type="button" class="demo-run-btn" id="copRun">${S.runNewRound}</button>
+        </div>
+        <div class="demo-steps" id="copSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.copulaCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.copulaAnalysis}</p></div>
+    ${relatedLinksHTML(["risk-measures"])}
+  `;
+
+  const rhoSlider = panel.querySelector("#copRho"), runBtn = panel.querySelector("#copRun");
+  const svg = panel.querySelector("#copSvg");
+
+  function render() {
+    const rho = parseFloat(rhoSlider.value);
+    panel.querySelector("#copRhoVal").textContent = rho.toFixed(2);
+
+    const pairs = simulateGaussianCopula(rho, 400, mulberry32(seed));
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: 1, yMin: 0, yMax: 1, xTicks: 4, yTicks: 4, xFmt: (v)=>v.toFixed(1), yFmt: (v)=>v.toFixed(1), xLabel: "U", yLabel: "V" });
+    const dots = pairs.map(([u,v]) => `<circle cx="${x(u).toFixed(1)}" cy="${y(v).toFixed(1)}" r="2" fill="${u<0.05&&v<0.05?"var(--level-3)":"var(--mint)"}" opacity="0.6" />`).join("");
+    const tailBox = `<rect x="${x(0).toFixed(1)}" y="${y(0.05).toFixed(1)}" width="${(x(0.05)-x(0)).toFixed(1)}" height="${(y(0)-y(0.05)).toFixed(1)}" fill="var(--level-3)" opacity="0.1" stroke="var(--level-3)" stroke-width="1" stroke-dasharray="3 3" />`;
+    svg.innerHTML = axesSvg + tailBox + dots;
+
+    const jointTail = pairs.filter(([u,v]) => u<0.05 && v<0.05).length/pairs.length;
+    const lines = [`${S.steps}`, `  ${S.copulaJointTail} = ${jointTail.toFixed(3)}`];
+    panel.querySelector("#copSteps").textContent = lines.join("\n");
+  }
+  rhoSlider.addEventListener("input", render);
+  runBtn.addEventListener("click", () => { seed = Math.floor(Math.random()*100000); render(); });
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 73. Holt-Winters Exponential Smoothing
+// ---------------------------------------------------------------------------
+function holtWinters(series, alpha, beta, gammaP, period) {
+  const n = series.length;
+  let level = series.slice(0,period).reduce((a,b)=>a+b,0)/period;
+  let trend = (series.slice(period,2*period).reduce((a,b)=>a+b,0) - series.slice(0,period).reduce((a,b)=>a+b,0))/(period*period);
+  let seasonal = series.slice(0,period).map((v) => v-level);
+  const fitted = [];
+  for (let t = 0; t < n; t++) {
+    const s = seasonal[t%period];
+    fitted.push(level+trend+s);
+    const newLevel = alpha*(series[t]-s) + (1-alpha)*(level+trend);
+    const newTrend = beta*(newLevel-level) + (1-beta)*trend;
+    seasonal[t%period] = gammaP*(series[t]-newLevel) + (1-gammaP)*s;
+    level = newLevel; trend = newTrend;
+  }
+  return fitted;
+}
+const HW_SERIES = (function () { const rnd = mulberry32(17); const out=[]; for (let i=0;i<40;i++) out.push(100+i*0.5+10*Math.sin(i*2*Math.PI/12)+gaussFrom(rnd)*1); return out; })();
+
+function mountHoltWintersDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 230, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="hwSvg2"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--ink-faint)">●</span> ${LANG==="uk"?"дані":"data"} &nbsp; <span style="color:var(--mint)">●</span> ${LANG==="uk"?"підгонка":"fitted"}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>α (рівень) <span class="val" id="hwAlphaVal">0.30</span></label><input type="range" id="hwAlpha" min="0.05" max="0.9" step="0.05" value="0.30"></div>
+          <div class="demo-slider-row"><label>β (тренд) <span class="val" id="hwBetaVal">0.10</span></label><input type="range" id="hwBeta" min="0.01" max="0.5" step="0.01" value="0.10"></div>
+          <div class="demo-slider-row"><label>γ (сезонність) <span class="val" id="hwGammaVal">0.30</span></label><input type="range" id="hwGamma" min="0.05" max="0.9" step="0.05" value="0.30"></div>
+        </div>
+        <div class="demo-steps" id="hwSteps2"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.hwCallout2}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.hwAnalysis2}</p></div>
+    ${relatedLinksHTML(["time-series"])}
+  `;
+
+  const els = ["hwAlpha","hwBeta","hwGamma"].map((id) => panel.querySelector("#"+id));
+  const svg = panel.querySelector("#hwSvg2");
+
+  function render() {
+    const [alpha, beta, gammaP] = els.map((el) => parseFloat(el.value));
+    panel.querySelector("#hwAlphaVal").textContent = alpha.toFixed(2);
+    panel.querySelector("#hwBetaVal").textContent = beta.toFixed(2);
+    panel.querySelector("#hwGammaVal").textContent = gammaP.toFixed(2);
+
+    const fitted = holtWinters(HW_SERIES, alpha, beta, gammaP, 12);
+    const allVals = HW_SERIES.concat(fitted);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: HW_SERIES.length-1, yMin: Math.min(...allVals)-2, yMax: Math.max(...allVals)+2, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(0), xLabel: "t" });
+    const dataPath = HW_SERIES.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const fitPath = fitted.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${dataPath}" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4 3" />` + `<path d="${fitPath}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    function mseCalc(a,b) { let s=0; for (let i=0;i<a.length;i++) s+=(a[i]-b[i])**2; return s/a.length; }
+    const lines = [`${S.steps}`, `  ${S.hwMseLbl} = ${mseCalc(HW_SERIES,fitted).toFixed(3)}`];
+    panel.querySelector("#hwSteps2").textContent = lines.join("\n");
+  }
+  els.forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 74. Actor-Critic
+// ---------------------------------------------------------------------------
+function softmaxAC(arr) { const m = Math.max(...arr); const ex = arr.map((v)=>Math.exp(v-m)); const s = ex.reduce((a,b)=>a+b,0); return ex.map((v)=>v/s); }
+function trainActorCritic(episodes, lrActor, lrCritic, rnd) {
+  let theta = [0,0,0], V = 0;
+  const trueReward = [-0.5,0,1.2];
+  const history = [];
+  for (let ep = 0; ep < episodes; ep++) {
+    const probs = softmaxAC(theta);
+    const r = rnd(); let cum = 0, action = 0;
+    for (let a = 0; a < 3; a++) { cum += probs[a]; if (r <= cum) { action = a; break; } }
+    const reward = trueReward[action] + gaussFrom(rnd)*0.3;
+    const tdError = reward - V;
+    V += lrCritic*tdError;
+    for (let k = 0; k < 3; k++) { const grad = (k===action?1:0)-probs[k]; theta[k] += lrActor*tdError*grad; }
+    history.push(softmaxAC(theta));
+  }
+  return { theta, V, history };
+}
+
+function mountActorCriticDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 230, PAD = 40;
+  const actionLabels = LANG==="uk" ? ["продати","тримати","купити"] : ["sell","hold","buy"];
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="acSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"епізоди навчання":"training episodes"} <span class="val" id="acEpVal">500</span></label><input type="range" id="acEp" min="0" max="1000" step="25" value="500"></div>
+        </div>
+        <div class="demo-steps" id="acSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.acCallout2}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.acAnalysis2}</p></div>
+    ${relatedLinksHTML(["rl"])}
+  `;
+
+  const epSlider = panel.querySelector("#acEp");
+  const svg = panel.querySelector("#acSvg");
+
+  function render() {
+    const episodes = parseInt(epSlider.value, 10);
+    panel.querySelector("#acEpVal").textContent = episodes;
+
+    const { V, history } = trainActorCritic(Math.max(1,episodes), 0.05, 0.1, mulberry32(9));
+    const colors = ["var(--level-3)","var(--level-2)","var(--mint)"];
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: history.length-1, yMin: 0, yMax: 1, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(1), xLabel: LANG==="uk"?"епізод":"episode", yLabel: "P(action)" });
+    let paths = "";
+    for (let a = 0; a < 3; a++) { const path = history.map((probs,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(probs[a]).toFixed(1)}`).join(" "); paths += `<path d="${path}" fill="none" stroke="${colors[a]}" stroke-width="2" />`; }
+    svg.innerHTML = axesSvg + paths;
+
+    const finalProbs = history[history.length-1];
+    const lines = [`${S.steps}`, `  ${S.acCriticValue} = ${V.toFixed(3)}`, `  P(${actionLabels[2]}) = ${finalProbs[2].toFixed(2)}`];
+    panel.querySelector("#acSteps").textContent = lines.join("\n");
+  }
+  epSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 75. KMV Model
+// ---------------------------------------------------------------------------
+function solveKMV(equityValue, equityVol, debtFace, r, T, iterations) {
+  let V = equityValue+debtFace, sigmaV = equityVol*equityValue/V;
+  for (let iter = 0; iter < iterations; iter++) {
+    const d1 = (Math.log(V/debtFace)+(r+sigmaV*sigmaV/2)*T)/(sigmaV*Math.sqrt(T));
+    const d2 = d1-sigmaV*Math.sqrt(T);
+    const E = V*normCDF(d1)-debtFace*Math.exp(-r*T)*normCDF(d2);
+    const dE_dV = normCDF(d1);
+    V = V + (equityValue-E)/dE_dV;
+    sigmaV = equityVol*E/(dE_dV*V);
+  }
+  const d1 = (Math.log(V/debtFace)+(r+sigmaV*sigmaV/2)*T)/(sigmaV*Math.sqrt(T));
+  const d2 = d1-sigmaV*Math.sqrt(T);
+  return { V, sigmaV, dd: d2, pd: normCDF(-d2) };
+}
+
+function mountKmvDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 230, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="kmvSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"вартість акцій":"equity value"} <span class="val" id="kmvEqVal">80</span></label><input type="range" id="kmvEq" min="20" max="200" step="5" value="80"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"волатильність акцій":"equity volatility"} <span class="val" id="kmvVolVal">40%</span></label><input type="range" id="kmvVol" min="10" max="80" step="5" value="40"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"номінал боргу":"debt face value"} <span class="val" id="kmvDebtVal">100</span></label><input type="range" id="kmvDebt" min="50" max="200" step="10" value="100"></div>
+        </div>
+        <div class="demo-steps" id="kmvSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.kmvCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.kmvAnalysis}</p></div>
+    ${relatedLinksHTML(["credit"])}
+  `;
+
+  const els = ["kmvEq","kmvVol","kmvDebt"].map((id) => panel.querySelector("#"+id));
+  const svg = panel.querySelector("#kmvSvg");
+
+  function render() {
+    const [eq, volPct, debt] = els.map((el) => parseFloat(el.value));
+    panel.querySelector("#kmvEqVal").textContent = eq;
+    panel.querySelector("#kmvVolVal").textContent = volPct+"%";
+    panel.querySelector("#kmvDebtVal").textContent = debt;
+
+    const { V, sigmaV, dd, pd } = solveKMV(eq, volPct/100, debt, 0.03, 1, 50);
+
+    const barW = Math.min(200, Math.max(10, dd*20));
+    const col = pd > 0.05 ? "var(--level-3)" : pd > 0.01 ? "var(--level-2)" : "var(--mint)";
+    svg.innerHTML = `
+      <rect x="${PAD}" y="${H/2-15}" width="${barW.toFixed(1)}" height="30" fill="${col}" opacity="0.7" />
+      <text x="${PAD+barW+10}" y="${H/2+5}" font-family="var(--mono)" font-size="12" fill="var(--ink)">DD=${dd.toFixed(2)}</text>
+    `;
+
+    const lines = [`${S.steps}`, `  ${LANG==="uk"?"неявна вартість активів":"implied asset value"} = ${V.toFixed(1)}`, `  ${S.kmvDD} = ${dd.toFixed(3)}`, `  ${S.kmvPD} = ${(pd*100).toFixed(2)}%`];
+    panel.querySelector("#kmvSteps").textContent = lines.join("\n");
+  }
+  els.forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+
 const DEMOS = {
   "volatility::GARCH(1,1)": { mount: mountGarchDemo },
   "unsupervised-outliers::Isolation Forest": { mount: mountIsoForestDemo },
@@ -6630,6 +7342,16 @@ const DEMOS = {
   "systemic::CoVaR": { mount: mountCovarDemo },
   "fraud::Spoofing / Layering Detection": { mount: mountSpoofDemo },
   "classical-ml::Gradient Boosting (XGBoost / LightGBM / CatBoost)": { mount: mountGbmDemo },
+  "attention::Anomaly Transformer": { mount: mountAnomalyTransformerDemo },
+  "fuzzy::ANFIS": { mount: mountAnfisDemo },
+  "microstructure::Glosten-Milgrom Model": { mount: mountGlostenMilgromDemo },
+  "nlp::Latent Dirichlet Allocation": { mount: mountLdaDemo },
+  "alt-data::Order-Flow Imbalance": { mount: mountOfiDemo },
+  "risk-measures::Extreme Value Theory (GPD)": { mount: mountEvtDemo },
+  "risk-measures::Copula-based Risk Models": { mount: mountCopulaDemo },
+  "time-series::Holt-Winters Exponential Smoothing": { mount: mountHoltWintersDemo },
+  "rl::Actor-Critic (A2C/A3C)": { mount: mountActorCriticDemo },
+  "credit::KMV Model": { mount: mountKmvDemo },
 };
 
 function applyFilters() {
