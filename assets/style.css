@@ -130,7 +130,7 @@ a { color: inherit; }
   border-bottom: 2px solid transparent;
 }
 .topnav a:hover { color: var(--ink); }
-.topnav a.active { color: var(--mint); border-bottom-color: var(--mint); }
+.topnav a.active { color: var(--mint) !important; border-bottom-color: var(--mint); }
 
 /* ---------- hero ---------- */
 .hero { padding: 64px 0 40px; border-bottom: 1px solid var(--rule); }
