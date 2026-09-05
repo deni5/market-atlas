@@ -315,6 +315,51 @@ const DEMO_STRINGS = {
     gaBestFitness: "найкраща знайдена придатність",
     pgCallout: "На відміну від Q-навчання, яке оцінює цінність кожної дії, Policy Gradient напряму навчає розподіл ймовірностей дій — це природніше підходить для неперервних просторів дій (наприклад, точний розмір позиції, а не лише 'купити/продати/тримати') і краще масштабується на складні стратегії управління портфелем.",
     pgProbs: "ймовірності дій [продати, тримати, купити]",
+    relatedLabel: "пов'язані моделі:",
+    analysisLabel: "ОБМЕЖЕННЯ",
+    runNewRound: "🎲 новий випадковий раунд",
+    ff3Callout: "Трифакторна модель — робочий кінь квант-дослідження: перш ніж стверджувати, що менеджер має 'альфу' (справжній навик), спершу перевіряють, чи цю дохідність повністю не пояснюють прості системні фактори ринку, розміру й вартості.",
+    ff3Analysis: "Модель припускає лінійну залежність і стабільні бета-коефіцієнти в часі — на практиці фактори мультиколінеарні, а справжня 'альфа' після контролю за FF3 часто виявляється статистично незначущою навіть для відомих фондів.",
+    ff3Preset: "профіль акції",
+    ff3Growth: "зростання (висока бета, негативний HML)",
+    ff3Value: "вартість (низька бета, позитивний HML)",
+    ff3SmallCap: "мала капіталізація (позитивний SMB)",
+    blCallout: "Black-Litterman вирішує головну проблему Марковіца на практиці: без суб'єктивних поглядів оптимізатор часто дає екстремальні, нереалістичні ваги. Змішуючи ринкову рівновагу з поглядами інвестора через баєсівське оновлення, результат залишається розсудливим навіть при сильних переконаннях.",
+    blAnalysis: "Якість результату критично залежить від Omega (впевненості у поглядах) — занадто мала Omega робить модель ідентичною до 'сліпого' виконання суб'єктивного погляду, ігноруючи ринкову рівновагу повністю.",
+    blPreset: "сценарій поглядів",
+    blBullish: "бичачий погляд на актив 1",
+    blBearish: "ведмежий погляд на актив 1",
+    blNeutral: "без поглядів (чиста рівновага)",
+    blEq: "рівноважна дохідність",
+    blPost: "апостеріорна дохідність (після поглядів)",
+    ocsvmCallout: "На відміну від лінійного роздільника, ядрове наближення (Random Fourier Features) дозволяє One-Class SVM окреслити нелінійну 'область нормальності' довільної форми — саме тому це стандартний вибір для виявлення шахрайських транзакцій, де 'нормальна' поведінка утворює складну, неопуклу область у просторі ознак.",
+    ocsvmAnalysis: "Random Fourier Features — наближення ядра RBF, а не точне обчислення; якість залежить від кількості випадкових ознак (тут — 60) і масштабу γ, який треба підбирати під конкретні дані.",
+    ocsvmNu: "ν (очікувана частка викидів)",
+    grCallout: "GRU має на третину менше параметрів за LSTM (2 вентилі замість 3), але на багатьох фінансових задачах досягає порівнянної точності — тому це часто перший вибір, коли обчислювальні ресурси чи розмір датасету обмежені.",
+    grAnalysis: "Менша кількість параметрів означає швидше навчання, але на послідовностях із дуже довгою пам'яттю (сотні кроків) LSTM іноді зберігає інформацію надійніше завдяки окремій комірці стану.",
+    pfCallout: "Фільтр частинок працює там, де фільтр Калмана не може: коли залежність нелінійна або шум негаусів. Ціна — обчислювальна: потрібні сотні чи тисячі частинок замість одного аналітичного оновлення, тому він не завжди підходить для мікросекундних торгових систем.",
+    pfAnalysis: "Проблема 'вироджування частинок' (particle degeneracy) — коли майже вся вага зосереджується на одній частинці — типова слабкість; систематичний resampling (застосований тут) частково пом'якшує, але не усуває її повністю.",
+    pfParticles: "кількість частинок",
+    jdCallout: "Стрибкоподібна дифузія пояснює 'усмішку волатильності', яку чиста модель Блека-Шоулза не може відтворити: раптові цінові стрибки (землетруси на ринку, несподівані новини) роблять хвости розподілу товщими, ніж передбачає звичайний геометричний броунівський рух.",
+    jdAnalysis: "Калібрування параметрів стрибка (частота λ, розмір μJ, σJ) на практиці складне — вони не спостерігаються напряму, а оцінюються опосередковано з ринкових цін опціонів, що робить модель чутливою до вибору методу калібрування.",
+    jdPreset: "сценарій ринку",
+    jdCalm: "спокійний ринок (рідкісні дрібні стрибки)",
+    jdCrash: "ринок, схильний до обвалів (часті негативні стрибки)",
+    psoCallout: "На відміну від градієнтних методів, PSO не потребує обчислення похідних — кожна частинка рою просто рухається до власного найкращого результату й найкращого результату всього рою, комбінуючи індивідуальний досвід із колективним.",
+    psoAnalysis: "PSO схильний до передчасної збіжності на локальному максимумі, якщо рій втрачає різноманітність надто рано — параметр інерції w і соціальні коефіцієнти потребують ретельного підбору для конкретної задачі.",
+    psoParticles: "розмір рою",
+    gatCallout: "На відміну від звичайного GNN, де внесок кожного сусіда усереднюється порівну (чи за нормалізованою вагою зв'язку), GAT навчається, яким сусідам довіряти більше — вузол може майже повністю ігнорувати одного сусіда й покладатись на іншого, залежно від контексту.",
+    gatAnalysis: "Ваги уваги тут обчислені з фіксованих (не натренованих) параметрів a1,a2 для ілюстрації механізму; у реальній моделі ці вектори навчаються через backpropagation на конкретному завданні (класифікація вузлів, виявлення шахрайства тощо).",
+    gatPreset: "топологія графа",
+    gatStar: "зірка (один хаб, три листки)",
+    gatChain: "ланцюжок",
+    washCallout: "Ключова ідея: підозрілість визначається не загальним обсягом рахунку, а балансом двостороннього потоку між конкретною парою контрагентів — легітимний посередник (брокер, маркет-мейкер) пропускає кошти в одному напрямку по ланцюжку, а wash trading систематично повертає майже той самий обсяг назад тому самому контрагенту.",
+    washAnalysis: "Реальні схеми wash trading часто маскуються через кількох проміжних посередників саме для того, щоб уникнути виявлення такою парною метрикою — регулятори (CFTC, SEC) поєднують цей аналіз із перевіркою часових патернів і зв'язків власності між рахунками.",
+    washPreset: "патерн торгівлі",
+    washNormal: "нормальний ланцюжок (A→B→C→D)",
+    washWash: "wash trading (X↔Y туди-сюди)",
+    hwCallout: "На відміну від моделі Васічека, де довгострокове середнє θ фіксоване, у моделі Халла-Байта θ(t) залежить від часу — це дозволяє моделі точно відтворити поточну ринкову криву дохідності, а не лише її загальну форму.",
+    hwAnalysis: "Точне калібрування θ(t) під ринкову криву означає, що модель за конструкцією ідеально узгоджена з поточними цінами облігацій, але це ускладнює інтерпретацію окремих параметрів a і σ як 'фундаментальних' характеристик ринку.",
   },
   en: {
     steps: "steps:",
@@ -463,6 +508,51 @@ const DEMO_STRINGS = {
     gaBestFitness: "best fitness found",
     pgCallout: "Unlike Q-learning, which estimates the value of each action, Policy Gradient learns the action-probability distribution directly — a more natural fit for continuous action spaces (e.g. an exact position size, not just 'buy/sell/hold') and scales better to complex portfolio-management strategies.",
     pgProbs: "action probabilities [sell, hold, buy]",
+    relatedLabel: "related models:",
+    analysisLabel: "LIMITATIONS",
+    runNewRound: "🎲 run a new random round",
+    ff3Callout: "The three-factor model is the workhorse of quant research: before claiming a manager has 'alpha' (genuine skill), you first check whether that return is fully explained by simple systematic market, size and value factors.",
+    ff3Analysis: "The model assumes a linear relationship and stable betas over time — in practice the factors are collinear, and the 'alpha' left over after controlling for FF3 is often statistically insignificant even for well-known funds.",
+    ff3Preset: "stock profile",
+    ff3Growth: "growth (high beta, negative HML)",
+    ff3Value: "value (low beta, positive HML)",
+    ff3SmallCap: "small-cap (positive SMB)",
+    blCallout: "Black-Litterman solves Markowitz's main practical problem: without subjective views, the optimizer often produces extreme, unrealistic weights. By blending market equilibrium with an investor's views via Bayesian updating, the result stays sensible even under strong convictions.",
+    blAnalysis: "The result's quality hinges critically on Omega (confidence in the view) — too small an Omega makes the model identical to blindly following the subjective view, ignoring market equilibrium entirely.",
+    blPreset: "view scenario",
+    blBullish: "bullish view on asset 1",
+    blBearish: "bearish view on asset 1",
+    blNeutral: "no views (pure equilibrium)",
+    blEq: "equilibrium return",
+    blPost: "posterior return (after views)",
+    ocsvmCallout: "Unlike a linear separator, the kernel approximation (Random Fourier Features) lets One-Class SVM outline a nonlinear 'region of normality' of arbitrary shape — exactly why it's a standard choice for fraud detection, where 'normal' behaviour forms a complex, non-convex region in feature space.",
+    ocsvmAnalysis: "Random Fourier Features approximate the RBF kernel rather than computing it exactly; quality depends on the number of random features (60 here) and the γ scale, which needs tuning to the specific data.",
+    ocsvmNu: "ν (expected outlier fraction)",
+    grCallout: "GRU has about a third fewer parameters than LSTM (2 gates instead of 3), yet reaches comparable accuracy on many financial tasks — making it a common first choice when compute or dataset size is limited.",
+    grAnalysis: "Fewer parameters mean faster training, but on sequences with very long memory (hundreds of steps) LSTM sometimes retains information more reliably thanks to its separate cell state.",
+    pfCallout: "The particle filter works where the Kalman filter can't: when the dynamics are nonlinear or the noise isn't Gaussian. The cost is computational — hundreds or thousands of particles are needed instead of one analytical update, so it isn't always suited to microsecond-scale trading systems.",
+    pfAnalysis: "'Particle degeneracy' — when nearly all weight collapses onto a single particle — is a classic weakness; the systematic resampling used here mitigates it partially but doesn't eliminate it entirely.",
+    pfParticles: "number of particles",
+    jdCallout: "Jump-diffusion explains the volatility smile that a pure Black-Scholes model can't reproduce: sudden price jumps (market shocks, surprise news) make the distribution's tails fatter than plain geometric Brownian motion predicts.",
+    jdAnalysis: "Calibrating the jump parameters (frequency λ, size μJ, σJ) is hard in practice — they aren't directly observable and are inferred indirectly from option market prices, making the model sensitive to the calibration method chosen.",
+    jdPreset: "market scenario",
+    jdCalm: "calm market (rare, small jumps)",
+    jdCrash: "crash-prone market (frequent negative jumps)",
+    psoCallout: "Unlike gradient-based methods, PSO needs no derivatives — each particle in the swarm simply moves toward its own best result and the swarm's best result, blending individual experience with collective knowledge.",
+    psoAnalysis: "PSO is prone to premature convergence on a local maximum if the swarm loses diversity too early — the inertia weight w and social coefficients need careful tuning for the specific problem.",
+    psoParticles: "swarm size",
+    gatCallout: "Unlike a plain GNN, where each neighbour's contribution is averaged equally (or by normalised edge weight), GAT learns which neighbours to trust more — a node can almost entirely ignore one neighbour and rely on another, depending on context.",
+    gatAnalysis: "The attention weights here are computed from fixed (untrained) parameters a1,a2 purely to illustrate the mechanism; in a real model these vectors are learned via backpropagation on a specific task (node classification, fraud detection, etc.).",
+    gatPreset: "graph topology",
+    gatStar: "star (one hub, three leaves)",
+    gatChain: "chain",
+    washCallout: "The key idea: suspicion is defined not by an account's total volume, but by the balance of two-way flow between a specific pair of counterparties — a legitimate intermediary (broker, market maker) passes funds one direction down a chain, while wash trading systematically sends nearly the same volume back to the same counterparty.",
+    washAnalysis: "Real wash-trading schemes often route through several intermediary accounts specifically to evade detection by a pairwise metric like this one — regulators (the CFTC, the SEC) combine this analysis with timing-pattern checks and ownership links between accounts.",
+    washPreset: "trading pattern",
+    washNormal: "normal chain (A→B→C→D)",
+    washWash: "wash trading (X↔Y back-and-forth)",
+    hwCallout: "Unlike the Vasicek model, where the long-run mean θ is fixed, in the Hull-White model θ(t) depends on time — letting the model exactly reproduce the current market yield curve, not just its general shape.",
+    hwAnalysis: "Fitting θ(t) exactly to the market curve means the model is, by construction, perfectly consistent with current bond prices — but that makes it harder to interpret the parameters a and σ alone as 'fundamental' market characteristics.",
   },
 };
 
@@ -4865,6 +4955,776 @@ function mountReinforceDemo(panel) {
 }
 
 
+// ---------------------------------------------------------------------------
+// helper: render a "related demos" footer row of links to other topic sections
+// ---------------------------------------------------------------------------
+function relatedLinksHTML(topicIds) {
+  const S = DEMO_STRINGS[LANG];
+  const links = topicIds.map((tid) => {
+    const topic = TOPICS.find((t) => t.id === tid);
+    if (!topic) return "";
+    return `<a href="#${tid}">${t(topic.title)}</a>`;
+  }).join("");
+  return `<div class="demo-related"><span class="rel-label">${S.relatedLabel}</span>${links}</div>`;
+}
+
+// ---------------------------------------------------------------------------
+// 46. Fama-French 3-Factor — closed-form OLS regression, preset stock profiles
+// ---------------------------------------------------------------------------
+function solveOLS(X, yv) {
+  const p = X[0].length;
+  const XtX = Array.from({length:p}, () => new Array(p).fill(0));
+  const Xty = new Array(p).fill(0);
+  for (let i = 0; i < X.length; i++) {
+    for (let a = 0; a < p; a++) { Xty[a] += X[i][a]*yv[i]; for (let b = 0; b < p; b++) XtX[a][b] += X[i][a]*X[i][b]; }
+  }
+  const n2 = p;
+  const M = XtX.map((row,i) => row.concat([Xty[i]]));
+  for (let i = 0; i < n2; i++) {
+    let piv = M[i][i]; if (Math.abs(piv)<1e-12) piv=1e-12;
+    for (let j = 0; j <= n2; j++) M[i][j] /= piv;
+    for (let k = 0; k < n2; k++) { if (k===i) continue; const f=M[k][i]; for (let j=0;j<=n2;j++) M[k][j]-=f*M[i][j]; }
+  }
+  return M.map((row) => row[n2]);
+}
+const FF3_PRESETS = {
+  growth: { alpha: 0.0001, bMkt: 1.3, bSmb: 0.1, bHml: -0.4 },
+  value:  { alpha: 0.0001, bMkt: 0.9, bSmb: 0.0, bHml: 0.4 },
+  small:  { alpha: 0.0001, bMkt: 1.1, bSmb: 0.7, bHml: 0.1 },
+};
+function genFF3Data(trueParams, seed) {
+  const rnd = mulberry32(seed);
+  const n = 200;
+  const mkt=[], smb=[], hml=[], rets=[];
+  for (let i = 0; i < n; i++) {
+    const m = gaussFrom(rnd)*0.01, s = gaussFrom(rnd)*0.008, h = gaussFrom(rnd)*0.008;
+    mkt.push(m); smb.push(s); hml.push(h);
+    rets.push(trueParams.alpha + trueParams.bMkt*m + trueParams.bSmb*s + trueParams.bHml*h + gaussFrom(rnd)*0.002);
+  }
+  return { mkt, smb, hml, rets };
+}
+
+function mountFf3Demo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 230, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="ff3Svg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-preset-row">
+            <label>${S.ff3Preset}</label>
+            <select id="ff3Preset">
+              <option value="growth">${S.ff3Growth}</option>
+              <option value="value">${S.ff3Value}</option>
+              <option value="small">${S.ff3SmallCap}</option>
+            </select>
+          </div>
+        </div>
+        <div class="demo-steps" id="ff3Steps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.ff3Callout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.ff3Analysis}</p></div>
+    ${relatedLinksHTML(["factor","classical-ml","xai"])}
+  `;
+
+  const presetSelect = panel.querySelector("#ff3Preset");
+  const svg = panel.querySelector("#ff3Svg");
+
+  function render() {
+    const preset = FF3_PRESETS[presetSelect.value];
+    const { mkt, smb, hml, rets } = genFF3Data(preset, 1);
+    const X = rets.map((_,i) => [1, mkt[i], smb[i], hml[i]]);
+    const [alpha, bMkt, bSmb, bHml] = solveOLS(X, rets);
+
+    const predicted = rets.map((_,i) => alpha + bMkt*mkt[i] + bSmb*smb[i] + bHml*hml[i]);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: Math.min(...rets), xMax: Math.max(...rets), yMin: Math.min(...predicted), yMax: Math.max(...predicted), xTicks: 4, yTicks: 4, xFmt: (v)=>(v*100).toFixed(1)+"%", yFmt: (v)=>(v*100).toFixed(1)+"%", xLabel: LANG==="uk"?"фактична":"actual", yLabel: LANG==="uk"?"підігнана":"fitted" });
+    const dots = rets.map((rv,i) => `<circle cx="${x(rv).toFixed(1)}" cy="${y(predicted[i]).toFixed(1)}" r="2.5" fill="var(--mint)" opacity="0.6" />`).join("");
+    const diagMin = Math.min(Math.min(...rets), Math.min(...predicted)), diagMax = Math.max(Math.max(...rets), Math.max(...predicted));
+    const diag = `M ${x(diagMin).toFixed(1)} ${y(diagMin).toFixed(1)} L ${x(diagMax).toFixed(1)} ${y(diagMax).toFixed(1)}`;
+    svg.innerHTML = axesSvg + `<path d="${diag}" stroke="var(--ink-faint)" stroke-width="1" stroke-dasharray="3 3" fill="none" />` + dots;
+
+    const lines = [`${S.steps}`, `  R = α + β_Mkt·Mkt + β_SMB·SMB + β_HML·HML`, `  α=${(alpha*10000).toFixed(2)}bp  β_Mkt=${bMkt.toFixed(2)}  β_SMB=${bSmb.toFixed(2)}  β_HML=${bHml.toFixed(2)}`, `  (${LANG==="uk"?"справжні":"true"}: β_Mkt=${preset.bMkt} β_SMB=${preset.bSmb} β_HML=${preset.bHml})`];
+    panel.querySelector("#ff3Steps").textContent = lines.join("\n");
+  }
+  presetSelect.addEventListener("change", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 47. Black-Litterman
+// ---------------------------------------------------------------------------
+function blMatInv(A) {
+  const sz = A.length;
+  const M = A.map((row,i) => row.concat(Array.from({length:sz}, (_,j)=>i===j?1:0)));
+  for (let i = 0; i < sz; i++) {
+    let piv = M[i][i]; if (Math.abs(piv)<1e-10) piv=1e-10;
+    for (let j = 0; j < 2*sz; j++) M[i][j] /= piv;
+    for (let k = 0; k < sz; k++) { if (k===i) continue; const f=M[k][i]; for (let j=0;j<2*sz;j++) M[k][j]-=f*M[i][j]; }
+  }
+  return M.map((row) => row.slice(sz));
+}
+function blMatMul(A,B) { const r=A.length,c=B[0].length,k=B.length; const out=Array.from({length:r},()=>new Array(c).fill(0)); for(let i=0;i<r;i++)for(let j=0;j<c;j++)for(let l=0;l<k;l++) out[i][j]+=A[i][l]*B[l][j]; return out; }
+function blMatVec(A,v) { return A.map((row) => row.reduce((s,a,j)=>s+a*v[j],0)); }
+function blTranspose(A) { return A[0].map((_,j) => A.map((row) => row[j])); }
+function blackLitterman(piEq, Sigma, P, Q, Omega, tau) {
+  const tauSigmaInv = blMatInv(Sigma.map((row) => row.map((v)=>v*tau)));
+  const Pt = blTranspose(P);
+  const OmegaInv = blMatInv(Omega);
+  const PtOmegaInvP = blMatMul(blMatMul(Pt,OmegaInv),P);
+  const M1 = tauSigmaInv.map((row,i) => row.map((v,j)=>v+PtOmegaInvP[i][j]));
+  const M1inv = blMatInv(M1);
+  const term2a = blMatVec(tauSigmaInv, piEq);
+  const term2b = blMatVec(blMatMul(Pt,OmegaInv), Q);
+  const term2 = term2a.map((v,i) => v+term2b[i]);
+  return blMatVec(M1inv, term2);
+}
+const BL_PRESETS = {
+  bullish: { Q: 0.09 },
+  bearish: { Q: 0.01 },
+  neutral: { Q: 0.05 },
+};
+
+function mountBlDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 260, PAD = 40;
+  const piEq = [0.05, 0.04];
+  const Sigma = [[0.04,0.01],[0.01,0.03]];
+  const P = [[1,0]];
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="blSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-preset-row">
+            <label>${S.blPreset}</label>
+            <select id="blPreset">
+              <option value="bullish">${S.blBullish}</option>
+              <option value="bearish">${S.blBearish}</option>
+              <option value="neutral" selected>${S.blNeutral}</option>
+            </select>
+          </div>
+          <div class="demo-slider-row"><label>Ω (${LANG==="uk"?"невпевненість у погляді":"view uncertainty"}) <span class="val" id="blOmegaVal">0.001</span></label><input type="range" id="blOmega" min="0.0005" max="0.02" step="0.0005" value="0.001"></div>
+        </div>
+        <div class="demo-steps" id="blSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.blCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.blAnalysis}</p></div>
+    ${relatedLinksHTML(["portfolio","factor"])}
+  `;
+
+  const presetSelect = panel.querySelector("#blPreset"), omegaSlider = panel.querySelector("#blOmega");
+  const svg = panel.querySelector("#blSvg");
+
+  function render() {
+    const preset = BL_PRESETS[presetSelect.value];
+    const omegaVal = parseFloat(omegaSlider.value);
+    panel.querySelector("#blOmegaVal").textContent = omegaVal.toFixed(4);
+    const Q = [preset.Q];
+    const Omega = [[omegaVal]];
+    const posterior = blackLitterman(piEq, Sigma, P, Q, Omega, 0.05);
+
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: -0.5, xMax: 2.5, yMin: 0, yMax: 0.10, xTicks: 1, yTicks: 4, xFmt: ()=>"", yFmt: (v)=>(v*100).toFixed(0)+"%", yLabel: LANG==="uk"?"дохідність":"return" });
+    const barW = 40;
+    function bar(idx, val, color, label) {
+      const bx = x(idx*0.8);
+      const bh = (val/0.10)*(H-2*PAD);
+      return `<rect x="${(bx-barW/2).toFixed(1)}" y="${(H-PAD-bh).toFixed(1)}" width="${barW}" height="${bh.toFixed(1)}" fill="${color}" opacity="0.85" /><text x="${bx.toFixed(1)}" y="${H-PAD+14}" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-soft)">${label}</text>`;
+    }
+    let bars = "";
+    bars += bar(0, piEq[0], "var(--ink-faint)", "eq A1");
+    bars += bar(0.9, posterior[0], "var(--mint)", "post A1");
+    bars += bar(2, piEq[1], "var(--ink-faint)", "eq A2");
+    bars += bar(2.9, posterior[1], "var(--level-2)", "post A2");
+    svg.innerHTML = axesSvg + bars;
+
+    const lines = [`${S.steps}`, `  ${S.blEq}: A1=${(piEq[0]*100).toFixed(2)}%  A2=${(piEq[1]*100).toFixed(2)}%`, `  ${S.blPost}: A1=${(posterior[0]*100).toFixed(2)}%  A2=${(posterior[1]*100).toFixed(2)}%`];
+    panel.querySelector("#blSteps").textContent = lines.join("\n");
+  }
+  [presetSelect, omegaSlider].forEach((el) => el.addEventListener("input", render));
+  presetSelect.addEventListener("change", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 48. One-Class SVM via Random Fourier Features (RBF approximation)
+// ---------------------------------------------------------------------------
+function makeRFF(nFeatures, gamma, rnd) {
+  const omegas = []; for (let i = 0; i < nFeatures; i++) omegas.push([gaussFrom(rnd)*Math.sqrt(2*gamma), gaussFrom(rnd)*Math.sqrt(2*gamma)]);
+  const phases = []; for (let i = 0; i < nFeatures; i++) phases.push(rnd()*2*Math.PI);
+  return function (xv) {
+    const feat = new Array(nFeatures);
+    for (let i = 0; i < nFeatures; i++) feat[i] = Math.sqrt(2/nFeatures)*Math.cos(omegas[i][0]*xv[0]+omegas[i][1]*xv[1]+phases[i]);
+    return feat;
+  };
+}
+function trainOCSVM_RFF(data, nu, steps, lr, phi, D) {
+  let w = new Array(D).fill(0), rho = 0.1;
+  const n = data.length;
+  const feats = data.map(phi);
+  for (let s = 0; s < steps; s++) {
+    let gw = new Array(D).fill(0), grho = 0;
+    for (const f of feats) {
+      const score = f.reduce((sum,v,i)=>sum+v*w[i],0);
+      if (rho > score) { for (let i = 0; i < D; i++) gw[i] += -f[i]/(nu*n); grho += 1/(nu*n); }
+    }
+    grho += -1;
+    for (let i = 0; i < D; i++) w[i] -= lr*(w[i]+gw[i]);
+    rho -= lr*grho;
+  }
+  return { w, rho, score: (xv) => { const f = phi(xv); return f.reduce((s,v,i)=>s+v*w[i],0)-rho; } };
+}
+
+function mountOcsvmDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 300, PAD = 20;
+  const xMin=-3.5, xMax=3.5, yMin=-3.5, yMax=3.5;
+  let seed = 4;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="ocsvmSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${S.ocsvmNu} <span class="val" id="ocsvmNuVal">0.10</span></label><input type="range" id="ocsvmNu" min="0.02" max="0.3" step="0.01" value="0.10"></div>
+          <button type="button" class="demo-run-btn" id="ocsvmRun">${S.runNewRound}</button>
+        </div>
+        <div class="demo-steps" id="ocsvmSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.ocsvmCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.ocsvmAnalysis}</p></div>
+    ${relatedLinksHTML(["unsupervised-outliers","classical-ml"])}
+  `;
+
+  const nuSlider = panel.querySelector("#ocsvmNu"), runBtn = panel.querySelector("#ocsvmRun");
+  const svg = panel.querySelector("#ocsvmSvg");
+
+  function render() {
+    const nu = parseFloat(nuSlider.value);
+    panel.querySelector("#ocsvmNuVal").textContent = nu.toFixed(2);
+
+    const rnd = mulberry32(seed);
+    const phi = makeRFF(60, 1.0, rnd);
+    const data = []; for (let i = 0; i < 50; i++) data.push([gaussFrom(rnd)*0.6, gaussFrom(rnd)*0.6]);
+    for (let i = 0; i < 5; i++) data.push([2.5+gaussFrom(rnd)*0.3, 2.5+gaussFrom(rnd)*0.3]);
+    const model = trainOCSVM_RFF(data, nu, 300, 0.05, phi, 60);
+
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin, yMax, xTicks: 4, yTicks: 4, xFmt: (v)=>v.toFixed(1), yFmt: (v)=>v.toFixed(1) });
+    const gridN = 24, regions = [];
+    for (let gi = 0; gi < gridN; gi++) for (let gj = 0; gj < gridN; gj++) {
+      const gx = xMin+(gi/(gridN-1))*(xMax-xMin), gy = yMin+(gj/(gridN-1))*(yMax-yMin);
+      const sc = model.score([gx,gy]);
+      regions.push(`<rect x="${(x(gx)-6).toFixed(1)}" y="${(y(gy)-6).toFixed(1)}" width="12" height="12" fill="${sc>0?'var(--mint)':'var(--level-3)'}" opacity="0.12" />`);
+    }
+    const dots = data.map((p) => { const sc = model.score(p); return `<circle cx="${x(p[0]).toFixed(1)}" cy="${y(p[1]).toFixed(1)}" r="4.5" fill="${sc>0?'var(--mint)':'var(--level-3)'}" />`; }).join("");
+    svg.innerHTML = axesSvg + regions.join("") + dots;
+
+    const nOutliers = data.filter((p) => model.score(p) < 0).length;
+    const lines = [`${S.steps}`, `  ${LANG==="uk"?"позначено як аномалії":"flagged as anomalies"}: ${nOutliers}/${data.length}`];
+    panel.querySelector("#ocsvmSteps").textContent = lines.join("\n");
+  }
+  nuSlider.addEventListener("input", render);
+  runBtn.addEventListener("click", () => { seed = Math.floor(Math.random()*100000); render(); });
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 49. GRU one-step predictor
+// ---------------------------------------------------------------------------
+function gruForward(params, seq) {
+  let h = 0; const preds = [];
+  for (let t = 0; t < seq.length-1; t++) {
+    const xv = seq[t];
+    const z = sigmoidFn(params.Wz*xv+params.Uz*h+params.bz);
+    const r = sigmoidFn(params.Wr*xv+params.Ur*h+params.br);
+    const hHat = tanhFn(params.Wh*xv+params.Uh*(r*h)+params.bh);
+    h = (1-z)*h + z*hHat;
+    preds.push(params.Wy*h+params.by);
+  }
+  return preds;
+}
+function gruLoss(params, seq) { const p = gruForward(params,seq); let s=0; for (let t=0;t<p.length;t++) s+=(p[t]-seq[t+1])**2; return s/p.length; }
+function trainGru(seq, steps, lr) {
+  let params = { Wz:0.1,Uz:0.1,bz:0, Wr:0.1,Ur:0.1,br:0, Wh:0.1,Uh:0.1,bh:0, Wy:0.5,by:0 };
+  const keys = Object.keys(params); const eps = 1e-4;
+  for (let s = 0; s < steps; s++) {
+    const grads = {};
+    for (const k of keys) { const p1={...params}; p1[k]+=eps; const p2={...params}; p2[k]-=eps; grads[k]=(gruLoss(p1,seq)-gruLoss(p2,seq))/(2*eps); }
+    for (const k of keys) params[k] -= lr*grads[k];
+  }
+  return { params, loss: gruLoss(params, seq) };
+}
+const GRU_AR2_SEQ = (function () { const rnd = mulberry32(5); let x1=0,x2=0; const out=[x2,x1]; for (let i=2;i<40;i++){ const xv=0.5*x1+0.4*x2+0.3*gaussFrom(rnd); out.push(xv); x2=x1; x1=xv; } return out; })();
+
+function mountGruDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 230, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="gruSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--ink-faint)">●</span> ${LANG==="uk"?"справжній ряд":"actual"} &nbsp; <span style="color:var(--mint)">●</span> GRU</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"кроки навчання":"training steps"} <span class="val" id="gruStepsVal">300</span></label><input type="range" id="gruSteps" min="0" max="600" step="20" value="300"></div>
+        </div>
+        <div class="demo-steps" id="gruStepsPanel"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.grCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.grAnalysis}</p></div>
+    ${relatedLinksHTML(["sequential-dl","attention","time-series"])}
+  `;
+
+  const stepsSlider = panel.querySelector("#gruSteps");
+  const svg = panel.querySelector("#gruSvg");
+
+  function render() {
+    const steps = parseInt(stepsSlider.value, 10);
+    panel.querySelector("#gruStepsVal").textContent = steps;
+
+    const { params, loss } = trainGru(GRU_AR2_SEQ, steps, 0.3);
+    const preds = gruForward(params, GRU_AR2_SEQ);
+    const actual = GRU_AR2_SEQ.slice(1);
+    const allVals = actual.concat(preds);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: actual.length-1, yMin: Math.min(...allVals)-0.2, yMax: Math.max(...allVals)+0.2, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(1), xLabel: "t" });
+    const actualPath = actual.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const predPath = preds.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${actualPath}" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4 3" />` + `<path d="${predPath}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    const lines = [`${S.steps}`, `  ${LANG==="uk"?"дані: AR(2)-ряд":"data: an AR(2) series"}`, `  MSE = ${loss.toExponential(3)}`];
+    panel.querySelector("#gruStepsPanel").textContent = lines.join("\n");
+  }
+  stepsSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 50. Particle Filter (sequential Monte Carlo)
+// ---------------------------------------------------------------------------
+function particleFilter(observations, nParticles, processNoise, measNoise, rnd) {
+  let particles = Array.from({length:nParticles}, () => observations[0] + gaussFrom(rnd)*measNoise);
+  const estimates = [particles.reduce((a,b)=>a+b,0)/nParticles];
+  function pdfN(xv,mu,sigma) { return Math.exp(-((xv-mu)**2)/(2*sigma*sigma))/(sigma*Math.sqrt(2*Math.PI)); }
+  for (let t = 1; t < observations.length; t++) {
+    particles = particles.map((p) => p + gaussFrom(rnd)*processNoise);
+    let weights = particles.map((p) => pdfN(observations[t], p, measNoise));
+    const wSum = weights.reduce((a,b)=>a+b,0) || 1e-10;
+    weights = weights.map((w) => w/wSum);
+    const newParticles = new Array(nParticles);
+    const cdf = []; let cum = 0; for (const w of weights) { cum += w; cdf.push(cum); }
+    const startU = rnd()/nParticles;
+    let ci = 0;
+    for (let i = 0; i < nParticles; i++) {
+      const u = startU + i/nParticles;
+      while (cdf[ci] < u && ci < nParticles-1) ci++;
+      newParticles[i] = particles[ci];
+    }
+    particles = newParticles;
+    estimates.push(particles.reduce((a,b)=>a+b,0)/nParticles);
+  }
+  return estimates;
+}
+const PF_TRUE = [50.15,50.4,50.746,51.184,51.705,52.299,52.954,53.655,54.388,55.137,55.884,56.614,57.309,57.956,58.54,59.049,59.473,59.805,60.04,60.175];
+
+function mountPfDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 230, PAD = 40;
+  let seed = 1;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="pfSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--ink-faint)">- -</span> ${LANG==="uk"?"справжній сигнал":"true signal"} &nbsp; <span style="color:var(--level-2)">●</span> ${LANG==="uk"?"виміри":"measurements"} &nbsp; <span style="color:var(--mint)">●</span> ${LANG==="uk"?"фільтр":"filter"}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${S.pfParticles} <span class="val" id="pfNVal">200</span></label><input type="range" id="pfN" min="20" max="500" step="20" value="200"></div>
+          <button type="button" class="demo-run-btn" id="pfRun">${S.runNewRound}</button>
+        </div>
+        <div class="demo-steps" id="pfSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.pfCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.pfAnalysis}</p></div>
+    ${relatedLinksHTML(["time-series","regime"])}
+  `;
+
+  const nSlider = panel.querySelector("#pfN"), runBtn = panel.querySelector("#pfRun");
+  const svg = panel.querySelector("#pfSvg");
+
+  function render() {
+    const nParticles = parseInt(nSlider.value, 10);
+    panel.querySelector("#pfNVal").textContent = nParticles;
+
+    const rndMeas = mulberry32(seed);
+    const meas = PF_TRUE.map((v) => v+gaussFrom(rndMeas)*6);
+    const est = particleFilter(meas, nParticles, 1.0, 6, mulberry32(seed+1));
+
+    const allVals = PF_TRUE.concat(meas).concat(est);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: PF_TRUE.length-1, yMin: Math.min(...allVals)-2, yMax: Math.max(...allVals)+2, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(0), xLabel: "t" });
+    const truePath = PF_TRUE.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const estPath = est.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const measDots = meas.map((v,i)=>`<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="2.5" fill="var(--level-2)" opacity="0.6" />`).join("");
+    svg.innerHTML = axesSvg + `<path d="${truePath}" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4 3" />` + measDots + `<path d="${estPath}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    function rmseCalc(a,b){ let s=0; for(let i=0;i<a.length;i++) s+=(a[i]-b[i])**2; return Math.sqrt(s/a.length); }
+    const lines = [`${S.steps}`, `  RMSE(${LANG==="uk"?"фільтр":"filter"}) = ${rmseCalc(est,PF_TRUE).toFixed(2)}`, `  RMSE(${LANG==="uk"?"сирі виміри":"raw"}) = ${rmseCalc(meas,PF_TRUE).toFixed(2)}`];
+    panel.querySelector("#pfSteps").textContent = lines.join("\n");
+  }
+  nSlider.addEventListener("input", render);
+  runBtn.addEventListener("click", () => { seed = Math.floor(Math.random()*100000); render(); });
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 51. Jump-Diffusion (Merton)
+// ---------------------------------------------------------------------------
+function jumpDiffusionPath(S0, mu, sigma, lambda, muJ, sigmaJ, T, n, rnd) {
+  const dt = T/n;
+  let Sv = S0; const path = [Sv];
+  for (let i = 0; i < n; i++) {
+    const dW = gaussFrom(rnd)*Math.sqrt(dt);
+    let jump = 0;
+    if (rnd() < lambda*dt) jump = muJ + sigmaJ*gaussFrom(rnd);
+    Sv = Sv*Math.exp((mu-0.5*sigma*sigma)*dt + sigma*dW + jump);
+    path.push(Sv);
+  }
+  return path;
+}
+const JD_PRESETS = { calm: { lambda: 0.5, muJ: -0.02, sigmaJ: 0.02 }, crash: { lambda: 3, muJ: -0.08, sigmaJ: 0.05 } };
+
+function mountJdDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 230, PAD = 40;
+  let seed = 7;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="jdSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-preset-row">
+            <label>${S.jdPreset}</label>
+            <select id="jdPreset"><option value="calm">${S.jdCalm}</option><option value="crash">${S.jdCrash}</option></select>
+          </div>
+          <button type="button" class="demo-run-btn" id="jdRun">${S.runNewRound}</button>
+        </div>
+        <div class="demo-steps" id="jdSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.jdCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.jdAnalysis}</p></div>
+    ${relatedLinksHTML(["derivatives","volatility"])}
+  `;
+
+  const presetSelect = panel.querySelector("#jdPreset"), runBtn = panel.querySelector("#jdRun");
+  const svg = panel.querySelector("#jdSvg");
+
+  function render() {
+    const preset = JD_PRESETS[presetSelect.value];
+    const rnd = mulberry32(seed);
+    const path = jumpDiffusionPath(100, 0.05, 0.2, preset.lambda, preset.muJ, preset.sigmaJ, 1, 252, rnd);
+
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: path.length-1, yMin: Math.min(...path)*0.95, yMax: Math.max(...path)*1.05, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(0), xLabel: "t (days)", yLabel: "S" });
+    const pathD = path.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${pathD}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    const lines = [`${S.steps}`, `  dS = μS·dt + σS·dW + S·(e^J-1)·dN(λ)`, `  ${LANG==="uk"?"кінцева ціна":"final price"} = ${path[path.length-1].toFixed(2)}  (${LANG==="uk"?"старт":"start"}=100)`];
+    panel.querySelector("#jdSteps").textContent = lines.join("\n");
+  }
+  presetSelect.addEventListener("change", render);
+  runBtn.addEventListener("click", () => { seed = Math.floor(Math.random()*100000); render(); });
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 52. Particle Swarm Optimization
+// ---------------------------------------------------------------------------
+function psoFitness(xv,yv) { return -((xv-2)**2+(yv+1)**2) + 10; }
+function runPSO(nParticles, iterations, rnd) {
+  let positions = Array.from({length:nParticles}, () => [rnd()*10-5, rnd()*10-5]);
+  let velocities = Array.from({length:nParticles}, () => [0,0]);
+  let personalBest = positions.map((p) => [...p]);
+  let personalBestFit = positions.map((p) => psoFitness(p[0],p[1]));
+  let globalBestIdx = personalBestFit.indexOf(Math.max(...personalBestFit));
+  let globalBest = [...personalBest[globalBestIdx]];
+  const w = 0.7, c1 = 1.5, c2 = 1.5;
+  for (let iter = 0; iter < iterations; iter++) {
+    for (let i = 0; i < nParticles; i++) {
+      for (let d = 0; d < 2; d++) {
+        velocities[i][d] = w*velocities[i][d] + c1*rnd()*(personalBest[i][d]-positions[i][d]) + c2*rnd()*(globalBest[d]-positions[i][d]);
+        positions[i][d] += velocities[i][d];
+      }
+      const fit = psoFitness(positions[i][0],positions[i][1]);
+      if (fit > personalBestFit[i]) { personalBestFit[i]=fit; personalBest[i]=[...positions[i]]; }
+    }
+    const bestIdx = personalBestFit.indexOf(Math.max(...personalBestFit));
+    if (personalBestFit[bestIdx] > psoFitness(globalBest[0],globalBest[1])) globalBest = [...personalBest[bestIdx]];
+  }
+  return { positions, globalBest, fitness: psoFitness(globalBest[0],globalBest[1]) };
+}
+
+function mountPsoDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 300, PAD = 20;
+  const xMin=-6, xMax=6, yMin=-6, yMax=6;
+  let seed = 3;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="psoSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"ітерації":"iterations"} <span class="val" id="psoIterVal">15</span></label><input type="range" id="psoIter" min="0" max="40" step="1" value="15"></div>
+          <button type="button" class="demo-run-btn" id="psoRun">${S.runNewRound}</button>
+        </div>
+        <div class="demo-steps" id="psoSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.psoCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.psoAnalysis}</p></div>
+    ${relatedLinksHTML(["search"])}
+  `;
+
+  const iterSlider = panel.querySelector("#psoIter"), runBtn = panel.querySelector("#psoRun");
+  const svg = panel.querySelector("#psoSvg");
+
+  function render() {
+    const iterations = parseInt(iterSlider.value, 10);
+    panel.querySelector("#psoIterVal").textContent = iterations;
+
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin, yMax, xTicks: 4, yTicks: 4, xFmt: (v)=>v.toFixed(0), yFmt: (v)=>v.toFixed(0) });
+    const gridN = 20, regions = [];
+    for (let gi=0; gi<gridN; gi++) for (let gj=0; gj<gridN; gj++) {
+      const gx = xMin+(gi/(gridN-1))*(xMax-xMin), gy = yMin+(gj/(gridN-1))*(yMax-yMin);
+      const fit = psoFitness(gx,gy);
+      const t2 = Math.max(0, Math.min(1, (fit+16)/26));
+      regions.push(`<rect x="${(x(gx)-8).toFixed(1)}" y="${(y(gy)-8).toFixed(1)}" width="16" height="16" fill="var(--mint)" opacity="${(t2*0.35).toFixed(2)}" />`);
+    }
+    const { positions, globalBest, fitness } = runPSO(20, iterations, mulberry32(seed));
+    const dots = positions.map((p) => `<circle cx="${x(p[0]).toFixed(1)}" cy="${y(p[1]).toFixed(1)}" r="3.5" fill="var(--level-2)" opacity="0.8" />`).join("");
+    const bestDot = `<circle cx="${x(globalBest[0]).toFixed(1)}" cy="${y(globalBest[1]).toFixed(1)}" r="6" fill="none" stroke="var(--level-3)" stroke-width="2.5" />`;
+    const targetDot = `<circle cx="${x(2).toFixed(1)}" cy="${y(-1).toFixed(1)}" r="3" fill="var(--ink)" />`;
+    svg.innerHTML = axesSvg + regions.join("") + dots + bestDot + targetDot;
+
+    const lines = [`${S.steps}`, `  ${S.gaBestFitness || (LANG==="uk"?"найкраща придатність":"best fitness")} = ${fitness.toFixed(3)} (max=10 at x=2,y=-1)`];
+    panel.querySelector("#psoSteps").textContent = lines.join("\n");
+  }
+  iterSlider.addEventListener("input", render);
+  runBtn.addEventListener("click", () => { seed = Math.floor(Math.random()*100000); render(); });
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 53. Graph Attention Network
+// ---------------------------------------------------------------------------
+function leakyReluGat(xv, alpha=0.2) { return xv > 0 ? xv : alpha*xv; }
+function gatLayer(adj, H, a1, a2) {
+  const n = H.length;
+  const scores = adj.map((row,i) => row.map((connected,j) => connected ? leakyReluGat(a1.reduce((s,v,d)=>s+v*H[i][d],0) + a2.reduce((s,v,d)=>s+v*H[j][d],0)) : -Infinity));
+  const attn = scores.map((row) => { const finite = row.filter((v)=>v>-Infinity); const m=Math.max(...finite); const ex=row.map((v)=>v>-Infinity?Math.exp(v-m):0); const s=ex.reduce((a,b)=>a+b,0); return ex.map((v)=>v/s); });
+  return { attn };
+}
+const GAT_TOPOLOGIES = {
+  star: { adj: [[1,1,1,1],[1,1,0,0],[1,0,1,0],[1,0,0,1]], pos: [[170,150],[80,80],[80,220],[280,150]] },
+  chain: { adj: [[1,1,0,0],[1,1,1,0],[0,1,1,1],[0,0,1,1]], pos: [[60,150],[153,150],[247,150],[340,150]] },
+};
+const GAT_H = [[1,0],[0.8,0.2],[0.9,0.1],[0.1,0.9]];
+const GAT_A1 = [0.5,-0.3], GAT_A2 = [0.2,0.4];
+
+function mountGatDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 400, H = 300;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="gatSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-preset-row">
+            <label>${S.gatPreset}</label>
+            <select id="gatTopo"><option value="star">${S.gatStar}</option><option value="chain">${S.gatChain}</option></select>
+          </div>
+        </div>
+        <div class="demo-steps" id="gatSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.gatCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.gatAnalysis}</p></div>
+    ${relatedLinksHTML(["graph","attention"])}
+  `;
+
+  const topoSelect = panel.querySelector("#gatTopo");
+  const svg = panel.querySelector("#gatSvg");
+
+  function render() {
+    const topo = GAT_TOPOLOGIES[topoSelect.value];
+    const { attn } = gatLayer(topo.adj, GAT_H, GAT_A1, GAT_A2);
+
+    let edges = "";
+    for (let i = 0; i < topo.adj.length; i++) for (let j = 0; j < topo.adj.length; j++) {
+      if (i!==j && topo.adj[i][j]) {
+        const w = attn[i][j];
+        edges += `<line x1="${topo.pos[i][0]}" y1="${topo.pos[i][1]}" x2="${topo.pos[j][0]}" y2="${topo.pos[j][1]}" stroke="var(--mint)" stroke-width="${(w*6).toFixed(1)}" opacity="0.7" />`;
+      }
+    }
+    const nodes = topo.pos.map((p,i) => `<circle cx="${p[0]}" cy="${p[1]}" r="18" fill="var(--card)" stroke="var(--ink-soft)" stroke-width="1.5" /><text x="${p[0]}" y="${p[1]+4}" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink)">${i}</text>`).join("");
+    svg.innerHTML = edges + nodes;
+
+    const lines = [`${S.steps}`, `  attn(0,j) = softmax(LeakyReLU(a1·h0 + a2·hj))`, `  node 0 attention: [${attn[0].map((v)=>v.toFixed(2)).join(", ")}]`];
+    panel.querySelector("#gatSteps").textContent = lines.join("\n");
+  }
+  topoSelect.addEventListener("change", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 54. Wash-Trading Detection
+// ---------------------------------------------------------------------------
+function detectWashTrading(trades) {
+  const forwardVolume = {};
+  trades.forEach((t) => { const key = `${t.from}->${t.to}`; forwardVolume[key] = (forwardVolume[key]||0)+t.volume; });
+  const pairs = new Set();
+  trades.forEach((t) => pairs.add([t.from,t.to].sort().join("|")));
+  const scores = {};
+  pairs.forEach((pairKey) => {
+    const [a,b] = pairKey.split("|");
+    const ab = forwardVolume[`${a}->${b}`]||0, ba = forwardVolume[`${b}->${a}`]||0;
+    const total = ab+ba;
+    scores[pairKey] = total>0 ? 1-Math.abs(ab-ba)/total : 0;
+  });
+  return scores;
+}
+const WASH_PATTERNS = {
+  normal: [{from:"A",to:"B",volume:100},{from:"B",to:"C",volume:80},{from:"C",to:"D",volume:60}],
+  wash: [{from:"X",to:"Y",volume:1000},{from:"Y",to:"X",volume:990},{from:"X",to:"Y",volume:950},{from:"Y",to:"X",volume:940}],
+};
+
+function mountWashDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 400, H = 220;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="washSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-preset-row">
+            <label>${S.washPreset}</label>
+            <select id="washPattern"><option value="normal">${S.washNormal}</option><option value="wash">${S.washWash}</option></select>
+          </div>
+        </div>
+        <div class="demo-steps" id="washSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.washCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.washAnalysis}</p></div>
+    ${relatedLinksHTML(["fraud","systemic"])}
+  `;
+
+  const patternSelect = panel.querySelector("#washPattern");
+  const svg = panel.querySelector("#washSvg");
+
+  function render() {
+    const trades = WASH_PATTERNS[patternSelect.value];
+    const scores = detectWashTrading(trades);
+    const accounts = [...new Set(trades.flatMap((t) => [t.from,t.to]))];
+    const positions = {};
+    accounts.forEach((a,i) => { positions[a] = [60+i*((W-120)/(accounts.length-1||1)), H/2]; });
+
+    let edges = "";
+    trades.forEach((t) => {
+      const [p1,p2] = [positions[t.from], positions[t.to]];
+      const curve = t.from < t.to ? -20 : 20;
+      const midX = (p1[0]+p2[0])/2, midY = (p1[1]+p2[1])/2+curve;
+      edges += `<path d="M ${p1[0]} ${p1[1]} Q ${midX} ${midY} ${p2[0]} ${p2[1]}" fill="none" stroke="var(--ink-faint)" stroke-width="${Math.max(1,t.volume/200).toFixed(1)}" marker-end="url(#arrowWash)" />`;
+    });
+    const nodes = accounts.map((a) => {
+      const pairScore = Object.entries(scores).find(([k]) => k.includes(a));
+      const suspicious = pairScore && pairScore[1] > 0.7;
+      return `<circle cx="${positions[a][0]}" cy="${positions[a][1]}" r="16" fill="${suspicious?"var(--level-3)":"var(--mint)"}" opacity="0.85" /><text x="${positions[a][0]}" y="${positions[a][1]+4}" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--bg)">${a}</text>`;
+    }).join("");
+    svg.innerHTML = `<defs><marker id="arrowWash" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="var(--ink-faint)" /></marker></defs>` + edges + nodes;
+
+    const lines = [`${S.steps}`, ...Object.entries(scores).map(([pair,score]) => `  ${pair}: ${LANG==="uk"?"підозрілість":"suspicion"} = ${score.toFixed(3)}`)];
+    panel.querySelector("#washSteps").textContent = lines.join("\n");
+  }
+  patternSelect.addEventListener("change", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 55. Hull-White Model
+// ---------------------------------------------------------------------------
+function hullWhitePath(r0, a, sigma, thetaFn, T, n, rnd) {
+  const dt = T/n;
+  let r = r0; const path = [r];
+  for (let i = 0; i < n; i++) {
+    const t = i*dt;
+    const theta = thetaFn(t);
+    const dW = gaussFrom(rnd)*Math.sqrt(dt);
+    r = r + (theta - a*r)*dt + sigma*dW;
+    path.push(r);
+  }
+  return path;
+}
+
+function mountHwDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 230, PAD = 40;
+  let seed = 9;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="hwSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>a (${LANG==="uk"?"швидкість повернення":"reversion speed"}) <span class="val" id="hwAVal">0.50</span></label><input type="range" id="hwA" min="0.1" max="2" step="0.05" value="0.50"></div>
+          <div class="demo-slider-row"><label>σ <span class="val" id="hwSigVal">1.5%</span></label><input type="range" id="hwSig" min="0.2" max="4" step="0.1" value="1.5"></div>
+          <button type="button" class="demo-run-btn" id="hwRun">${S.runNewRound}</button>
+        </div>
+        <div class="demo-steps" id="hwSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.hwCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.hwAnalysis}</p></div>
+    ${relatedLinksHTML(["rates","derivatives"])}
+  `;
+
+  const aSlider = panel.querySelector("#hwA"), sigSlider = panel.querySelector("#hwSig"), runBtn = panel.querySelector("#hwRun");
+  const svg = panel.querySelector("#hwSvg");
+
+  function thetaFn(t) { return 0.04*0.5 + 0.001*Math.sin(t*3); }
+
+  function render() {
+    const a = parseFloat(aSlider.value), sigma = parseFloat(sigSlider.value)/100;
+    panel.querySelector("#hwAVal").textContent = a.toFixed(2);
+    panel.querySelector("#hwSigVal").textContent = (sigma*100).toFixed(1)+"%";
+
+    const rnd = mulberry32(seed);
+    const path = hullWhitePath(0.02, a, sigma, thetaFn, 5, 150, rnd);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: path.length-1, yMin: Math.min(...path)-0.005, yMax: Math.max(...path)+0.005, xTicks: 4, yTicks: 4, xFmt: (v)=>(v*5/150).toFixed(1), yFmt: (v)=>(v*100).toFixed(1)+"%", xLabel: "t (years)", yLabel: "r" });
+    const pathD = path.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${pathD}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    const lines = [`${S.steps}`, `  dr = [θ(t) − a·r]dt + σ·dW`, `  r(0)=2.00%  r(T)=${(path[path.length-1]*100).toFixed(2)}%`];
+    panel.querySelector("#hwSteps").textContent = lines.join("\n");
+  }
+  [aSlider, sigSlider].forEach((el) => el.addEventListener("input", render));
+  runBtn.addEventListener("click", () => { seed = Math.floor(Math.random()*100000); render(); });
+  render();
+}
+
+
 const DEMOS = {
   "volatility::GARCH(1,1)": { mount: mountGarchDemo },
   "unsupervised-outliers::Isolation Forest": { mount: mountIsoForestDemo },
@@ -4919,6 +5779,16 @@ const DEMOS = {
   "validation::Deflated Sharpe Ratio": { mount: mountDsrDemo },
   "search::Genetic Algorithms": { mount: mountGaDemo },
   "rl::Policy Gradient / REINFORCE": { mount: mountReinforceDemo },
+  "factor::Fama-French 3-Factor": { mount: mountFf3Demo },
+  "portfolio::Black-Litterman": { mount: mountBlDemo },
+  "unsupervised-outliers::One-Class SVM": { mount: mountOcsvmDemo },
+  "sequential-dl::GRU": { mount: mountGruDemo },
+  "regime::Particle Filter": { mount: mountPfDemo },
+  "derivatives::Jump-Diffusion (Merton, Kou)": { mount: mountJdDemo },
+  "search::Particle Swarm Optimization": { mount: mountPsoDemo },
+  "graph::Graph Attention Network": { mount: mountGatDemo },
+  "fraud::Wash-Trading Detection": { mount: mountWashDemo },
+  "rates::Hull-White Model": { mount: mountHwDemo },
 };
 
 function applyFilters() {
