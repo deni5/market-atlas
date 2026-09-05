@@ -116,10 +116,10 @@ a { color: inherit; }
 .topnav {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px 16px;
-  padding: 8px 0 12px;
+  gap: 3px 12px;
+  padding: 6px 0 10px;
   font-family: var(--mono);
-  font-size: 11.5px;
+  font-size: 10px;
   line-height: 1.5;
 }
 .topnav a {

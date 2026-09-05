@@ -2760,20 +2760,25 @@ function mountBinomialDemo(panel) {
 
     // small visual tree (fixed 5 steps) regardless of pricing-n
     const dt = T/visualSteps, u = Math.exp(sigma*Math.sqrt(dt)), d = 1/u;
-    const xStep = (W-2*PAD)/visualSteps;
+    const xStep = (W-2*PAD-40)/visualSteps;
+    const logMinPrice = Math.log(Sv*Math.pow(d,visualSteps));
+    const logMaxPrice = Math.log(Sv*Math.pow(u,visualSteps));
+    function priceY(price) {
+      const t = (Math.log(price)-logMinPrice)/(logMaxPrice-logMinPrice || 1);
+      return (H-PAD) - t*(H-2*PAD);
+    }
     let nodes = "", lines2 = "";
     const positions = [];
     for (let stp = 0; stp <= visualSteps; stp++) {
       positions.push([]);
       for (let i = 0; i <= stp; i++) {
         const price = Sv*Math.pow(u,stp-i)*Math.pow(d,i);
-        const px = PAD + stp*xStep;
-        const py = H/2 + (i - stp/2)*(H-2*PAD)/(visualSteps+1);
+        const px = PAD+20 + stp*xStep;
+        const py = priceY(price);
         positions[stp].push([px,py,price]);
-        nodes += `<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="3" fill="var(--mint)" />`;
-        if (stp>0) {
-          const [px0,py0] = positions[stp-1][i<stp?i:i-1] || positions[stp-1][Math.min(i,stp-1)];
-        }
+        const inMoney = price >= K;
+        nodes += `<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="4" fill="${inMoney?"var(--mint)":"var(--level-2)"}" />`;
+        nodes += `<text x="${px.toFixed(1)}" y="${(py-8).toFixed(1)}" text-anchor="middle" font-family="var(--mono)" font-size="8" fill="var(--ink-soft)">${price.toFixed(0)}</text>`;
       }
     }
     for (let stp=1; stp<=visualSteps; stp++) {
@@ -2785,6 +2790,9 @@ function mountBinomialDemo(panel) {
         lines2 += `<line x1="${px0.toFixed(1)}" y1="${py0.toFixed(1)}" x2="${pxD.toFixed(1)}" y2="${pyD.toFixed(1)}" stroke="var(--rule)" stroke-width="1" />`;
       }
     }
+    const kY = priceY(K);
+    lines2 += `<line x1="${PAD}" y1="${kY.toFixed(1)}" x2="${W-PAD+20}" y2="${kY.toFixed(1)}" stroke="var(--level-3)" stroke-width="1" stroke-dasharray="3 3" />`;
+    lines2 += `<text x="${PAD}" y="${(kY-4).toFixed(1)}" font-family="var(--mono)" font-size="8" fill="var(--level-3)">K=${K.toFixed(0)}</text>`;
     svg.innerHTML = lines2 + nodes;
 
     const amPut = binomialPrice(Sv,K,T,r,sigma,n,true,true);
@@ -2805,11 +2813,10 @@ function mountBinomialDemo(panel) {
 function mcCallPrice(S, K, T, r, sigma, N, rnd) {
   let sum = 0;
   const paths = [];
-  const nStore = Math.min(N, 40);
   for (let i = 0; i < N; i++) {
     const ST = S*Math.exp((r-sigma*sigma/2)*T + sigma*Math.sqrt(T)*gaussFrom(rnd));
     sum += Math.max(ST-K, 0);
-    if (i < nStore) paths.push(ST);
+    paths.push(ST);
   }
   return { price: Math.exp(-r*T)*sum/N, paths };
 }
@@ -3452,7 +3459,8 @@ function mountLstmDemo(panel) {
     const steps = parseInt(stepsSlider.value, 10);
     panel.querySelector("#lstmDemoStepsVal").textContent = steps;
 
-    const { loss, preds } = trainLstmCell(LSTM_DEMO_SEQ, steps, 0.3);
+    const { params, loss } = trainLstmCell(LSTM_DEMO_SEQ, steps, 0.3);
+    const preds = lstmForward(params, LSTM_DEMO_SEQ);
     const actual = LSTM_DEMO_SEQ.slice(1);
     const allVals = actual.concat(preds);
     const yMin = Math.min(...allVals)-0.2, yMax = Math.max(...allVals)+0.2;
