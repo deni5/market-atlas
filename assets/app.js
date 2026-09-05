@@ -288,6 +288,33 @@ const DEMO_STRINGS = {
     techCallout: "Хоча це найпростіші індикатори у весь список моделей цього атласу, RSI і смуги Боллінджера досі становлять левову частку сигналів у роздрібній алгоритмічній торгівлі — не через теоретичну перевагу, а через простоту імплементації й повну прозорість логіки для нетехнічних трейдерів.",
     techRsiLbl: "RSI (14)",
     techBollLbl: "смуги Боллінджера",
+    arimaCallout: "AR(p) — статистичний фундамент прогнозування: модель припускає, що майбутнє значення є лінійною комбінацією кількох останніх спостережень. Це базовий рівень порівняння (baseline) для будь-якої складнішої моделі — якщо LSTM чи трансформер не перевершують просту AR-модель на конкретному ряді, їхня додаткова складність не виправдана.",
+    arimaForecast: "прогноз на 5 кроків вперед",
+    esCallout: "На відміну від VaR, який лише фіксує поріг втрат, Expected Shortfall відповідає на питання «а скільки саме ми втратимо в найгіршому сценарії?» — усереднюючи всі втрати за межею порогу. Базельський комітет (Basel III/IV) перейшов саме на ES як основну регуляторну міру ринкового ризику для банків.",
+    esVar: "VaR",
+    esValue: "Expected Shortfall (ES)",
+    scorecardCallout: "Логістична регресія залишається галузевим стандартом кредитного скорингу не через найвищу точність (градієнтний бустинг зазвичай точніший), а через повну прозорість: кожен ваговий коефіцієнт має пряму інтерпретацію 'на скільки одиниць лог-шансів дефолту впливає ця ознака' — вимога, яку регулятори ставлять для пояснення відмов у кредиті.",
+    scorecardProb: "ймовірність дефолту P(default)",
+    lofCallout: "На відміну від Isolation Forest, який дивиться на глобальну структуру даних, LOF порівнює густину точки лише з густиною її найближчих сусідів — тому він добре виявляє локальні аномалії навіть у даних із кількома кластерами різної щільності, де глобальний поріг густини був би або занадто строгим, або занадто м'яким одночасно для різних регіонів.",
+    lofScore: "LOF score",
+    lofNormal: "нормальна точка",
+    lofOutlier: "аномалія",
+    kyleCallout: "Лямбда Кайла кількісно визначає, наскільки складно виконати велике замовлення непомітно: висока лямбда означає, що навіть невеликий ордер суттєво рухає ціну — ринок 'тонкий'. Маркет-мейкери й алгоритми оптимального виконання постійно оцінюють λ у реальному часі, щоб вирішити, чи дробити велике замовлення на дрібніші частини.",
+    kyleLambda: "оцінена лямбда Кайла",
+    nsCallout: "Модель Нельсона-Сігела параметризує всю криву дохідності лише 4 числами (β₀, β₁, β₂, λ) замість десятків окремих точок — центральні банки (включно з ФРС) використовують саме цю параметризацію для згладженого представлення кривої дохідності казначейських облігацій у щоденній звітності.",
+    nsShort: "короткий кінець (β₀+β₁)",
+    nsLong: "довгий кінець (β₀)",
+    debtrankCallout: "DebtRank моделює не просто 'хто кому винен', а те, як дистрес поширюється мережею: банк, що на перший погляд здається ізольованим, може отримати суттєвий удар через ланцюжок посередників. Європейський центробанк використовує подібні моделі для стрес-тестування системного ризику всієї банківської мережі, а не окремих банків ізольовано.",
+    debtrankBank: "банк",
+    debtrankLevel: "рівень дистресу",
+    dsrCallout: "Ключовий урок DSR: та сама виміряна дохідність (SR=0.3) виглядає статистично значущою при одному випробуванні, але стає повністю неправдоподібною після тестування сотень варіацій стратегії — це і є 'data-snooping bias', головна причина, чому бектести настільки часто не працюють наживо.",
+    dsrTrials: "кількість протестованих варіацій стратегії",
+    dsrValue: "Deflated Sharpe Ratio",
+    gaCallout: "На відміну від градієнтних методів, генетичні алгоритми не потребують обчислення похідної цільової функції — тому вони застосовні там, де функція недиференційовна чи навіть невідома аналітично (наприклад, оптимізація правил торгової стратегії з дискретними параметрами чи фітнес-функція типу 'прибуток після симуляції на історичних даних').",
+    gaGeneration: "покоління",
+    gaBestFitness: "найкраща знайдена придатність",
+    pgCallout: "На відміну від Q-навчання, яке оцінює цінність кожної дії, Policy Gradient напряму навчає розподіл ймовірностей дій — це природніше підходить для неперервних просторів дій (наприклад, точний розмір позиції, а не лише 'купити/продати/тримати') і краще масштабується на складні стратегії управління портфелем.",
+    pgProbs: "ймовірності дій [продати, тримати, купити]",
   },
   en: {
     steps: "steps:",
@@ -409,6 +436,33 @@ const DEMO_STRINGS = {
     techCallout: "Even though these are the simplest indicators in this entire atlas, RSI and Bollinger Bands still account for the lion's share of signals in retail algorithmic trading — not from theoretical superiority, but from ease of implementation and complete transparency of logic for non-technical traders.",
     techRsiLbl: "RSI (14)",
     techBollLbl: "Bollinger Bands",
+    arimaCallout: "AR(p) is the statistical bedrock of forecasting: the model assumes the future value is a linear combination of a handful of recent observations. It's the baseline every fancier model must beat — if an LSTM or transformer can't outperform a simple AR model on a given series, their extra complexity isn't earning its keep.",
+    arimaForecast: "5-step-ahead forecast",
+    esCallout: "Unlike VaR, which only marks a loss threshold, Expected Shortfall answers 'how much will we actually lose in the worst case?' by averaging every loss beyond that threshold. The Basel Committee (Basel III/IV) switched to ES as the primary regulatory market-risk measure for banks precisely for this reason.",
+    esVar: "VaR",
+    esValue: "Expected Shortfall (ES)",
+    scorecardCallout: "Logistic regression remains the industry standard for credit scoring not because it's the most accurate (gradient boosting usually is), but because of full transparency: every weight has a direct interpretation as 'how many log-odds-of-default units this feature contributes' — exactly what regulators require to explain a credit denial.",
+    scorecardProb: "probability of default P(default)",
+    lofCallout: "Unlike Isolation Forest, which looks at the global structure of the data, LOF compares a point's density only to its nearest neighbours' — so it catches local anomalies well even in data with several clusters of different density, where a single global density threshold would be either too strict or too lax for different regions at once.",
+    lofScore: "LOF score",
+    lofNormal: "normal point",
+    lofOutlier: "anomaly",
+    kyleCallout: "Kyle's Lambda quantifies exactly how hard it is to execute a large order unnoticed: a high lambda means even a small order moves the price significantly — the market is 'thin'. Market makers and optimal-execution algorithms estimate λ continuously in real time to decide whether to slice a large order into smaller pieces.",
+    kyleLambda: "estimated Kyle's lambda",
+    nsCallout: "The Nelson-Siegel model parameterises the entire yield curve with just 4 numbers (β₀, β₁, β₂, λ) instead of dozens of individual points — central banks (including the Fed) use exactly this parameterisation to give a smoothed representation of the Treasury yield curve in daily reporting.",
+    nsShort: "short end (β₀+β₁)",
+    nsLong: "long end (β₀)",
+    debtrankCallout: "DebtRank models not just 'who owes whom', but how distress propagates through the network: a bank that looks isolated at first glance can still take a serious hit through a chain of intermediaries. The ECB uses models like this to stress-test systemic risk across the whole banking network, not banks in isolation.",
+    debtrankBank: "bank",
+    debtrankLevel: "distress level",
+    dsrCallout: "The key lesson of DSR: the same measured return (SR=0.3) looks statistically significant after a single trial, but becomes entirely implausible once you've tested hundreds of strategy variations — this is exactly the data-snooping bias that explains why backtests so often fail to work live.",
+    dsrTrials: "number of strategy variations tested",
+    dsrValue: "Deflated Sharpe Ratio",
+    gaCallout: "Unlike gradient-based methods, genetic algorithms need no derivative of the objective function — so they work where the function is non-differentiable or not even known analytically (e.g. optimising discrete trading-rule parameters, or a fitness function like 'profit after a historical backtest').",
+    gaGeneration: "generation",
+    gaBestFitness: "best fitness found",
+    pgCallout: "Unlike Q-learning, which estimates the value of each action, Policy Gradient learns the action-probability distribution directly — a more natural fit for continuous action spaces (e.g. an exact position size, not just 'buy/sell/hold') and scales better to complex portfolio-management strategies.",
+    pgProbs: "action probabilities [sell, hold, buy]",
   },
 };
 
@@ -4111,6 +4165,698 @@ function mountTechDemo(panel) {
 }
 
 
+// ---------------------------------------------------------------------------
+// 36. ARIMA / ARMA — real AR(p) fit via least squares + forecast
+// ---------------------------------------------------------------------------
+function fitAR(series, p) {
+  const n = series.length;
+  const X = [], yv = [];
+  for (let t = p; t < n; t++) { X.push(series.slice(t-p,t).reverse()); yv.push(series[t]); }
+  const XtX = Array.from({length:p}, () => new Array(p).fill(0));
+  const Xty = new Array(p).fill(0);
+  for (let i = 0; i < X.length; i++) {
+    for (let a = 0; a < p; a++) {
+      Xty[a] += X[i][a]*yv[i];
+      for (let b = 0; b < p; b++) XtX[a][b] += X[i][a]*X[i][b];
+    }
+  }
+  function solve(A, bv) {
+    const n2 = A.length;
+    const M = A.map((row,i) => row.concat([bv[i]]));
+    for (let i = 0; i < n2; i++) {
+      let piv = M[i][i]; if (Math.abs(piv)<1e-9) piv=1e-9;
+      for (let j = 0; j <= n2; j++) M[i][j] /= piv;
+      for (let k = 0; k < n2; k++) { if (k===i) continue; const f=M[k][i]; for (let j=0;j<=n2;j++) M[k][j]-=f*M[i][j]; }
+    }
+    return M.map((row) => row[n2]);
+  }
+  const coefs = solve(XtX, Xty);
+  function forecast(history, steps) {
+    const h = history.slice();
+    const preds = [];
+    for (let s = 0; s < steps; s++) {
+      const window = h.slice(-p).reverse();
+      const pred = coefs.reduce((sum,c,i)=>sum+c*window[i],0);
+      preds.push(pred); h.push(pred);
+    }
+    return preds;
+  }
+  return { coefs, forecast };
+}
+const ARIMA_SERIES = (function () {
+  const rnd = mulberry32(5);
+  let x1=0,x2=0; const out=[x2,x1];
+  for (let i=2;i<45;i++) { const xv=0.5*x1+0.3*x2+0.3*gaussFrom(rnd); out.push(xv); x2=x1; x1=xv; }
+  return out;
+})();
+
+function mountArimaDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="arimaSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>p (${LANG==="uk"?"порядок AR":"AR order"}) <span class="val" id="arimaPVal">2</span></label><input type="range" id="arimaP" min="1" max="5" step="1" value="2"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"кроків прогнозу":"forecast steps"} <span class="val" id="arimaHVal">5</span></label><input type="range" id="arimaH" min="1" max="15" step="1" value="5"></div>
+        </div>
+        <div class="demo-steps" id="arimaSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.arimaCallout}</p></div>
+  `;
+
+  const pSlider = panel.querySelector("#arimaP"), hSlider = panel.querySelector("#arimaH");
+  const svg = panel.querySelector("#arimaSvg");
+
+  function render() {
+    const p = parseInt(pSlider.value, 10), hSteps = parseInt(hSlider.value, 10);
+    panel.querySelector("#arimaPVal").textContent = p;
+    panel.querySelector("#arimaHVal").textContent = hSteps;
+
+    const { coefs, forecast } = fitAR(ARIMA_SERIES, p);
+    const preds = forecast(ARIMA_SERIES, hSteps);
+    const full = ARIMA_SERIES.concat(preds);
+    const yMin = Math.min(...full)-0.2, yMax = Math.max(...full)+0.2;
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: full.length-1, yMin, yMax, xTicks: 5, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(1), xLabel: "t", yLabel: "x" });
+    const histPath = ARIMA_SERIES.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const fcPath = preds.map((v,i)=>`${i===0?"M":"L"} ${x(ARIMA_SERIES.length-1+i+1).toFixed(1)} ${y(v).toFixed(1)}`).join(" ") ;
+    const bridge = `M ${x(ARIMA_SERIES.length-1).toFixed(1)} ${y(ARIMA_SERIES[ARIMA_SERIES.length-1]).toFixed(1)} L ${x(ARIMA_SERIES.length).toFixed(1)} ${y(preds[0]).toFixed(1)}`;
+    svg.innerHTML = axesSvg + `<path d="${histPath}" fill="none" stroke="var(--mint)" stroke-width="2" />` + `<path d="${bridge} ${fcPath.replace(/^M/,'L')}" fill="none" stroke="var(--level-2)" stroke-width="2" stroke-dasharray="4 3" />`;
+
+    const lines = [`${S.steps}`, `  ${LANG==="uk"?"підігнані коефіцієнти":"fitted coefficients"}: [${coefs.map((c)=>c.toFixed(3)).join(", ")}]`, `  ${S.arimaForecast}: [${preds.slice(0,5).map((v)=>v.toFixed(3)).join(", ")}${preds.length>5?"...":""}]`];
+    panel.querySelector("#arimaSteps").textContent = lines.join("\n");
+  }
+  [pSlider, hSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 37. Conditional VaR / Expected Shortfall (historical)
+// ---------------------------------------------------------------------------
+function historicalES(returns, confidence) {
+  const sorted = returns.slice().sort((a,b)=>a-b);
+  const cutoffIdx = Math.max(1, Math.floor((1-confidence)*sorted.length));
+  const tail = sorted.slice(0, cutoffIdx);
+  const es = -tail.reduce((a,b)=>a+b,0)/tail.length;
+  const varVal = -sorted[Math.max(0,cutoffIdx-1)];
+  return { es, varVal, tail, sorted };
+}
+const ES_RETURNS = (function () {
+  const rnd = mulberry32(99);
+  const out = []; for (let i=0;i<1000;i++) out.push(gaussFrom(rnd)*0.02);
+  return out;
+})();
+
+function mountEsDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="esSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"довірчий рівень":"confidence level"} <span class="val" id="esConfVal">95%</span></label><input type="range" id="esConf" min="90" max="99.5" step="0.5" value="95"></div>
+        </div>
+        <div class="demo-steps" id="esSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.esCallout}</p></div>
+  `;
+
+  const confSlider = panel.querySelector("#esConf");
+  const svg = panel.querySelector("#esSvg");
+
+  function render() {
+    const conf = parseFloat(confSlider.value)/100;
+    panel.querySelector("#esConfVal").textContent = (conf*100).toFixed(1)+"%";
+
+    const { es, varVal, sorted } = historicalES(ES_RETURNS, conf);
+    const nBins = 40;
+    const xMin = Math.min(...sorted), xMax = Math.max(...sorted);
+    const counts = new Array(nBins).fill(0);
+    for (const v of sorted) { const bi = Math.min(nBins-1, Math.max(0, Math.floor((v-xMin)/(xMax-xMin)*nBins))); counts[bi]++; }
+    const maxCount = Math.max(...counts,1);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin: 0, yMax: maxCount, xTicks: 5, yTicks: 0, xFmt: (v)=>(v*100).toFixed(1)+"%", yFmt: ()=>"", xLabel: LANG==="uk"?"дохідність":"return" });
+    let bars = "";
+    for (let i=0;i<nBins;i++) {
+      const bx = xMin+(i/nBins)*(xMax-xMin);
+      const h = (counts[i]/maxCount)*(H-2*PAD);
+      const isTail = bx <= -varVal;
+      bars += `<rect x="${x(bx).toFixed(1)}" y="${(H-PAD-h).toFixed(1)}" width="${((x(bx+(xMax-xMin)/nBins)-x(bx))-1).toFixed(1)}" height="${h.toFixed(1)}" fill="${isTail?"var(--level-3)":"var(--mint)"}" opacity="0.8" />`;
+    }
+    const varX = x(-varVal), esX = x(-es);
+    svg.innerHTML = axesSvg + bars
+      + `<line x1="${varX.toFixed(1)}" y1="${PAD}" x2="${varX.toFixed(1)}" y2="${H-PAD}" stroke="var(--level-2)" stroke-width="1.5" stroke-dasharray="3 3" />`
+      + `<line x1="${esX.toFixed(1)}" y1="${PAD}" x2="${esX.toFixed(1)}" y2="${H-PAD}" stroke="var(--ink)" stroke-width="1.5" />`;
+
+    const lines = [`${S.steps}`, `  ${S.esVar} = ${(varVal*100).toFixed(2)}%`, `  ${S.esValue} = ${(es*100).toFixed(2)}%`, `  (${LANG==="uk"?"ES завжди ≥ VaR":"ES is always ≥ VaR"})`];
+    panel.querySelector("#esSteps").textContent = lines.join("\n");
+  }
+  confSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 38. Logistic Regression Credit Scorecard
+// ---------------------------------------------------------------------------
+const SCORECARD_DATA = [[0.2,0,0],[0.3,1,0],[0.8,3,1],[0.9,4,1],[0.1,0,0],[0.7,2,1],[0.4,1,0],[0.85,3,1],[0.15,0,0],[0.6,2,1],[0.5,1,0],[0.75,3,1]];
+function trainLogistic(data, steps, lr) {
+  let w1=0,w2=0,b=0;
+  for (let s=0;s<steps;s++) {
+    let gw1=0,gw2=0,gb=0;
+    for (const [x1,x2,yv] of data) { const p=sigmoidFn(w1*x1+w2*x2+b); gw1+=(p-yv)*x1; gw2+=(p-yv)*x2; gb+=(p-yv); }
+    w1 -= lr*gw1/data.length; w2 -= lr*gw2/data.length; b -= lr*gb/data.length;
+  }
+  return { w1,w2,b };
+}
+
+function mountScorecardDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 300, PAD = 30;
+  const xMin=0, xMax=1, yMin=-0.5, yMax=4.5;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="scoreSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"DTI (борг/дохід)":"DTI (debt/income)"} <span class="val" id="scoreDtiVal">0.50</span></label><input type="range" id="scoreDti" min="0" max="1" step="0.02" value="0.50"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"прострочення":"late payments"} <span class="val" id="scoreLateVal">2</span></label><input type="range" id="scoreLate" min="0" max="4" step="1" value="2"></div>
+        </div>
+        <div class="demo-steps" id="scoreSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.scorecardCallout}</p></div>
+  `;
+
+  const dtiSlider = panel.querySelector("#scoreDti"), lateSlider = panel.querySelector("#scoreLate");
+  const svg = panel.querySelector("#scoreSvg");
+  const model = trainLogistic(SCORECARD_DATA, 600, 0.6);
+
+  function render() {
+    const dti = parseFloat(dtiSlider.value), late = parseInt(lateSlider.value, 10);
+    panel.querySelector("#scoreDtiVal").textContent = dti.toFixed(2);
+    panel.querySelector("#scoreLateVal").textContent = late;
+
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin, yMax, xTicks: 4, yTicks: 4, xFmt: (v)=>v.toFixed(1), yFmt: (v)=>v.toFixed(0), xLabel: "DTI", yLabel: LANG==="uk"?"прострочення":"late" });
+
+    const gridN = 24, regions = [];
+    for (let gi=0; gi<gridN; gi++) for (let gj=0; gj<10; gj++) {
+      const gx = xMin+(gi/(gridN-1))*(xMax-xMin), gy = yMin+(gj/9)*(yMax-yMin);
+      const p = sigmoidFn(model.w1*gx+model.w2*gy+model.b);
+      regions.push(`<rect x="${(x(gx)-7).toFixed(1)}" y="${(y(gy)-14).toFixed(1)}" width="14" height="28" fill="${p>0.5?'var(--level-3)':'var(--mint)'}" opacity="${Math.abs(p-0.5)*0.5}" />`);
+    }
+    const dots = SCORECARD_DATA.map(([x1,x2,yv]) => `<circle cx="${x(x1).toFixed(1)}" cy="${y(x2).toFixed(1)}" r="4.5" fill="${yv===1?"var(--level-3)":"var(--mint)"}" stroke="var(--ink)" stroke-width="0.5" />`).join("");
+    const queryDot = `<circle cx="${x(dti).toFixed(1)}" cy="${y(late).toFixed(1)}" r="7" fill="none" stroke="var(--level-2)" stroke-width="2.5" />`;
+    svg.innerHTML = axesSvg + regions.join("") + dots + queryDot;
+
+    const pDefault = sigmoidFn(model.w1*dti+model.w2*late+model.b);
+    const lines = [`${S.steps}`, `  P(default) = sigmoid(${model.w1.toFixed(2)}·DTI + ${model.w2.toFixed(2)}·late + ${model.b.toFixed(2)})`, `  ${S.scorecardProb} = ${(pDefault*100).toFixed(1)}%`];
+    panel.querySelector("#scoreSteps").textContent = lines.join("\n");
+  }
+  [dtiSlider, lateSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 39. Local Outlier Factor (real LOF)
+// ---------------------------------------------------------------------------
+function euclidLof(a,b) { return Math.hypot(a[0]-b[0],a[1]-b[1]); }
+function kNeighborsLof(points, i, k) {
+  return points.map((p,j)=>({j,d:euclidLof(points[i],p)})).filter((o)=>o.j!==i).sort((a,b)=>a.d-b.d).slice(0,k);
+}
+function reachDistLof(points, i, j, k) {
+  const neighJ = kNeighborsLof(points, j, k);
+  const kDistJ = neighJ[neighJ.length-1].d;
+  return Math.max(kDistJ, euclidLof(points[i],points[j]));
+}
+function lrdLof(points, i, k) {
+  const neighbors = kNeighborsLof(points, i, k);
+  const sumReach = neighbors.reduce((s,o)=>s+reachDistLof(points,i,o.j,k),0);
+  return neighbors.length/sumReach;
+}
+function lofScore(points, i, k) {
+  const neighbors = kNeighborsLof(points, i, k);
+  const lrdI = lrdLof(points, i, k);
+  return neighbors.reduce((s,o)=>s+lrdLof(points,o.j,k)/lrdI,0)/neighbors.length;
+}
+const LOF_POINTS = (function () {
+  const rnd = mulberry32(4);
+  const pts = [];
+  for (let i=0;i<25;i++) pts.push([gaussFrom(rnd)*0.5, gaussFrom(rnd)*0.5]);
+  pts.push([3,3]); pts.push([2.6,-2.8]);
+  return pts;
+})();
+
+function mountLofDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 300, PAD = 20;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="lofSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>k (${LANG==="uk"?"сусідів":"neighbours"}) <span class="val" id="lofKVal">5</span></label><input type="range" id="lofK" min="2" max="15" step="1" value="5"></div>
+        </div>
+        <div class="demo-steps" id="lofSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.lofCallout}</p></div>
+  `;
+
+  const kSlider = panel.querySelector("#lofK");
+  const svg = panel.querySelector("#lofSvg");
+  const xs = LOF_POINTS.map((p)=>p[0]), ys = LOF_POINTS.map((p)=>p[1]);
+  const xMin = Math.min(...xs)-0.5, xMax = Math.max(...xs)+0.5, yMin = Math.min(...ys)-0.5, yMax = Math.max(...ys)+0.5;
+
+  function render() {
+    const k = parseInt(kSlider.value, 10);
+    panel.querySelector("#lofKVal").textContent = k;
+
+    const scores = LOF_POINTS.map((_,i) => lofScore(LOF_POINTS, i, k));
+    const maxScore = Math.max(...scores);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin, yMax, xTicks: 4, yTicks: 4, xFmt: (v)=>v.toFixed(1), yFmt: (v)=>v.toFixed(1) });
+    const dots = LOF_POINTS.map((p,i) => {
+      const r = 4 + 8*(scores[i]/maxScore);
+      return `<circle cx="${x(p[0]).toFixed(1)}" cy="${y(p[1]).toFixed(1)}" r="${r.toFixed(1)}" fill="${scores[i]>1.5?"var(--level-3)":"var(--mint)"}" opacity="0.8" />`;
+    }).join("");
+    svg.innerHTML = axesSvg + dots;
+
+    const outlierIdx = scores.indexOf(Math.max(...scores));
+    const lines = [`${S.steps}`, `  LRD(p) = k / Σ reach-dist(p,o)`, `  ${S.lofScore} = LRD(neighbors)/LRD(p), ${LANG==="uk"?"усереднено":"averaged"}`, `  max ${S.lofScore} = ${scores[outlierIdx].toFixed(2)} (${LANG==="uk"?"точка":"point"} ${outlierIdx})`];
+    panel.querySelector("#lofSteps").textContent = lines.join("\n");
+  }
+  kSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 40. Kyle's Lambda — price-impact regression
+// ---------------------------------------------------------------------------
+function kylesLambda(orderFlow, priceChanges) {
+  const n = orderFlow.length;
+  const meanX = orderFlow.reduce((a,b)=>a+b,0)/n, meanY = priceChanges.reduce((a,b)=>a+b,0)/n;
+  let num=0, den=0;
+  for (let i=0;i<n;i++) { num += (orderFlow[i]-meanX)*(priceChanges[i]-meanY); den += (orderFlow[i]-meanX)**2; }
+  return num/den;
+}
+
+function mountKyleDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="kyleSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"справжня лямбда (×10⁻⁴)":"true lambda (×10⁻⁴)"} <span class="val" id="kyleLamVal">5.0</span></label><input type="range" id="kyleLam" min="1" max="20" step="0.5" value="5.0"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"рівень шуму":"noise level"} <span class="val" id="kyleNoiseVal">0.05</span></label><input type="range" id="kyleNoise" min="0.01" max="0.3" step="0.01" value="0.05"></div>
+        </div>
+        <div class="demo-steps" id="kyleSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.kyleCallout}</p></div>
+  `;
+
+  const lamSlider = panel.querySelector("#kyleLam"), noiseSlider = panel.querySelector("#kyleNoise");
+  const svg = panel.querySelector("#kyleSvg");
+
+  function render() {
+    const trueLambda = parseFloat(lamSlider.value)/10000, noise = parseFloat(noiseSlider.value);
+    panel.querySelector("#kyleLamVal").textContent = (trueLambda*10000).toFixed(1);
+    panel.querySelector("#kyleNoiseVal").textContent = noise.toFixed(2);
+
+    const rnd = mulberry32(11);
+    const orderFlow=[], priceChanges=[];
+    for (let i=0;i<150;i++) { const of=gaussFrom(rnd)*1000; orderFlow.push(of); priceChanges.push(trueLambda*of+gaussFrom(rnd)*noise); }
+    const estLambda = kylesLambda(orderFlow, priceChanges);
+
+    const xMin = Math.min(...orderFlow), xMax = Math.max(...orderFlow);
+    const yMin = Math.min(...priceChanges), yMax = Math.max(...priceChanges);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin, yMax, xTicks: 4, yTicks: 4, xFmt: (v)=>v.toFixed(0), yFmt: (v)=>v.toFixed(2), xLabel: LANG==="uk"?"потік ордерів":"order flow", yLabel: LANG==="uk"?"зміна ціни":"Δprice" });
+    const dots = orderFlow.map((ofv,i) => `<circle cx="${x(ofv).toFixed(1)}" cy="${y(priceChanges[i]).toFixed(1)}" r="2.5" fill="var(--mint)" opacity="0.5" />`).join("");
+    const lineD = `M ${x(xMin).toFixed(1)} ${y(estLambda*xMin).toFixed(1)} L ${x(xMax).toFixed(1)} ${y(estLambda*xMax).toFixed(1)}`;
+    svg.innerHTML = axesSvg + dots + `<path d="${lineD}" stroke="var(--level-3)" stroke-width="2" fill="none" />`;
+
+    const lines = [`${S.steps}`, `  Δp = λ·OrderFlow + ε`, `  ${S.kyleLambda} = ${(estLambda*10000).toFixed(2)}×10⁻⁴ (${LANG==="uk"?"справжня":"true"}=${(trueLambda*10000).toFixed(1)}×10⁻⁴)`];
+    panel.querySelector("#kyleSteps").textContent = lines.join("\n");
+  }
+  [lamSlider, noiseSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 41. Nelson-Siegel yield curve
+// ---------------------------------------------------------------------------
+function nelsonSiegel(tau, beta0, beta1, beta2, lambda) {
+  const xv = tau/lambda;
+  return beta0 + beta1*(1-Math.exp(-xv))/xv + beta2*((1-Math.exp(-xv))/xv - Math.exp(-xv));
+}
+const NS_MATURITIES = [0.25,0.5,1,2,3,5,7,10,20,30];
+
+function mountNsDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="nsSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>β₀ (${LANG==="uk"?"рівень":"level"}) <span class="val" id="nsB0Val">4.0%</span></label><input type="range" id="nsB0" min="0" max="8" step="0.1" value="4.0"></div>
+          <div class="demo-slider-row"><label>β₁ (${LANG==="uk"?"нахил":"slope"}) <span class="val" id="nsB1Val">-2.0%</span></label><input type="range" id="nsB1" min="-6" max="4" step="0.1" value="-2.0"></div>
+          <div class="demo-slider-row"><label>β₂ (${LANG==="uk"?"кривизна":"curvature"}) <span class="val" id="nsB2Val">1.0%</span></label><input type="range" id="nsB2" min="-6" max="6" step="0.1" value="1.0"></div>
+          <div class="demo-slider-row"><label>λ <span class="val" id="nsLamVal">2.0</span></label><input type="range" id="nsLam" min="0.3" max="6" step="0.1" value="2.0"></div>
+        </div>
+        <div class="demo-steps" id="nsSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.nsCallout}</p></div>
+  `;
+
+  const els = ["nsB0","nsB1","nsB2","nsLam"].map((id) => panel.querySelector("#"+id));
+  const svg = panel.querySelector("#nsSvg");
+
+  function render() {
+    const [b0,b1,b2,lam] = [parseFloat(els[0].value)/100, parseFloat(els[1].value)/100, parseFloat(els[2].value)/100, parseFloat(els[3].value)];
+    panel.querySelector("#nsB0Val").textContent = (b0*100).toFixed(1)+"%";
+    panel.querySelector("#nsB1Val").textContent = (b1*100).toFixed(1)+"%";
+    panel.querySelector("#nsB2Val").textContent = (b2*100).toFixed(1)+"%";
+    panel.querySelector("#nsLamVal").textContent = lam.toFixed(1);
+
+    const nPts = 100;
+    const curve = [];
+    for (let i=0;i<nPts;i++) { const tau = 0.1+(i/(nPts-1))*29.9; curve.push([tau, nelsonSiegel(tau,b0,b1,b2,lam)]); }
+    const yVals = curve.map((c)=>c[1]);
+    const yMin = Math.min(...yVals)-0.005, yMax = Math.max(...yVals)+0.005;
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: 30, yMin, yMax, xTicks: 5, yTicks: 4, xFmt: (v)=>v.toFixed(0), yFmt: (v)=>(v*100).toFixed(1)+"%", xLabel: LANG==="uk"?"строк (роки)":"maturity (yrs)", yLabel: "yield" });
+    const path = curve.map(([tau,yield_],i)=>`${i===0?"M":"L"} ${x(tau).toFixed(1)} ${y(yield_).toFixed(1)}`).join(" ");
+    const dots = NS_MATURITIES.map((tau)=>`<circle cx="${x(tau).toFixed(1)}" cy="${y(nelsonSiegel(tau,b0,b1,b2,lam)).toFixed(1)}" r="3" fill="var(--level-2)" />`).join("");
+    svg.innerHTML = axesSvg + `<path d="${path}" fill="none" stroke="var(--mint)" stroke-width="2" />` + dots;
+
+    const lines = [`${S.steps}`, `  y(τ) = β₀ + β₁·(1-e^(-τ/λ))/(τ/λ) + β₂·[(1-e^(-τ/λ))/(τ/λ) - e^(-τ/λ)]`, `  ${S.nsShort} ≈ ${((b0+b1)*100).toFixed(2)}%`, `  ${S.nsLong} = ${(b0*100).toFixed(2)}%`];
+    panel.querySelector("#nsSteps").textContent = lines.join("\n");
+  }
+  els.forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 42. DebtRank — correct active/inactive cascade propagation
+// ---------------------------------------------------------------------------
+function debtRankProper(A, capital, initialShock, maxIter) {
+  const n = A.length;
+  let h = initialShock.slice();
+  let state = h.map((v) => v > 0 ? "D" : "U");
+  for (let iter = 0; iter < maxIter; iter++) {
+    const hNew = h.slice();
+    const activeSet = [];
+    for (let i = 0; i < n; i++) if (state[i] === "D") activeSet.push(i);
+    if (activeSet.length === 0) break;
+    for (let i = 0; i < n; i++) {
+      if (state[i] === "I") continue;
+      let impact = 0;
+      for (const j of activeSet) { if (i===j) continue; impact += (A[i][j]/capital[i])*h[j]; }
+      hNew[i] = Math.min(1, h[i]+impact);
+    }
+    const newState = state.slice();
+    for (const j of activeSet) newState[j] = "I";
+    for (let i = 0; i < n; i++) if (newState[i]==="U" && hNew[i]>h[i]) newState[i]="D";
+    h = hNew; state = newState;
+  }
+  return h;
+}
+const DEBTRANK_POS = [[80,150],[190,80],[190,220],[300,150]];
+
+function mountDebtrankDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 380, H = 300;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="drSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"експозиція 1→0":"exposure 1→0"} <span class="val" id="drE1Val">50</span></label><input type="range" id="drE1" min="10" max="100" step="5" value="50"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"експозиція 2→1":"exposure 2→1"} <span class="val" id="drE2Val">30</span></label><input type="range" id="drE2" min="10" max="100" step="5" value="30"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"експозиція 3→2":"exposure 3→2"} <span class="val" id="drE3Val">20</span></label><input type="range" id="drE3" min="10" max="100" step="5" value="20"></div>
+        </div>
+        <div class="demo-steps" id="drSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.debtrankCallout}</p></div>
+  `;
+
+  const els = ["drE1","drE2","drE3"].map((id) => panel.querySelector("#"+id));
+  const svg = panel.querySelector("#drSvg");
+
+  function render() {
+    const [e1,e2,e3] = els.map((el) => parseFloat(el.value));
+    panel.querySelector("#drE1Val").textContent = e1;
+    panel.querySelector("#drE2Val").textContent = e2;
+    panel.querySelector("#drE3Val").textContent = e3;
+
+    const A = [[0,0,0,0],[e1,0,0,0],[0,e2,0,0],[0,0,e3,0]];
+    const h = debtRankProper(A, [100,100,100,100], [1,0,0,0], 20);
+
+    let edges = "";
+    edges += `<line x1="${DEBTRANK_POS[0][0]}" y1="${DEBTRANK_POS[0][1]}" x2="${DEBTRANK_POS[1][0]}" y2="${DEBTRANK_POS[1][1]}" stroke="var(--rule)" stroke-width="2" marker-end="url(#arrow)" />`;
+    edges += `<line x1="${DEBTRANK_POS[1][0]}" y1="${DEBTRANK_POS[1][1]}" x2="${DEBTRANK_POS[2][0]}" y2="${DEBTRANK_POS[2][1]}" stroke="var(--rule)" stroke-width="2" />`;
+    edges += `<line x1="${DEBTRANK_POS[2][0]}" y1="${DEBTRANK_POS[2][1]}" x2="${DEBTRANK_POS[3][0]}" y2="${DEBTRANK_POS[3][1]}" stroke="var(--rule)" stroke-width="2" />`;
+    const nodes = DEBTRANK_POS.map((p,i) => {
+      const col = `color-mix(in srgb, var(--level-3) ${Math.round(h[i]*100)}%, var(--mint))`;
+      return `<circle cx="${p[0]}" cy="${p[1]}" r="22" fill="${col}" /><text x="${p[0]}" y="${p[1]+4}" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--bg)">${(h[i]*100).toFixed(0)}%</text><text x="${p[0]}" y="${p[1]-30}" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-soft)">${S.debtrankBank} ${i}</text>`;
+    }).join("");
+    svg.innerHTML = edges + nodes;
+
+    const lines = [`${S.steps}`, `  h(t+1) = min(1, h(t) + Σ (A/capital)·h_active)`, DEBTRANK_POS.map((_,i)=>`  ${S.debtrankBank} ${i}: ${S.debtrankLevel} = ${(h[i]*100).toFixed(1)}%`).join("\n")];
+    panel.querySelector("#drSteps").textContent = lines.join("\n");
+  }
+  els.forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 43. Deflated Sharpe Ratio
+// ---------------------------------------------------------------------------
+function deflatedSharpe(observedSR, nTrials, nObs, skew, kurt) {
+  const emGamma = 0.5772156649;
+  let expectedMaxSR = 0;
+  if (nTrials > 1) {
+    const zMax = (1-emGamma)*invNormCDF(1-1/nTrials) + emGamma*invNormCDF(1-1/(nTrials*Math.E));
+    expectedMaxSR = zMax/Math.sqrt(nObs);
+  }
+  const denomAdj = Math.sqrt(Math.max((1 - skew*observedSR + (kurt-1)/4*observedSR**2)/(nObs-1), 1e-6));
+  const dsr = normCDF((observedSR - expectedMaxSR)/denomAdj);
+  return { dsr, expectedMaxSR };
+}
+
+function mountDsrDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="dsrSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"виміряний Sharpe":"measured Sharpe"} <span class="val" id="dsrSrVal">0.30</span></label><input type="range" id="dsrSr" min="0.1" max="1.5" step="0.05" value="0.30"></div>
+          <div class="demo-slider-row"><label>${S.dsrTrials} <span class="val" id="dsrTrialsVal">50</span></label><input type="range" id="dsrTrials" min="1" max="1000" step="1" value="50"></div>
+        </div>
+        <div class="demo-steps" id="dsrSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.dsrCallout}</p></div>
+  `;
+
+  const srSlider = panel.querySelector("#dsrSr"), trialsSlider = panel.querySelector("#dsrTrials");
+  const svg = panel.querySelector("#dsrSvg");
+  const nObs = 50;
+
+  function render() {
+    const observedSR = parseFloat(srSlider.value);
+    const nTrials = parseInt(trialsSlider.value, 10);
+    panel.querySelector("#dsrSrVal").textContent = observedSR.toFixed(2);
+    panel.querySelector("#dsrTrialsVal").textContent = nTrials;
+
+    const nPts = 60;
+    const logMin = Math.log(1), logMax = Math.log(1000);
+    function xLog(nT) { return PAD + ((Math.log(nT)-logMin)/(logMax-logMin))*(W-2*PAD); }
+    const curve = [];
+    for (let i = 0; i < nPts; i++) {
+      const nT = Math.max(1, Math.round(Math.exp(logMin + (i/(nPts-1))*(logMax-logMin))));
+      curve.push([nT, deflatedSharpe(observedSR, nT, nObs, 0, 3).dsr]);
+    }
+    const yMin = 0, yMax = 1;
+    function yScale(v) { return H-PAD-((v-yMin)/(yMax-yMin))*(H-2*PAD); }
+    const path = curve.map(([nT,d],i)=>`${i===0?"M":"L"} ${xLog(nT).toFixed(1)} ${yScale(d).toFixed(1)}`).join(" ");
+
+    let axesManual = "";
+    for (const tv of [0,0.25,0.5,0.75,1]) {
+      const yy = yScale(tv);
+      axesManual += `<line class="axis-grid" x1="${PAD}" y1="${yy.toFixed(1)}" x2="${W-PAD}" y2="${yy.toFixed(1)}" />`;
+      axesManual += `<text class="axis-tick" x="${PAD-5}" y="${(yy+3).toFixed(1)}" text-anchor="end">${tv.toFixed(2)}</text>`;
+    }
+    for (const tv of [1,10,100,1000]) {
+      const xx = xLog(tv);
+      axesManual += `<line class="axis-grid" x1="${xx.toFixed(1)}" y1="${PAD}" x2="${xx.toFixed(1)}" y2="${H-PAD}" />`;
+      axesManual += `<text class="axis-tick" x="${xx.toFixed(1)}" y="${H-PAD+13}" text-anchor="middle">${tv}</text>`;
+    }
+    axesManual += `<line class="axis-line" x1="${PAD}" y1="${H-PAD}" x2="${W-PAD}" y2="${H-PAD}" />`;
+    axesManual += `<line class="axis-line" x1="${PAD}" y1="${PAD}" x2="${PAD}" y2="${H-PAD}" />`;
+    axesManual += `<text class="axis-label" x="${W-PAD}" y="${H-3}" text-anchor="end">${LANG==="uk"?"випробувань (лог. шкала)":"trials (log scale)"}</text>`;
+
+    const { dsr, expectedMaxSR } = deflatedSharpe(observedSR, nTrials, nObs, 0, 3);
+    svg.innerHTML = axesManual + `<path d="${path}" fill="none" stroke="var(--mint)" stroke-width="2" />` + `<circle cx="${xLog(nTrials).toFixed(1)}" cy="${yScale(dsr).toFixed(1)}" r="5" fill="var(--level-3)" />`;
+
+    const lines = [`${S.steps}`, `  E[max SR | H0] ≈ ${expectedMaxSR.toFixed(3)}`, `  ${S.dsrValue} = ${dsr.toFixed(3)}`];
+    panel.querySelector("#dsrSteps").textContent = lines.join("\n");
+  }
+  [srSlider, trialsSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 44. Genetic Algorithm
+// ---------------------------------------------------------------------------
+function gaFitness(xv) { return -((xv-3)**2) + 10 + Math.sin(xv*3)*0.5; }
+function runGA(popSize, generations, mutRate, rnd) {
+  let pop = Array.from({length:popSize}, () => rnd()*10-5);
+  const bestHistory = [];
+  for (let g = 0; g < generations; g++) {
+    const fitness = pop.map(gaFitness);
+    bestHistory.push(Math.max(...fitness));
+    const newPop = [];
+    for (let i = 0; i < popSize; i++) {
+      const a = pop[Math.floor(rnd()*popSize)], b = pop[Math.floor(rnd()*popSize)];
+      const parent1 = gaFitness(a)>gaFitness(b) ? a : b;
+      const c = pop[Math.floor(rnd()*popSize)], d = pop[Math.floor(rnd()*popSize)];
+      const parent2 = gaFitness(c)>gaFitness(d) ? c : d;
+      let child = (parent1+parent2)/2;
+      if (rnd() < mutRate) child += gaussFrom(rnd)*0.5;
+      newPop.push(child);
+    }
+    pop = newPop;
+  }
+  return { bestHistory, pop };
+}
+
+function mountGaDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="gaSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--ink-faint)">●</span> ${LANG==="uk"?"цільова функція":"objective function"} &nbsp; <span style="color:var(--level-3)">●</span> ${LANG==="uk"?"поточна популяція":"current population"}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${S.gaGeneration} <span class="val" id="gaGenVal">15</span></label><input type="range" id="gaGen" min="0" max="60" step="1" value="15"></div>
+        </div>
+        <div class="demo-steps" id="gaSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.gaCallout}</p></div>
+  `;
+
+  const genSlider = panel.querySelector("#gaGen");
+  const svg = panel.querySelector("#gaSvg");
+
+  function render() {
+    const generations = parseInt(genSlider.value, 10);
+    panel.querySelector("#gaGenVal").textContent = generations;
+
+    const { bestHistory, pop } = runGA(30, Math.max(1,generations), 0.15, mulberry32(21));
+
+    const nPts = 100;
+    const curve = [];
+    for (let i=0;i<nPts;i++) { const xv=-5+(i/(nPts-1))*10; curve.push([xv, gaFitness(xv)]); }
+    const yVals = curve.map((c)=>c[1]);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: -5, xMax: 5, yMin: Math.min(...yVals)-1, yMax: Math.max(...yVals)+1, xTicks: 5, yTicks: 4, xFmt: (v)=>v.toFixed(0), yFmt: (v)=>v.toFixed(0), xLabel: "x" });
+    const path = curve.map(([xv,fv],i)=>`${i===0?"M":"L"} ${x(xv).toFixed(1)} ${y(fv).toFixed(1)}`).join(" ");
+    const popDots = pop.map((xv) => `<circle cx="${x(xv).toFixed(1)}" cy="${y(gaFitness(xv)).toFixed(1)}" r="4" fill="var(--level-3)" opacity="0.7" />`).join("");
+    svg.innerHTML = axesSvg + `<path d="${path}" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4 3" />` + popDots;
+
+    const bestFit = generations===0 ? Math.max(...pop.map(gaFitness)) : bestHistory[bestHistory.length-1];
+    const lines = [`${S.steps}`, `  ${S.gaBestFitness} = ${bestFit.toFixed(3)} (${LANG==="uk"?"максимум":"max"}≈10.4 ${LANG==="uk"?"поблизу":"near"} x=3)`];
+    panel.querySelector("#gaSteps").textContent = lines.join("\n");
+  }
+  genSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 45. Policy Gradient / REINFORCE
+// ---------------------------------------------------------------------------
+function softmaxPolicy(theta) { const m=Math.max(...theta); const ex=theta.map((t)=>Math.exp(t-m)); const s=ex.reduce((a,b)=>a+b,0); return ex.map((v)=>v/s); }
+function trainReinforce(episodes, lr, rnd) {
+  let theta = [0,0,0];
+  const trueReward = [-0.5, 0, 1.2];
+  const history = [];
+  for (let ep = 0; ep < episodes; ep++) {
+    const probs = softmaxPolicy(theta);
+    const r = rnd(); let cum = 0, action = 0;
+    for (let a = 0; a < 3; a++) { cum += probs[a]; if (r <= cum) { action = a; break; } }
+    const reward = trueReward[action] + gaussFrom(rnd)*0.3;
+    for (let k = 0; k < 3; k++) { const grad = (k===action?1:0)-probs[k]; theta[k] += lr*reward*grad; }
+    history.push(softmaxPolicy(theta));
+  }
+  return { theta, history };
+}
+
+function mountReinforceDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+  const actionLabels = LANG==="uk" ? ["продати","тримати","купити"] : ["sell","hold","buy"];
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="pgSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"епізоди навчання":"training episodes"} <span class="val" id="pgEpVal">300</span></label><input type="range" id="pgEp" min="0" max="800" step="20" value="300"></div>
+        </div>
+        <div class="demo-steps" id="pgSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.pgCallout}</p></div>
+  `;
+
+  const epSlider = panel.querySelector("#pgEp");
+  const svg = panel.querySelector("#pgSvg");
+
+  function render() {
+    const episodes = parseInt(epSlider.value, 10);
+    panel.querySelector("#pgEpVal").textContent = episodes;
+
+    const rnd = mulberry32(9);
+    const { history } = trainReinforce(Math.max(1,episodes), 0.05, rnd);
+    const colors = ["var(--level-3)","var(--level-2)","var(--mint)"];
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: history.length-1, yMin: 0, yMax: 1, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(1), xLabel: LANG==="uk"?"епізод":"episode", yLabel: "P(action)" });
+    let paths = "";
+    for (let a=0;a<3;a++) {
+      const path = history.map((probs,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(probs[a]).toFixed(1)}`).join(" ");
+      paths += `<path d="${path}" fill="none" stroke="${colors[a]}" stroke-width="2" />`;
+    }
+    svg.innerHTML = axesSvg + paths;
+
+    const finalProbs = history[history.length-1];
+    const lines = [`${S.steps}`, `  θ_k += lr · reward · (1{k=a} − π(k))`, `  ${S.pgProbs}: [${finalProbs.map((p)=>p.toFixed(2)).join(", ")}]`];
+    panel.querySelector("#pgSteps").textContent = lines.join("\n");
+  }
+  epSlider.addEventListener("input", render);
+  render();
+}
+
+
 const DEMOS = {
   "volatility::GARCH(1,1)": { mount: mountGarchDemo },
   "unsupervised-outliers::Isolation Forest": { mount: mountIsoForestDemo },
@@ -4155,6 +4901,16 @@ const DEMOS = {
   "validation::Walk-Forward Split": { mount: mountWalkForwardDemo },
   "fraud::Benford's Law Digit Analysis": { mount: mountBenfordDemo },
   "alt-data::Technical Indicators (RSI, MACD, Bollinger)": { mount: mountTechDemo },
+  "time-series::ARIMA / ARMA": { mount: mountArimaDemo },
+  "risk-measures::Conditional VaR / Expected Shortfall": { mount: mountEsDemo },
+  "credit::Logistic Regression Scorecard": { mount: mountScorecardDemo },
+  "unsupervised-outliers::Local Outlier Factor": { mount: mountLofDemo },
+  "microstructure::Kyle's Lambda": { mount: mountKyleDemo },
+  "rates::Nelson-Siegel / Svensson": { mount: mountNsDemo },
+  "systemic::DebtRank": { mount: mountDebtrankDemo },
+  "validation::Deflated Sharpe Ratio": { mount: mountDsrDemo },
+  "search::Genetic Algorithms": { mount: mountGaDemo },
+  "rl::Policy Gradient / REINFORCE": { mount: mountReinforceDemo },
 };
 
 function applyFilters() {
