@@ -113,6 +113,26 @@ a { color: inherit; }
 .lang-toggle span.active { background: var(--mint); color: #0B0E17; font-weight: 600; cursor: default; }
 .lang-toggle span.active:hover { color: #0B0E17; }
 
+.topnav-header {
+  display: flex;
+  border-top: 1px solid var(--rule);
+  padding-top: 8px;
+}
+.nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+  background: transparent;
+  border: none;
+  padding: 4px 0;
+  cursor: pointer;
+}
+.nav-toggle:hover { color: var(--ink); }
+.nav-toggle-count { color: var(--ink-faint); }
+
 .topnav {
   display: flex;
   flex-wrap: wrap;
@@ -121,6 +141,16 @@ a { color: inherit; }
   font-family: var(--mono);
   font-size: 10px;
   line-height: 1.5;
+  max-height: 500px;
+  overflow: hidden;
+  transition: max-height 0.25s ease, opacity 0.2s ease, padding 0.2s ease;
+  opacity: 1;
+}
+.topnav.collapsed {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  opacity: 0;
 }
 .topnav a {
   text-decoration: none;

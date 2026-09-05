@@ -79,6 +79,9 @@ function applyUIStrings() {
 
   document.getElementById("langUk").classList.toggle("active", LANG === "uk");
   document.getElementById("langEn").classList.toggle("active", LANG === "en");
+
+  document.getElementById("navToggleLabel").textContent = LANG === "uk" ? "Теми" : "Topics";
+  document.getElementById("navToggleCount").textContent = `(${TOPICS.length || 27})`;
 }
 
 const NAV_PALETTE = [
@@ -6698,6 +6701,38 @@ function setupInteractions() {
 
   document.getElementById("langUk").addEventListener("click", () => setLanguage("uk"));
   document.getElementById("langEn").addEventListener("click", () => setLanguage("en"));
+
+  const navToggle = document.getElementById("navToggle");
+  const navToggleIcon = document.getElementById("navToggleIcon");
+  const topNavEl = document.getElementById("topNav");
+
+  function setNavCollapsed(collapsed, persist) {
+    topNavEl.classList.toggle("collapsed", collapsed);
+    navToggleIcon.textContent = collapsed ? "▸" : "▾";
+    navToggle.setAttribute("aria-expanded", String(!collapsed));
+    if (persist) {
+      try { localStorage.setItem("market-atlas-nav-collapsed", collapsed ? "1" : "0"); } catch (e) {}
+    }
+  }
+
+  let initialCollapsed;
+  try {
+    const saved = localStorage.getItem("market-atlas-nav-collapsed");
+    initialCollapsed = saved !== null ? saved === "1" : window.innerWidth < 700;
+  } catch (e) {
+    initialCollapsed = window.innerWidth < 700;
+  }
+  setNavCollapsed(initialCollapsed, false);
+
+  navToggle.addEventListener("click", () => {
+    setNavCollapsed(!topNavEl.classList.contains("collapsed"), true);
+  });
+
+  topNavEl.addEventListener("click", (e) => {
+    if (e.target.tagName === "A" && window.innerWidth < 700) {
+      setTimeout(() => setNavCollapsed(true, false), 150);
+    }
+  });
 }
 
 let navObserver = null;
