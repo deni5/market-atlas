@@ -434,6 +434,48 @@ const DEMO_STRINGS = {
     kmvAnalysis: "Модель Moody's KMV на практиці калібрує 'відстань до дефолту' на емпіричну базу дефолтів для перетворення DD у фактичну ймовірність (EDF), а не використовує теоретичну нормальну формулу напряму, як у цьому спрощеному демо.",
     kmvDD: "відстань до дефолту (DD)",
     kmvPD: "ймовірність дефолту (PD)",
+    hestonDerivCallout: "На відміну від Блека-Шоулза, де волатильність фіксована, у моделі Хестона вона сама є випадковим процесом — це дозволяє відтворити 'усмішку волатильності', яку реально спостерігають на ринку опціонів, чого константна волатильність принципово не може.",
+    hestonDerivAnalysis: "При v0=θ і малому ξ (волатильність волатильності) ціна Хестона майже точно збігається з Блеком-Шоулзом — це корисна перевірка коректності реалізації: модель повинна 'вироджуватись' у простіший випадок, коли додаткова складність вимкнена.",
+    hestonDerivPrice: "ціна Хестона (Monte Carlo)",
+    hestonDerivBs: "ціна Блека-Шоулза (еталон)",
+    msgarchCallout: "Markov-Switching GARCH поєднує дві ідеї: волатильність кластерується (GARCH), і сама структура кластеризації може різко змінюватись між режимами (Markov switching) — наприклад, 'спокійний' режим із низькою персистентністю шоків і 'кризовий' режим, де шоки довго згасають.",
+    msgarchAnalysis: "Оцінка режиму в реальному часі завжди із затримкою — фільтр потребує кількох спостережень, щоб 'зрозуміти', що режим змінився, тому на практиці такі моделі краще підходять для оцінки ризику заднім числом, ніж для миттєвого реагування.",
+    msgarchRegimeProb: "ймовірність стресового режиму",
+    creditMetricsCallout: "CreditMetrics моделює кредитний ризик портфеля не через окремі дефолти, а через повний розподіл можливих майбутніх станів — включно з падінням рейтингу без дефолту, що теж знижує вартість боргу навіть якщо емітент продовжує платити.",
+    creditMetricsAnalysis: "Матриця переходів рейтингів припускається стабільною в часі — під час криз (2008, COVID) фактичні частоти переходів різко відхиляються від історичних середніх, тому моделі потребують стрес-тестування окремо від базового сценарію.",
+    creditMetricsDefaultRate: "5-річна ймовірність дефолту (з BBB)",
+    autoformerCallout: "Замість того, щоб напряму моделювати сирий ряд, Autoformer спершу розкладає його на тренд і сезонно-залишкову компоненту — це спрощує задачу для механізму уваги, який далі шукає автокореляційні патерни вже в очищеному від тренду залишку.",
+    autoformerAnalysis: "Розмір вікна ковзного середнього для виділення тренду — це гіперпараметр, який суттєво впливає на результат: замале вікно залишає сезонність у 'тренді', завелике - розмиває справжні зміни тренду в 'сезонну' компоненту.",
+    autoformerTrend: "тренд",
+    autoformerResid: "сезонність + залишок",
+    pumpDumpCallout: "Класична сигнатура pump-and-dump: різкий сплеск ціни на аномально високому обсязі (координована реклама/купівля), а потім різке падіння (масовий продаж організаторами) — обидві фази мають бути виявлені для впевненої класифікації, а не лише одна з них.",
+    pumpDumpAnalysis: "Використання медіани (а не середнього) обсягу як базового рівня критично важливо — сам пік обсягу під час насоса спотворює середнє, роблячи поріг виявлення нечутливим саме тоді, коли він найпотрібніший.",
+    pumpDumpResult: "результат",
+    gridRandomCallout: "У просторах високої розмірності випадковий пошук зазвичай перевершує сітковий за тієї самої кількості спроб — сітка витрачає багато оцінок на комбінації неважливих параметрів, тоді як випадкові точки покривають кожен вимір незалежно.",
+    gridRandomAnalysis: "У цьому конкретному 2D-прикладі результати можуть бути порівнянними чи навіть на користь сітки — перевага випадкового пошуку стає вирішальною саме в багатовимірних просторах (5+ гіперпараметрів), де сітка стає обчислювально неможливою.",
+    gridBest: "grid search — найкраще значення",
+    randomBest: "random search — найкраще значення",
+    fbetaCallout: "F-beta узагальнює F1, дозволяючи явно вказати, що важливіше для конкретної задачі: β<1 надає більшу вагу precision (менше хибних тривог важливіше), β>1 — recall (не пропустити жодного справжнього випадку важливіше, навіть ціною хибних тривог).",
+    fbetaAnalysis: "Вибір β — це бізнес-рішення, а не суто статистичне: для скринінгу шахрайства зазвичай обирають β>1 (краще перевірити зайвий раз), а для автоматичного блокування транзакцій — β<1 (хибне блокування коштує дорожче).",
+    fbetaValue: "F-beta",
+    ppoCallout: "PPO обмежує, наскільки сильно нова політика може відхилятись від старої за одне оновлення (через 'обрізання' відношення ймовірностей) — це запобігає катастрофічним, надто агресивним оновленням політики, які можуть зруйнувати вже вивчену поведінку.",
+    ppoAnalysis: "Параметр обрізання ε контролює компроміс між швидкістю навчання й стабільністю: занадто велике ε наближає PPO до нестабільного чистого Policy Gradient, занадто мале — робить навчання дуже повільним.",
+    ppoEpsilon: "ε (межа обрізання)",
+    linregCallout: "Найпростіша можлива модель прогнозування — але саме тому вона є обов'язковим базовим рівнем: якщо складна модель (LSTM, трансформер) не перевершує просту лінійну регресію на конкретних даних, її додаткова складність не виправдана для цієї задачі.",
+    linregAnalysis: "Лінійна регресія припускає постійний, незалежний від рівня X ефект — якщо справжня залежність нелінійна (наприклад, дохідність опціону відносно ціни базового активу), пряма лінія буде систематично неправильною в обох хвостах діапазону.",
+    linregSlope: "нахил",
+    linregIntercept: "перетин",
+    diffiCallout: "DIFFI визначає, яка ознака 'найбільше відповідає' за ізоляцію аномалій в Isolation Forest — ознака, що часто використовується для розбиття на малих глибинах (де ізолюються найочевидніші аномалії), отримує вищу важливість.",
+    diffiAnalysis: "На відміну від SHAP, DIFFI специфічний саме для isolation forest і не має математично гарантованої властивості 'ефективності' (сума = різниця прогнозів) — це евристична, а не аксіоматично обґрунтована міра важливості.",
+    diffiImportance: "важливість ознак",
+    garchAnalysis: "GARCH(1,1) припускає симетричну реакцію на шоки — позитивний і негативний шок однакового розміру дають однаковий внесок у майбутню волатильність, що суперечить емпіричному 'ефекту левериджу' на акціях (див. EGARCH).",
+    isoAnalysis: "Isolation Forest працює найкраще на глобальних, чітко відокремлених аномаліях; для локальних аномалій усередині кластерів різної щільності LOF чи DBSCAN зазвичай точніші.",
+    bsAnalysis: "Формула передбачає постійну волатильність і відсутність стрибків ціни — реальний ринок систематично порушує обидва припущення, що й породжує 'усмішку волатильності' та потребу в моделях на кшталт Хестона чи стрибкоподібної дифузії.",
+    capmAnalysis: "Емпірично бета CAPM пояснює лише частину варіації дохідностей — звідси й виникли багатофакторні моделі (Fama-French), що додають розмір і вартість як додаткові систематичні фактори ризику.",
+    kellyAnalysis: "Формула Келлі передбачає точне знання ймовірності виграшу p — на практиці p завжди оцінюється з похибкою, тому full Kelly систематично переоцінює оптимальний розмір ставки й веде до надто агресивних позицій.",
+    markowitzAnalysis: "Оптимізація Марковіца надзвичайно чутлива до похибок оцінки очікуваної дохідності — невеликі зміни вхідних прогнозів можуть різко змінити оптимальні ваги, тому на практиці її часто комбінують з Black-Litterman для стабілізації.",
+    varAnalysis: "Параметричний VaR припускає нормальний розподіл дохідностей — під час ринкових стресів реальні хвости товщі за нормальні, тому параметричний VaR систематично недооцінює ризик саме тоді, коли він найважливіший.",
+    kalmanAnalysis: "Фільтр Калмана оптимальний лише за умови лінійної динаміки й гаусового шуму — для нелінійних чи негаусових задач потрібні розширення (Extended/Unscented Kalman Filter) або фільтр частинок.",
   },
   en: {
     steps: "steps:",
@@ -692,6 +734,48 @@ const DEMO_STRINGS = {
     kmvAnalysis: "Moody's KMV in practice calibrates 'distance to default' against an empirical default database to convert DD into an actual probability (EDF), rather than using the theoretical normal-distribution formula directly, as this simplified demo does.",
     kmvDD: "distance to default (DD)",
     kmvPD: "probability of default (PD)",
+    hestonDerivCallout: "Unlike Black-Scholes, where volatility is fixed, in the Heston model it's itself a random process — letting it reproduce the volatility smile actually observed in options markets, something constant volatility fundamentally cannot do.",
+    hestonDerivAnalysis: "With v0=θ and small ξ (vol-of-vol), the Heston price nearly exactly matches Black-Scholes — a useful correctness check: the model should 'degenerate' to the simpler case when the extra complexity is switched off.",
+    hestonDerivPrice: "Heston price (Monte Carlo)",
+    hestonDerivBs: "Black-Scholes price (reference)",
+    msgarchCallout: "Markov-Switching GARCH combines two ideas: volatility clusters (GARCH), and the clustering structure itself can shift sharply between regimes (Markov switching) — say, a 'calm' regime with low shock persistence and a 'crisis' regime where shocks decay slowly.",
+    msgarchAnalysis: "Real-time regime estimation always lags — the filter needs several observations to 'realise' the regime has changed, so in practice these models suit after-the-fact risk assessment better than instant reaction.",
+    msgarchRegimeProb: "stress-regime probability",
+    creditMetricsCallout: "CreditMetrics models portfolio credit risk not through individual defaults, but through the full distribution of possible future states — including a rating downgrade with no default, which also lowers the debt's value even if the issuer keeps paying.",
+    creditMetricsAnalysis: "The rating transition matrix is assumed stable over time — during crises (2008, COVID) actual transition frequencies deviate sharply from historical averages, so models need separate stress-testing beyond the base scenario.",
+    creditMetricsDefaultRate: "5-year default probability (from BBB)",
+    autoformerCallout: "Instead of modelling the raw series directly, Autoformer first decomposes it into trend and seasonal-residual components — simplifying the job for the attention mechanism, which then looks for autocorrelation patterns in the trend-cleaned residual.",
+    autoformerAnalysis: "The moving-average window size used to extract the trend is a hyperparameter that materially affects the result: too small a window leaves seasonality inside the 'trend', too large blurs genuine trend shifts into the 'seasonal' component.",
+    autoformerTrend: "trend",
+    autoformerResid: "seasonality + residual",
+    pumpDumpCallout: "The classic pump-and-dump signature: a sharp price spike on abnormally high volume (coordinated promotion/buying), followed by a sharp drop (mass selling by the organisers) — both phases need to be detected together for a confident classification, not just one.",
+    pumpDumpAnalysis: "Using the median (not the mean) volume as the baseline is critical — the volume spike itself during the pump distorts the mean, making the detection threshold least sensitive exactly when it's needed most.",
+    pumpDumpResult: "result",
+    gridRandomCallout: "In high-dimensional spaces, random search typically beats grid search for the same number of trials — a grid wastes many evaluations on combinations of unimportant parameters, while random points cover every dimension independently.",
+    gridRandomAnalysis: "In this specific 2-D example the results can be comparable or even favour the grid — random search's advantage becomes decisive precisely in high-dimensional spaces (5+ hyperparameters), where a grid becomes computationally impossible.",
+    gridBest: "grid search — best value found",
+    randomBest: "random search — best value found",
+    fbetaCallout: "F-beta generalises F1 by letting you explicitly state what matters more for the specific task: β<1 weights precision more heavily (fewer false alarms matters more), β>1 weights recall more (missing no true case matters more, even at the cost of false alarms).",
+    fbetaAnalysis: "Choosing β is a business decision, not a purely statistical one: fraud screening typically picks β>1 (better to double-check), while automatic transaction blocking picks β<1 (a false block costs more).",
+    fbetaValue: "F-beta",
+    ppoCallout: "PPO limits how far a new policy can drift from the old one in a single update (by 'clipping' the probability ratio) — preventing catastrophic, overly aggressive policy updates that could wreck already-learned behaviour.",
+    ppoAnalysis: "The clipping parameter ε controls the trade-off between learning speed and stability: too large an ε brings PPO close to unstable plain Policy Gradient, too small makes training very slow.",
+    ppoEpsilon: "ε (clip range)",
+    linregCallout: "The simplest possible forecasting model — but that's exactly why it's a mandatory baseline: if a complex model (LSTM, transformer) can't beat plain linear regression on specific data, its extra complexity isn't earning its keep for that task.",
+    linregAnalysis: "Linear regression assumes a constant effect independent of X's level — if the true relationship is nonlinear (an option's payoff versus the underlying price, say), a straight line will be systematically wrong at both ends of the range.",
+    linregSlope: "slope",
+    linregIntercept: "intercept",
+    diffiCallout: "DIFFI identifies which feature is 'most responsible' for isolating anomalies in Isolation Forest — a feature that's frequently used for splits at shallow depths (where the most obvious anomalies get isolated) receives higher importance.",
+    diffiAnalysis: "Unlike SHAP, DIFFI is specific to isolation forest and has no mathematically guaranteed 'efficiency' property (sum = prediction difference) — it's a heuristic, not an axiomatically grounded importance measure.",
+    diffiImportance: "feature importance",
+    garchAnalysis: "GARCH(1,1) assumes a symmetric reaction to shocks — a positive and a negative shock of the same size contribute equally to future volatility, contradicting the empirical 'leverage effect' on stocks (see EGARCH).",
+    isoAnalysis: "Isolation Forest works best on global, clearly separated anomalies; for local anomalies inside clusters of varying density, LOF or DBSCAN are usually more accurate.",
+    bsAnalysis: "The formula assumes constant volatility and no price jumps — real markets systematically violate both, which is exactly what produces the volatility smile and the need for models like Heston or jump-diffusion.",
+    capmAnalysis: "Empirically, CAPM beta explains only part of return variation — which is exactly why multi-factor models (Fama-French) emerged, adding size and value as additional systematic risk factors.",
+    kellyAnalysis: "The Kelly formula assumes exact knowledge of the win probability p — in practice p is always estimated with error, so full Kelly systematically overstates the optimal bet size and leads to overly aggressive positions.",
+    markowitzAnalysis: "Markowitz optimisation is extremely sensitive to errors in expected-return estimates — small changes in input forecasts can drastically shift the optimal weights, which is why it's often combined with Black-Litterman in practice to stabilise it.",
+    varAnalysis: "Parametric VaR assumes normally distributed returns — during market stress, real tails are fatter than normal, so parametric VaR systematically understates risk exactly when it matters most.",
+    kalmanAnalysis: "The Kalman filter is optimal only under linear dynamics and Gaussian noise — nonlinear or non-Gaussian problems require extensions (Extended/Unscented Kalman Filter) or a particle filter.",
   },
 };
 
@@ -760,6 +844,8 @@ function mountGarchDemo(panel) {
       <p class="eyebrow2">${S.inFinance}</p>
       <p>${S.garchCallout}</p>
     </div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.garchAnalysis}</p></div>
+    ${relatedLinksHTML(["volatility","derivatives"])}
   `;
 
   const omegaSlider = panel.querySelector("#omegaSlider");
@@ -914,6 +1000,8 @@ function mountIsoForestDemo(panel) {
       <p class="eyebrow2">${S.inFinance}</p>
       <p>${S.isoCallout}</p>
     </div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.isoAnalysis}</p></div>
+    ${relatedLinksHTML(["unsupervised-outliers","fraud"])}
   `;
 
   const svg = panel.querySelector("#isoSvg");
@@ -1038,6 +1126,8 @@ function mountBlackScholesDemo(panel) {
       <p class="eyebrow2">${S.inFinance}</p>
       <p>${S.bsCallout}</p>
     </div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.bsAnalysis}</p></div>
+    ${relatedLinksHTML(["derivatives","volatility"])}
   `;
 
   const els = ["sSlider", "kSlider", "sigSlider", "tSlider", "rSlider"].map((id) => panel.querySelector("#" + id));
@@ -1136,6 +1226,8 @@ function mountCapmDemo(panel) {
       <p class="eyebrow2">${S.inFinance}</p>
       <p>${S.capmCallout}</p>
     </div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.capmAnalysis}</p></div>
+    ${relatedLinksHTML(["factor","portfolio"])}
   `;
 
   const betaSlider = panel.querySelector("#capmBeta");
@@ -1210,6 +1302,8 @@ function mountKellyDemo(panel) {
       <p class="eyebrow2">${S.inFinance}</p>
       <p>${S.kellyCallout}</p>
     </div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.kellyAnalysis}</p></div>
+    ${relatedLinksHTML(["portfolio","risk-measures"])}
   `;
 
   const pSlider = panel.querySelector("#kellyP");
@@ -1303,6 +1397,8 @@ function mountMarkowitzDemo(panel) {
       <p class="eyebrow2">${S.inFinance}</p>
       <p>${S.markoCallout}</p>
     </div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.markowitzAnalysis}</p></div>
+    ${relatedLinksHTML(["portfolio","factor"])}
   `;
 
   const ids = ["markoR1", "markoR2", "markoS1", "markoS2", "markoRho"];
@@ -1415,6 +1511,8 @@ function mountVarDemo(panel) {
       <p class="eyebrow2">${S.inFinance}</p>
       <p>${S.varCallout}</p>
     </div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.varAnalysis}</p></div>
+    ${relatedLinksHTML(["risk-measures"])}
   `;
 
   const confSlider = panel.querySelector("#varConf");
@@ -1525,6 +1623,8 @@ function mountKalmanDemo(panel) {
       <p class="eyebrow2">${S.inFinance}</p>
       <p>${S.kalmanCallout}</p>
     </div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.kalmanAnalysis}</p></div>
+    ${relatedLinksHTML(["time-series","regime"])}
   `;
 
   const qSlider = panel.querySelector("#kalmanQ");
@@ -7268,6 +7368,652 @@ function mountKmvDemo(panel) {
 }
 
 
+// ---------------------------------------------------------------------------
+// 76. Heston Model (derivatives) — Monte Carlo option pricing
+// ---------------------------------------------------------------------------
+function hestonMCPrice(S0, K, T, r, v0, kappa, theta, xi, rho, n, nSteps, rnd) {
+  const dt = T/nSteps;
+  let sum = 0;
+  for (let i = 0; i < n; i++) {
+    let S = S0, v = v0;
+    for (let t = 0; t < nSteps; t++) {
+      const z1 = gaussFrom(rnd), z2 = rho*z1+Math.sqrt(1-rho*rho)*gaussFrom(rnd);
+      const vOld = v;
+      S = S*Math.exp((r-0.5*Math.max(vOld,0))*dt+Math.sqrt(Math.max(vOld,0)*dt)*z1);
+      v = Math.max(0, vOld+kappa*(theta-vOld)*dt+xi*Math.sqrt(Math.max(vOld,0)*dt)*z2);
+    }
+    sum += Math.max(S-K,0);
+  }
+  return Math.exp(-r*T)*sum/n;
+}
+
+function mountHestonDerivDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 240, PAD = 30;
+  let seed = 1;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="hestonDerivSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>ξ (vol-of-vol) <span class="val" id="hdXiVal">0.30</span></label><input type="range" id="hdXi" min="0.01" max="1" step="0.01" value="0.30"></div>
+          <div class="demo-slider-row"><label>ρ (${LANG==="uk"?"кореляція":"correlation"}) <span class="val" id="hdRhoVal">-0.50</span></label><input type="range" id="hdRho" min="-0.9" max="0.9" step="0.05" value="-0.50"></div>
+          <button type="button" class="demo-run-btn" id="hdRun">${S.runNewRound}</button>
+        </div>
+        <div class="demo-steps" id="hdSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.hestonDerivCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.hestonDerivAnalysis}</p></div>
+    ${relatedLinksHTML(["derivatives","volatility"])}
+  `;
+
+  const xiSlider = panel.querySelector("#hdXi"), rhoSlider = panel.querySelector("#hdRho"), runBtn = panel.querySelector("#hdRun");
+  const svg = panel.querySelector("#hestonDerivSvg");
+
+  function render() {
+    const xi = parseFloat(xiSlider.value), rho = parseFloat(rhoSlider.value);
+    panel.querySelector("#hdXiVal").textContent = xi.toFixed(2);
+    panel.querySelector("#hdRhoVal").textContent = rho.toFixed(2);
+
+    const rnd = mulberry32(seed);
+    const hestonPrice = hestonMCPrice(100,100,1,0.05,0.04,2,0.04,xi,rho,2000,80,rnd);
+    const bsRef = bsPrice(100,100,1,0.05,0.2).call;
+
+    const maxV = Math.max(hestonPrice,bsRef)*1.2;
+    const barW = 60;
+    svg.innerHTML = `
+      <rect x="${PAD}" y="${H-PAD-(bsRef/maxV)*(H-2*PAD)}" width="${barW}" height="${(bsRef/maxV)*(H-2*PAD)}" fill="var(--ink-faint)" opacity="0.7" />
+      <text x="${PAD+barW/2}" y="${H-PAD+14}" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-soft)">BS</text>
+      <rect x="${PAD+90}" y="${H-PAD-(hestonPrice/maxV)*(H-2*PAD)}" width="${barW}" height="${(hestonPrice/maxV)*(H-2*PAD)}" fill="var(--mint)" opacity="0.85" />
+      <text x="${PAD+90+barW/2}" y="${H-PAD+14}" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-soft)">Heston</text>
+    `;
+
+    const lines = [`${S.steps}`, `  ${S.hestonDerivBs} = ${bsRef.toFixed(3)}`, `  ${S.hestonDerivPrice} = ${hestonPrice.toFixed(3)}`];
+    panel.querySelector("#hdSteps").textContent = lines.join("\n");
+  }
+  [xiSlider, rhoSlider].forEach((el) => el.addEventListener("input", render));
+  runBtn.addEventListener("click", () => { seed = Math.floor(Math.random()*100000); render(); });
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 77. Markov-Switching GARCH
+// ---------------------------------------------------------------------------
+function msGarch(returns, pStay, omega, alpha, beta, regimeMultiplier) {
+  let probState1 = 0.1;
+  let sigma2_0 = omega/(1-alpha-beta), sigma2_1 = omega*regimeMultiplier/(1-alpha-beta);
+  const filteredVar = [], regimeProb = [];
+  function normPDFms(xv,sigma2) { return Math.exp(-xv*xv/(2*sigma2))/Math.sqrt(2*Math.PI*sigma2); }
+  for (let t = 0; t < returns.length; t++) {
+    const A = [[pStay,1-pStay],[1-pStay,pStay]];
+    const pred0 = (1-probState1)*A[0][0]+probState1*A[1][0];
+    const pred1 = (1-probState1)*A[0][1]+probState1*A[1][1];
+    const e0 = normPDFms(returns[t], sigma2_0), e1 = normPDFms(returns[t], sigma2_1);
+    const a0 = pred0*e0, a1 = pred1*e1;
+    const norm = a0+a1 || 1e-10;
+    probState1 = a1/norm;
+    filteredVar.push((1-probState1)*sigma2_0+probState1*sigma2_1);
+    regimeProb.push(probState1);
+    sigma2_0 = omega+alpha*returns[t]*returns[t]+beta*sigma2_0;
+    sigma2_1 = omega*regimeMultiplier+alpha*returns[t]*returns[t]+beta*sigma2_1;
+  }
+  return { filteredVar, regimeProb };
+}
+
+function mountMsGarchDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="msgarchSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--mint)">●</span> ${LANG==="uk"?"волатильність":"volatility"} &nbsp; <span style="color:var(--level-3)">●</span> ${S.msgarchRegimeProb}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>P(stay) <span class="val" id="msgP">0.95</span></label><input type="range" id="msgPStay" min="0.7" max="0.99" step="0.01" value="0.95"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"множник дисперсії стресу":"stress variance multiplier"} <span class="val" id="msgM">20</span></label><input type="range" id="msgMult" min="2" max="50" step="1" value="20"></div>
+        </div>
+        <div class="demo-steps" id="msgSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.msgarchCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.msgarchAnalysis}</p></div>
+    ${relatedLinksHTML(["regime","volatility"])}
+  `;
+
+  const pStaySlider = panel.querySelector("#msgPStay"), multSlider = panel.querySelector("#msgMult");
+  const svg = panel.querySelector("#msgarchSvg");
+
+  function render() {
+    const pStay = parseFloat(pStaySlider.value), mult = parseFloat(multSlider.value);
+    panel.querySelector("#msgP").textContent = pStay.toFixed(2);
+    panel.querySelector("#msgM").textContent = mult.toFixed(0);
+
+    const { filteredVar, regimeProb } = msGarch(GARCH_EPS, pStay, 0.00001, 0.1, 0.85, mult);
+    const volPct = filteredVar.map((v) => Math.sqrt(v*252)*100);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: volPct.length-1, yMin: 0, yMax: Math.max(...volPct)*1.1, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(0)+"%", xLabel: "t", yLabel: "σ" });
+    const volPath = volPct.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const y2 = (p) => H-PAD-p*(H-2*PAD);
+    const probPath = regimeProb.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y2(v).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${volPath}" fill="none" stroke="var(--mint)" stroke-width="2" />` + `<path d="${probPath}" fill="none" stroke="var(--level-3)" stroke-width="1.5" stroke-dasharray="3 2" />`;
+
+    const lines = [`${S.steps}`, `  ${S.msgarchRegimeProb} (${LANG==="uk"?"кінець ряду":"end of series"}) = ${(regimeProb[regimeProb.length-1]*100).toFixed(1)}%`];
+    panel.querySelector("#msgSteps").textContent = lines.join("\n");
+  }
+  [pStaySlider, multSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 78. CreditMetrics
+// ---------------------------------------------------------------------------
+function simulateRatingMigration(transitionMatrix, initialRating, years, rnd) {
+  let rating = initialRating; const path = [rating];
+  for (let y = 0; y < years; y++) {
+    const probs = transitionMatrix[rating];
+    const r = rnd(); let cum = 0, newRating = rating;
+    for (let k = 0; k < probs.length; k++) { cum += probs[k]; if (r <= cum) { newRating = k; break; } }
+    rating = newRating; path.push(rating);
+  }
+  return path;
+}
+
+function mountCreditMetricsDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 220, PAD = 30;
+  const ratingLabels = ["AAA","BBB","D"];
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="cmSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"P(AAA→BBB)":"P(AAA→BBB)"} <span class="val" id="cmP1Val">0.09</span></label><input type="range" id="cmP1" min="0.02" max="0.25" step="0.01" value="0.09"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"P(BBB→D)":"P(BBB→D)"} <span class="val" id="cmP2Val">0.10</span></label><input type="range" id="cmP2" min="0.02" max="0.30" step="0.01" value="0.10"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"горизонт (роки)":"horizon (years)"} <span class="val" id="cmYearsVal">5</span></label><input type="range" id="cmYears" min="1" max="10" step="1" value="5"></div>
+        </div>
+        <div class="demo-steps" id="cmSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.creditMetricsCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.creditMetricsAnalysis}</p></div>
+    ${relatedLinksHTML(["credit","systemic"])}
+  `;
+
+  const els = ["cmP1","cmP2","cmYears"].map((id) => panel.querySelector("#"+id));
+  const svg = panel.querySelector("#cmSvg");
+
+  function render() {
+    const [p1, p2, years] = els.map((el) => parseFloat(el.value));
+    panel.querySelector("#cmP1Val").textContent = p1.toFixed(2);
+    panel.querySelector("#cmP2Val").textContent = p2.toFixed(2);
+    panel.querySelector("#cmYearsVal").textContent = years;
+
+    const transMatrix = [ [1-p1-0.01, p1, 0.01], [0.05, 1-0.05-p2, p2], [0,0,1] ];
+    const rnd = mulberry32(3);
+    let defaultCount = 0; const nSim = 500;
+    for (let i = 0; i < nSim; i++) { const path = simulateRatingMigration(transMatrix, 1, years, rnd); if (path[path.length-1]===2) defaultCount++; }
+    const defaultRate = defaultCount/nSim;
+
+    const barW = 60;
+    const h1 = defaultRate*(H-2*PAD);
+    svg.innerHTML = `
+      <rect x="${PAD+60}" y="${H-PAD-h1}" width="${barW}" height="${h1.toFixed(1)}" fill="var(--level-3)" opacity="0.8" />
+      <text x="${PAD+60+barW/2}" y="${H-PAD+16}" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-soft)">BBB → D</text>
+      <text x="${PAD+60+barW/2}" y="${H-PAD-h1-8}" text-anchor="middle" font-family="var(--mono)" font-size="12" fill="var(--level-3)">${(defaultRate*100).toFixed(1)}%</text>
+    `;
+
+    const lines = [`${S.steps}`, `  ${S.creditMetricsDefaultRate} = ${(defaultRate*100).toFixed(1)}%`];
+    panel.querySelector("#cmSteps").textContent = lines.join("\n");
+  }
+  els.forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 79. Autoformer — trend/seasonal decomposition
+// ---------------------------------------------------------------------------
+function movingAverage(series, window) {
+  const n = series.length;
+  const out = new Array(n).fill(null);
+  const half = Math.floor(window/2);
+  for (let i = half; i < n-half; i++) { let s=0; for (let k=-half;k<=half;k++) s+=series[i+k]; out[i]=s/window; }
+  for (let i = 0; i < half; i++) out[i] = out[half];
+  for (let i = n-half; i < n; i++) out[i] = out[n-half-1];
+  return out;
+}
+const AF_SERIES = (function () { const rnd = mulberry32(5); const out=[]; for (let i=0;i<60;i++) out.push(100+i*0.3+5*Math.sin(i*2*Math.PI/12)+gaussFrom(rnd)*0.5); return out; })();
+
+function mountAutoformerDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 260, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="afSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--ink-faint)">●</span> ${LANG==="uk"?"дані":"data"} &nbsp; <span style="color:var(--mint)">●</span> ${S.autoformerTrend} &nbsp; <span style="color:var(--level-2)">●</span> ${S.autoformerResid}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"вікно ковзного середнього":"moving-average window"} <span class="val" id="afWindowVal">13</span></label><input type="range" id="afWindow" min="3" max="31" step="2" value="13"></div>
+        </div>
+        <div class="demo-steps" id="afSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.autoformerCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.autoformerAnalysis}</p></div>
+    ${relatedLinksHTML(["attention","time-series"])}
+  `;
+
+  const windowSlider = panel.querySelector("#afWindow");
+  const svg = panel.querySelector("#afSvg");
+
+  function render() {
+    const window_ = parseInt(windowSlider.value, 10);
+    panel.querySelector("#afWindowVal").textContent = window_;
+
+    const trend = movingAverage(AF_SERIES, window_);
+    const resid = AF_SERIES.map((v,i) => v-trend[i]);
+
+    const topH = H*0.55, botH = H*0.3, gap = H*0.1;
+    const { x, y: yTop } = axesSVG({ W, H: topH+PAD, pad: PAD, xMin: 0, xMax: AF_SERIES.length-1, yMin: Math.min(...AF_SERIES)-2, yMax: Math.max(...AF_SERIES)+2, xTicks: 1, yTicks: 1, xFmt: ()=>"", yFmt: ()=>"" });
+    const { svg: axesTop } = axesSVG({ W, H: topH, pad: PAD, xMin: 0, xMax: AF_SERIES.length-1, yMin: Math.min(...AF_SERIES)-2, yMax: Math.max(...AF_SERIES)+2, xTicks: 4, yTicks: 3, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(0) });
+    const dataPath = AF_SERIES.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${yTop(v).toFixed(1)}`).join(" ");
+    const trendPath = trend.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${yTop(v).toFixed(1)}`).join(" ");
+
+    const residMin = Math.min(...resid), residMax = Math.max(...resid);
+    const yBot = (v) => topH+gap+botH - ((v-residMin)/(residMax-residMin||1))*botH;
+    const residPath = resid.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${yBot(v).toFixed(1)}`).join(" ");
+    const zeroY = yBot(0);
+
+    svg.innerHTML = `<svg viewBox="0 0 ${W} ${H}">` + axesTop
+      + `<path d="${dataPath}" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4 3" />`
+      + `<path d="${trendPath}" fill="none" stroke="var(--mint)" stroke-width="2" />`
+      + `<line x1="${PAD}" y1="${zeroY.toFixed(1)}" x2="${W-PAD}" y2="${zeroY.toFixed(1)}" stroke="var(--rule)" stroke-width="1" />`
+      + `<path d="${residPath}" fill="none" stroke="var(--level-2)" stroke-width="1.5" />`
+      + `</svg>`;
+
+    const lines = [`${S.steps}`, `  ${S.autoformerResid} amplitude ≈ ${((Math.max(...resid)-Math.min(...resid))/2).toFixed(2)}`];
+    panel.querySelector("#afSteps").textContent = lines.join("\n");
+  }
+  windowSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 80. Pump-and-Dump Pattern Detection
+// ---------------------------------------------------------------------------
+function medianArr(arr) { const s = arr.slice().sort((a,b)=>a-b); const mid = Math.floor(s.length/2); return s.length%2===0 ? (s[mid-1]+s[mid])/2 : s[mid]; }
+function detectPumpDump(prices, volumes) {
+  const n = prices.length;
+  const returns = []; for (let i=1;i<n;i++) returns.push((prices[i]-prices[i-1])/prices[i-1]);
+  const medVol = medianArr(volumes);
+  let pumpIdx = -1, dumpIdx = -1;
+  for (let i = 1; i < n-1; i++) {
+    if (returns[i-1] > 0.15 && volumes[i] > medVol*3) pumpIdx = i;
+    if (pumpIdx >= 0 && i > pumpIdx && returns[i-1] < -0.15) { dumpIdx = i; break; }
+  }
+  return { pumpIdx, dumpIdx, detected: pumpIdx>=0 && dumpIdx>=0 };
+}
+const PUMPDUMP_SCENARIOS = {
+  normal: { prices:[100,101,99,102,100,103,101], volumes:[1000,1100,950,1050,1000,1080,990] },
+  pump: { prices:[100,102,101,135,140,95,90], volumes:[1000,1050,980,8000,7500,6000,1200] },
+};
+
+function mountPumpDumpDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 240, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="pdSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-preset-row">
+            <label>${LANG==="uk"?"сценарій":"scenario"}</label>
+            <select id="pdScenario"><option value="normal">${LANG==="uk"?"нормальна торгівля":"normal trading"}</option><option value="pump">Pump-and-dump</option></select>
+          </div>
+        </div>
+        <div class="demo-steps" id="pdSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.pumpDumpCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.pumpDumpAnalysis}</p></div>
+    ${relatedLinksHTML(["fraud"])}
+  `;
+
+  const scenarioSelect = panel.querySelector("#pdScenario");
+  const svg = panel.querySelector("#pdSvg");
+
+  function render() {
+    const { prices, volumes } = PUMPDUMP_SCENARIOS[scenarioSelect.value];
+    const { pumpIdx, dumpIdx, detected } = detectPumpDump(prices, volumes);
+
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: prices.length-1, yMin: Math.min(...prices)*0.9, yMax: Math.max(...prices)*1.1, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(0), xLabel: "t" });
+    const pricePath = prices.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    let marks = "";
+    if (pumpIdx>=0) marks += `<circle cx="${x(pumpIdx).toFixed(1)}" cy="${y(prices[pumpIdx]).toFixed(1)}" r="6" fill="none" stroke="var(--level-2)" stroke-width="2" />`;
+    if (dumpIdx>=0) marks += `<circle cx="${x(dumpIdx).toFixed(1)}" cy="${y(prices[dumpIdx]).toFixed(1)}" r="6" fill="none" stroke="var(--level-3)" stroke-width="2" />`;
+    svg.innerHTML = axesSvg + `<path d="${pricePath}" fill="none" stroke="var(--mint)" stroke-width="2" />` + marks;
+
+    const lines = [`${S.steps}`, `  ${S.pumpDumpResult}: ${detected?(LANG==="uk"?"⚠ виявлено pump-and-dump":"⚠ pump-and-dump detected"):(LANG==="uk"?"✓ норма":"✓ normal")}`];
+    panel.querySelector("#pdSteps").textContent = lines.join("\n");
+  }
+  scenarioSelect.addEventListener("change", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 81. Grid vs Random Search
+// ---------------------------------------------------------------------------
+function objectiveFnGrs(xv,yv) { return -((xv-3)**2+(yv+1)**2) + 10 + Math.sin(xv*5)*0.3; }
+function gridSearch(nPerDim) {
+  let best = -Infinity, bestPoint = null;
+  for (let i = 0; i < nPerDim; i++) for (let j = 0; j < nPerDim; j++) {
+    const xv = -5+(i/(nPerDim-1))*10, yv = -5+(j/(nPerDim-1))*10;
+    const v = objectiveFnGrs(xv,yv);
+    if (v > best) { best = v; bestPoint = [xv,yv]; }
+  }
+  return { best, bestPoint, points: null };
+}
+function randomSearch(nEvals, rnd) {
+  let best = -Infinity, bestPoint = null;
+  const points = [];
+  for (let i = 0; i < nEvals; i++) {
+    const xv = -5+rnd()*10, yv = -5+rnd()*10;
+    points.push([xv,yv]);
+    const v = objectiveFnGrs(xv,yv);
+    if (v > best) { best = v; bestPoint = [xv,yv]; }
+  }
+  return { best, bestPoint, points };
+}
+
+function mountGridRandomDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 300, PAD = 20;
+  let seed = 1;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="grSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"точок на вимір (grid)":"points per dim (grid)"} <span class="val" id="grNVal">10</span></label><input type="range" id="grN" min="3" max="15" step="1" value="10"></div>
+          <button type="button" class="demo-run-btn" id="grRun">${S.runNewRound}</button>
+        </div>
+        <div class="demo-steps" id="grSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.gridRandomCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.gridRandomAnalysis}</p></div>
+    ${relatedLinksHTML(["search"])}
+  `;
+
+  const nSlider = panel.querySelector("#grN"), runBtn = panel.querySelector("#grRun");
+  const svg = panel.querySelector("#grSvg");
+
+  function render() {
+    const nPerDim = parseInt(nSlider.value, 10);
+    panel.querySelector("#grNVal").textContent = nPerDim;
+
+    const gridR = gridSearch(nPerDim);
+    const randR = randomSearch(nPerDim*nPerDim, mulberry32(seed));
+
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: -5, xMax: 5, yMin: -5, yMax: 5, xTicks: 4, yTicks: 4, xFmt: (v)=>v.toFixed(0), yFmt: (v)=>v.toFixed(0) });
+    let gridDots = "";
+    for (let i = 0; i < nPerDim; i++) for (let j = 0; j < nPerDim; j++) { const gx=-5+(i/(nPerDim-1))*10, gy=-5+(j/(nPerDim-1))*10; gridDots += `<circle cx="${x(gx).toFixed(1)}" cy="${y(gy).toFixed(1)}" r="2" fill="var(--ink-faint)" opacity="0.5" />`; }
+    const randDots = randR.points.map(([px,py]) => `<circle cx="${x(px).toFixed(1)}" cy="${y(py).toFixed(1)}" r="2" fill="var(--level-2)" opacity="0.5" />`).join("");
+    const gridBestDot = `<circle cx="${x(gridR.bestPoint[0]).toFixed(1)}" cy="${y(gridR.bestPoint[1]).toFixed(1)}" r="6" fill="var(--mint)" />`;
+    const randBestDot = `<circle cx="${x(randR.bestPoint[0]).toFixed(1)}" cy="${y(randR.bestPoint[1]).toFixed(1)}" r="6" fill="var(--level-3)" />`;
+    svg.innerHTML = axesSvg + gridDots + randDots + gridBestDot + randBestDot;
+
+    const lines = [`${S.steps}`, `  ${S.gridBest} = ${gridR.best.toFixed(3)}`, `  ${S.randomBest} = ${randR.best.toFixed(3)}`];
+    panel.querySelector("#grSteps").textContent = lines.join("\n");
+  }
+  nSlider.addEventListener("input", render);
+  runBtn.addEventListener("click", () => { seed = Math.floor(Math.random()*100000); render(); });
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 82. F-beta / F4 Metric
+// ---------------------------------------------------------------------------
+function fBeta(precision, recall, beta) { const b2 = beta*beta; return (1+b2)*precision*recall/(b2*precision+recall || 1e-10); }
+
+function mountFbetaDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 240, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="fbSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>precision <span class="val" id="fbPVal">0.50</span></label><input type="range" id="fbP" min="0.05" max="1" step="0.05" value="0.50"></div>
+          <div class="demo-slider-row"><label>recall <span class="val" id="fbRVal">0.90</span></label><input type="range" id="fbR" min="0.05" max="1" step="0.05" value="0.90"></div>
+          <div class="demo-slider-row"><label>β <span class="val" id="fbBetaVal">1.0</span></label><input type="range" id="fbBeta" min="0.2" max="4" step="0.1" value="1.0"></div>
+        </div>
+        <div class="demo-steps" id="fbSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.fbetaCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.fbetaAnalysis}</p></div>
+    ${relatedLinksHTML(["metrics"])}
+  `;
+
+  const els = ["fbP","fbR","fbBeta"].map((id) => panel.querySelector("#"+id));
+  const svg = panel.querySelector("#fbSvg");
+
+  function render() {
+    const [precision, recall, beta] = els.map((el) => parseFloat(el.value));
+    panel.querySelector("#fbPVal").textContent = precision.toFixed(2);
+    panel.querySelector("#fbRVal").textContent = recall.toFixed(2);
+    panel.querySelector("#fbBetaVal").textContent = beta.toFixed(1);
+
+    const nPts = 60;
+    const curve = [];
+    for (let i = 0; i < nPts; i++) { const b = 0.2+(i/(nPts-1))*3.8; curve.push([b, fBeta(precision,recall,b)]); }
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0.2, xMax: 4, yMin: 0, yMax: 1, xTicks: 4, yTicks: 4, xFmt: (v)=>v.toFixed(1), yFmt: (v)=>v.toFixed(1), xLabel: "β", yLabel: "F-beta" });
+    const path = curve.map(([b,f],i)=>`${i===0?"M":"L"} ${x(b).toFixed(1)} ${y(f).toFixed(1)}`).join(" ");
+    const curVal = fBeta(precision,recall,beta);
+    svg.innerHTML = axesSvg + `<path d="${path}" fill="none" stroke="var(--mint)" stroke-width="2" />` + `<circle cx="${x(beta).toFixed(1)}" cy="${y(curVal).toFixed(1)}" r="5" fill="var(--level-3)" />`;
+
+    const lines = [`${S.steps}`, `  ${S.fbetaValue}(β=${beta.toFixed(1)}) = ${curVal.toFixed(3)}`];
+    panel.querySelector("#fbSteps").textContent = lines.join("\n");
+  }
+  els.forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 83. Proximal Policy Optimization (PPO)
+// ---------------------------------------------------------------------------
+function softmaxPPO(arr) { const m = Math.max(...arr); const ex = arr.map((v)=>Math.exp(v-m)); const s = ex.reduce((a,b)=>a+b,0); return ex.map((v)=>v/s); }
+function trainPPO(episodes, lr, epsilon, rnd) {
+  let theta = [0,0,0];
+  const trueReward = [-0.5,0,1.2];
+  const history = [];
+  for (let ep = 0; ep < episodes; ep++) {
+    const oldProbs = softmaxPPO(theta);
+    const r = rnd(); let cum = 0, action = 0;
+    for (let a = 0; a < 3; a++) { cum += oldProbs[a]; if (r <= cum) { action = a; break; } }
+    const reward = trueReward[action] + gaussFrom(rnd)*0.3;
+    const advantage = reward;
+    const newProbs = softmaxPPO(theta);
+    const ratio = newProbs[action]/oldProbs[action];
+    const shouldClip = (advantage>0 && ratio>1+epsilon) || (advantage<0 && ratio<1-epsilon);
+    if (!shouldClip) { for (let k = 0; k < 3; k++) { const grad = (k===action?1:0)-newProbs[k]; theta[k] += lr*advantage*grad; } }
+    history.push(softmaxPPO(theta));
+  }
+  return { history };
+}
+
+function mountPpoDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 230, PAD = 40;
+  const actionLabels = LANG==="uk" ? ["продати","тримати","купити"] : ["sell","hold","buy"];
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="ppoSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${S.ppoEpsilon} <span class="val" id="ppoEpsVal">0.20</span></label><input type="range" id="ppoEps" min="0.02" max="0.6" step="0.02" value="0.20"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"епізоди":"episodes"} <span class="val" id="ppoEpVal">500</span></label><input type="range" id="ppoEp" min="0" max="1000" step="25" value="500"></div>
+        </div>
+        <div class="demo-steps" id="ppoSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.ppoCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.ppoAnalysis}</p></div>
+    ${relatedLinksHTML(["rl"])}
+  `;
+
+  const epsSlider = panel.querySelector("#ppoEps"), epSlider = panel.querySelector("#ppoEp");
+  const svg = panel.querySelector("#ppoSvg");
+
+  function render() {
+    const epsilon = parseFloat(epsSlider.value), episodes = parseInt(epSlider.value, 10);
+    panel.querySelector("#ppoEpsVal").textContent = epsilon.toFixed(2);
+    panel.querySelector("#ppoEpVal").textContent = episodes;
+
+    const { history } = trainPPO(Math.max(1,episodes), 0.05, epsilon, mulberry32(9));
+    const colors = ["var(--level-3)","var(--level-2)","var(--mint)"];
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: history.length-1, yMin: 0, yMax: 1, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(1), xLabel: LANG==="uk"?"епізод":"episode", yLabel: "P(action)" });
+    let paths = "";
+    for (let a = 0; a < 3; a++) { const path = history.map((probs,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(probs[a]).toFixed(1)}`).join(" "); paths += `<path d="${path}" fill="none" stroke="${colors[a]}" stroke-width="2" />`; }
+    svg.innerHTML = axesSvg + paths;
+
+    const finalProbs = history[history.length-1];
+    const lines = [`${S.steps}`, `  P(${actionLabels[2]}) = ${finalProbs[2].toFixed(2)}`];
+    panel.querySelector("#ppoSteps").textContent = lines.join("\n");
+  }
+  [epsSlider, epSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 84. Linear / Logistic Regression (simple OLS demo)
+// ---------------------------------------------------------------------------
+function fitLinearOLS(xArr, yArr) {
+  const n = xArr.length;
+  const mx = xArr.reduce((a,b)=>a+b,0)/n, my = yArr.reduce((a,b)=>a+b,0)/n;
+  let num = 0, den = 0;
+  for (let i = 0; i < n; i++) { num += (xArr[i]-mx)*(yArr[i]-my); den += (xArr[i]-mx)**2; }
+  const slope = num/den;
+  return { slope, intercept: my-slope*mx };
+}
+const LINREG_DATA = (function () { const rnd = mulberry32(4); const xArr=[], yArr=[]; for (let i=0;i<50;i++) { const xv=gaussFrom(rnd)*2; xArr.push(xv); yArr.push(0.5*xv+1+gaussFrom(rnd)*0.5); } return {xArr,yArr}; })();
+
+function mountLinregDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 260, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="lrSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"розмір вибірки":"sample size"} <span class="val" id="lrNVal">50</span></label><input type="range" id="lrN" min="5" max="50" step="1" value="50"></div>
+        </div>
+        <div class="demo-steps" id="lrSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.linregCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.linregAnalysis}</p></div>
+    ${relatedLinksHTML(["classical-ml","factor"])}
+  `;
+
+  const nSlider = panel.querySelector("#lrN");
+  const svg = panel.querySelector("#lrSvg");
+
+  function render() {
+    const n = parseInt(nSlider.value, 10);
+    panel.querySelector("#lrNVal").textContent = n;
+
+    const xArr = LINREG_DATA.xArr.slice(0,n), yArr = LINREG_DATA.yArr.slice(0,n);
+    const { slope, intercept } = fitLinearOLS(xArr, yArr);
+
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: Math.min(...xArr)-0.5, xMax: Math.max(...xArr)+0.5, yMin: Math.min(...yArr)-0.5, yMax: Math.max(...yArr)+0.5, xTicks: 4, yTicks: 4, xFmt: (v)=>v.toFixed(1), yFmt: (v)=>v.toFixed(1) });
+    const dots = xArr.map((xv,i) => `<circle cx="${x(xv).toFixed(1)}" cy="${y(yArr[i]).toFixed(1)}" r="3" fill="var(--mint)" opacity="0.7" />`).join("");
+    const xMinD = Math.min(...xArr), xMaxD = Math.max(...xArr);
+    const lineD = `M ${x(xMinD).toFixed(1)} ${y(intercept+slope*xMinD).toFixed(1)} L ${x(xMaxD).toFixed(1)} ${y(intercept+slope*xMaxD).toFixed(1)}`;
+    svg.innerHTML = axesSvg + dots + `<path d="${lineD}" stroke="var(--level-3)" stroke-width="2" fill="none" />`;
+
+    const lines = [`${S.steps}`, `  y = ${intercept.toFixed(3)} + ${slope.toFixed(3)}·x`, `  (${LANG==="uk"?"справжні":"true"}: ${S.linregIntercept}=1.0, ${S.linregSlope}=0.5)`];
+    panel.querySelector("#lrSteps").textContent = lines.join("\n");
+  }
+  nSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 85. DIFFI for Isolation Forest
+// ---------------------------------------------------------------------------
+function buildIsoTreeDiffi(indices, points, depth, heightLimit, rnd, featureImportance) {
+  if (indices.length<=1 || depth>=heightLimit) return { leaf:true, size:indices.length };
+  const feature = rnd()<0.5?0:1;
+  let min=Infinity, max=-Infinity;
+  for (const i of indices) { const v = points[i][feature]; if (v<min) min=v; if (v>max) max=v; }
+  if (min===max) return { leaf:true, size:indices.length };
+  const split = min+rnd()*(max-min);
+  const left = indices.filter((i) => points[i][feature]<split);
+  const right = indices.filter((i) => points[i][feature]>=split);
+  featureImportance[feature] += 1/(depth+1);
+  return { leaf:false, feature, split, left: buildIsoTreeDiffi(left,points,depth+1,heightLimit,rnd,featureImportance), right: buildIsoTreeDiffi(right,points,depth+1,heightLimit,rnd,featureImportance) };
+}
+const DIFFI_POINTS = (function () { const rnd = mulberry32(4); const out=[]; for (let i=0;i<52;i++) out.push([gaussFrom(rnd)*0.5, gaussFrom(rnd)*3]); return out; })();
+
+function mountDiffiDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 200, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="diffiSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"кількість дерев":"number of trees"} <span class="val" id="diffiNVal">50</span></label><input type="range" id="diffiN" min="5" max="150" step="5" value="50"></div>
+        </div>
+        <div class="demo-steps" id="diffiSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.diffiCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.diffiAnalysis}</p></div>
+    ${relatedLinksHTML(["xai","unsupervised-outliers"])}
+  `;
+
+  const nSlider = panel.querySelector("#diffiN");
+  const svg = panel.querySelector("#diffiSvg");
+
+  function render() {
+    const nTrees = parseInt(nSlider.value, 10);
+    panel.querySelector("#diffiNVal").textContent = nTrees;
+
+    const rnd = mulberry32(4);
+    const featImp = [0,0];
+    const allIdx = DIFFI_POINTS.map((_,i) => i);
+    for (let t = 0; t < nTrees; t++) buildIsoTreeDiffi(allIdx, DIFFI_POINTS, 0, 6, rnd, featImp);
+    const maxImp = Math.max(...featImp,1);
+
+    const barW = 60;
+    let bars = "";
+    featImp.forEach((imp,i) => { const h = (imp/maxImp)*(H-2*PAD); bars += `<rect x="${PAD+i*90}" y="${H-PAD-h}" width="${barW}" height="${h.toFixed(1)}" fill="var(--mint)" opacity="0.8" /><text x="${PAD+i*90+barW/2}" y="${H-PAD+16}" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-soft)">${LANG==="uk"?"ознака":"feature"} ${i+1}</text>`; });
+    svg.innerHTML = bars;
+
+    const lines = [`${S.steps}`, `  ${S.diffiImportance}: [${featImp.map((v)=>v.toFixed(1)).join(", ")}]`];
+    panel.querySelector("#diffiSteps").textContent = lines.join("\n");
+  }
+  nSlider.addEventListener("input", render);
+  render();
+}
+
+
 const DEMOS = {
   "volatility::GARCH(1,1)": { mount: mountGarchDemo },
   "unsupervised-outliers::Isolation Forest": { mount: mountIsoForestDemo },
@@ -7352,6 +8098,16 @@ const DEMOS = {
   "time-series::Holt-Winters Exponential Smoothing": { mount: mountHoltWintersDemo },
   "rl::Actor-Critic (A2C/A3C)": { mount: mountActorCriticDemo },
   "credit::KMV Model": { mount: mountKmvDemo },
+  "derivatives::Heston Model": { mount: mountHestonDerivDemo },
+  "regime::Markov-Switching GARCH": { mount: mountMsGarchDemo },
+  "credit::CreditMetrics": { mount: mountCreditMetricsDemo },
+  "attention::Autoformer": { mount: mountAutoformerDemo },
+  "fraud::Pump-and-Dump Pattern Detection": { mount: mountPumpDumpDemo },
+  "search::Grid / Random Search": { mount: mountGridRandomDemo },
+  "metrics::F-beta / F4 Metric": { mount: mountFbetaDemo },
+  "rl::Proximal Policy Optimization": { mount: mountPpoDemo },
+  "classical-ml::Linear / Logistic Regression": { mount: mountLinregDemo },
+  "xai::DIFFI for Isolation Forest": { mount: mountDiffiDemo },
 };
 
 function applyFilters() {
