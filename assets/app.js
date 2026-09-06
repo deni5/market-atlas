@@ -476,6 +476,39 @@ const DEMO_STRINGS = {
     markowitzAnalysis: "Оптимізація Марковіца надзвичайно чутлива до похибок оцінки очікуваної дохідності — невеликі зміни вхідних прогнозів можуть різко змінити оптимальні ваги, тому на практиці її часто комбінують з Black-Litterman для стабілізації.",
     varAnalysis: "Параметричний VaR припускає нормальний розподіл дохідностей — під час ринкових стресів реальні хвости товщі за нормальні, тому параметричний VaR систематично недооцінює ризик саме тоді, коли він найважливіший.",
     kalmanAnalysis: "Фільтр Калмана оптимальний лише за умови лінійної динаміки й гаусового шуму — для нелінійних чи негаусових задач потрібні розширення (Extended/Unscented Kalman Filter) або фільтр частинок.",
+    varModelCallout: "VAR моделює кілька змінних одночасно, дозволяючи кожній залежати від власних і чужих минулих значень — це основний інструмент для аналізу того, як шок в одному ринку (наприклад, ставки) передається в інший (наприклад, валютний курс) із затримкою.",
+    varModelAnalysis: "VAR передбачає лінійні зв'язки й стабільну структуру залежностей у часі — під час структурних зламів (криза, зміна монетарної політики) оцінені коефіцієнти можуть швидко застаріти й потребують перекалібрування.",
+    varCoef1: "рівняння 1 [const, a11, a12]",
+    varCoef2: "рівняння 2 [const, a21, a22]",
+    gjrCallout: "GJR-GARCH моделює асиметрію через явний індикатор знаку шоку (0 або 1), а не через логарифм дисперсії, як EGARCH — обчислювально простіший підхід до тієї самої ідеї 'ефекту левериджу': негативні шоки підсилюють волатильність сильніше за позитивні.",
+    gjrAnalysis: "На відміну від EGARCH, GJR-GARCH не гарантує додатність дисперсії автоматично — потрібні додаткові обмеження на параметри (ω>0, α+γ≥0, α+β+γ/2<1), щоб уникнути від'ємної чи вибухової дисперсії.",
+    gjrGammaLbl: "γ (асиметрія)",
+    ff5Callout: "П'ятифакторна модель додає до Fama-French 3F два нові фактори: прибутковість (RMW — робастний мінус слабкий) і інвестиційний патерн (CMA — консервативний мінус агресивний) — компанії з високою прибутковістю та консервативними інвестиціями історично показують вищу дохідність.",
+    ff5Analysis: "П'ять факторів частково корелюють між собою (мультиколінеарність), тому окремі коефіцієнти складніше інтерпретувати ізольовано — модель краще пояснює сукупну варіацію дохідності, ніж дає точні оцінки кожного окремого фактора.",
+    histVarCallout: "На відміну від параметричного VaR, історична симуляція взагалі не робить припущень про форму розподілу — вона просто бере реальний історичний розподіл дохідностей і читає потрібний перцентиль напряму, тому природно враховує товсті хвости й асиметрію.",
+    histVarAnalysis: "Метод повністю залежить від того, чи історичний період містив досить екстремальні події — якщо вибірка охоплює лише спокійний ринок, історичний VaR системно недооцінить ризик майбутнього стресового періоду.",
+    histVarValue: "історичний VaR",
+    hrpCallout: "На відміну від Марковіца, який потребує точної оберненої коваріаційної матриці (нестабільної при кореляції активів), ієрархічний risk parity спочатку кластеризує активи за схожістю, а потім розподіляє капітал рекурсивно — це набагато стійкіше до похибок оцінки вхідних даних.",
+    hrpAnalysis: "Спрощена версія тут використовує лише обернену дисперсію без кластеризації за кореляцією — повний HRP (López de Prado, 2016) будує ієрархічне дерево кластерів і ділить капітал рекурсивно по гілках дерева.",
+    hrpWeight: "вага",
+    rnnCallout: "Проста рекурентна мережа (RNN) — попередник LSTM і GRU: вона теж накопичує стан у часі, але без спеціальних 'воріт', що керують потоком інформації — тому їй складніше зберігати залежності на довгих часових проміжках.",
+    rnnAnalysis: "Це класична демонстрація 'проблеми зникаючого градієнта' — на тому самому ряду з дволаговою пам'яттю проста RNN навчається помітно гірше за LSTM чи GRU саме через відсутність механізму вентилів для довготривалого запам'ятовування.",
+    rnnLossLbl: "похибка (MSE)",
+    denoiseCallout: "Denoising Autoencoder навчається реконструювати чистий сигнал із навмисно зашумленого входу — це змушує модель вивчити справжню структуру даних, а не просто скопіювати вхід у вихід, як може статися зі звичайним автоенкодером без шуму.",
+    denoiseAnalysis: "Рівень доданого шуму — критичний гіперпараметр: замалий шум не змушує модель вивчати робастні ознаки, завеликий робить реконструкцію взагалі неможливою через втрату інформації про сигнал.",
+    denoiseNoise: "рівень шуму",
+    fuzzyFraudCallout: "Нечітка система оцінки шахрайства комбінує кілька 'м'яких' правил ('якщо сума ВИСОКА і швидкість ВИСОКА, то ризик') без різких порогів — транзакція на 499 і на 501 гривень не отримує кардинально різної оцінки, на відміну від жорсткого правила 'сума > 500'.",
+    fuzzyFraudAnalysis: "Функції належності (де саме 'сума' переходить від низької до високої) задаються експертом вручну — на відміну від навченої моделі, тут немає автоматичного налаштування порогів під конкретні історичні дані.",
+    fuzzyFraudRisk: "рівень ризику",
+    ddpgCallout: "На відміну від DQN, який обирає з дискретного набору дій, DDPG напряму видає неперервне значення дії (наприклад, точний розмір позиції від -100% до +100%, а не лише 'купити/продати/тримати') — критично важливо для реалістичного управління портфелем.",
+    ddpgAnalysis: "DDPG вимагає, щоб критик міг представити форму функції винагороди щодо дії — лінійний критик тут структурно не може вловити 'єдиний оптимум' дії; потрібен принаймні квадратичний член, як показує ця демонстрація.",
+    ddpgState: "стан",
+    ddpgAction: "вивчена дія",
+    mesCallout: "MES вимірює, наскільки гірше почувається конкретна установа саме в дні, коли вся система переживає найгірші 5% результатів — на відміну від звичайної волатильності, ця міра напряму відповідає на питання 'наскільки ця установа посилює системний крах'.",
+    mesAnalysis: "MES та CoVaR вимірюють подібні, але не ідентичні речі: MES — це середній результат установи в хвості системи, CoVaR — це VaR системи за умови дистресу установи; вони можуть по-різному ранжувати установи для одного й того самого портфеля.",
+    mesHighBeta: "установа з високою бетою",
+    mesLowBeta: "установа з низькою бетою",
+    modelsCountSuffix: "тем",
   },
   en: {
     steps: "steps:",
@@ -776,6 +809,39 @@ const DEMO_STRINGS = {
     markowitzAnalysis: "Markowitz optimisation is extremely sensitive to errors in expected-return estimates — small changes in input forecasts can drastically shift the optimal weights, which is why it's often combined with Black-Litterman in practice to stabilise it.",
     varAnalysis: "Parametric VaR assumes normally distributed returns — during market stress, real tails are fatter than normal, so parametric VaR systematically understates risk exactly when it matters most.",
     kalmanAnalysis: "The Kalman filter is optimal only under linear dynamics and Gaussian noise — nonlinear or non-Gaussian problems require extensions (Extended/Unscented Kalman Filter) or a particle filter.",
+    varModelCallout: "VAR models several variables at once, letting each depend on its own and others' past values — the core tool for analysing how a shock in one market (rates, say) propagates into another (FX rates) with a lag.",
+    varModelAnalysis: "VAR assumes linear relationships and a stable dependency structure over time — during structural breaks (a crisis, a monetary-policy shift) the estimated coefficients can quickly go stale and need recalibrating.",
+    varCoef1: "equation 1 [const, a11, a12]",
+    varCoef2: "equation 2 [const, a21, a22]",
+    gjrCallout: "GJR-GARCH models asymmetry via an explicit shock-sign indicator (0 or 1) rather than a log-variance transform like EGARCH — a computationally simpler take on the same 'leverage effect' idea: negative shocks push volatility up more than positive ones.",
+    gjrAnalysis: "Unlike EGARCH, GJR-GARCH doesn't automatically guarantee positive variance — extra parameter constraints are needed (ω>0, α+γ≥0, α+β+γ/2<1) to avoid negative or explosive variance.",
+    gjrGammaLbl: "γ (asymmetry)",
+    ff5Callout: "The five-factor model adds two factors to Fama-French 3F: profitability (RMW — robust minus weak) and investment pattern (CMA — conservative minus aggressive) — highly profitable, conservatively investing firms have historically shown higher returns.",
+    ff5Analysis: "The five factors are partly correlated with each other (multicollinearity), so individual coefficients are harder to interpret in isolation — the model explains total return variation better than it pins down each factor precisely.",
+    histVarCallout: "Unlike parametric VaR, historical simulation makes no assumption about the shape of the distribution at all — it simply takes the actual historical return distribution and reads off the needed percentile directly, so it naturally captures fat tails and skew.",
+    histVarAnalysis: "The method depends entirely on whether the historical window contained sufficiently extreme events — if the sample only covers a calm market, historical VaR will systematically understate the risk of a future stress period.",
+    histVarValue: "historical VaR",
+    hrpCallout: "Unlike Markowitz, which needs a precise inverted covariance matrix (unstable when assets are correlated), hierarchical risk parity first clusters assets by similarity, then allocates capital recursively — far more robust to estimation error in the inputs.",
+    hrpAnalysis: "The simplified version here uses inverse variance only, with no correlation-based clustering — the full HRP method (López de Prado, 2016) builds a hierarchical cluster tree and splits capital recursively down its branches.",
+    hrpWeight: "weight",
+    rnnCallout: "A plain recurrent neural network (RNN) is the predecessor to LSTM and GRU: it also accumulates state over time, but without special 'gates' controlling information flow — making it harder to retain dependencies over long time spans.",
+    rnnAnalysis: "This is a classic demonstration of the 'vanishing gradient problem' — on the exact same series with 2-lag memory, a plain RNN learns noticeably worse than LSTM or GRU, precisely because it lacks a gating mechanism for long-term retention.",
+    rnnLossLbl: "error (MSE)",
+    denoiseCallout: "A denoising autoencoder learns to reconstruct a clean signal from a deliberately noised input — forcing the model to learn the data's true underlying structure rather than just copying input to output, as a plain autoencoder without noise could get away with.",
+    denoiseAnalysis: "The amount of noise added is a critical hyperparameter: too little noise doesn't force the model to learn robust features, too much makes reconstruction outright impossible from lost signal information.",
+    denoiseNoise: "noise level",
+    fuzzyFraudCallout: "A fuzzy fraud-scoring system combines several 'soft' rules ('if amount is HIGH and velocity is HIGH, then risk') with no hard cutoffs — a transaction of $499 and one of $501 don't get a drastically different score, unlike a hard rule of 'amount > $500'.",
+    fuzzyFraudAnalysis: "The membership functions (exactly where 'amount' transitions from low to high) are set by hand by an expert — unlike a trained model, there's no automatic threshold tuning against specific historical data here.",
+    fuzzyFraudRisk: "risk level",
+    ddpgCallout: "Unlike DQN, which picks from a discrete set of actions, DDPG outputs a continuous action value directly (an exact position size from -100% to +100%, say, not just 'buy/sell/hold') — critical for realistic portfolio management.",
+    ddpgAnalysis: "DDPG requires the critic to be able to represent the shape of the reward function with respect to the action — a linear critic here structurally can't capture a 'single optimum' action; at least a quadratic term is needed, as this demo shows.",
+    ddpgState: "state",
+    ddpgAction: "learned action",
+    mesCallout: "MES measures how much worse off a specific institution is exactly on the days the whole system experiences its worst 5% outcomes — unlike ordinary volatility, this measure directly answers 'how much does this institution amplify a systemic crash.'",
+    mesAnalysis: "MES and CoVaR measure similar but not identical things: MES is an institution's average outcome in the system's tail, CoVaR is the system's VaR conditional on the institution's distress; they can rank institutions differently for the same portfolio.",
+    mesHighBeta: "high-beta institution",
+    mesLowBeta: "low-beta institution",
+    modelsCountSuffix: "topics",
   },
 };
 
@@ -8014,6 +8080,590 @@ function mountDiffiDemo(panel) {
 }
 
 
+// ---------------------------------------------------------------------------
+// 86. VAR (Vector Autoregression)
+// ---------------------------------------------------------------------------
+function solveOLSVar(X, yv) {
+  const p = X[0].length;
+  const XtX = Array.from({length:p}, () => new Array(p).fill(0));
+  const Xty = new Array(p).fill(0);
+  for (let i = 0; i < X.length; i++) { for (let a = 0; a < p; a++) { Xty[a] += X[i][a]*yv[i]; for (let b = 0; b < p; b++) XtX[a][b] += X[i][a]*X[i][b]; } }
+  const M = XtX.map((row,i) => row.concat([Xty[i]]));
+  for (let i = 0; i < p; i++) { let piv = M[i][i]; if (Math.abs(piv)<1e-10) piv=1e-10; for (let j=0;j<=p;j++) M[i][j] /= piv; for (let k=0;k<p;k++) { if (k===i) continue; const f=M[k][i]; for (let j=0;j<=p;j++) M[k][j]-=f*M[i][j]; } }
+  return M.map((row) => row[p]);
+}
+function fitVAR1(y1, y2) {
+  const n = y1.length;
+  const X = []; for (let t=1;t<n;t++) X.push([1,y1[t-1],y2[t-1]]);
+  return { coef1: solveOLSVar(X, y1.slice(1)), coef2: solveOLSVar(X, y2.slice(1)) };
+}
+const VAR_DATA = (function () {
+  const rnd = mulberry32(1);
+  const n = 100; const y1=[0], y2=[0];
+  const trueA = [[0.5,0.2],[0.1,0.6]];
+  for (let t=1;t<n;t++) {
+    y1.push(trueA[0][0]*y1[t-1]+trueA[0][1]*y2[t-1]+gaussFrom(rnd)*0.5);
+    y2.push(trueA[1][0]*y1[t-1]+trueA[1][1]*y2[t-1]+gaussFrom(rnd)*0.5);
+  }
+  return { y1, y2 };
+})();
+
+function mountVarModelDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 230, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="varModelSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--mint)">●</span> y1 &nbsp; <span style="color:var(--level-2)">●</span> y2</p>
+      </div>
+      <div>
+        <div class="demo-steps" id="varModelSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.varModelCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.varModelAnalysis}</p></div>
+    ${relatedLinksHTML(["time-series"])}
+  `;
+
+  const svg = panel.querySelector("#varModelSvg");
+  const { y1, y2 } = VAR_DATA;
+  const { coef1, coef2 } = fitVAR1(y1, y2);
+  const allVals = y1.concat(y2);
+  const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: y1.length-1, yMin: Math.min(...allVals)-1, yMax: Math.max(...allVals)+1, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(1), xLabel: "t" });
+  const path1 = y1.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+  const path2 = y2.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+  svg.innerHTML = axesSvg + `<path d="${path1}" fill="none" stroke="var(--mint)" stroke-width="1.5" />` + `<path d="${path2}" fill="none" stroke="var(--level-2)" stroke-width="1.5" />`;
+
+  const lines = [`${S.steps}`, `  ${S.varCoef1}: [${coef1.map((c)=>c.toFixed(2)).join(", ")}]`, `  ${S.varCoef2}: [${coef2.map((c)=>c.toFixed(2)).join(", ")}]`, `  (${LANG==="uk"?"справжні":"true"}: a11=0.5 a12=0.2 a21=0.1 a22=0.6)`];
+  panel.querySelector("#varModelSteps").textContent = lines.join("\n");
+}
+
+// ---------------------------------------------------------------------------
+// 87. GJR-GARCH
+// ---------------------------------------------------------------------------
+function gjrGarchSeries(omega, alpha, gamma, beta, returns) {
+  let sigma2 = omega/(1-alpha-beta-gamma/2 || 0.01);
+  const out = [];
+  for (const rv of returns) { const indicator = rv<0?1:0; sigma2 = omega + (alpha+gamma*indicator)*rv*rv + beta*sigma2; out.push(sigma2); }
+  return out;
+}
+
+function mountGjrGarchDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 230, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="gjrSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${S.gjrGammaLbl} <span class="val" id="gjrGammaVal">0.15</span></label><input type="range" id="gjrGamma" min="0" max="0.4" step="0.01" value="0.15"></div>
+        </div>
+        <div class="demo-steps" id="gjrSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.gjrCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.gjrAnalysis}</p></div>
+    ${relatedLinksHTML(["volatility"])}
+  `;
+
+  const gammaSlider = panel.querySelector("#gjrGamma");
+  const svg = panel.querySelector("#gjrSvg");
+
+  function render() {
+    const gammaV = parseFloat(gammaSlider.value);
+    panel.querySelector("#gjrGammaVal").textContent = gammaV.toFixed(2);
+
+    const sigma2 = gjrGarchSeries(0.00001, 0.05, gammaV, 0.9, GARCH_EPS);
+    const volPct = sigma2.map((v) => Math.sqrt(Math.max(v,0)*252)*100);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: volPct.length-1, yMin: 0, yMax: Math.max(...volPct)*1.1, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(0)+"%", xLabel: "t", yLabel: "σ" });
+    const path = volPct.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${path}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    const lines = [`${S.steps}`, `  σ² = ω + (α+γ·1{ε<0})·ε² + β·σ²`, `  ${LANG==="uk"?"пік волатильності":"peak volatility"} = ${Math.max(...volPct).toFixed(1)}%`];
+    panel.querySelector("#gjrSteps").textContent = lines.join("\n");
+  }
+  gammaSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 88. Fama-French 5-Factor
+// ---------------------------------------------------------------------------
+const FF5_DATA = (function () {
+  const rnd = mulberry32(2);
+  const n = 200;
+  const mkt=[],smb=[],hml=[],rmw=[],cma=[],rets=[];
+  const trueP = { alpha:0.0001, bMkt:1.1, bSmb:0.2, bHml:-0.1, bRmw:0.3, bCma:-0.2 };
+  for (let i = 0; i < n; i++) {
+    const m=gaussFrom(rnd)*0.01, s=gaussFrom(rnd)*0.008, h=gaussFrom(rnd)*0.008, rw=gaussFrom(rnd)*0.006, cm=gaussFrom(rnd)*0.006;
+    mkt.push(m); smb.push(s); hml.push(h); rmw.push(rw); cma.push(cm);
+    rets.push(trueP.alpha+trueP.bMkt*m+trueP.bSmb*s+trueP.bHml*h+trueP.bRmw*rw+trueP.bCma*cm+gaussFrom(rnd)*0.002);
+  }
+  return { mkt,smb,hml,rmw,cma,rets,trueP };
+})();
+
+function mountFf5Demo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 240, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="ff5Svg"></svg></div>
+      <div>
+        <div class="demo-steps" id="ff5Steps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.ff5Callout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.ff5Analysis}</p></div>
+    ${relatedLinksHTML(["factor"])}
+  `;
+
+  const svg = panel.querySelector("#ff5Svg");
+  const { mkt,smb,hml,rmw,cma,rets,trueP } = FF5_DATA;
+  const X = rets.map((_,i) => [1,mkt[i],smb[i],hml[i],rmw[i],cma[i]]);
+  const coef = solveOLSVar(X, rets);
+  const labels = ["Mkt","SMB","HML","RMW","CMA"];
+  const trueVals = [trueP.bMkt, trueP.bSmb, trueP.bHml, trueP.bRmw, trueP.bCma];
+  const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: -0.5, xMax: 4.5, yMin: -0.4, yMax: 1.4, xTicks: 1, yTicks: 4, xFmt: ()=>"", yFmt: (v)=>v.toFixed(1) });
+  let bars = "";
+  for (let i = 0; i < 5; i++) {
+    const cx = x(i);
+    const fitted = coef[i+1];
+    const zeroY = y(0);
+    bars += `<rect x="${(cx-16).toFixed(1)}" y="${(fitted>=0?y(fitted):zeroY).toFixed(1)}" width="14" height="${Math.abs(y(fitted)-zeroY).toFixed(1)}" fill="var(--mint)" opacity="0.85" />`;
+    bars += `<line x1="${(cx-18).toFixed(1)}" y1="${y(trueVals[i]).toFixed(1)}" x2="${(cx).toFixed(1)}" y2="${y(trueVals[i]).toFixed(1)}" stroke="var(--level-3)" stroke-width="2" stroke-dasharray="3 2" />`;
+    bars += `<text x="${cx.toFixed(1)}" y="${H-PAD+16}" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-soft)">${labels[i]}</text>`;
+  }
+  svg.innerHTML = axesSvg + `<line x1="${PAD}" y1="${y(0).toFixed(1)}" x2="${W-PAD}" y2="${y(0).toFixed(1)}" stroke="var(--ink-faint)" stroke-width="1" />` + bars;
+
+  const lines = [`${S.steps}`, `  α = ${(coef[0]*10000).toFixed(2)}bp`, `  β: [${coef.slice(1).map((c)=>c.toFixed(2)).join(", ")}]`, `  (${LANG==="uk"?"суцільні = підігнано, пунктир = справжнє":"solid = fitted, dashed = true"})`];
+  panel.querySelector("#ff5Steps").textContent = lines.join("\n");
+}
+
+// ---------------------------------------------------------------------------
+// 89. Historical Simulation VaR
+// ---------------------------------------------------------------------------
+function historicalVaR(returns, confidence) {
+  const sorted = returns.slice().sort((a,b)=>a-b);
+  const idx = Math.floor((1-confidence)*sorted.length);
+  return -sorted[idx];
+}
+const HISTVAR_RETURNS = (function () { const rnd = mulberry32(3); const out=[]; for (let i=0;i<1000;i++) out.push(gaussFrom(rnd)*0.02); return out; })();
+
+function mountHistVarDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 240, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="histVarSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"довірчий рівень":"confidence level"} <span class="val" id="histVarConfVal">95%</span></label><input type="range" id="histVarConf" min="90" max="99.5" step="0.5" value="95"></div>
+        </div>
+        <div class="demo-steps" id="histVarSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.histVarCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.histVarAnalysis}</p></div>
+    ${relatedLinksHTML(["risk-measures"])}
+  `;
+
+  const confSlider = panel.querySelector("#histVarConf");
+  const svg = panel.querySelector("#histVarSvg");
+
+  function render() {
+    const conf = parseFloat(confSlider.value)/100;
+    panel.querySelector("#histVarConfVal").textContent = (conf*100).toFixed(1)+"%";
+
+    const varVal = historicalVaR(HISTVAR_RETURNS, conf);
+    const nBins = 30;
+    const xMin = Math.min(...HISTVAR_RETURNS), xMax = Math.max(...HISTVAR_RETURNS);
+    const counts = new Array(nBins).fill(0);
+    for (const v of HISTVAR_RETURNS) { const bi = Math.min(nBins-1, Math.max(0, Math.floor((v-xMin)/(xMax-xMin)*nBins))); counts[bi]++; }
+    const maxCount = Math.max(...counts, 1);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin: 0, yMax: maxCount, xTicks: 4, yTicks: 0, xFmt: (v)=>(v*100).toFixed(1)+"%", yFmt: ()=>"" });
+    let bars = "";
+    for (let i = 0; i < nBins; i++) { const bx = xMin+(i/nBins)*(xMax-xMin); const h = (counts[i]/maxCount)*(H-2*PAD); const isTail = bx <= -varVal; bars += `<rect x="${x(bx).toFixed(1)}" y="${(H-PAD-h).toFixed(1)}" width="${((x(bx+(xMax-xMin)/nBins)-x(bx))-1).toFixed(1)}" height="${h.toFixed(1)}" fill="${isTail?"var(--level-3)":"var(--mint)"}" opacity="0.8" />`; }
+    svg.innerHTML = axesSvg + bars;
+
+    const lines = [`${S.steps}`, `  ${S.histVarValue} = ${(varVal*100).toFixed(2)}%`];
+    panel.querySelector("#histVarSteps").textContent = lines.join("\n");
+  }
+  confSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 90. Hierarchical Risk Parity (simplified inverse-variance baseline)
+// ---------------------------------------------------------------------------
+function hrpWeights(Sigma) {
+  const vol = Sigma.map((row,i) => Math.sqrt(row[i]));
+  const invVar = vol.map((v) => 1/(v*v));
+  const sumInvVar = invVar.reduce((a,b)=>a+b,0);
+  return invVar.map((v) => v/sumInvVar);
+}
+
+function mountHrpDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 240, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="hrpSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>σ1 <span class="val" id="hrpS1Val">20%</span></label><input type="range" id="hrpS1" min="5" max="45" step="1" value="20"></div>
+          <div class="demo-slider-row"><label>σ2 <span class="val" id="hrpS2Val">30%</span></label><input type="range" id="hrpS2" min="5" max="45" step="1" value="30"></div>
+          <div class="demo-slider-row"><label>σ3 <span class="val" id="hrpS3Val">15%</span></label><input type="range" id="hrpS3" min="5" max="45" step="1" value="15"></div>
+          <div class="demo-slider-row"><label>σ4 <span class="val" id="hrpS4Val">40%</span></label><input type="range" id="hrpS4" min="5" max="45" step="1" value="40"></div>
+        </div>
+        <div class="demo-steps" id="hrpSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.hrpCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.hrpAnalysis}</p></div>
+    ${relatedLinksHTML(["portfolio"])}
+  `;
+
+  const els = ["hrpS1","hrpS2","hrpS3","hrpS4"].map((id) => panel.querySelector("#"+id));
+  const svg = panel.querySelector("#hrpSvg");
+
+  function render() {
+    const sigmas = els.map((el) => parseFloat(el.value)/100);
+    sigmas.forEach((s,i) => { panel.querySelector(`#hrpS${i+1}Val`).textContent = (s*100).toFixed(0)+"%"; });
+
+    const Sigma = sigmas.map((si,i) => sigmas.map((_,j) => i===j ? si*si : 0));
+    const weights = hrpWeights(Sigma);
+
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: -0.5, xMax: 3.5, yMin: 0, yMax: 0.7, xTicks: 1, yTicks: 4, xFmt: ()=>"", yFmt: (v)=>(v*100).toFixed(0)+"%" });
+    let bars = "";
+    weights.forEach((w,i) => { const cx=x(i); const h1=(w/0.7)*(H-2*PAD); bars += `<rect x="${(cx-18).toFixed(1)}" y="${(H-PAD-h1).toFixed(1)}" width="36" height="${h1.toFixed(1)}" fill="var(--mint)" opacity="0.85" /><text x="${cx.toFixed(1)}" y="${H-PAD+16}" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-soft)">${LANG==="uk"?"актив":"asset"} ${i+1}</text>`; });
+    svg.innerHTML = axesSvg + bars;
+
+    const lines = [`${S.steps}`, `  ${S.hrpWeight}: [${weights.map((w)=>(w*100).toFixed(1)+"%").join(", ")}]`];
+    panel.querySelector("#hrpSteps").textContent = lines.join("\n");
+  }
+  els.forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 91. Vanilla RNN (vs LSTM/GRU vanishing gradient demonstration)
+// ---------------------------------------------------------------------------
+function rnnForward(params, seq) {
+  let h = 0; const preds = [];
+  for (let t = 0; t < seq.length-1; t++) { h = tanhFn(params.Wx*seq[t]+params.Wh*h+params.b); preds.push(params.Wy*h+params.by); }
+  return preds;
+}
+function rnnLoss(params, seq) { const p = rnnForward(params,seq); let s=0; for (let t=0;t<p.length;t++) s+=(p[t]-seq[t+1])**2; return s/p.length; }
+function trainRNN(seq, steps, lr) {
+  let params = { Wx:0.1, Wh:0.1, b:0, Wy:0.5, by:0 };
+  const keys = Object.keys(params); const eps = 1e-4;
+  for (let s = 0; s < steps; s++) { for (const k of keys) { const p1={...params}; p1[k]+=eps; const p2={...params}; p2[k]-=eps; params[k] -= lr*(rnnLoss(p1,seq)-rnnLoss(p2,seq))/(2*eps); } }
+  return { params, loss: rnnLoss(params,seq) };
+}
+const RNN_AR2_SEQ = (function () { const rnd = mulberry32(5); let x1=0,x2=0; const out=[x2,x1]; for (let i=2;i<40;i++){ const xv=0.5*x1+0.4*x2+0.3*gaussFrom(rnd); out.push(xv); x2=x1; x1=xv; } return out; })();
+
+function mountRnnDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 230, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="rnnSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--ink-faint)">●</span> ${LANG==="uk"?"справжній ряд":"actual"} &nbsp; <span style="color:var(--mint)">●</span> RNN</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"кроки навчання":"training steps"} <span class="val" id="rnnStepsVal">300</span></label><input type="range" id="rnnSteps" min="0" max="600" step="20" value="300"></div>
+        </div>
+        <div class="demo-steps" id="rnnStepsPanel"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.rnnCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.rnnAnalysis}</p></div>
+    ${relatedLinksHTML(["sequential-dl"])}
+  `;
+
+  const stepsSlider = panel.querySelector("#rnnSteps");
+  const svg = panel.querySelector("#rnnSvg");
+
+  function render() {
+    const steps = parseInt(stepsSlider.value, 10);
+    panel.querySelector("#rnnStepsVal").textContent = steps;
+
+    const { params, loss } = trainRNN(RNN_AR2_SEQ, steps, 0.3);
+    const preds = rnnForward(params, RNN_AR2_SEQ);
+    const actual = RNN_AR2_SEQ.slice(1);
+    const allVals = actual.concat(preds);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: actual.length-1, yMin: Math.min(...allVals)-0.2, yMax: Math.max(...allVals)+0.2, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(1), xLabel: "t" });
+    const actualPath = actual.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const predPath = preds.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${actualPath}" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4 3" />` + `<path d="${predPath}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    const lines = [`${S.steps}`, `  ${LANG==="uk"?"дані: те саме AR(2)-ряд, що й для LSTM":"data: the same AR(2) series used for LSTM"}`, `  ${S.rnnLossLbl} = ${loss.toExponential(3)} (${LANG==="uk"?"LSTM на цих же даних":"LSTM on this data"}: ~4.6e-2)`];
+    panel.querySelector("#rnnStepsPanel").textContent = lines.join("\n");
+  }
+  stepsSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 92. Denoising Autoencoder — real gradient descent with frozen-per-step noise
+// ---------------------------------------------------------------------------
+function trainDenoisingAE(data, noiseLevel, steps, lr, rnd) {
+  let We = [0.3*(rnd()-0.5), 0.3*(rnd()-0.5)];
+  let Wd = [0.3*(rnd()-0.5), 0.3*(rnd()-0.5)];
+  const eps = 1e-4;
+  for (let s = 0; s < steps; s++) {
+    const noisyData = data.map((xv) => [xv[0]+gaussFrom(rnd)*noiseLevel, xv[1]+gaussFrom(rnd)*noiseLevel]);
+    function lossFn(We_, Wd_) {
+      let sTot = 0;
+      for (let i = 0; i < data.length; i++) { const z = We_[0]*noisyData[i][0]+We_[1]*noisyData[i][1]; const xh=[Wd_[0]*z, Wd_[1]*z]; sTot += (xh[0]-data[i][0])**2+(xh[1]-data[i][1])**2; }
+      return sTot/data.length;
+    }
+    for (let i = 0; i < 2; i++) { const We1=[...We]; We1[i]+=eps; const We2=[...We]; We2[i]-=eps; const g=(lossFn(We1,Wd)-lossFn(We2,Wd))/(2*eps); We[i] -= lr*g; }
+    for (let i = 0; i < 2; i++) { const Wd1=[...Wd]; Wd1[i]+=eps; const Wd2=[...Wd]; Wd2[i]-=eps; const g=(lossFn(We,Wd1)-lossFn(We,Wd2))/(2*eps); Wd[i] -= lr*g; }
+  }
+  const testNoisy = data.map((xv) => [xv[0]+gaussFrom(rnd)*noiseLevel, xv[1]+gaussFrom(rnd)*noiseLevel]);
+  let finalLoss = 0;
+  const recon = [];
+  for (let i = 0; i < data.length; i++) { const z=We[0]*testNoisy[i][0]+We[1]*testNoisy[i][1]; const xh=[Wd[0]*z,Wd[1]*z]; recon.push(xh); finalLoss += (xh[0]-data[i][0])**2+(xh[1]-data[i][1])**2; }
+  finalLoss /= data.length;
+  return { We, Wd, loss: finalLoss, testNoisy, recon };
+}
+const DENOISE_DATA = (function () { const out=[]; for (let i=0;i<24;i++){ const t=i/24*4-2; out.push([t, t*0.8]); } return out; })();
+
+function mountDenoiseDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 260, PAD = 25;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="denoiseSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--ink-faint)">●</span> ${LANG==="uk"?"чисті дані":"clean"} &nbsp; <span style="color:var(--level-2)">●</span> ${LANG==="uk"?"зашумлені":"noisy"} &nbsp; <span style="color:var(--mint)">●</span> ${LANG==="uk"?"реконструкція":"reconstructed"}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${S.denoiseNoise} <span class="val" id="denoiseNoiseVal">0.30</span></label><input type="range" id="denoiseNoiseSlider" min="0.05" max="0.8" step="0.05" value="0.30"></div>
+        </div>
+        <div class="demo-steps" id="denoiseSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.denoiseCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.denoiseAnalysis}</p></div>
+    ${relatedLinksHTML(["autoencoders"])}
+  `;
+
+  const noiseSlider = panel.querySelector("#denoiseNoiseSlider");
+  const svg = panel.querySelector("#denoiseSvg");
+  const xMin=-3, xMax=3, yMin=-3, yMax=3;
+
+  function render() {
+    const noiseLevel = parseFloat(noiseSlider.value);
+    panel.querySelector("#denoiseNoiseVal").textContent = noiseLevel.toFixed(2);
+
+    const { loss, testNoisy, recon } = trainDenoisingAE(DENOISE_DATA, noiseLevel, 200, 0.02, mulberry32(3));
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin, yMax, xTicks: 4, yTicks: 4, xFmt: (v)=>v.toFixed(1), yFmt: (v)=>v.toFixed(1) });
+    let dots = "";
+    DENOISE_DATA.forEach((xv,i) => {
+      dots += `<circle cx="${x(xv[0]).toFixed(1)}" cy="${y(xv[1]).toFixed(1)}" r="3.5" fill="var(--ink-faint)" />`;
+      dots += `<circle cx="${x(testNoisy[i][0]).toFixed(1)}" cy="${y(testNoisy[i][1]).toFixed(1)}" r="2.5" fill="var(--level-2)" opacity="0.6" />`;
+      dots += `<circle cx="${x(recon[i][0]).toFixed(1)}" cy="${y(recon[i][1]).toFixed(1)}" r="3.5" fill="var(--mint)" />`;
+    });
+    svg.innerHTML = axesSvg + dots;
+
+    const lines = [`${S.steps}`, `  ${LANG==="uk"?"похибка реконструкції":"reconstruction error"} = ${loss.toFixed(4)}`];
+    panel.querySelector("#denoiseSteps").textContent = lines.join("\n");
+  }
+  noiseSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 93. Fuzzy Rule-Based Fraud Scoring
+// ---------------------------------------------------------------------------
+function fuzzyFraudScore(amount, velocity, distanceFromHome) {
+  const amtHigh = Math.min(1, Math.max(0, (amount-500)/1500));
+  const velHigh = Math.min(1, Math.max(0, (velocity-2)/8));
+  const distHigh = Math.min(1, Math.max(0, (distanceFromHome-50)/450));
+  const rule1 = Math.min(amtHigh, velHigh);
+  const rule2 = Math.min(velHigh, distHigh);
+  const rule3 = Math.min(amtHigh, distHigh);
+  return Math.max(rule1, rule2, rule3);
+}
+
+function mountFuzzyFraudDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 220, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="ffSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"сума ($)":"amount ($)"} <span class="val" id="ffAmtVal">500</span></label><input type="range" id="ffAmt" min="10" max="3000" step="10" value="500"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"швидкість (тр/год)":"velocity (txn/hr)"} <span class="val" id="ffVelVal">3</span></label><input type="range" id="ffVel" min="0" max="15" step="1" value="3"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"відстань (км)":"distance (km)"} <span class="val" id="ffDistVal">100</span></label><input type="range" id="ffDist" min="0" max="1000" step="10" value="100"></div>
+        </div>
+        <div class="demo-steps" id="ffSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.fuzzyFraudCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.fuzzyFraudAnalysis}</p></div>
+    ${relatedLinksHTML(["fuzzy","fraud"])}
+  `;
+
+  const els = ["ffAmt","ffVel","ffDist"].map((id) => panel.querySelector("#"+id));
+  const svg = panel.querySelector("#ffSvg");
+
+  function render() {
+    const [amount, velocity, distance] = els.map((el) => parseFloat(el.value));
+    panel.querySelector("#ffAmtVal").textContent = amount;
+    panel.querySelector("#ffVelVal").textContent = velocity;
+    panel.querySelector("#ffDistVal").textContent = distance;
+
+    const risk = fuzzyFraudScore(amount, velocity, distance);
+    const barW = (W-2*PAD);
+    const col = risk > 0.7 ? "var(--level-3)" : risk > 0.3 ? "var(--level-2)" : "var(--mint)";
+    svg.innerHTML = `
+      <rect x="${PAD}" y="${H/2-20}" width="${barW}" height="40" fill="var(--card-border)" rx="4" />
+      <rect x="${PAD}" y="${H/2-20}" width="${(barW*risk).toFixed(1)}" height="40" fill="${col}" opacity="0.85" rx="4" />
+      <text x="${PAD+barW/2}" y="${H/2+5}" text-anchor="middle" font-family="var(--mono)" font-size="14" fill="var(--ink)">${(risk*100).toFixed(0)}%</text>
+    `;
+
+    const lines = [`${S.steps}`, `  ${S.fuzzyFraudRisk} = max(rules) = ${risk.toFixed(3)}`];
+    panel.querySelector("#ffSteps").textContent = lines.join("\n");
+  }
+  els.forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 94. DDPG — deterministic policy gradient with quadratic critic
+// ---------------------------------------------------------------------------
+function ddpgActor(state, theta) { return Math.tanh(theta[0]*state+theta[1]); }
+function ddpgCriticFixed(state, action, w) { return w[0]*state + w[1]*action + w[2]*action*action + w[3]*state*action + w[4]; }
+function ddpgEnvReward(state, action) { const target = Math.tanh(0.5*state); return -((action-target)**2); }
+function trainDDPG(episodes, lrActor, lrCritic, rnd) {
+  let theta = [0.1,0], w = [0.1,0.1,-0.1,0.1,0];
+  const eps = 1e-4;
+  for (let ep = 0; ep < episodes; ep++) {
+    const state = gaussFrom(rnd)*1;
+    const action = ddpgActor(state, theta) + gaussFrom(rnd)*0.3;
+    const reward = ddpgEnvReward(state, action);
+    function critLoss(w_) { const q = ddpgCriticFixed(state,action,w_); return (q-reward)**2; }
+    for (let i = 0; i < 5; i++) { const w1=[...w]; w1[i]+=eps; const w2=[...w]; w2[i]-=eps; const g=(critLoss(w1)-critLoss(w2))/(2*eps); w[i] -= lrCritic*g; }
+    for (let i = 0; i < 2; i++) { const t1=[...theta]; t1[i]+=eps; const t2=[...theta]; t2[i]-=eps; const a1=ddpgActor(state,t1), a2=ddpgActor(state,t2); const g=-(ddpgCriticFixed(state,a1,w)-ddpgCriticFixed(state,a2,w))/(2*eps); theta[i] -= lrActor*g; }
+  }
+  return { theta, w };
+}
+
+function mountDdpgDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 240, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="ddpgSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"епізоди навчання":"training episodes"} <span class="val" id="ddpgEpVal">3000</span></label><input type="range" id="ddpgEp" min="0" max="5000" step="100" value="3000"></div>
+        </div>
+        <div class="demo-steps" id="ddpgSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.ddpgCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.ddpgAnalysis}</p></div>
+    ${relatedLinksHTML(["rl"])}
+  `;
+
+  const epSlider = panel.querySelector("#ddpgEp");
+  const svg = panel.querySelector("#ddpgSvg");
+
+  function render() {
+    const episodes = parseInt(epSlider.value, 10);
+    panel.querySelector("#ddpgEpVal").textContent = episodes;
+
+    const { theta } = trainDDPG(Math.max(1,episodes), 0.02, 0.05, mulberry32(9));
+    const nPts = 60;
+    const curve = [], target = [];
+    for (let i = 0; i < nPts; i++) { const s = -3+(i/(nPts-1))*6; curve.push([s, ddpgActor(s,theta)]); target.push([s, Math.tanh(0.5*s)]); }
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: -3, xMax: 3, yMin: -1.1, yMax: 1.1, xTicks: 4, yTicks: 4, xFmt: (v)=>v.toFixed(0), yFmt: (v)=>v.toFixed(1), xLabel: S.ddpgState, yLabel: S.ddpgAction });
+    const learnedPath = curve.map(([s,a],i)=>`${i===0?"M":"L"} ${x(s).toFixed(1)} ${y(a).toFixed(1)}`).join(" ");
+    const targetPath = target.map(([s,a],i)=>`${i===0?"M":"L"} ${x(s).toFixed(1)} ${y(a).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${targetPath}" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4 3" />` + `<path d="${learnedPath}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    const lines = [`${S.steps}`, `  action(1) = ${ddpgActor(1,theta).toFixed(3)} (target 0.462)`, `  action(-1) = ${ddpgActor(-1,theta).toFixed(3)} (target -0.462)`];
+    panel.querySelector("#ddpgSteps").textContent = lines.join("\n");
+  }
+  epSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 95. Marginal Expected Shortfall (MES)
+// ---------------------------------------------------------------------------
+function computeMES(sysRet, instRet, tau) {
+  const n = sysRet.length;
+  const sorted = sysRet.map((v,i) => ({v,i})).sort((a,b)=>a.v-b.v);
+  const cutoff = Math.floor(tau*n);
+  const worstIdx = sorted.slice(0,cutoff).map((o) => o.i);
+  return -(worstIdx.reduce((s,i) => s+instRet[i], 0)/worstIdx.length);
+}
+
+function mountMesDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 220, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="mesSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>β (${LANG==="uk"?"системна бета установи":"institution's systemic beta"}) <span class="val" id="mesBetaVal">0.90</span></label><input type="range" id="mesBeta" min="0" max="1.5" step="0.05" value="0.90"></div>
+          <div class="demo-slider-row"><label>τ (${LANG==="uk"?"хвіст системи":"system tail"}) <span class="val" id="mesTauVal">5%</span></label><input type="range" id="mesTau" min="1" max="20" step="1" value="5"></div>
+        </div>
+        <div class="demo-steps" id="mesSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.mesCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.mesAnalysis}</p></div>
+    ${relatedLinksHTML(["systemic","risk-measures"])}
+  `;
+
+  const betaSlider = panel.querySelector("#mesBeta"), tauSlider = panel.querySelector("#mesTau");
+  const svg = panel.querySelector("#mesSvg");
+  const sysRetMes = [], commonFactors = [];
+  (function seedMes() { const rnd = mulberry32(6); for (let i=0;i<1000;i++) { const common=gaussFrom(rnd)*0.01; sysRetMes.push(common+gaussFrom(rnd)*0.005); commonFactors.push(common); } })();
+
+  function render() {
+    const beta = parseFloat(betaSlider.value), tau = parseInt(tauSlider.value,10)/100;
+    panel.querySelector("#mesBetaVal").textContent = beta.toFixed(2);
+    panel.querySelector("#mesTauVal").textContent = (tau*100).toFixed(0)+"%";
+
+    const rnd2 = mulberry32(66);
+    const instRet = commonFactors.map((c) => beta*c+gaussFrom(rnd2)*0.006);
+    const mes = computeMES(sysRetMes, instRet, tau);
+
+    const barH = Math.min(H-2*PAD, Math.max(4, mes*4000));
+    const col = mes > 0.015 ? "var(--level-3)" : mes > 0.005 ? "var(--level-2)" : "var(--mint)";
+    svg.innerHTML = `<rect x="${PAD+60}" y="${H-PAD-barH}" width="60" height="${barH.toFixed(1)}" fill="${col}" opacity="0.8" /><text x="${PAD+90}" y="${H-PAD-barH-8}" text-anchor="middle" font-family="var(--mono)" font-size="12" fill="${col}">${(mes*100).toFixed(2)}%</text>`;
+
+    const lines = [`${S.steps}`, `  MES(τ=${(tau*100).toFixed(0)}%) = ${(mes*100).toFixed(3)}%`];
+    panel.querySelector("#mesSteps").textContent = lines.join("\n");
+  }
+  [betaSlider, tauSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+
 const DEMOS = {
   "volatility::GARCH(1,1)": { mount: mountGarchDemo },
   "unsupervised-outliers::Isolation Forest": { mount: mountIsoForestDemo },
@@ -8108,6 +8758,16 @@ const DEMOS = {
   "rl::Proximal Policy Optimization": { mount: mountPpoDemo },
   "classical-ml::Linear / Logistic Regression": { mount: mountLinregDemo },
   "xai::DIFFI for Isolation Forest": { mount: mountDiffiDemo },
+  "time-series::VAR (Vector Autoregression)": { mount: mountVarModelDemo },
+  "volatility::GJR-GARCH": { mount: mountGjrGarchDemo },
+  "factor::Fama-French 5-Factor": { mount: mountFf5Demo },
+  "risk-measures::Historical Simulation VaR": { mount: mountHistVarDemo },
+  "portfolio::Hierarchical Risk Parity": { mount: mountHrpDemo },
+  "sequential-dl::Recurrent Neural Network (RNN)": { mount: mountRnnDemo },
+  "autoencoders::Denoising / Sparse Autoencoder": { mount: mountDenoiseDemo },
+  "fuzzy::Fuzzy Rule-Based Fraud Scoring": { mount: mountFuzzyFraudDemo },
+  "rl::DDPG": { mount: mountDdpgDemo },
+  "systemic::Marginal Expected Shortfall": { mount: mountMesDemo },
 };
 
 function applyFilters() {
