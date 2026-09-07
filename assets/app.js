@@ -575,6 +575,62 @@ const DEMO_STRINGS = {
     reducedFormCallout: "На відміну від структурних моделей (Мертон, KMV), де дефолт виникає з явної економічної логіки (вартість активів падає нижче боргу), reduced-form моделі трактують дефолт як несподівану випадкову подію з інтенсивністю (hazard rate), каліброваною напряму зі спредів облігацій чи CDS.",
     reducedFormAnalysis: "Reduced-form підхід простіший у калібруванні на ринкові дані, ніж структурні моделі, але менш інтерпретований економічно — hazard rate це статистичний параметр, а не наслідок явної моделі балансу компанії.",
     reducedFormPrice: "ціна облігації",
+    aeApCallout: "Автоенкодерне ціноутворення активів (Gu-Kelly-Xiu) не фіксує форму факторів заздалегідь, як Fama-French — натомість навчає нелінійне відображення 'характеристики компанії → факторні навантаження' напряму з даних, дозволяючи факторам бути значно гнучкішими.",
+    aeApAnalysis: "На відміну від лінійних факторних моделей, тут і факторні навантаження, і самі фактори оцінюються одночасно — це робить оптимізацію повільнішою й чутливішою до ініціалізації, що й видно на цьому демо: збіжність повільна навіть на маленькому наборі даних.",
+    aeApLoss: "похибка реконструкції дохідності",
+    deepIsoCallout: "Класичний Isolation Forest розбиває дані напряму по осях ознак — це не працює для нелінійних форм (кільце, спіраль). Deep Isolation Forest спершу проєктує дані у новий простір через випадкову нелінійну мережу, а вже там будує ізоляційні дерева — це дозволяє виявляти аномалії на викривлених многовидах.",
+    deepIsoAnalysis: "Якість залежить від випадкової проєкції — на відміну від навченого автоенкодера, тут ваги проєкції не оптимізуються під конкретні дані, а лише випадково ініціалізуються, що іноді дає нестабільні результати між запусками.",
+    deepIsoRing: "точки кільця (норма)",
+    deepIsoCenter: "точка в центрі кільця",
+    deepIsoOutlier: "дальній викид",
+    cnnLstmCallout: "CNN-шар спершу видобуває локальні патерни (короткострокові сплески, розвороти) з сирого ряду через згортку, а LSTM вже моделює довгострокові залежності між цими видобутими ознаками — розподіл праці, що часто перевершує чисту LSTM на зашумлених фінансових рядах.",
+    cnnLstmAnalysis: "Розмір ядра згортки визначає, які часові масштаби CNN 'бачить' — замале ядро пропускає довгі патерни, завелике розмиває короткострокові деталі до LSTM-шару.",
+    cnnLstmLoss: "похибка",
+    convLstmCallout: "ConvLSTM поширює LSTM на просторово-часові дані — кожна комірка сітки має власний прихований стан, але оновлюється з урахуванням сусідніх комірок через згортку. У фінансах це застосовується до 'зображень' книги заявок (ціна × час) чи географічних карт активності.",
+    convLstmAnalysis: "Обчислювальна вартість зростає з розміром сітки набагато швидше, ніж у звичайної LSTM — тому ConvLSTM на практиці застосовують до відносно невеликих просторових сіток (десятки, не тисячі комірок).",
+    convLstmGrid: "прогнозована сітка станів",
+    informerCallout: "Замість обчислення уваги між усіма парами токенів (як у звичайному Transformer, O(n²)), Informer обчислює 'міру розрідженості' кожного запиту й обробляє повністю лише найінформативніші — це дає змогу обробляти набагато довші фінансові ряди (роки щоденних даних) без вибуху обчислювальної вартості.",
+    informerAnalysis: "ProbSparse — наближення, а не точний розрахунок: деякі справді важливі запити теоретично можуть не потрапити у відібрані top-u, особливо якщо важливість розподілена рівномірно, а не сконцентрована в кількох точках.",
+    informerSparsity: "міра розрідженості",
+    informerSelected: "відібрані запити (top-u)",
+    fedformerCallout: "FEDformer переходить у частотну область (через перетворення Фур'є) і зберігає лише домінантні частотні моди — фінансові ряди з циклічними патернами (сезонність, регулярні цикли волатильності) стискаються до кількох чисел, зберігаючи майже всю прогностичну інформацію.",
+    fedformerAnalysis: "Метод природно підходить для рядів із чіткою періодичністю — на суто випадкових (без циклічних компонент) рядах перехід у частотну область не дає жодної переваги над роботою напряму в часовій області.",
+    fedformerMse: "похибка реконструкції (топ-K мод)",
+    tftCallout: "TFT поєднує три механізми одночасно: gated мережі для відбору релевантних змінних на кожному кроці, LSTM для локальної часової динаміки, і увагу — для довгострокових залежностей. Це дає модель, яка одночасно точна й частково інтерпретована (видно, які змінні модель 'обрала' важливими).",
+    tftAnalysis: "Складність архітектури (три механізми одночасно) означає більше гіперпараметрів для тюнінгу й вищий ризик перенавчання на малих фінансових датасетах порівняно з простішими альтернативами.",
+    tftGrn: "вихід gated residual network",
+    tftSelection: "зважений відбір змінних",
+    convAeCallout: "Згортковий автоенкодер використовує локальні фільтри (як CNN) замість повнозв'язних шарів — це природньо підходить для часових рядів, де важливі локальні патерни (форма сплеску волатильності), а не абсолютна позиція в часі.",
+    convAeAnalysis: "Розмір ядра згортки визначає рецептивне поле — замале ядро не вловлює патерни довші за кілька точок, завелике втрачає перевагу локальності перед повнозв'язним автоенкодером.",
+    convAeLoss: "похибка реконструкції",
+    transformerAeCallout: "Автоенкодер на увазі кодує кожен рівень книги заявок з урахуванням усіх інших рівнів одночасно (через self-attention), а не послідовно, як LSTM — природніший підхід, бо порядок рівнів книги заявок менш важливий за їхні взаємні цінові співвідношення.",
+    transformerAeAnalysis: "Без нормалізації вхідних цін і обсягів до порівнянного масштабу навчання швидко розходиться (градієнти вибухають) — це загальна практична вимога для будь-якої трансформерної моделі, не лише специфічна для книги заявок.",
+    transformerAeLoss: "похибка реконструкції книги заявок",
+    gnnTransCallout: "Гібрид спершу агрегує локальну структуру сусідства через GCN-шар (як звичайний GNN), а потім застосовує глобальну увагу поверх отриманих представлень вузлів — поєднання локальної структурної інформації з глобальним контекстом, якого чистий GNN не бачить.",
+    gnnTransAnalysis: "'Гострота' уваги (масштаб ваг Q/K) визначає, наскільки різко модель розрізняє вузли: замалий масштаб дає майже однакову увагу до всіх вузлів (як усереднення), завеликий — концентрується на одному-двох вузлах, ігноруючи решту.",
+    gnnTransSharpness: "гострота уваги (масштаб Q/K)",
+    fuzzySsodCallout: "На відміну від чисто неконтрольованого виявлення аномалій, SSOD використовує невелику кількість розмічених прикладів для 'заякорення' центрів нечітких кластерів — точки, що не належать впевнено жодному класу (низька максимальна належність), позначаються як потенційні аномалії.",
+    fuzzySsodAnalysis: "Якість сильно залежить від репрезентативності розмічених прикладів — якщо розмічені точки не покривають повний діапазон 'нормальної' поведінки, метод помилково позначить неврахований, але насправді нормальний патерн як аномалію.",
+    fuzzySsodOutlier: "оцінка аномальності (1 − макс. належність)",
+    lobSimCallout: "Симуляція книги заявок відтворює механіку мікроструктури ринку знизу вгору: лімітні заявки надходять і накопичуються, ринкові заявки виконуються проти найкращої ціни, частина заявок скасовується — з цих простих правил природно виникає спред і глибина ринку.",
+    lobSimAnalysis: "Це спрощена агентна симуляція без реальних учасників зі стратегіями — реальні дослідження мікроструктури використовують або історичні дані книги заявок, або складніші агентні моделі з навченою поведінкою учасників.",
+    lobSimMidPrice: "серединна ціна",
+    finbertCallout: "На відміну від лексиконного підходу (простий підрахунок 'позитивних' і 'негативних' слів), трансформер розуміє контекст — 'прибуток не виправдав очікувань' і 'прибуток перевищив очікування' містять майже ті самі слова, але протилежний сенс, який трансформер вловлює, а лексикон — ні.",
+    finbertAnalysis: "Це спрощена ілюстрація на основі bag-of-words логістичної регресії, не справжній трансформер — реальний FinBERT попередньо натренований на мільярдах слів фінансових текстів і використовує механізм уваги для розуміння контексту, а не лише частоти слів.",
+    finbertPred: "передбачена ймовірність позитивного тону",
+    cpcvCallout: "Звичайна k-fold CV дає лише k можливих розбиттів на train/test — Combinatorial Purged CV перебирає всі комбінації груп для тестового набору (C(N,k) комбінацій), даючи набагато більше незалежних оцінок продуктивності стратегії й точнішу оцінку розподілу результатів backtest.",
+    cpcvAnalysis: "Кількість комбінацій зростає комбінаторно з кількістю груп — C(10,2)=45 уже вимагає в рази більше обчислень за звичайну 10-fold CV, тому CPCV застосовують переважно для фінального підтвердження стратегії, а не щоденного ітеративного тюнінгу.",
+    cpcvCombos: "кількість комбінацій",
+    cpcvTrainSize: "розмір тренувального набору (приклад)",
+    antibenfordCallout: "Закон Бенфорда працює не лише для окремих чисел, а й для ваг ребер у мережі транзакцій — підмережа зі структурованими, 'круглими' сумами (типова ознака layering у відмиванні грошей) статистично відхиляється від природного розподілу перших цифр набагато сильніше, ніж органічна торгова активність.",
+    antibenfordAnalysis: "Відхилення від Бенфорда — це сигнал для подальшого розслідування, не автоматичний доказ шахрайства: деякі легітимні бізнес-процеси (фіксовані тарифи, стандартизовані суми контрактів) теж природно дають неБенфордівський розподіл.",
+    antibenfordChi2: "χ² відхилення від закону Бенфорда",
+    satelliteCallout: "Супутникові знімки заповненості парковок роздрібних мереж — класичний приклад alt-data: хедж-фонди використовують це як ранній індикатор квартальних продажів ритейлерів за тижні до офіційного звіту про прибутки.",
+    satelliteAnalysis: "Кореляція між proxy-сигналом (заповненість парковки) і справжньою метрикою (продажі) може бути нестабільною в часі — зростання частки онлайн-продажів послаблює цей конкретний сигнал структурно, а не через шум вимірювання.",
+    satelliteCorr: "кореляція заповненості парковки з продажами",
+    webScrapedCallout: "Зростання тижня-до-тижня активності в мобільному застосунку компанії — сигнал, доступний за тижні до офіційної звітності: стрибок залучення користувачів часто передує позитивному сюрпризу в квартальних доходах, особливо для компаній, орієнтованих на споживача.",
+    webScrapedAnalysis: "Сезонність і разові події (запуск нової функції, вірусний момент у соцмережах) можуть створювати хибні сигнали зростання, не пов'язані з фундаментальним покращенням бізнесу — сирий сигнал потребує очищення від таких викидів перед використанням у моделі.",
+    webScrapedGrowth: "тижневе зростання залученості",
   },
   en: {
     steps: "steps:",
@@ -974,6 +1030,62 @@ const DEMO_STRINGS = {
     reducedFormCallout: "Unlike structural models (Merton, KMV), where default arises from explicit economic logic (asset value falls below debt), reduced-form models treat default as a surprise random event with an intensity (hazard rate), calibrated directly from bond or CDS spreads.",
     reducedFormAnalysis: "The reduced-form approach is simpler to calibrate to market data than structural models, but less economically interpretable — the hazard rate is a statistical parameter, not the output of an explicit model of the firm's balance sheet.",
     reducedFormPrice: "bond price",
+    aeApCallout: "Autoencoder asset pricing (Gu-Kelly-Xiu) doesn't fix the factor shape in advance like Fama-French — instead it learns a nonlinear mapping from 'firm characteristics → factor loadings' directly from data, letting factors be far more flexible.",
+    aeApAnalysis: "Unlike linear factor models, here both factor loadings and the factors themselves are estimated simultaneously — making optimisation slower and more sensitive to initialisation, exactly as visible in this demo: convergence is gradual even on a tiny dataset.",
+    aeApLoss: "return reconstruction error",
+    deepIsoCallout: "Classic Isolation Forest splits data directly along feature axes — that doesn't work for nonlinear shapes (a ring, a spiral). Deep Isolation Forest first projects data into a new space via a random nonlinear network, then builds isolation trees there — letting it catch anomalies on curved manifolds.",
+    deepIsoAnalysis: "Quality depends on the random projection — unlike a trained autoencoder, the projection weights here aren't optimised for the specific data, only randomly initialised, which sometimes gives unstable results across runs.",
+    deepIsoRing: "ring points (normal)",
+    deepIsoCenter: "point at ring's center",
+    deepIsoOutlier: "far outlier",
+    cnnLstmCallout: "The CNN layer first extracts local patterns (short-term spikes, reversals) from the raw series via convolution, then the LSTM models long-range dependencies between those extracted features — a division of labour that often beats plain LSTM on noisy financial series.",
+    cnnLstmAnalysis: "The convolution kernel size determines what time scales the CNN 'sees' — too small a kernel misses longer patterns, too large blurs short-term detail before it even reaches the LSTM layer.",
+    cnnLstmLoss: "error",
+    convLstmCallout: "ConvLSTM extends LSTM to spatio-temporal data — every grid cell has its own hidden state, but updates while accounting for neighbouring cells via convolution. In finance this applies to order-book 'images' (price × time) or geographic activity maps.",
+    convLstmAnalysis: "Compute cost grows with grid size much faster than plain LSTM — so ConvLSTM in practice is applied to relatively small spatial grids (dozens, not thousands, of cells).",
+    convLstmGrid: "forecast state grid",
+    informerCallout: "Instead of computing attention between every pair of tokens (like plain Transformer's O(n²)), Informer computes a 'sparsity measure' for each query and processes only the most informative ones fully — letting it handle far longer financial series (years of daily data) without an explosion in compute cost.",
+    informerAnalysis: "ProbSparse is an approximation, not an exact computation: some genuinely important queries can theoretically miss the selected top-u, especially if importance is spread evenly rather than concentrated in a few points.",
+    informerSparsity: "sparsity measure",
+    informerSelected: "selected queries (top-u)",
+    fedformerCallout: "FEDformer moves into the frequency domain (via a Fourier transform) and keeps only the dominant frequency modes — financial series with cyclical patterns (seasonality, regular volatility cycles) compress to a handful of numbers while retaining nearly all forecasting-relevant information.",
+    fedformerAnalysis: "The method naturally suits series with clear periodicity — on purely random series with no cyclical component, moving to the frequency domain gives no advantage over working directly in the time domain.",
+    fedformerMse: "reconstruction error (top-K modes)",
+    tftCallout: "TFT combines three mechanisms at once: gated networks to select relevant variables at each step, an LSTM for local temporal dynamics, and attention for long-range dependencies. This gives a model that's both accurate and partly interpretable — you can see which variables the model 'chose' as important.",
+    tftAnalysis: "The architecture's complexity (three mechanisms at once) means more hyperparameters to tune and a higher overfitting risk on small financial datasets compared to simpler alternatives.",
+    tftGrn: "gated residual network output",
+    tftSelection: "weighted variable selection",
+    convAeCallout: "A convolutional autoencoder uses local filters (like a CNN) instead of fully-connected layers — a natural fit for time series where local patterns (the shape of a volatility spike) matter more than absolute position in time.",
+    convAeAnalysis: "The convolution kernel size sets the receptive field — too small a kernel misses patterns longer than a few points, too large loses the locality advantage over a fully-connected autoencoder.",
+    convAeLoss: "reconstruction error",
+    transformerAeCallout: "An attention-based autoencoder encodes each order-book level accounting for every other level simultaneously (via self-attention), rather than sequentially like an LSTM — a more natural fit, since the order of book levels matters less than their mutual price relationships.",
+    transformerAeAnalysis: "Without normalising input prices and sizes to a comparable scale, training quickly diverges (gradients explode) — a general practical requirement for any transformer model, not specific to order books.",
+    transformerAeLoss: "order-book reconstruction error",
+    gnnTransCallout: "The hybrid first aggregates local neighbourhood structure via a GCN layer (like a plain GNN), then applies global attention over the resulting node representations — combining local structural information with global context that a plain GNN can't see.",
+    gnnTransAnalysis: "Attention 'sharpness' (the Q/K weight scale) determines how sharply the model distinguishes nodes: too small a scale gives nearly uniform attention to all nodes (like averaging), too large concentrates on one or two nodes while ignoring the rest.",
+    gnnTransSharpness: "attention sharpness (Q/K scale)",
+    fuzzySsodCallout: "Unlike purely unsupervised anomaly detection, SSOD uses a small number of labelled examples to 'anchor' fuzzy cluster centres — points that don't confidently belong to any class (low maximum membership) get flagged as potential anomalies.",
+    fuzzySsodAnalysis: "Quality depends heavily on how representative the labelled examples are — if the labelled points don't cover the full range of 'normal' behaviour, the method will wrongly flag an uncovered but genuinely normal pattern as an anomaly.",
+    fuzzySsodOutlier: "anomaly score (1 − max membership)",
+    lobSimCallout: "The order book simulation reproduces market microstructure mechanics bottom-up: limit orders arrive and accumulate, market orders execute against the best price, some orders get cancelled — the spread and market depth emerge naturally from these simple rules.",
+    lobSimAnalysis: "This is a simplified agent-based simulation with no real strategic participants — real microstructure research uses either historical order-book data or more sophisticated agent-based models with learned participant behaviour.",
+    lobSimMidPrice: "mid price",
+    finbertCallout: "Unlike a lexicon approach (simply counting 'positive' and 'negative' words), a transformer understands context — 'profit missed expectations' and 'profit beat expectations' contain almost the same words but opposite meaning, which a transformer captures and a lexicon doesn't.",
+    finbertAnalysis: "This is a simplified illustration based on bag-of-words logistic regression, not a genuine transformer — a real FinBERT is pre-trained on billions of words of financial text and uses an attention mechanism to understand context, not just word frequency.",
+    finbertPred: "predicted probability of positive tone",
+    cpcvCallout: "Ordinary k-fold CV gives only k possible train/test splits — Combinatorial Purged CV enumerates every combination of groups for the test set (C(N,k) combinations), giving far more independent estimates of strategy performance and a more accurate picture of the backtest result distribution.",
+    cpcvAnalysis: "The number of combinations grows combinatorially with the number of groups — C(10,2)=45 already needs many times more compute than plain 10-fold CV, so CPCV is used mainly for a strategy's final confirmation, not day-to-day iterative tuning.",
+    cpcvCombos: "number of combinations",
+    cpcvTrainSize: "training set size (sample)",
+    antibenfordCallout: "Benford's Law applies not just to individual numbers but to edge weights in a transaction network too — a subgraph with structured, 'round' amounts (a classic layering signature in money laundering) statistically deviates from the natural leading-digit distribution far more than organic trading activity does.",
+    antibenfordAnalysis: "A Benford deviation is a signal for further investigation, not automatic proof of fraud — some legitimate business processes (fixed tariffs, standardised contract amounts) also naturally produce a non-Benford distribution.",
+    antibenfordChi2: "χ² deviation from Benford's Law",
+    satelliteCallout: "Satellite imagery of retail parking-lot fill rates is a classic alt-data example: hedge funds use it as an early indicator of a retailer's quarterly sales weeks before the official earnings report.",
+    satelliteAnalysis: "The correlation between the proxy signal (parking fill rate) and the real metric (sales) can be unstable over time — a growing share of online sales structurally weakens this specific signal, not just adds noise.",
+    satelliteCorr: "correlation of parking fill rate with sales",
+    webScrapedCallout: "Week-over-week growth in a company's mobile app activity is a signal available weeks ahead of official reporting: a jump in user engagement often precedes a positive earnings surprise, especially for consumer-facing companies.",
+    webScrapedAnalysis: "Seasonality and one-off events (a new feature launch, a viral social-media moment) can create spurious growth signals unrelated to genuine business improvement — the raw signal needs cleaning of such outliers before use in a model.",
+    webScrapedGrowth: "weekly engagement growth",
   },
 };
 
@@ -10015,6 +10127,1157 @@ function mountReducedFormDemo(panel) {
 }
 
 
+// ---------------------------------------------------------------------------
+// 116. Autoencoder Asset Pricing (Gu-Kelly-Xiu style)
+// ---------------------------------------------------------------------------
+function betasFromChars(chars, We) { return chars.map((c) => We.map((row) => row.reduce((s,w,i)=>s+w*c[i],0))); }
+function aeApLossFn(returns, chars, We) {
+  const B = betasFromChars(chars, We);
+  const T = returns.length, N = chars.length, nFactors = We.length;
+  let totalLoss = 0;
+  for (let t = 0; t < T; t++) {
+    const yv = returns[t];
+    const BtB = Array.from({length:nFactors}, () => new Array(nFactors).fill(0));
+    const Bty = new Array(nFactors).fill(0);
+    for (let n = 0; n < N; n++) { for (let a = 0; a < nFactors; a++) { Bty[a] += B[n][a]*yv[n]; for (let b = 0; b < nFactors; b++) BtB[a][b] += B[n][a]*B[n][b]; } }
+    const M = BtB.map((row,i) => row.concat([Bty[i]]));
+    for (let i = 0; i < nFactors; i++) { let piv = M[i][i]; if (Math.abs(piv)<1e-8) piv=1e-8; for (let j=0;j<=nFactors;j++) M[i][j] /= piv; for (let k=0;k<nFactors;k++) { if (k===i) continue; const f=M[k][i]; for (let j=0;j<=nFactors;j++) M[k][j]-=f*M[i][j]; } }
+    const ft = M.map((row) => row[nFactors]);
+    const pred = B.map((row) => row.reduce((s,v,i)=>s+v*ft[i],0));
+    for (let n = 0; n < N; n++) totalLoss += (pred[n]-yv[n])**2;
+  }
+  return totalLoss/(T*N);
+}
+function trainAEAssetPricing(returns, chars, steps, lr, rnd) {
+  const L = chars[0].length;
+  let We = [Array.from({length:L}, () => 0.4*(rnd()-0.5))];
+  const eps = 1e-3;
+  for (let s = 0; s < steps; s++) {
+    for (let b = 0; b < L; b++) { const We1=We.map((r)=>r.slice()); We1[0][b]+=eps; const We2=We.map((r)=>r.slice()); We2[0][b]-=eps; const g=(aeApLossFn(returns,chars,We1)-aeApLossFn(returns,chars,We2))/(2*eps); We[0][b] -= lr*g; }
+  }
+  return { We, loss: aeApLossFn(returns,chars,We) };
+}
+const AEAP_DATA = (function () {
+  const rnd = mulberry32(1);
+  const Nstk = 25, Tper = 30;
+  const chars = Array.from({length:Nstk}, () => [gaussFrom(rnd), gaussFrom(rnd)]);
+  const rets = [];
+  for (let t = 0; t < Tper; t++) { const ft = gaussFrom(rnd)*0.02; rets.push(chars.map((c) => (0.5*c[0]-0.3*c[1])*ft+gaussFrom(rnd)*0.005)); }
+  return { chars, rets };
+})();
+
+function mountAeApDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 220, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="aeApSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"кроки навчання":"training steps"} <span class="val" id="aeApStepsVal">300</span></label><input type="range" id="aeApSteps" min="0" max="800" step="50" value="300"></div>
+        </div>
+        <div class="demo-steps" id="aeApStepsPanel"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.aeApCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.aeApAnalysis}</p></div>
+    ${relatedLinksHTML(["factor","autoencoders"])}
+  `;
+
+  const stepsSlider = panel.querySelector("#aeApSteps");
+  const svg = panel.querySelector("#aeApSvg");
+  const { chars, rets } = AEAP_DATA;
+
+  function render() {
+    const steps = parseInt(stepsSlider.value, 10);
+    panel.querySelector("#aeApStepsVal").textContent = steps;
+
+    const { We, loss } = trainAEAssetPricing(rets, chars, steps, 0.5, mulberry32(1));
+    const nPts = 40;
+    const trace = [];
+    for (let i = 0; i <= nPts; i++) { const s = Math.round((i/nPts)*steps); trace.push([s, trainAEAssetPricing(rets,chars,s,0.5,mulberry32(1)).loss]); }
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: Math.max(steps,1), yMin: 0, yMax: Math.max(...trace.map((t)=>t[1]))*1.1, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toExponential(1), xLabel: LANG==="uk"?"крок":"step" });
+    const path = trace.map(([s,l],i)=>`${i===0?"M":"L"} ${x(s).toFixed(1)} ${y(l).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${path}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    const lines = [`${S.steps}`, `  ${S.aeApLoss} = ${loss.toExponential(3)}`, `  We = [${We[0].map((w)=>w.toFixed(3)).join(", ")}]`];
+    panel.querySelector("#aeApStepsPanel").textContent = lines.join("\n");
+  }
+  stepsSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 117. Deep Isolation Forest
+// ---------------------------------------------------------------------------
+function cFactorDIF(n) { if (n<=1) return 0; return 2*(Math.log(n-1)+0.5772156649) - (2*(n-1))/n; }
+function randomProjectionDIF(point, W, b) { return W.map((row,i) => tanhFn(row.reduce((s,w,j)=>s+w*point[j],0)+b[i])); }
+function buildIsoTreeDIF(indices, points, depth, heightLimit, rnd) {
+  if (indices.length<=1 || depth>=heightLimit) return { leaf:true, size:indices.length };
+  const dim = points[0].length;
+  const feature = Math.floor(rnd()*dim);
+  let min=Infinity, max=-Infinity;
+  for (const i of indices) { const v = points[i][feature]; if (v<min) min=v; if (v>max) max=v; }
+  if (min===max) return { leaf:true, size:indices.length };
+  const split = min+rnd()*(max-min);
+  const left = indices.filter((i) => points[i][feature]<split);
+  const right = indices.filter((i) => points[i][feature]>=split);
+  return { leaf:false, feature, split, left: buildIsoTreeDIF(left,points,depth+1,heightLimit,rnd), right: buildIsoTreeDIF(right,points,depth+1,heightLimit,rnd) };
+}
+function pathLengthDIF(point, node, depth) { if (node.leaf) return depth+cFactorDIF(node.size); return pathLengthDIF(point, point[node.feature]<node.split?node.left:node.right, depth+1); }
+function deepIsoForest(rawPoints, nTrees, projDim, rnd) {
+  const inputDim = rawPoints[0].length;
+  const W = Array.from({length:projDim}, () => Array.from({length:inputDim}, () => gaussFrom(rnd)));
+  const b = Array.from({length:projDim}, () => gaussFrom(rnd)*0.1);
+  const projected = rawPoints.map((p) => randomProjectionDIF(p,W,b));
+  const n = projected.length;
+  const heightLimit = Math.ceil(Math.log2(Math.max(n,2)));
+  const allIdx = projected.map((_,i) => i);
+  const trees = []; for (let t = 0; t < nTrees; t++) trees.push(buildIsoTreeDIF(allIdx,projected,0,heightLimit,rnd));
+  const avgPath = projected.map((p) => trees.reduce((s,tree)=>s+pathLengthDIF(p,tree,0),0)/nTrees);
+  const c = cFactorDIF(n);
+  return avgPath.map((h) => Math.pow(2,-h/c));
+}
+const DEEPISO_POINTS = (function () {
+  const rnd = mulberry32(4);
+  const pts = [];
+  for (let i = 0; i < 40; i++) { const th = rnd()*2*Math.PI; const r = 1+gaussFrom(rnd)*0.1; pts.push([r*Math.cos(th), r*Math.sin(th)]); }
+  pts.push([0,0]); pts.push([3,3]);
+  return pts;
+})();
+
+function mountDeepIsoDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 300, H = 300, PAD = 20;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="deepIsoSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"кількість дерев":"number of trees"} <span class="val" id="deepIsoNVal">60</span></label><input type="range" id="deepIsoN" min="10" max="150" step="10" value="60"></div>
+        </div>
+        <div class="demo-steps" id="deepIsoSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.deepIsoCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.deepIsoAnalysis}</p></div>
+    ${relatedLinksHTML(["unsupervised-outliers","autoencoders"])}
+  `;
+
+  const nSlider = panel.querySelector("#deepIsoN");
+  const svg = panel.querySelector("#deepIsoSvg");
+  const xMin=-3.5, xMax=3.5, yMin=-3.5, yMax=3.5;
+
+  function render() {
+    const nTrees = parseInt(nSlider.value, 10);
+    panel.querySelector("#deepIsoNVal").textContent = nTrees;
+
+    const scores = deepIsoForest(DEEPISO_POINTS, nTrees, 4, mulberry32(4));
+    const maxScore = Math.max(...scores);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin, yMax, xTicks: 4, yTicks: 4, xFmt: (v)=>v.toFixed(0), yFmt: (v)=>v.toFixed(0) });
+    const dots = DEEPISO_POINTS.map((p,i) => { const r = 4+8*(scores[i]/maxScore); return `<circle cx="${x(p[0]).toFixed(1)}" cy="${y(p[1]).toFixed(1)}" r="${r.toFixed(1)}" fill="${scores[i]>0.55?"var(--level-3)":"var(--mint)"}" opacity="0.8" />`; }).join("");
+    svg.innerHTML = axesSvg + dots;
+
+    const ringAvg = scores.slice(0,40).reduce((a,b)=>a+b,0)/40;
+    const lines = [`${S.steps}`, `  ${S.deepIsoRing}: ${ringAvg.toFixed(3)}`, `  ${S.deepIsoCenter}: ${scores[40].toFixed(3)}`, `  ${S.deepIsoOutlier}: ${scores[41].toFixed(3)}`];
+    panel.querySelector("#deepIsoSteps").textContent = lines.join("\n");
+  }
+  nSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 118. CNN-LSTM Hybrid
+// ---------------------------------------------------------------------------
+function conv1dCNL(seq, kernel) { const k = kernel.length; const out = []; for (let i=0;i<=seq.length-k;i++) { let s=0; for (let j=0;j<k;j++) s+=seq[i+j]*kernel[j]; out.push(tanhFn(s)); } return out; }
+function lstmForwardCNL(params, seq) {
+  let h=0, c=0; const preds=[];
+  for (let t = 0; t < seq.length-1; t++) {
+    const xv = seq[t];
+    const f = sigmoidFn(params.Wf*xv+params.Uf*h+params.bf);
+    const i = sigmoidFn(params.Wi*xv+params.Ui*h+params.bi);
+    const o = sigmoidFn(params.Wo*xv+params.Uo*h+params.bo);
+    const cHat = tanhFn(params.Wc*xv+params.Uc*h+params.bc);
+    c = f*c+i*cHat; h = o*tanhFn(c);
+    preds.push(params.Wy*h+params.by);
+  }
+  return preds;
+}
+function cnnLstmLossFn(kernel, lstmP, seq) {
+  const feat = conv1dCNL(seq, kernel);
+  const tgt = feat.slice(1);
+  const preds = lstmForwardCNL(lstmP, feat);
+  const n = Math.min(preds.length, tgt.length);
+  let s = 0; for (let i = 0; i < n; i++) s += (preds[i]-tgt[i])**2;
+  return s/n;
+}
+function trainCnnLstm(seq, kSize, steps, lr, rnd) {
+  let kernel = Array.from({length:kSize}, () => 0.3*(rnd()-0.5));
+  let lstmP = { Wf:0.1,Uf:0.1,bf:0, Wi:0.1,Ui:0.1,bi:0, Wo:0.1,Uo:0.1,bo:0, Wc:0.1,Uc:0.1,bc:0, Wy:0.5,by:0 };
+  const eps = 1e-4;
+  for (let s = 0; s < steps; s++) {
+    for (let i = 0; i < kSize; i++) { const k1=[...kernel]; k1[i]+=eps; const k2=[...kernel]; k2[i]-=eps; const g=(cnnLstmLossFn(k1,lstmP,seq)-cnnLstmLossFn(k2,lstmP,seq))/(2*eps); kernel[i] -= lr*g; }
+    for (const key of Object.keys(lstmP)) { const p1={...lstmP}; p1[key]+=eps; const p2={...lstmP}; p2[key]-=eps; lstmP[key] -= lr*(cnnLstmLossFn(kernel,p1,seq)-cnnLstmLossFn(kernel,p2,seq))/(2*eps); }
+  }
+  return { kernel, lstmP, loss: cnnLstmLossFn(kernel,lstmP,seq) };
+}
+const CNNLSTM_SEQ = (function () { const rnd = mulberry32(5); const out=[]; let vv=0; for (let i=0;i<30;i++) { vv+=gaussFrom(rnd)*0.3; out.push(vv); } return out; })();
+
+function mountCnnLstmDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 220, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="cnnLstmSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"розмір ядра":"kernel size"} <span class="val" id="cnnLstmKVal">3</span></label><input type="range" id="cnnLstmK" min="2" max="7" step="1" value="3"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"кроки навчання":"training steps"} <span class="val" id="cnnLstmStepsVal">200</span></label><input type="range" id="cnnLstmSteps" min="0" max="400" step="20" value="200"></div>
+        </div>
+        <div class="demo-steps" id="cnnLstmStepsPanel"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.cnnLstmCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.cnnLstmAnalysis}</p></div>
+    ${relatedLinksHTML(["sequential-dl"])}
+  `;
+
+  const kSlider = panel.querySelector("#cnnLstmK"), stepsSlider = panel.querySelector("#cnnLstmSteps");
+  const svg = panel.querySelector("#cnnLstmSvg");
+
+  function render() {
+    const kSize = parseInt(kSlider.value, 10), steps = parseInt(stepsSlider.value, 10);
+    panel.querySelector("#cnnLstmKVal").textContent = kSize;
+    panel.querySelector("#cnnLstmStepsVal").textContent = steps;
+
+    const { kernel, loss } = trainCnnLstm(CNNLSTM_SEQ, kSize, steps, 0.1, mulberry32(5));
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: kSize-1, yMin: Math.min(...kernel)-0.2, yMax: Math.max(...kernel)+0.2, xTicks: Math.max(1,kSize-1), yTicks: 3, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(2), xLabel: LANG==="uk"?"позиція в ядрі":"kernel position" });
+    let bars = "";
+    kernel.forEach((v,i) => { const bx=x(i); const zeroY=y(0); const h1=Math.abs(y(v)-zeroY); bars += `<rect x="${(bx-10).toFixed(1)}" y="${(v>=0?y(v):zeroY).toFixed(1)}" width="20" height="${h1.toFixed(1)}" fill="var(--mint)" opacity="0.8" />`; });
+    svg.innerHTML = axesSvg + bars;
+
+    const lines = [`${S.steps}`, `  ${S.cnnLstmLoss} = ${loss.toExponential(3)}`];
+    panel.querySelector("#cnnLstmStepsPanel").textContent = lines.join("\n");
+  }
+  [kSlider, stepsSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+
+// ---------------------------------------------------------------------------
+// 119. ConvLSTM
+// ---------------------------------------------------------------------------
+function convLSTMStep(grid, hGrid, cGrid, params, gridSize) {
+  const newH = Array.from({length:gridSize}, () => new Array(gridSize).fill(0));
+  const newC = Array.from({length:gridSize}, () => new Array(gridSize).fill(0));
+  for (let i = 0; i < gridSize; i++) for (let j = 0; j < gridSize; j++) {
+    let neighSum = 0, cnt = 0;
+    for (const [di,dj] of [[0,0],[-1,0],[1,0],[0,-1],[0,1]]) { const ni=i+di, nj=j+dj; if (ni>=0&&ni<gridSize&&nj>=0&&nj<gridSize) { neighSum+=grid[ni][nj]; cnt++; } }
+    const xLocal = neighSum/cnt, hLocal = hGrid[i][j];
+    const f = sigmoidFn(params.Wf*xLocal+params.Uf*hLocal+params.bf);
+    const inp = sigmoidFn(params.Wi*xLocal+params.Ui*hLocal+params.bi);
+    const o = sigmoidFn(params.Wo*xLocal+params.Uo*hLocal+params.bo);
+    const cHat = tanhFn(params.Wc*xLocal+params.Uc*hLocal+params.bc);
+    const cNew = f*cGrid[i][j]+inp*cHat;
+    newC[i][j] = cNew; newH[i][j] = o*tanhFn(cNew);
+  }
+  return { h: newH, c: newC };
+}
+function convLstmForecast(gridSeq, params, gridSize) {
+  let h = Array.from({length:gridSize}, () => new Array(gridSize).fill(0));
+  let c = Array.from({length:gridSize}, () => new Array(gridSize).fill(0));
+  for (const grid of gridSeq) { const r = convLSTMStep(grid,h,c,params,gridSize); h=r.h; c=r.c; }
+  return h;
+}
+const CONVLSTM_DATA = (function () {
+  const rnd = mulberry32(6);
+  const gridSize = 3;
+  const baseGrid = Array.from({length:gridSize}, () => Array.from({length:gridSize}, () => gaussFrom(rnd)*0.5));
+  const gridSeq = []; for (let t = 0; t < 5; t++) gridSeq.push(baseGrid.map((row) => row.map((v) => v+gaussFrom(rnd)*0.05)));
+  return { gridSeq, gridSize };
+})();
+
+function mountConvLstmDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 260, H = 260;
+  const { gridSeq, gridSize } = CONVLSTM_DATA;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="convLstmSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"сила gate":"gate strength"} <span class="val" id="convLstmGVal">0.20</span></label><input type="range" id="convLstmG" min="0.05" max="0.6" step="0.01" value="0.20"></div>
+        </div>
+        <div class="demo-steps" id="convLstmSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.convLstmCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.convLstmAnalysis}</p></div>
+    ${relatedLinksHTML(["sequential-dl","graph"])}
+  `;
+
+  const gSlider = panel.querySelector("#convLstmG");
+  const svg = panel.querySelector("#convLstmSvg");
+  const cellSize = 60, gridPad = 30;
+
+  function render() {
+    const g = parseFloat(gSlider.value);
+    panel.querySelector("#convLstmGVal").textContent = g.toFixed(2);
+
+    const params = { Wf:g,Uf:g,bf:0, Wi:g,Ui:g,bi:0, Wo:g,Uo:g,bo:0, Wc:g,Uc:g,bc:0 };
+    const out = convLstmForecast(gridSeq, params, gridSize);
+    const flat = out.flat();
+    const maxV = Math.max(...flat.map(Math.abs), 1e-6);
+    let cells = "";
+    for (let i = 0; i < gridSize; i++) for (let j = 0; j < gridSize; j++) {
+      const v = out[i][j];
+      const t2 = (v/maxV+1)/2;
+      const col = `color-mix(in srgb, var(--mint) ${Math.round(t2*100)}%, var(--level-3))`;
+      cells += `<rect x="${gridPad+j*cellSize}" y="${gridPad+i*cellSize}" width="${cellSize-4}" height="${cellSize-4}" fill="${col}" opacity="0.85" /><text x="${gridPad+j*cellSize+(cellSize-4)/2}" y="${gridPad+i*cellSize+(cellSize-4)/2+4}" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--bg)">${v.toFixed(2)}</text>`;
+    }
+    svg.innerHTML = cells;
+
+    const lines = [`${S.steps}`, `  ${S.convLstmGrid}: ${flat.map((v)=>v.toFixed(3)).join(", ")}`];
+    panel.querySelector("#convLstmSteps").textContent = lines.join("\n");
+  }
+  gSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 120. Informer — ProbSparse attention
+// ---------------------------------------------------------------------------
+function softmaxInf(arr) { const m=Math.max(...arr); const ex=arr.map((v)=>Math.exp(v-m)); const s=ex.reduce((a,b)=>a+b,0); return ex.map((v)=>v/s); }
+function probSparseAttention(Q, K, scale, u) {
+  const allScores = Q.map((qi) => K.map((kj) => qi.reduce((s,v,d)=>s+v*kj[d],0)/scale));
+  const sparsity = allScores.map((row) => { const max=Math.max(...row); const mean=row.reduce((a,b)=>a+b,0)/row.length; return max-mean; });
+  const sortedIdx = Q.map((_,i) => i).sort((a,b) => sparsity[b]-sparsity[a]);
+  return { sparsity, topIdx: sortedIdx.slice(0,u), allScores };
+}
+const INFORMER_SEQ = [0.01,-0.02,0.005,-0.06,0.02,0.015,-0.01,0.008];
+const INFORMER_EMBEDS = INFORMER_SEQ.map((v) => [Math.sign(v), Math.abs(v)]);
+
+function mountInformerDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 220, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="informerSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>u (top-u ${LANG==="uk"?"запитів":"queries"}) <span class="val" id="informerUVal">3</span></label><input type="range" id="informerU" min="1" max="8" step="1" value="3"></div>
+        </div>
+        <div class="demo-steps" id="informerSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.informerCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.informerAnalysis}</p></div>
+    ${relatedLinksHTML(["attention"])}
+  `;
+
+  const uSlider = panel.querySelector("#informerU");
+  const svg = panel.querySelector("#informerSvg");
+
+  function render() {
+    const u = parseInt(uSlider.value, 10);
+    panel.querySelector("#informerUVal").textContent = u;
+
+    const { sparsity, topIdx } = probSparseAttention(INFORMER_EMBEDS, INFORMER_EMBEDS, Math.sqrt(2), u);
+    const n = INFORMER_SEQ.length;
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: -0.5, xMax: n-0.5, yMin: 0, yMax: Math.max(...sparsity)*1.2, xTicks: n-1, yTicks: 3, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(2), xLabel: "t" });
+    const topSet = new Set(topIdx);
+    let bars = "";
+    sparsity.forEach((sp,i) => { const bx=x(i); const h1=(sp/(Math.max(...sparsity)*1.2))*(H-2*PAD); bars += `<rect x="${(bx-12).toFixed(1)}" y="${(H-PAD-h1).toFixed(1)}" width="24" height="${h1.toFixed(1)}" fill="${topSet.has(i)?"var(--mint)":"var(--ink-faint)"}" opacity="0.85" />`; });
+    svg.innerHTML = axesSvg + bars;
+
+    const lines = [`${S.steps}`, `  ${S.informerSelected}: [${topIdx.sort((a,b)=>a-b).join(", ")}]`];
+    panel.querySelector("#informerSteps").textContent = lines.join("\n");
+  }
+  uSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 121. FEDformer — frequency-domain filtering
+// ---------------------------------------------------------------------------
+function dftFED(seq) {
+  const N = seq.length;
+  const real = new Array(N).fill(0), imag = new Array(N).fill(0);
+  for (let k = 0; k < N; k++) for (let n = 0; n < N; n++) { const angle=-2*Math.PI*k*n/N; real[k]+=seq[n]*Math.cos(angle); imag[k]+=seq[n]*Math.sin(angle); }
+  return { real, imag };
+}
+function idftFED(real, imag) {
+  const N = real.length; const out = new Array(N).fill(0);
+  for (let n = 0; n < N; n++) { let s=0; for (let k=0;k<N;k++) { const angle=2*Math.PI*k*n/N; s += real[k]*Math.cos(angle)-imag[k]*Math.sin(angle); } out[n]=s/N; }
+  return out;
+}
+function fedformerFilter(seq, topK) {
+  const { real, imag } = dftFED(seq);
+  const mag = real.map((r,i) => Math.sqrt(r*r+imag[i]*imag[i]));
+  const sortedIdx = mag.map((_,i) => i).sort((a,b) => mag[b]-mag[a]);
+  const keepIdx = new Set(sortedIdx.slice(0,topK));
+  return idftFED(real.map((r,i)=>keepIdx.has(i)?r:0), imag.map((im,i)=>keepIdx.has(i)?im:0));
+}
+const FEDFORMER_SEQ = (function () { const rnd = mulberry32(7); const out=[]; for (let i=0;i<40;i++) out.push(5*Math.sin(i*2*Math.PI/12)+2*Math.sin(i*2*Math.PI/4)+gaussFrom(rnd)*0.5); return out; })();
+
+function mountFedformerDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 220, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="fedSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--ink-faint)">●</span> ${LANG==="uk"?"оригінал":"original"} &nbsp; <span style="color:var(--mint)">●</span> ${LANG==="uk"?"фільтровано":"filtered"}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>top-K ${LANG==="uk"?"частотних мод":"frequency modes"} <span class="val" id="fedKVal">8</span></label><input type="range" id="fedK" min="2" max="20" step="1" value="8"></div>
+        </div>
+        <div class="demo-steps" id="fedSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.fedformerCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.fedformerAnalysis}</p></div>
+    ${relatedLinksHTML(["attention","time-series"])}
+  `;
+
+  const kSlider = panel.querySelector("#fedK");
+  const svg = panel.querySelector("#fedSvg");
+
+  function render() {
+    const topK = parseInt(kSlider.value, 10);
+    panel.querySelector("#fedKVal").textContent = topK;
+
+    const filtered = fedformerFilter(FEDFORMER_SEQ, topK);
+    const allVals = FEDFORMER_SEQ.concat(filtered);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: FEDFORMER_SEQ.length-1, yMin: Math.min(...allVals)-1, yMax: Math.max(...allVals)+1, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(0) });
+    const origPath = FEDFORMER_SEQ.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const filtPath = filtered.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${origPath}" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4 3" />` + `<path d="${filtPath}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    function mseCalc(a,b){ let s=0; for(let i=0;i<a.length;i++) s+=(a[i]-b[i])**2; return s/a.length; }
+    const lines = [`${S.steps}`, `  ${S.fedformerMse} = ${mseCalc(FEDFORMER_SEQ,filtered).toFixed(3)}`];
+    panel.querySelector("#fedSteps").textContent = lines.join("\n");
+  }
+  kSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 122. Temporal Fusion Transformer (simplified GRN + variable selection)
+// ---------------------------------------------------------------------------
+function gatedResidualNetwork(xv, params) {
+  const eta2 = tanhFn(params.W1*xv+params.b1);
+  const eta1 = params.W2*eta2+params.b2;
+  const gate = sigmoidFn(params.Wg*eta1+params.bg);
+  return gate*eta1 + (1-gate)*xv;
+}
+function tftVariableSelection(vars, weights) {
+  const scores = vars.map((v,i) => weights[i]*v);
+  const w = softmaxInf(scores);
+  return { output: vars.reduce((s,v,i)=>s+w[i]*v,0), weights: w };
+}
+
+function mountTftDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 300, H = 220, PAD = 30;
+  const varLabels = LANG==="uk" ? ["momentum","обсяг","сентимент"] : ["momentum","volume","sentiment"];
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="tftSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${varLabels[0]} ${LANG==="uk"?"вага":"weight"} <span class="val" id="tftW0Val">2.0</span></label><input type="range" id="tftW0" min="0" max="4" step="0.1" value="2.0"></div>
+          <div class="demo-slider-row"><label>${varLabels[1]} ${LANG==="uk"?"вага":"weight"} <span class="val" id="tftW1Val">1.0</span></label><input type="range" id="tftW1" min="0" max="4" step="0.1" value="1.0"></div>
+          <div class="demo-slider-row"><label>${varLabels[2]} ${LANG==="uk"?"вага":"weight"} <span class="val" id="tftW2Val">0.5</span></label><input type="range" id="tftW2" min="0" max="4" step="0.1" value="0.5"></div>
+        </div>
+        <div class="demo-steps" id="tftSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.tftCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.tftAnalysis}</p></div>
+    ${relatedLinksHTML(["attention","sequential-dl"])}
+  `;
+
+  const els = ["tftW0","tftW1","tftW2"].map((id) => panel.querySelector("#"+id));
+  const svg = panel.querySelector("#tftSvg");
+  const tftVars = [0.02, -0.01, 0.005];
+
+  function render() {
+    const weights = els.map((el) => parseFloat(el.value));
+    weights.forEach((w,i) => { panel.querySelector(`#tftW${i}Val`).textContent = w.toFixed(1); });
+
+    const { output, weights: selW } = tftVariableSelection(tftVars, weights);
+    const barW = 60;
+    let bars = "";
+    selW.forEach((w,i) => { const h1=w*(H-2*PAD); bars += `<rect x="${PAD+i*80}" y="${H-PAD-h1}" width="${barW}" height="${h1.toFixed(1)}" fill="var(--mint)" opacity="0.8" /><text x="${PAD+i*80+barW/2}" y="${H-PAD+16}" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-soft)">${varLabels[i]}</text>`; });
+    svg.innerHTML = bars;
+
+    const lines = [`${S.steps}`, `  ${S.tftSelection}: [${selW.map((w)=>(w*100).toFixed(0)+"%").join(", ")}]`, `  ${LANG==="uk"?"зважений вихід":"weighted output"} = ${output.toFixed(4)}`];
+    panel.querySelector("#tftSteps").textContent = lines.join("\n");
+  }
+  els.forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+
+// ---------------------------------------------------------------------------
+// 123. Convolutional Autoencoder
+// ---------------------------------------------------------------------------
+function convAEForward(seq, encKernel, decKernel) {
+  const encoded = conv1dCNL(seq, encKernel);
+  const padded = [0, ...encoded, 0];
+  return { encoded, decoded: conv1dCNL(padded, decKernel) };
+}
+function convAELossFn(seq, encKernel, decKernel) {
+  const { decoded } = convAEForward(seq, encKernel, decKernel);
+  const len = Math.min(decoded.length, seq.length);
+  let s = 0; for (let i = 0; i < len; i++) s += (decoded[i]-seq[i])**2;
+  return s/len;
+}
+function trainConvAE(seq, kSize, steps, lr, rnd) {
+  let encKernel = Array.from({length:kSize}, () => 0.3*(rnd()-0.5));
+  let decKernel = Array.from({length:kSize}, () => 0.3*(rnd()-0.5));
+  const eps = 1e-4;
+  for (let s = 0; s < steps; s++) {
+    for (let i = 0; i < kSize; i++) { const k1=[...encKernel]; k1[i]+=eps; const k2=[...encKernel]; k2[i]-=eps; const g=(convAELossFn(seq,k1,decKernel)-convAELossFn(seq,k2,decKernel))/(2*eps); encKernel[i] -= lr*g; }
+    for (let i = 0; i < kSize; i++) { const k1=[...decKernel]; k1[i]+=eps; const k2=[...decKernel]; k2[i]-=eps; const g=(convAELossFn(seq,encKernel,k1)-convAELossFn(seq,encKernel,k2))/(2*eps); decKernel[i] -= lr*g; }
+  }
+  return { encKernel, decKernel, loss: convAELossFn(seq,encKernel,decKernel) };
+}
+const CONVAE_SEQ = (function () { const rnd = mulberry32(8); const out=[]; for (let i=0;i<20;i++) out.push(Math.sin(i*0.5)+gaussFrom(rnd)*0.1); return out; })();
+
+function mountConvAeDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 220, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="convAeSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--ink-faint)">●</span> ${LANG==="uk"?"оригінал":"original"} &nbsp; <span style="color:var(--mint)">●</span> ${LANG==="uk"?"реконструкція":"reconstructed"}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"кроки навчання":"training steps"} <span class="val" id="convAeStepsVal">300</span></label><input type="range" id="convAeSteps" min="0" max="600" step="30" value="300"></div>
+        </div>
+        <div class="demo-steps" id="convAeStepsPanel"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.convAeCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.convAeAnalysis}</p></div>
+    ${relatedLinksHTML(["autoencoders"])}
+  `;
+
+  const stepsSlider = panel.querySelector("#convAeSteps");
+  const svg = panel.querySelector("#convAeSvg");
+
+  function render() {
+    const steps = parseInt(stepsSlider.value, 10);
+    panel.querySelector("#convAeStepsVal").textContent = steps;
+
+    const { encKernel, decKernel, loss } = trainConvAE(CONVAE_SEQ, 3, steps, 0.1, mulberry32(8));
+    const { decoded } = convAEForward(CONVAE_SEQ, encKernel, decKernel);
+    const allVals = CONVAE_SEQ.concat(decoded);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: CONVAE_SEQ.length-1, yMin: Math.min(...allVals)-0.3, yMax: Math.max(...allVals)+0.3, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(1) });
+    const origPath = CONVAE_SEQ.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const decPath = decoded.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${origPath}" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4 3" />` + `<path d="${decPath}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    const lines = [`${S.steps}`, `  ${S.convAeLoss} = ${loss.toFixed(4)}`];
+    panel.querySelector("#convAeStepsPanel").textContent = lines.join("\n");
+  }
+  stepsSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 124. Transformer Autoencoder for Order Books
+// ---------------------------------------------------------------------------
+function transformerAEForward(book, Wq, Wk, Wv, Wout) {
+  const Q = book.map((e) => [Wq[0]*e[0]+Wq[1]*e[1], Wq[2]*e[0]+Wq[3]*e[1]]);
+  const K = book.map((e) => [Wk[0]*e[0]+Wk[1]*e[1], Wk[2]*e[0]+Wk[3]*e[1]]);
+  const V = book.map((e) => [Wv[0]*e[0]+Wv[1]*e[1], Wv[2]*e[0]+Wv[3]*e[1]]);
+  const scale = Math.sqrt(2);
+  const scores = Q.map((qi) => K.map((kj) => (qi[0]*kj[0]+qi[1]*kj[1])/scale));
+  const weights = scores.map((row) => softmaxInf(row));
+  const attnOut = weights.map((w) => { const o=[0,0]; w.forEach((wi,i)=>{ o[0]+=wi*V[i][0]; o[1]+=wi*V[i][1]; }); return o; });
+  return { recon: attnOut.map((o) => [Wout[0]*o[0]+Wout[1]*o[1], Wout[2]*o[0]+Wout[3]*o[1]]), weights };
+}
+function transformerAELossFn(book, Wq, Wk, Wv, Wout) {
+  const { recon } = transformerAEForward(book,Wq,Wk,Wv,Wout);
+  let s = 0; for (let i = 0; i < book.length; i++) s += (recon[i][0]-book[i][0])**2 + (recon[i][1]-book[i][1])**2;
+  return s/book.length;
+}
+function trainTransformerAE(book, steps, lr, rnd) {
+  let Wq = Array.from({length:4}, () => 0.3*(rnd()-0.5));
+  let Wk = Array.from({length:4}, () => 0.3*(rnd()-0.5));
+  let Wv = Array.from({length:4}, () => 0.3*(rnd()-0.5));
+  let Wout = Array.from({length:4}, () => 0.3*(rnd()-0.5));
+  const eps = 1e-4;
+  const groups = [["q",Wq],["k",Wk],["v",Wv],["out",Wout]];
+  for (let s = 0; s < steps; s++) {
+    for (const [name,W] of groups) {
+      for (let i = 0; i < 4; i++) {
+        const W1=[...W]; W1[i]+=eps; const W2=[...W]; W2[i]-=eps;
+        const argsP={q:Wq,k:Wk,v:Wv,out:Wout}; argsP[name]=W1;
+        const argsM={q:Wq,k:Wk,v:Wv,out:Wout}; argsM[name]=W2;
+        const g=(transformerAELossFn(book,argsP.q,argsP.k,argsP.v,argsP.out)-transformerAELossFn(book,argsM.q,argsM.k,argsM.v,argsM.out))/(2*eps);
+        W[i] -= lr*g;
+      }
+    }
+  }
+  return { Wq, Wk, Wv, Wout, loss: transformerAELossFn(book,Wq,Wk,Wv,Wout) };
+}
+const TAE_BOOK = [[100,50],[99.5,30],[99,80],[100.5,20],[101,60]];
+const TAE_BOOK_NORM = TAE_BOOK.map(([p,s]) => [p-100, s/50]);
+
+function mountTransformerAeDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 220, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="taeSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"кроки навчання":"training steps"} <span class="val" id="taeStepsVal">500</span></label><input type="range" id="taeSteps" min="0" max="1000" step="50" value="500"></div>
+        </div>
+        <div class="demo-steps" id="taeStepsPanel"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.transformerAeCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.transformerAeAnalysis}</p></div>
+    ${relatedLinksHTML(["autoencoders","microstructure"])}
+  `;
+
+  const stepsSlider = panel.querySelector("#taeSteps");
+  const svg = panel.querySelector("#taeSvg");
+
+  function render() {
+    const steps = parseInt(stepsSlider.value, 10);
+    panel.querySelector("#taeStepsVal").textContent = steps;
+
+    const { Wq,Wk,Wv,Wout, loss } = trainTransformerAE(TAE_BOOK_NORM, steps, 0.02, mulberry32(9));
+    const { recon, weights } = transformerAEForward(TAE_BOOK_NORM, Wq, Wk, Wv, Wout);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: -1.5, xMax: 1.5, yMin: 0, yMax: 2, xTicks: 4, yTicks: 4, xFmt: (v)=>v.toFixed(1), yFmt: (v)=>v.toFixed(1), xLabel: LANG==="uk"?"ціна (від mid)":"price (from mid)", yLabel: LANG==="uk"?"обсяг (норм.)":"size (norm.)" });
+    const origDots = TAE_BOOK_NORM.map((p) => `<circle cx="${x(p[0]).toFixed(1)}" cy="${y(p[1]).toFixed(1)}" r="4" fill="var(--ink-faint)" />`).join("");
+    const reconDots = recon.map((p) => `<circle cx="${x(p[0]).toFixed(1)}" cy="${y(p[1]).toFixed(1)}" r="4" fill="var(--mint)" />`).join("");
+    svg.innerHTML = axesSvg + origDots + reconDots;
+
+    const lines = [`${S.steps}`, `  ${S.transformerAeLoss} = ${loss.toFixed(4)}`];
+    panel.querySelector("#taeStepsPanel").textContent = lines.join("\n");
+  }
+  stepsSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 125. GNN + Transformer Hybrid
+// ---------------------------------------------------------------------------
+function gcnLayerHyb(Ahat, H, Wm) { const AH = Ahat.map((row) => { const out=new Array(H[0].length).fill(0); row.forEach((a,j)=>{ H[j].forEach((h,d)=>{ out[d]+=a*h; }); }); return out; }); return AH.map((row) => Wm[0].map((_,c)=>row.reduce((s,v,r)=>s+v*Wm[r][c],0))); }
+function normalizeAdjHyb(A) { const n=A.length; const Aself = A.map((row,i)=>row.map((v,j)=>v+(i===j?1:0))); const deg = Aself.map((row)=>row.reduce((a,b)=>a+b,0)); return Aself.map((row,i)=>row.map((v,j)=>v/Math.sqrt(deg[i]*deg[j]))); }
+function gnnTransformerHybrid(A, H0, Wgcn, sharpness) {
+  const Ahat = normalizeAdjHyb(A);
+  const H1 = gcnLayerHyb(Ahat, H0, Wgcn);
+  const scale = Math.sqrt(2)/sharpness;
+  const scores = H1.map((qi) => H1.map((kj) => (qi[0]*kj[0]+qi[1]*kj[1])/scale));
+  const weights = scores.map((row) => softmaxInf(row));
+  const out = weights.map((w) => { const o=[0,0]; w.forEach((wi,i)=>{ o[0]+=wi*H1[i][0]; o[1]+=wi*H1[i][1]; }); return o; });
+  return { out, weights, H1 };
+}
+const HYB_ADJ = [[0,1,0,0],[1,0,1,0],[0,1,0,1],[0,0,1,0]];
+const HYB_H0 = [[1,0.2],[0.8,0.4],[0.3,0.9],[0.1,0.1]];
+const HYB_WGCN = [[0.5,0.2],[0.1,0.6]];
+const HYB_POS = [[60,150],[150,80],[150,220],[240,150]];
+
+function mountGnnTransDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 300, H = 300;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="gnnTransSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${S.gnnTransSharpness} <span class="val" id="gnnTransSharpVal">1.0</span></label><input type="range" id="gnnTransSharp" min="0.2" max="10" step="0.2" value="1.0"></div>
+        </div>
+        <div class="demo-steps" id="gnnTransSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.gnnTransCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.gnnTransAnalysis}</p></div>
+    ${relatedLinksHTML(["graph","attention"])}
+  `;
+
+  const sharpSlider = panel.querySelector("#gnnTransSharp");
+  const svg = panel.querySelector("#gnnTransSvg");
+
+  function render() {
+    const sharpness = parseFloat(sharpSlider.value);
+    panel.querySelector("#gnnTransSharpVal").textContent = sharpness.toFixed(1);
+
+    const { weights } = gnnTransformerHybrid(HYB_ADJ, HYB_H0, HYB_WGCN, sharpness);
+    let edges = "";
+    for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) {
+      if (i===j) continue;
+      const w = weights[i][j];
+      edges += `<line x1="${HYB_POS[i][0]}" y1="${HYB_POS[i][1]}" x2="${HYB_POS[j][0]}" y2="${HYB_POS[j][1]}" stroke="var(--mint)" stroke-width="${(w*8).toFixed(1)}" opacity="0.6" />`;
+    }
+    const nodes = HYB_POS.map((p,i) => `<circle cx="${p[0]}" cy="${p[1]}" r="18" fill="var(--card)" stroke="var(--ink-soft)" stroke-width="1.5" /><text x="${p[0]}" y="${p[1]+4}" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink)">${i}</text>`).join("");
+    svg.innerHTML = edges + nodes;
+
+    const lines = [`${S.steps}`, `  attn(0,·) = [${weights[0].map((w)=>w.toFixed(2)).join(", ")}]`];
+    panel.querySelector("#gnnTransSteps").textContent = lines.join("\n");
+  }
+  sharpSlider.addEventListener("input", render);
+  render();
+}
+
+
+// ---------------------------------------------------------------------------
+// 126. Fuzzy Semi-Supervised Outlier Detection
+// ---------------------------------------------------------------------------
+function fuzzySSOD(points, labeledIdx, labels, c) {
+  const centers = [];
+  for (let k = 0; k < c; k++) {
+    const idxForK = labeledIdx.filter((idx,i) => labels[i]===k);
+    if (idxForK.length===0) { centers.push(points[0]); continue; }
+    const cx = idxForK.reduce((s,idx) => s+points[idx][0], 0)/idxForK.length;
+    const cy = idxForK.reduce((s,idx) => s+points[idx][1], 0)/idxForK.length;
+    centers.push([cx,cy]);
+  }
+  const m = 2.0;
+  const memberships = points.map((p,i) => {
+    const labeledPos = labeledIdx.indexOf(i);
+    if (labeledPos>=0) { const u=new Array(c).fill(0); u[labels[labeledPos]]=1; return u; }
+    const d = centers.map((cc) => Math.hypot(p[0]-cc[0],p[1]-cc[1])+1e-6);
+    return d.map((dj) => { let sum=0; for (let k=0;k<c;k++) sum+=Math.pow(dj/d[k],2/(m-1)); return 1/sum; });
+  });
+  return { centers, memberships, outlierScores: memberships.map((u) => 1-Math.max(...u)) };
+}
+const SSOD_POINTS = (function () {
+  const rnd = mulberry32(10);
+  const pts = [];
+  for (let i = 0; i < 15; i++) pts.push([gaussFrom(rnd)*0.3-2, gaussFrom(rnd)*0.3-2]);
+  for (let i = 0; i < 15; i++) pts.push([gaussFrom(rnd)*0.3+2, gaussFrom(rnd)*0.3+2]);
+  pts.push([0,0]);
+  return pts;
+})();
+
+function mountFuzzySsodDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 300, H = 300, PAD = 20;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="ssodSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"поріг аномальності":"anomaly threshold"} <span class="val" id="ssodThreshVal">0.30</span></label><input type="range" id="ssodThresh" min="0.05" max="0.5" step="0.01" value="0.30"></div>
+        </div>
+        <div class="demo-steps" id="ssodSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.fuzzySsodCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.fuzzySsodAnalysis}</p></div>
+    ${relatedLinksHTML(["fuzzy","unsupervised-outliers"])}
+  `;
+
+  const threshSlider = panel.querySelector("#ssodThresh");
+  const svg = panel.querySelector("#ssodSvg");
+  const labeledIdx = [0,15], labels = [0,1];
+  const xMin=-3, xMax=3, yMin=-3, yMax=3;
+
+  function render() {
+    const threshold = parseFloat(threshSlider.value);
+    panel.querySelector("#ssodThreshVal").textContent = threshold.toFixed(2);
+
+    const { outlierScores } = fuzzySSOD(SSOD_POINTS, labeledIdx, labels, 2);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin, yMax, xTicks: 4, yTicks: 4, xFmt: (v)=>v.toFixed(0), yFmt: (v)=>v.toFixed(0) });
+    const dots = SSOD_POINTS.map((p,i) => { const isOutlier = outlierScores[i]>threshold; return `<circle cx="${x(p[0]).toFixed(1)}" cy="${y(p[1]).toFixed(1)}" r="${isOutlier?6:4}" fill="${isOutlier?"var(--level-3)":"var(--mint)"}" opacity="0.85" />`; }).join("");
+    svg.innerHTML = axesSvg + dots;
+
+    const nOutliers = outlierScores.filter((s) => s>threshold).length;
+    const lines = [`${S.steps}`, `  ${S.fuzzySsodOutlier}(0,0) = ${outlierScores[30].toFixed(3)}`, `  ${LANG==="uk"?"позначено як аномалії":"flagged as anomalies"}: ${nOutliers}/${SSOD_POINTS.length}`];
+    panel.querySelector("#ssodSteps").textContent = lines.join("\n");
+  }
+  threshSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 127. Limit Order Book Simulation
+// ---------------------------------------------------------------------------
+function simulateLOB(steps, arrivalRate, cancelRate, rnd) {
+  let bids = [{price:99.5,size:100},{price:99.0,size:150}];
+  let asks = [{price:100.5,size:100},{price:101.0,size:150}];
+  const midHistory = [];
+  for (let t = 0; t < steps; t++) {
+    const r = rnd();
+    if (r < arrivalRate*0.4) { bids.push({price: 99.5-rnd()*2, size: 20+rnd()*80}); bids.sort((a,b)=>b.price-a.price); }
+    else if (r < arrivalRate*0.8) { asks.push({price: 100.5+rnd()*2, size: 20+rnd()*80}); asks.sort((a,b)=>a.price-b.price); }
+    else if (r < arrivalRate*0.9) { if (asks.length>0) { asks[0].size -= 30; if (asks[0].size<=0) asks.shift(); } }
+    else if (r < arrivalRate) { if (bids.length>0) { bids[0].size -= 30; if (bids[0].size<=0) bids.shift(); } }
+    if (rnd()<cancelRate && bids.length>1) bids.pop();
+    if (rnd()<cancelRate && asks.length>1) asks.pop();
+    if (bids.length===0) bids=[{price:99,size:100}];
+    if (asks.length===0) asks=[{price:101,size:100}];
+    midHistory.push((bids[0].price+asks[0].price)/2);
+  }
+  return { midHistory, finalBids: bids.slice(0,4), finalAsks: asks.slice(0,4) };
+}
+
+function mountLobSimDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 220, PAD = 30;
+  let seed = 11;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="lobSimSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"частота подій":"event rate"} <span class="val" id="lobArrivalVal">0.70</span></label><input type="range" id="lobArrival" min="0.2" max="1" step="0.05" value="0.70"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"частота скасувань":"cancel rate"} <span class="val" id="lobCancelVal">0.05</span></label><input type="range" id="lobCancel" min="0" max="0.3" step="0.01" value="0.05"></div>
+          <button type="button" class="demo-run-btn" id="lobRun">${S.runNewRound}</button>
+        </div>
+        <div class="demo-steps" id="lobSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.lobSimCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.lobSimAnalysis}</p></div>
+    ${relatedLinksHTML(["microstructure"])}
+  `;
+
+  const arrivalSlider = panel.querySelector("#lobArrival"), cancelSlider = panel.querySelector("#lobCancel"), runBtn = panel.querySelector("#lobRun");
+  const svg = panel.querySelector("#lobSimSvg");
+
+  function render() {
+    const arrivalRate = parseFloat(arrivalSlider.value), cancelRate = parseFloat(cancelSlider.value);
+    panel.querySelector("#lobArrivalVal").textContent = arrivalRate.toFixed(2);
+    panel.querySelector("#lobCancelVal").textContent = cancelRate.toFixed(2);
+
+    const { midHistory } = simulateLOB(100, arrivalRate, cancelRate, mulberry32(seed));
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: midHistory.length-1, yMin: Math.min(...midHistory)-0.1, yMax: Math.max(...midHistory)+0.1, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(2), xLabel: "t", yLabel: "mid" });
+    const path = midHistory.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${path}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    const lines = [`${S.steps}`, `  ${S.lobSimMidPrice} range: [${Math.min(...midHistory).toFixed(2)}, ${Math.max(...midHistory).toFixed(2)}]`];
+    panel.querySelector("#lobSteps").textContent = lines.join("\n");
+  }
+  [arrivalSlider, cancelSlider].forEach((el) => el.addEventListener("input", render));
+  runBtn.addEventListener("click", () => { seed = Math.floor(Math.random()*100000); render(); });
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 128. FinBERT / Financial Transformers (bag-of-words proxy classifier)
+// ---------------------------------------------------------------------------
+function trainFinBertProxy(docs, labels, V, steps, lr) {
+  let w = new Array(V).fill(0), b = 0;
+  function docVec(doc) { const v=new Array(V).fill(0); doc.forEach((wIdx)=>v[wIdx]++); return v; }
+  const vecs = docs.map(docVec);
+  for (let s = 0; s < steps; s++) {
+    let gw = new Array(V).fill(0), gb = 0;
+    for (let i = 0; i < vecs.length; i++) { const z = vecs[i].reduce((sum,v,j)=>sum+v*w[j],0)+b; const p = sigmoidFn(z); const err = p-labels[i]; for (let j=0;j<V;j++) gw[j]+=err*vecs[i][j]; gb+=err; }
+    for (let j = 0; j < V; j++) w[j] -= lr*gw[j]/vecs.length;
+    b -= lr*gb/vecs.length;
+  }
+  return { w, b, predict: (doc) => { const v=new Array(V).fill(0); doc.forEach((i)=>v[i]++); return sigmoidFn(v.reduce((s,vv,j)=>s+vv*w[j],0)+b); } };
+}
+const FINBERT_VOCAB = ["beat","miss","growth","decline","strong","weak"];
+const FINBERT_DOCS = [[0,2],[0,4],[1,3],[1,5],[2,4],[3,5]];
+const FINBERT_LABELS = [1,1,0,0,1,0];
+const FINBERT_HEADLINES_UK = ["перевищив і виріс","перевищив і сильний","пропустив і впав","пропустив і слабкий","зростання і сильний","падіння і слабкий"];
+const FINBERT_HEADLINES_EN = ["beat and growth","beat and strong","miss and decline","miss and weak","growth and strong","decline and weak"];
+
+function mountFinbertDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 220, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="finbertSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"кроки навчання":"training steps"} <span class="val" id="finbertStepsVal">300</span></label><input type="range" id="finbertSteps" min="0" max="600" step="30" value="300"></div>
+        </div>
+        <div class="demo-steps" id="finbertStepsPanel"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.finbertCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.finbertAnalysis}</p></div>
+    ${relatedLinksHTML(["nlp","attention"])}
+  `;
+
+  const stepsSlider = panel.querySelector("#finbertSteps");
+  const svg = panel.querySelector("#finbertSvg");
+  const headlines = LANG==="uk" ? FINBERT_HEADLINES_UK : FINBERT_HEADLINES_EN;
+
+  function render() {
+    const steps = parseInt(stepsSlider.value, 10);
+    panel.querySelector("#finbertStepsVal").textContent = steps;
+
+    const model = trainFinBertProxy(FINBERT_DOCS, FINBERT_LABELS, FINBERT_VOCAB.length, steps, 0.5);
+    const preds = FINBERT_DOCS.map((doc) => model.predict(doc));
+    const barH = 24, gap = 6;
+    let bars = "";
+    preds.forEach((p,i) => {
+      const yy = PAD+i*(barH+gap);
+      const bw = p*(W-2*PAD-100);
+      bars += `<rect x="${PAD+90}" y="${yy}" width="${bw.toFixed(1)}" height="${barH-2}" fill="${FINBERT_LABELS[i]===1?"var(--mint)":"var(--level-3)"}" opacity="0.8" />`;
+      bars += `<text x="${PAD+85}" y="${yy+barH/2}" text-anchor="end" font-family="var(--mono)" font-size="8" fill="var(--ink-soft)">${headlines[i]}</text>`;
+    });
+    svg.innerHTML = bars;
+
+    const lines = [`${S.steps}`, ...FINBERT_DOCS.map((_,i) => `  ${headlines[i]}: ${S.finbertPred} = ${preds[i].toFixed(2)}`)];
+    panel.querySelector("#finbertStepsPanel").textContent = lines.join("\n");
+  }
+  stepsSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 129. Combinatorial Purged Cross-Validation
+// ---------------------------------------------------------------------------
+function combinations(arr, k) {
+  if (k===0) return [[]];
+  if (arr.length<k) return [];
+  const [first,...rest] = arr;
+  return [...combinations(rest,k-1).map((c)=>[first,...c]), ...combinations(rest,k)];
+}
+function combinatorialPurgedCV(n, nGroups, nTestGroups, embargoFrac) {
+  const groupSize = Math.floor(n/nGroups);
+  const groups = Array.from({length:nGroups}, (_,g) => ({ start: g*groupSize, end: g===nGroups-1?n:(g+1)*groupSize }));
+  const combos = combinations(groups.map((_,i)=>i), nTestGroups);
+  const embargoSize = Math.floor(n*embargoFrac);
+  return combos.map((testGroupIdx) => {
+    const testRanges = testGroupIdx.map((gi) => groups[gi]);
+    let trainCount = 0;
+    for (let i = 0; i < n; i++) {
+      let purged = false;
+      for (const r of testRanges) { if (i>=r.start-embargoSize && i<r.end+embargoSize) { purged=true; break; } }
+      if (!purged) trainCount++;
+    }
+    return { testGroups: testGroupIdx, trainCount };
+  });
+}
+
+function mountCpcvDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 220, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="cpcvSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>N (${LANG==="uk"?"груп":"groups"}) <span class="val" id="cpcvNVal">6</span></label><input type="range" id="cpcvN" min="4" max="10" step="1" value="6"></div>
+          <div class="demo-slider-row"><label>k (${LANG==="uk"?"тестових груп":"test groups"}) <span class="val" id="cpcvKVal">2</span></label><input type="range" id="cpcvK" min="1" max="4" step="1" value="2"></div>
+        </div>
+        <div class="demo-steps" id="cpcvSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.cpcvCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.cpcvAnalysis}</p></div>
+    ${relatedLinksHTML(["validation"])}
+  `;
+
+  const nSlider = panel.querySelector("#cpcvN"), kSlider = panel.querySelector("#cpcvK");
+  const svg = panel.querySelector("#cpcvSvg");
+
+  function factorial(n) { return n<=1 ? 1 : n*factorial(n-1); }
+
+  function render() {
+    const nGroups = parseInt(nSlider.value, 10), nTestGroups = Math.min(parseInt(kSlider.value,10), nGroups-1);
+    panel.querySelector("#cpcvNVal").textContent = nGroups;
+    panel.querySelector("#cpcvKVal").textContent = nTestGroups;
+
+    const splits = combinatorialPurgedCV(100, nGroups, nTestGroups, 0.02);
+    const nCombos = factorial(nGroups)/(factorial(nTestGroups)*factorial(nGroups-nTestGroups));
+
+    const barW = Math.min(200, splits.length*8);
+    svg.innerHTML = `<text x="${W/2}" y="${H/2-10}" text-anchor="middle" font-family="var(--mono)" font-size="24" fill="var(--mint)">${splits.length}</text><text x="${W/2}" y="${H/2+16}" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--ink-soft)">C(${nGroups},${nTestGroups}) = ${nCombos}</text>`;
+
+    const avgTrain = splits.reduce((s,sp)=>s+sp.trainCount,0)/splits.length;
+    const lines = [`${S.steps}`, `  ${S.cpcvCombos} = ${splits.length}`, `  ${S.cpcvTrainSize} (avg) = ${avgTrain.toFixed(0)}`];
+    panel.querySelector("#cpcvSteps").textContent = lines.join("\n");
+  }
+  [nSlider, kSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 130. Antibenford Subgraphs
+// ---------------------------------------------------------------------------
+function leadingDigitAB(xv) { xv=Math.abs(xv); if (xv===0) return 0; while (xv>=10) xv/=10; while (xv<1) xv*=10; return Math.floor(xv); }
+function benfordExpectedAB(d) { return Math.log10(1+1/d); }
+function subgraphBenfordDeviation(edgeWeights) {
+  const counts = new Array(10).fill(0);
+  for (const wv of edgeWeights) counts[leadingDigitAB(wv)]++;
+  const n = edgeWeights.length;
+  let chi2 = 0;
+  for (let d = 1; d <= 9; d++) { const observed = counts[d]/n; const expected = benfordExpectedAB(d); chi2 += ((observed-expected)**2)/expected; }
+  return { chi2, counts, n };
+}
+const ANTIBENFORD_NORMAL = (function () { const rnd = mulberry32(12); const out=[]; for (let i=0;i<50;i++) { let v=1; for (let k=0;k<6;k++) v*=(0.5+rnd()*1.5); out.push(v*1000); } return out; })();
+const ANTIBENFORD_SUSPICIOUS = (function () { const rnd = mulberry32(13); const out=[]; for (let i=0;i<50;i++) out.push(Math.round((1000+rnd()*9000)/100)*100); return out; })();
+
+function mountAntibenfordDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 220, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="abSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-preset-row">
+            <label>${LANG==="uk"?"підграф":"subgraph"}</label>
+            <select id="abType"><option value="normal">${LANG==="uk"?"нормальний":"normal"}</option><option value="suspicious">${LANG==="uk"?"підозрілий (layering)":"suspicious (layering)"}</option></select>
+          </div>
+        </div>
+        <div class="demo-steps" id="abSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.antibenfordCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.antibenfordAnalysis}</p></div>
+    ${relatedLinksHTML(["systemic","fraud"])}
+  `;
+
+  const typeSelect = panel.querySelector("#abType");
+  const svg = panel.querySelector("#abSvg");
+
+  function render() {
+    const weights = typeSelect.value==="normal" ? ANTIBENFORD_NORMAL : ANTIBENFORD_SUSPICIOUS;
+    const { chi2, counts, n } = subgraphBenfordDeviation(weights);
+    const expected = Array.from({length:9}, (_,i) => benfordExpectedAB(i+1));
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0.5, xMax: 9.5, yMin: 0, yMax: 0.35, xTicks: 9, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>(v*100).toFixed(0)+"%" });
+    let bars = "";
+    for (let d = 1; d <= 9; d++) { const observed = counts[d]/n; bars += `<rect x="${(x(d-0.25)).toFixed(1)}" y="${y(observed).toFixed(1)}" width="${(x(d+0.25)-x(d-0.25)).toFixed(1)}" height="${(H-PAD-y(observed)).toFixed(1)}" fill="var(--mint)" opacity="0.8" />`; }
+    const expPath = expected.map((v,i) => `${i===0?"M":"L"} ${x(i+1).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + bars + `<path d="${expPath}" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4 3" />`;
+
+    const lines = [`${S.steps}`, `  ${S.antibenfordChi2} = ${chi2.toFixed(3)}`];
+    panel.querySelector("#abSteps").textContent = lines.join("\n");
+  }
+  typeSelect.addEventListener("change", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 131. Satellite / Geospatial Data
+// ---------------------------------------------------------------------------
+function correlateArrays(a, b) {
+  const n = a.length;
+  const ma = a.reduce((x,y)=>x+y,0)/n, mb = b.reduce((x,y)=>x+y,0)/n;
+  let num=0, denA=0, denB=0;
+  for (let i=0;i<n;i++) { num += (a[i]-ma)*(b[i]-mb); denA += (a[i]-ma)**2; denB += (b[i]-mb)**2; }
+  return num/Math.sqrt(denA*denB);
+}
+const SATELLITE_DATA = (function () {
+  const rnd = mulberry32(13);
+  const nWeeks = 40;
+  const fill = [], sales = [];
+  for (let i = 0; i < nWeeks; i++) { const base = 0.5+0.3*Math.sin(i*2*Math.PI/12); const f = Math.max(0,Math.min(1,base+gaussFrom(rnd)*0.05)); fill.push(f); sales.push(f*1000000+gaussFrom(rnd)*50000); }
+  return { fill, sales };
+})();
+
+function mountSatelliteDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 220, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="satSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"шум вимірювання":"measurement noise"} <span class="val" id="satNoiseVal">0.05</span></label><input type="range" id="satNoise" min="0.01" max="0.3" step="0.01" value="0.05"></div>
+        </div>
+        <div class="demo-steps" id="satSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.satelliteCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.satelliteAnalysis}</p></div>
+    ${relatedLinksHTML(["alt-data"])}
+  `;
+
+  const noiseSlider = panel.querySelector("#satNoise");
+  const svg = panel.querySelector("#satSvg");
+
+  function render() {
+    const noise = parseFloat(noiseSlider.value);
+    panel.querySelector("#satNoiseVal").textContent = noise.toFixed(2);
+
+    const rnd = mulberry32(20);
+    const noisyFill = SATELLITE_DATA.fill.map((f) => Math.max(0,Math.min(1,f+gaussFrom(rnd)*noise)));
+    const corr = correlateArrays(noisyFill, SATELLITE_DATA.sales);
+
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: 1, yMin: Math.min(...SATELLITE_DATA.sales)-50000, yMax: Math.max(...SATELLITE_DATA.sales)+50000, xTicks: 4, yTicks: 4, xFmt: (v)=>(v*100).toFixed(0)+"%", yFmt: (v)=>(v/1e6).toFixed(2)+"M", xLabel: LANG==="uk"?"заповненість парковки":"parking fill rate", yLabel: LANG==="uk"?"продажі":"sales" });
+    const dots = noisyFill.map((f,i) => `<circle cx="${x(f).toFixed(1)}" cy="${y(SATELLITE_DATA.sales[i]).toFixed(1)}" r="3" fill="var(--mint)" opacity="0.7" />`).join("");
+    svg.innerHTML = axesSvg + dots;
+
+    const lines = [`${S.steps}`, `  ${S.satelliteCorr} = ${corr.toFixed(3)}`];
+    panel.querySelector("#satSteps").textContent = lines.join("\n");
+  }
+  noiseSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 132. Web-Scraped & App-Usage Signals
+// ---------------------------------------------------------------------------
+function computeAppUsageSignal(dau, sessionLength) {
+  const engagement = dau.map((d,i) => d*sessionLength[i]);
+  const growth = [];
+  for (let i = 7; i < engagement.length; i++) growth.push((engagement[i]-engagement[i-7])/engagement[i-7]);
+  return growth;
+}
+const WEBSCRAPED_DATA = (function () {
+  const rnd = mulberry32(14);
+  const dau = []; let d = 10000;
+  for (let i = 0; i < 60; i++) { d *= (1+0.005+gaussFrom(rnd)*0.02); dau.push(d); }
+  const sessionLen = dau.map(() => 5+gaussFrom(rnd)*0.5);
+  return { dau, sessionLen };
+})();
+
+function mountWebScrapedDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 220, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="webSvg"></svg></div>
+      <div>
+        <div class="demo-steps" id="webSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.webScrapedCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.webScrapedAnalysis}</p></div>
+    ${relatedLinksHTML(["alt-data"])}
+  `;
+
+  const svg = panel.querySelector("#webSvg");
+  const { dau, sessionLen } = WEBSCRAPED_DATA;
+  const growth = computeAppUsageSignal(dau, sessionLen);
+  const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: growth.length-1, yMin: Math.min(...growth)-0.05, yMax: Math.max(...growth)+0.05, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>(v*100).toFixed(0)+"%", xLabel: "t", yLabel: S.webScrapedGrowth });
+  const path = growth.map((v,i) => `${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+  const zeroY = y(0);
+  svg.innerHTML = axesSvg + `<line x1="${PAD}" y1="${zeroY.toFixed(1)}" x2="${W-PAD}" y2="${zeroY.toFixed(1)}" stroke="var(--ink-faint)" stroke-width="1" />` + `<path d="${path}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+  const lines = [`${S.steps}`, `  ${S.webScrapedGrowth} (${LANG==="uk"?"останнє значення":"latest"}) = ${(growth[growth.length-1]*100).toFixed(2)}%`];
+  panel.querySelector("#webSteps").textContent = lines.join("\n");
+}
+
+
 const DEMOS = {
   "volatility::GARCH(1,1)": { mount: mountGarchDemo },
   "unsupervised-outliers::Isolation Forest": { mount: mountIsoForestDemo },
@@ -10139,6 +11402,23 @@ const DEMOS = {
   "risk-measures::Value-at-Risk (VaR)": { mount: mountVarBasicDemo },
   "portfolio::CVaR Optimization": { mount: mountCvarOptDemo },
   "credit::Reduced-Form (Intensity) Models": { mount: mountReducedFormDemo },
+  "factor::Autoencoder Asset Pricing": { mount: mountAeApDemo },
+  "unsupervised-outliers::Deep Isolation Forest": { mount: mountDeepIsoDemo },
+  "sequential-dl::CNN-LSTM Hybrid": { mount: mountCnnLstmDemo },
+  "sequential-dl::ConvLSTM": { mount: mountConvLstmDemo },
+  "attention::Informer": { mount: mountInformerDemo },
+  "attention::FEDformer": { mount: mountFedformerDemo },
+  "attention::Temporal Fusion Transformer": { mount: mountTftDemo },
+  "autoencoders::Convolutional Autoencoder": { mount: mountConvAeDemo },
+  "autoencoders::Transformer Autoencoder for Order Books": { mount: mountTransformerAeDemo },
+  "graph::GNN + Transformer Hybrids": { mount: mountGnnTransDemo },
+  "fuzzy::Fuzzy Semi-Supervised Outlier Detection": { mount: mountFuzzySsodDemo },
+  "microstructure::Limit Order Book Simulation": { mount: mountLobSimDemo },
+  "nlp::FinBERT / Financial Transformers": { mount: mountFinbertDemo },
+  "validation::Combinatorial Purged Cross-Validation": { mount: mountCpcvDemo },
+  "systemic::Antibenford Subgraphs": { mount: mountAntibenfordDemo },
+  "alt-data::Satellite / Geospatial Data": { mount: mountSatelliteDemo },
+  "alt-data::Web-Scraped & App-Usage Signals": { mount: mountWebScrapedDemo },
 };
 
 function applyFilters() {
