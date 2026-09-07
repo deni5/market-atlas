@@ -509,6 +509,72 @@ const DEMO_STRINGS = {
     mesHighBeta: "установа з високою бетою",
     mesLowBeta: "установа з низькою бетою",
     modelsCountSuffix: "тем",
+    seq2seqCallout: "Seq2Seq стискає вхідну послідовність у єдиний вектор (кодувальник), а потім генерує вихідну послідовність довільної довжини з цього вектора (декодувальник) — саме ця архітектура лежить в основі прогнозування на кілька кроків вперед одразу, а не по одному кроку.",
+    seq2seqAnalysis: "Проста Seq2Seq-архітектура стискає всю вхідну інформацію в один вектор фіксованого розміру — для довгих послідовностей це вузьке місце, яке механізм уваги (Transformer, Attention) якраз усуває, дозволяючи декодеру 'дивитись' на всі вхідні кроки напряму.",
+    seq2seqInput: "вхід",
+    seq2seqOutput: "вихід (прогноз)",
+    lstmAeCallout: "LSTM-автоенкодер стискає всю часову послідовність в один вектор прихованого стану LSTM-кодувальника, а потім відтворює послідовність назад — це дозволяє виявляти аномальні часові патерни через високу похибку реконструкції, подібно до TAnoGAN, але без адверсаріального навчання.",
+    lstmAeAnalysis: "На відміну від простого лінійного автоенкодера, LSTM-версія може стискати послідовності змінної довжини в вектор фіксованого розміру — але це вимагає значно більше параметрів і довшого навчання для збіжності.",
+    lstmAeLoss: "похибка реконструкції",
+    gaeCallout: "Graph Autoencoder кодує кожен вузол графа у вектор ознак (враховуючи структуру зв'язків через GCN), а потім намагається відтворити саму матрицю суміжності через скалярний добуток векторів — вузли, що часто з'являються поруч у графі, отримують схожі вектори.",
+    gaeAnalysis: "Проста лінійна версія (без прихованого шару) навчається стабільніше на малих графах — повношаровий GCN з ReLU часто страждає від 'мертвих' нейронів на такому малому масштабі даних, що ілюструє реальну складність тренування глибоких GNN.",
+    gaeLoss: "похибка реконструкції (крос-ентропія)",
+    genFuzzyCallout: "Генетично-нечіткий гібрид використовує еволюційний пошук (як у Genetic Algorithm) для налаштування параметрів нечіткої системи (центри й ширина функцій належності) — замість градієнтного спуску, як в ANFIS, що корисно, коли цільова функція негладка чи недиференційовна.",
+    genFuzzyAnalysis: "Еволюційний пошук зазвичай повільніше збігається за градієнтні методи для гладких задач, але не застрягає в локальних мінімумах так само легко — компроміс між швидкістю та стійкістю до складного ландшафту втрат.",
+    genFuzzyFitness: "придатність (менше похибки = краще)",
+    acdCallout: "ACD моделює час між угодами так само, як GARCH моделює волатильність — 'кластеризація тривалості': після сплеску частих угод (коротких інтервалів) наступні інтервали теж, як правило, короткі, поки ринок не заспокоїться.",
+    acdAnalysis: "ACD передбачає, що очікувана тривалість між угодами й фактична тривалість пов'язані мультиплікативно через випадковий шум — на реальних даних ця структура часто ускладнена внутрішньоденною сезонністю (більше угод на відкритті й закритті торгів).",
+    acdDuration: "очікувана тривалість",
+    eventStudyCallout: "Кумулятивна анормальна дохідність (CAR) вимірює, скільки саме дохідності 'зверху' над очікуваним ринковим рухом акція отримала навколо конкретної події (звіт про прибутки, новина) — стрибок CAR точно в день події є прямим доказом, що ринок відреагував на цю конкретну інформацію.",
+    eventStudyAnalysis: "Метод передбачає, що бета акції (чутливість до ринку) стабільна протягом вікна події — якщо сама подія змінює ризиковий профіль компанії, оцінена анормальна дохідність буде спотворена цим зсувом бети.",
+    eventStudyCar: "кумулятивна анормальна дохідність (CAR)",
+    attnWeightCallout: "Візуалізація ваг уваги показує напряму, на які саме інші елементи послідовності модель 'дивиться' найбільше при обробці конкретного токена — на відміну від SHAP чи LIME, тут не потрібна окрема модель-сурогат: вага уваги вже є прямим і зрозумілим поясненням.",
+    attnWeightAnalysis: "Високі ваги уваги не обов'язково означають причинний зв'язок — модель може 'дивитись' на певний елемент через кореляцію в тренувальних даних, а не через справжню причинно-наслідкову важливість цього елемента для прогнозу.",
+    attnWeightRow: "ваги уваги для вибраного токена",
+    wrcCallout: "Тест Уайта прямо відповідає на питання data-snooping: якщо протестувати сотні торгових стратегій, найкраща з них завжди виглядатиме прибутковою просто випадково — бутстреп-тест обчислює, наскільки ймовірно отримати настільки хороший результат, якби всі стратегії насправді не мали жодного реального навику.",
+    wrcAnalysis: "p-значення тесту Уайта завжди зростає з кількістю протестованих стратегій — це та сама data-snooping bias, яку вимірює Deflated Sharpe Ratio; обидва інструменти вирішують по суті одну проблему різними статистичними методами.",
+    wrcPValue: "p-значення",
+    wrcBestObs: "найкращий спостережений результат",
+    mcVarCallout: "На відміну від параметричного VaR, Monte Carlo дозволяє моделювати складні нелінійні портфелі (опціони, структуровані продукти) — досить симулювати тисячі можливих сценаріїв ринку й пропустити кожен через повну модель ціноутворення портфеля.",
+    mcVarAnalysis: "При простому геометричному броунівському русі результат Monte Carlo VaR майже точно збігається з параметричною формулою — перевага методу проявляється лише коли портфель містить нелінійні інструменти (опціони), де параметрична формула взагалі не застосовна.",
+    mcVarValue: "Monte Carlo VaR",
+    mcVarAnalytical: "аналітичний (параметричний) VaR",
+    purgedCvCallout: "На відміну від звичайної k-fold крос-валідації, purged CV видаляє з тренувального набору спостереження, що знаходяться надто близько в часі до тестового вікна — це запобігає витоку інформації через перекриття ознак (наприклад, ковзні середні), обчислених із вікнами, що заходять у тестовий період.",
+    purgedCvAnalysis: "Розмір карантинної зони (embargo) — компроміс: замалий не усуває витік, завеликий викидає забагато корисних тренувальних даних, особливо критично на малих датасетах.",
+    purgedCvFold: "фолд",
+    purgedCvTrainCount: "розмір тренувального набору",
+    vecmCallout: "VECM застосовується саме тоді, коли дві ціни коінтегровані — рухаються нарізно в короткостроці, але мають довгострокову рівновагу (наприклад, ф'ючерс і спот, чи дві акції в одному секторі). Швидкість повернення до цієї рівноваги (α) — ключовий параметр для парного трейдингу.",
+    vecmAnalysis: "На відміну від звичайного VAR на диференціях, VECM явно моделює саме довгострокове рівноважне співвідношення — якщо коінтеграція насправді відсутня (тест Йохансена не підтверджує), модель дає оманливо стабільні, але економічно безглузді результати.",
+    vecmBeta: "коінтегруючий коефіцієнт β",
+    vecmAlpha: "швидкість корекції похибки α",
+    sarimaxCallout: "SARIMAX розширює ARIMA двома напрямками одразу: сезонною компонентою (повторювані річні/тижневі патерни) і зовнішніми регресорами (макроекономічні індикатори, ціни на сировину) — тому це стандартний вибір для прогнозування продажів чи попиту, де є і сезонність, і зовнішні драйвери.",
+    sarimaxAnalysis: "Додавання забагато зовнішніх регресорів без справжнього прогностичного зв'язку веде до перенавчання — на практиці кожен новий регресор варто перевіряти на статистичну значущість і економічний сенс, а не додавати про всяк випадок.",
+    sarimaxCoefs: "коефіцієнти [const, AR(1), сезонний, exog]",
+    archCallout: "ARCH — прямий попередник GARCH: волатильність моделюється лише через минулі квадрати шоків, без авторегресійного члена самої дисперсії. GARCH(1,1) фактично еквівалентний ARCH(∞) з експоненційно спадними вагами — тому на практиці GARCH майже завжди точніший при тій самій кількості параметрів.",
+    archAnalysis: "Щоб вловити довгу пам'ять волатильності, чистому ARCH потрібно багато лагів (q), що різко збільшує кількість параметрів для оцінки — саме ця незручність і привела Боллерслєва до винаходу GARCH у 1986 році.",
+    archOrder: "порядок q",
+    rvCallout: "На відміну від GARCH, який лише оцінює (не спостерігає) волатильність із денних дохідностей, Realized Volatility обчислюється напряму з внутрішньоденних дохідностей — і при достатній частоті даних є практично незміщеною оцінкою справжньої денної волатильності.",
+    rvAnalysis: "Занадто висока частота вимірювань (секундні бари) вносить мікроструктурний шум (bid-ask bounce) — оптимальна частота для realized volatility зазвичай 5-15 хвилин, компроміс між точністю і шумом.",
+    rvValue: "Realized Volatility",
+    harRvCallout: "HAR-RV елегантно апроксимує довгу пам'ять волатильності лише трьома компонентами (день, тиждень, місяць) замість десятків лагів, як у чистому ARCH — просте лінійне рівняння, яке на практиці прогнозує не гірше за набагато складніші моделі.",
+    harRvAnalysis: "'Гетерогенність' у назві відсилає до гіпотези про різних учасників ринку з різними горизонтами (денні трейдери, тижневі, місячні інвестори) — кожен реагує на волатильність свого горизонту, і їхня сукупна поведінка формує спостережувану структуру автокореляції.",
+    harRvCoefs: "коефіцієнти [const, день, тиждень, місяць]",
+    aptCallout: "На відміну від CAPM з єдиним ринковим фактором, APT не фіксує заздалегідь, які саме фактори важливі — теорія лише стверджує, що дохідність лінійно залежить від довільної кількості систематичних факторів (інфляція, ставки, ВВП), і будь-яке відхилення від цієї залежності усувається арбітражем.",
+    aptAnalysis: "APT не каже, ЯКІ саме фактори використовувати — це і сила (гнучкість), і слабкість (відсутність теоретичного якоря) моделі; на практиці дослідники перебирають макроекономічні змінні емпірично, що створює ризик перепідгонки.",
+    aptCoefs: "коефіцієнти [α, інфляція, ВВП, ставки]",
+    ipcaCallout: "IPCA дозволяє факторним навантаженням (бетам) змінюватись у часі як функція спостережуваних характеристик акції (розмір, вартість, momentum) — на відміну від Fama-French, де навантаження на фактор фіксовані, IPCA 'інструментує' їх через ці характеристики.",
+    ipcaAnalysis: "Якість IPCA критично залежить від вибору характеристик-інструментів — якщо обрані характеристики не пов'язані зі справжніми джерелами систематичного ризику, модель дасть високий R² на тренувальних даних, але погано узагальнюватиметься.",
+    ipcaR2: "середній перетинний R² (характеристики → дохідність)",
+    varBasicCallout: "Value-at-Risk відповідає на одне конкретне питання: 'яка максимальна втрата з ймовірністю X% за період T?' — це найпоширеніша міра ринкового ризику в банківському регулюванні (Базель), попри відомі концептуальні недоліки (не є субадитивною мірою ризику).",
+    varBasicAnalysis: "VaR нічого не каже про розмір втрати ЗА межею порогу — два портфелі з однаковим VaR можуть мати кардинально різний хвостовий ризик, тому Базель III/IV поступово зміщується до Expected Shortfall як основної міри.",
+    varBasicValue: "VaR",
+    cvarOptCallout: "На відміну від оптимізації Марковіца (мінімізація дисперсії), CVaR-оптимізація напряму мінімізує очікувану втрату в найгіршому хвості розподілу — природніше формулювання ризику для інвесторів, які найбільше турбуються не про волатильність загалом, а саме про катастрофічні сценарії.",
+    cvarOptAnalysis: "CVaR-оптимізація вимагає сценарного підходу (симуляція чи історичні дані) замість простої коваріаційної матриці — це робить її обчислювально важчою, але й точнішою при асиметричних чи товстохвостих розподілах дохідності.",
+    cvarOptWeight: "CVaR-оптимальна вага",
+    cvarOptValue: "портфельний CVaR",
+    reducedFormCallout: "На відміну від структурних моделей (Мертон, KMV), де дефолт виникає з явної економічної логіки (вартість активів падає нижче боргу), reduced-form моделі трактують дефолт як несподівану випадкову подію з інтенсивністю (hazard rate), каліброваною напряму зі спредів облігацій чи CDS.",
+    reducedFormAnalysis: "Reduced-form підхід простіший у калібруванні на ринкові дані, ніж структурні моделі, але менш інтерпретований економічно — hazard rate це статистичний параметр, а не наслідок явної моделі балансу компанії.",
+    reducedFormPrice: "ціна облігації",
   },
   en: {
     steps: "steps:",
@@ -842,6 +908,72 @@ const DEMO_STRINGS = {
     mesHighBeta: "high-beta institution",
     mesLowBeta: "low-beta institution",
     modelsCountSuffix: "topics",
+    seq2seqCallout: "Seq2Seq compresses the input sequence into a single vector (the encoder), then generates an output sequence of arbitrary length from that vector (the decoder) — exactly the architecture behind forecasting several steps ahead at once, rather than one step at a time.",
+    seq2seqAnalysis: "A plain Seq2Seq architecture compresses all input information into one fixed-size vector — for long sequences that's a bottleneck, which the attention mechanism (Transformer, Attention) specifically removes by letting the decoder 'look' at every input step directly.",
+    seq2seqInput: "input",
+    seq2seqOutput: "output (forecast)",
+    lstmAeCallout: "An LSTM autoencoder compresses the entire time sequence into a single hidden-state vector from an LSTM encoder, then reconstructs the sequence back — letting you flag anomalous time patterns via high reconstruction error, similar in spirit to TAnoGAN but without adversarial training.",
+    lstmAeAnalysis: "Unlike a plain linear autoencoder, the LSTM version can compress variable-length sequences into a fixed-size vector — but that requires substantially more parameters and longer training to converge.",
+    lstmAeLoss: "reconstruction error",
+    gaeCallout: "A Graph Autoencoder encodes each graph node into a feature vector (incorporating connection structure via GCN), then tries to reconstruct the adjacency matrix itself via a dot product of vectors — nodes that frequently appear next to each other in the graph end up with similar vectors.",
+    gaeAnalysis: "A simple linear version (no hidden layer) trains more stably on small graphs — a full GCN with ReLU often suffers from 'dead' units at this small a data scale, which illustrates a real difficulty in training deep GNNs.",
+    gaeLoss: "reconstruction error (cross-entropy)",
+    genFuzzyCallout: "A genetic-fuzzy hybrid uses evolutionary search (as in a Genetic Algorithm) to tune a fuzzy system's parameters (membership-function centres and widths) — instead of gradient descent as in ANFIS, which is useful when the objective is non-smooth or non-differentiable.",
+    genFuzzyAnalysis: "Evolutionary search usually converges more slowly than gradient methods on smooth problems, but doesn't get stuck in local minima as easily — a trade-off between speed and robustness to a difficult loss landscape.",
+    genFuzzyFitness: "fitness (less error = better)",
+    acdCallout: "ACD models the time between trades the same way GARCH models volatility — 'duration clustering': after a burst of frequent trades (short intervals), the following intervals also tend to be short, until the market calms down.",
+    acdAnalysis: "ACD assumes the expected duration and the actual duration are linked multiplicatively via random noise — on real data this structure is often complicated by intraday seasonality (more trades at the open and close).",
+    acdDuration: "expected duration",
+    eventStudyCallout: "Cumulative abnormal return (CAR) measures exactly how much return 'on top' of the expected market move a stock earned around a specific event (an earnings report, news) — a CAR jump precisely on the event day is direct evidence the market reacted to that specific piece of information.",
+    eventStudyAnalysis: "The method assumes the stock's beta (market sensitivity) stays stable through the event window — if the event itself changes the company's risk profile, the estimated abnormal return will be distorted by that beta shift.",
+    eventStudyCar: "cumulative abnormal return (CAR)",
+    attnWeightCallout: "Visualising attention weights shows directly which other sequence elements the model 'looks at' most when processing a given token — unlike SHAP or LIME, no separate surrogate model is needed here: the attention weight itself is already a direct, readable explanation.",
+    attnWeightAnalysis: "High attention weights don't necessarily mean a causal relationship — the model may 'look at' a given element due to correlation in the training data, not genuine causal importance of that element to the prediction.",
+    attnWeightRow: "attention weights for the selected token",
+    wrcCallout: "White's Reality Check directly answers the data-snooping question: if you test hundreds of trading strategies, the best one will always look profitable purely by chance — the bootstrap test computes how likely it is to get a result this good if none of the strategies actually had any genuine skill.",
+    wrcAnalysis: "White's Reality Check's p-value always rises with the number of strategies tested — the exact same data-snooping bias the Deflated Sharpe Ratio measures; both tools solve essentially the same problem via different statistical routes.",
+    wrcPValue: "p-value",
+    wrcBestObs: "best observed result",
+    mcVarCallout: "Unlike parametric VaR, Monte Carlo lets you model complex nonlinear portfolios (options, structured products) — just simulate thousands of possible market scenarios and run each through the full portfolio pricing model.",
+    mcVarAnalysis: "Under plain geometric Brownian motion, the Monte Carlo VaR result almost exactly matches the parametric formula — the method's advantage only shows up once the portfolio contains nonlinear instruments (options), where the parametric formula doesn't apply at all.",
+    mcVarValue: "Monte Carlo VaR",
+    mcVarAnalytical: "analytical (parametric) VaR",
+    purgedCvCallout: "Unlike ordinary k-fold cross-validation, purged CV removes observations from the training set that sit too close in time to the test window — preventing information leakage through overlapping features (moving averages, say) computed with windows that reach into the test period.",
+    purgedCvAnalysis: "The embargo zone size is a trade-off: too small doesn't remove the leakage, too large discards too much useful training data — especially critical on small datasets.",
+    purgedCvFold: "fold",
+    purgedCvTrainCount: "training set size",
+    vecmCallout: "VECM applies exactly when two prices are cointegrated — drifting apart in the short run but sharing a long-run equilibrium (a futures contract and its spot, say, or two same-sector stocks). The speed of reversion to that equilibrium (α) is the key parameter for pairs trading.",
+    vecmAnalysis: "Unlike a plain VAR on differences, VECM explicitly models the long-run equilibrium relationship itself — if cointegration genuinely isn't present (a Johansen test doesn't confirm it), the model gives deceptively stable but economically meaningless results.",
+    vecmBeta: "cointegrating coefficient β",
+    vecmAlpha: "error-correction speed α",
+    sarimaxCallout: "SARIMAX extends ARIMA in two directions at once: a seasonal component (repeating yearly/weekly patterns) and exogenous regressors (macro indicators, commodity prices) — making it a standard choice for sales or demand forecasting where both seasonality and external drivers matter.",
+    sarimaxAnalysis: "Adding too many exogenous regressors with no genuine predictive link leads to overfitting — in practice every new regressor should be checked for statistical significance and economic sense, not added just in case.",
+    sarimaxCoefs: "coefficients [const, AR(1), seasonal, exog]",
+    archCallout: "ARCH is the direct predecessor to GARCH: volatility is modelled only through past squared shocks, with no autoregressive term on variance itself. GARCH(1,1) is effectively equivalent to ARCH(∞) with exponentially decaying weights — which is why GARCH is almost always more accurate for the same parameter count.",
+    archAnalysis: "To capture volatility's long memory, plain ARCH needs many lags (q), sharply increasing the number of parameters to estimate — this exact inconvenience is what led Bollerslev to invent GARCH in 1986.",
+    archOrder: "order q",
+    rvCallout: "Unlike GARCH, which only estimates (doesn't observe) volatility from daily returns, Realized Volatility is computed directly from intraday returns — and at sufficient sampling frequency is a nearly unbiased estimate of true daily volatility.",
+    rvAnalysis: "Too high a sampling frequency (second-level bars) introduces microstructure noise (bid-ask bounce) — the optimal frequency for realized volatility is usually 5-15 minutes, a trade-off between precision and noise.",
+    rvValue: "Realized Volatility",
+    harRvCallout: "HAR-RV elegantly approximates volatility's long memory with just three components (day, week, month) instead of dozens of lags as in plain ARCH — a simple linear equation that in practice forecasts about as well as much more complex models.",
+    harRvAnalysis: "The 'heterogeneous' in the name refers to a hypothesis of different market participants with different horizons (day traders, weekly, monthly investors) — each reacting to volatility on their own horizon, and their combined behaviour produces the observed autocorrelation structure.",
+    harRvCoefs: "coefficients [const, day, week, month]",
+    aptCallout: "Unlike CAPM with a single market factor, APT doesn't fix in advance which factors matter — the theory only asserts that returns depend linearly on some number of systematic factors (inflation, rates, GDP), and any deviation from that relationship gets arbitraged away.",
+    aptAnalysis: "APT doesn't say WHICH factors to use — that's both the model's strength (flexibility) and weakness (no theoretical anchor); in practice researchers try macro variables empirically, creating overfitting risk.",
+    aptCoefs: "coefficients [α, inflation, GDP, rates]",
+    ipcaCallout: "IPCA lets factor loadings (betas) vary over time as a function of observable stock characteristics (size, value, momentum) — unlike Fama-French, where a factor's loading is fixed, IPCA 'instruments' loadings through these characteristics.",
+    ipcaAnalysis: "IPCA's quality hinges critically on the choice of characteristic instruments — if the chosen characteristics aren't linked to genuine sources of systematic risk, the model gives a high in-sample R² but generalises poorly.",
+    ipcaR2: "average cross-sectional R² (characteristics → returns)",
+    varBasicCallout: "Value-at-Risk answers one specific question: 'what's the maximum loss with X% probability over period T?' — the most widespread market-risk measure in bank regulation (Basel), despite known conceptual flaws (it isn't a subadditive risk measure).",
+    varBasicAnalysis: "VaR says nothing about the size of a loss BEYOND the threshold — two portfolios with the same VaR can have dramatically different tail risk, which is exactly why Basel III/IV is gradually shifting toward Expected Shortfall as the primary measure.",
+    varBasicValue: "VaR",
+    cvarOptCallout: "Unlike Markowitz optimisation (minimising variance), CVaR optimisation directly minimises the expected loss in the worst tail of the distribution — a more natural framing of risk for investors who care less about volatility in general and more specifically about catastrophic scenarios.",
+    cvarOptAnalysis: "CVaR optimisation requires a scenario-based approach (simulation or historical data) instead of a simple covariance matrix — making it computationally heavier but also more accurate for skewed or fat-tailed return distributions.",
+    cvarOptWeight: "CVaR-optimal weight",
+    cvarOptValue: "portfolio CVaR",
+    reducedFormCallout: "Unlike structural models (Merton, KMV), where default arises from explicit economic logic (asset value falls below debt), reduced-form models treat default as a surprise random event with an intensity (hazard rate), calibrated directly from bond or CDS spreads.",
+    reducedFormAnalysis: "The reduced-form approach is simpler to calibrate to market data than structural models, but less economically interpretable — the hazard rate is a statistical parameter, not the output of an explicit model of the firm's balance sheet.",
+    reducedFormPrice: "bond price",
   },
 };
 
@@ -8664,6 +8796,1225 @@ function mountMesDemo(panel) {
 }
 
 
+// ---------------------------------------------------------------------------
+// 96. Seq2Seq (Encoder-Decoder)
+// ---------------------------------------------------------------------------
+function seq2seqForward(params, inputSeq, outputLen) {
+  let h = 0;
+  for (const xv of inputSeq) h = tanhFn(params.Wxe*xv + params.Whe*h + params.be);
+  const outputs = [];
+  let decIn = 0;
+  for (let t = 0; t < outputLen; t++) { h = tanhFn(params.Wxd*decIn + params.Whd*h + params.bd); const yv = params.Wy*h+params.by; outputs.push(yv); decIn = yv; }
+  return outputs;
+}
+function seq2seqLoss(params, data) { let s=0, cnt=0; for (const [inp,out] of data) { const pred=seq2seqForward(params,inp,out.length); for (let i=0;i<out.length;i++) { s+=(pred[i]-out[i])**2; cnt++; } } return s/cnt; }
+function trainSeq2Seq(data, steps, lr) {
+  let params = { Wxe:0.1,Whe:0.1,be:0, Wxd:0.1,Whd:0.1,bd:0, Wy:0.5,by:0 };
+  const keys = Object.keys(params); const eps = 1e-4;
+  for (let s = 0; s < steps; s++) { for (const k of keys) { const p1={...params}; p1[k]+=eps; const p2={...params}; p2[k]-=eps; params[k] -= lr*(seq2seqLoss(p1,data)-seq2seqLoss(p2,data))/(2*eps); } }
+  return { params, loss: seq2seqLoss(params,data) };
+}
+const SEQ2SEQ_DATA = (function () { const rnd = mulberry32(1); const out=[]; for (let i=0;i<20;i++) { const base=gaussFrom(rnd)*2; out.push([[base,base+1,base+2],[base+3,base+4]]); } return out; })();
+
+function mountSeq2SeqDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 240, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="s2sSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--ink-faint)">●</span> ${S.seq2seqInput} &nbsp; <span style="color:var(--level-2)">●</span> ${LANG==="uk"?"справжній вихід":"true output"} &nbsp; <span style="color:var(--mint)">●</span> ${S.seq2seqOutput}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"кроки навчання":"training steps"} <span class="val" id="s2sStepsVal">300</span></label><input type="range" id="s2sSteps" min="0" max="600" step="20" value="300"></div>
+        </div>
+        <div class="demo-steps" id="s2sStepsPanel"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.seq2seqCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.seq2seqAnalysis}</p></div>
+    ${relatedLinksHTML(["sequential-dl","attention"])}
+  `;
+
+  const stepsSlider = panel.querySelector("#s2sSteps");
+  const svg = panel.querySelector("#s2sSvg");
+  const testInput = [1, 2, 3], testTrue = [4, 5];
+
+  function render() {
+    const steps = parseInt(stepsSlider.value, 10);
+    panel.querySelector("#s2sStepsVal").textContent = steps;
+
+    const { params, loss } = trainSeq2Seq(SEQ2SEQ_DATA, steps, 0.05);
+    const pred = seq2seqForward(params, testInput, 2);
+    const full = testInput.concat(testTrue);
+    const fullPred = testInput.concat(pred);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: 4, yMin: Math.min(...full,...fullPred)-1, yMax: Math.max(...full,...fullPred)+1, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(0) });
+    const inputPath = testInput.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const truePath = full.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const predPath = [testInput[2],...pred].map((v,i)=>`${i===0?"M":"L"} ${x(i+2).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${truePath}" fill="none" stroke="var(--level-2)" stroke-width="1.5" stroke-dasharray="4 3" />` + `<path d="${predPath}" fill="none" stroke="var(--mint)" stroke-width="2" />` + `<path d="${inputPath}" fill="none" stroke="var(--ink-faint)" stroke-width="2" />`;
+
+    const lines = [`${S.steps}`, `  ${S.seq2seqInput} = [${testInput.join(", ")}]`, `  ${S.seq2seqOutput} = [${pred.map((v)=>v.toFixed(2)).join(", ")}] (${LANG==="uk"?"мета":"target"}: [4, 5])`, `  MSE = ${loss.toFixed(4)}`];
+    panel.querySelector("#s2sStepsPanel").textContent = lines.join("\n");
+  }
+  stepsSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 97. LSTM-Autoencoder
+// ---------------------------------------------------------------------------
+function lstmCellStep(xv, h, c, p) {
+  const f = sigmoidFn(p.Wf*xv+p.Uf*h+p.bf);
+  const i = sigmoidFn(p.Wi*xv+p.Ui*h+p.bi);
+  const o = sigmoidFn(p.Wo*xv+p.Uo*h+p.bo);
+  const cHat = tanhFn(p.Wc*xv+p.Uc*h+p.bc);
+  const cNew = f*c+i*cHat;
+  return { h: o*tanhFn(cNew), c: cNew };
+}
+function lstmAEForward(seq, encP, decP, outW) {
+  let h=0, c=0;
+  for (const xv of seq) { const r = lstmCellStep(xv,h,c,encP); h=r.h; c=r.c; }
+  let hd = h, cd = 0, decIn = 0;
+  const recon = [];
+  for (let t = 0; t < seq.length; t++) { const r = lstmCellStep(decIn,hd,cd,decP); hd=r.h; cd=r.c; const yv = outW[0]*hd+outW[1]; recon.push(yv); decIn = yv; }
+  return recon.reverse();
+}
+function lstmAELoss(seq, encP, decP, outW) { const recon = lstmAEForward(seq,encP,decP,outW); let s=0; for (let i=0;i<seq.length;i++) s+=(recon[i]-seq[i])**2; return s/seq.length; }
+function trainLstmAE(data, steps, lr) {
+  let encP = { Wf:0.1,Uf:0.1,bf:0, Wi:0.1,Ui:0.1,bi:0, Wo:0.1,Uo:0.1,bo:0, Wc:0.1,Uc:0.1,bc:0 };
+  let decP = { ...encP };
+  let outW = [0.5,0];
+  const eps = 1e-4;
+  function totalLoss(encP_,decP_,outW_) { let s=0; for (const seq of data) s += lstmAELoss(seq,encP_,decP_,outW_); return s/data.length; }
+  for (let s = 0; s < steps; s++) {
+    for (const k of Object.keys(encP)) { const p1={...encP}; p1[k]+=eps; const p2={...encP}; p2[k]-=eps; encP[k] -= lr*(totalLoss(p1,decP,outW)-totalLoss(p2,decP,outW))/(2*eps); }
+    for (const k of Object.keys(decP)) { const p1={...decP}; p1[k]+=eps; const p2={...decP}; p2[k]-=eps; decP[k] -= lr*(totalLoss(encP,p1,outW)-totalLoss(encP,p2,outW))/(2*eps); }
+    for (let i = 0; i < 2; i++) { const w1=[...outW]; w1[i]+=eps; const w2=[...outW]; w2[i]-=eps; outW[i] -= lr*(totalLoss(encP,decP,w1)-totalLoss(encP,decP,w2))/(2*eps); }
+  }
+  return { encP, decP, outW, loss: totalLoss(encP,decP,outW) };
+}
+const LSTMAE_DATA = (function () { const rnd = mulberry32(2); const out=[]; for (let i=0;i<15;i++) { const seq=[]; let v=gaussFrom(rnd)*0.5; for (let t=0;t<5;t++) { v+=gaussFrom(rnd)*0.1; seq.push(v); } out.push(seq); } return out; })();
+
+function mountLstmAeDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 240, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="lstmAeSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--ink-faint)">●</span> ${LANG==="uk"?"оригінал":"original"} &nbsp; <span style="color:var(--mint)">●</span> ${LANG==="uk"?"реконструкція":"reconstructed"}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"кроки навчання":"training steps"} <span class="val" id="lstmAeStepsVal">600</span></label><input type="range" id="lstmAeSteps" min="0" max="1000" step="50" value="600"></div>
+        </div>
+        <div class="demo-steps" id="lstmAeStepsPanel"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.lstmAeCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.lstmAeAnalysis}</p></div>
+    ${relatedLinksHTML(["autoencoders","sequential-dl"])}
+  `;
+
+  const stepsSlider = panel.querySelector("#lstmAeSteps");
+  const svg = panel.querySelector("#lstmAeSvg");
+  const testSeq = LSTMAE_DATA[0];
+
+  function render() {
+    const steps = parseInt(stepsSlider.value, 10);
+    panel.querySelector("#lstmAeStepsVal").textContent = steps;
+
+    const { encP, decP, outW, loss } = trainLstmAE(LSTMAE_DATA, steps, 0.2);
+    const recon = lstmAEForward(testSeq, encP, decP, outW);
+    const allVals = testSeq.concat(recon);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: testSeq.length-1, yMin: Math.min(...allVals)-0.2, yMax: Math.max(...allVals)+0.2, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(1) });
+    const origPath = testSeq.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const reconPath = recon.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${origPath}" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4 3" />` + `<path d="${reconPath}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    const lines = [`${S.steps}`, `  ${S.lstmAeLoss} = ${loss.toFixed(4)}`];
+    panel.querySelector("#lstmAeStepsPanel").textContent = lines.join("\n");
+  }
+  stepsSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 98. Graph Autoencoder — single-layer linear GCN encoder, inner-product decoder
+// ---------------------------------------------------------------------------
+function gcnLayerGAE(Ahat, H, Wm) { const AH = Ahat.map((row) => { const out=new Array(H[0].length).fill(0); row.forEach((a,j)=>{ H[j].forEach((h,d)=>{ out[d]+=a*h; }); }); return out; }); return AH.map((row) => Wm[0].map((_,c)=>row.reduce((s,v,r)=>s+v*Wm[r][c],0))); }
+function normalizeAdjGAE(A) { const n=A.length; const Aself = A.map((row,i)=>row.map((v,j)=>v+(i===j?1:0))); const deg = Aself.map((row)=>row.reduce((a,b)=>a+b,0)); return Aself.map((row,i)=>row.map((v,j)=>v/Math.sqrt(deg[i]*deg[j]))); }
+function gaeReconstruct(Z) { const n=Z.length; const out=Array.from({length:n},()=>new Array(n).fill(0)); for (let i=0;i<n;i++) for (let j=0;j<n;j++) out[i][j]=sigmoidFn(Z[i].reduce((s,v,d)=>s+v*Z[j][d],0)); return out; }
+function trainGAE(A, H0, dh, steps, lr, rnd) {
+  const d0 = H0[0].length;
+  let Wm = Array.from({length:d0}, () => Array.from({length:dh}, () => 0.6*(rnd()-0.5)));
+  const Ahat = normalizeAdjGAE(A);
+  function lossFn(Wm_) {
+    const Z = gcnLayerGAE(Ahat, H0, Wm_);
+    const Arecon = gaeReconstruct(Z);
+    const n = A.length; let s = 0;
+    for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) { const tgt=A[i][j], pred=Arecon[i][j]; s += -(tgt*Math.log(pred+1e-9)+(1-tgt)*Math.log(1-pred+1e-9)); }
+    return s/(n*n);
+  }
+  const eps = 1e-3;
+  for (let s = 0; s < steps; s++) { for (let i = 0; i < d0; i++) for (let j = 0; j < dh; j++) { const Wp=Wm.map((r)=>r.slice()); Wp[i][j]+=eps; const Wn=Wm.map((r)=>r.slice()); Wn[i][j]-=eps; const g=(lossFn(Wp)-lossFn(Wn))/(2*eps); Wm[i][j] -= lr*g; } }
+  return { Wm, loss: lossFn(Wm), Ahat };
+}
+const GAE_ADJ = [[0,1,0,0],[1,0,1,0],[0,1,0,1],[0,0,1,0]];
+const GAE_H0 = [[1,0.2],[0.8,0.4],[0.3,0.9],[0.1,0.1]];
+const GAE_POS = [[70,150],[170,80],[170,220],[270,150]];
+
+function mountGaeDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 300;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="gaeSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"кроки навчання":"training steps"} <span class="val" id="gaeStepsVal">300</span></label><input type="range" id="gaeSteps" min="0" max="500" step="20" value="300"></div>
+        </div>
+        <div class="demo-steps" id="gaeStepsPanel"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.gaeCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.gaeAnalysis}</p></div>
+    ${relatedLinksHTML(["graph","autoencoders"])}
+  `;
+
+  const stepsSlider = panel.querySelector("#gaeSteps");
+  const svg = panel.querySelector("#gaeSvg");
+
+  function render() {
+    const steps = parseInt(stepsSlider.value, 10);
+    panel.querySelector("#gaeStepsVal").textContent = steps;
+
+    const { Wm, loss, Ahat } = trainGAE(GAE_ADJ, GAE_H0, 2, steps, 1.5, mulberry32(4));
+    const Z = gcnLayerGAE(Ahat, GAE_H0, Wm);
+    const Arecon = gaeReconstruct(Z);
+
+    let edges = "";
+    for (let i = 0; i < 4; i++) for (let j = i+1; j < 4; j++) {
+      const strength = Arecon[i][j];
+      edges += `<line x1="${GAE_POS[i][0]}" y1="${GAE_POS[i][1]}" x2="${GAE_POS[j][0]}" y2="${GAE_POS[j][1]}" stroke="${GAE_ADJ[i][j]?'var(--mint)':'var(--level-3)'}" stroke-width="${(strength*8).toFixed(1)}" opacity="${GAE_ADJ[i][j]?0.8:0.4}" />`;
+    }
+    const nodes = GAE_POS.map((p,i) => `<circle cx="${p[0]}" cy="${p[1]}" r="18" fill="var(--card)" stroke="var(--ink-soft)" stroke-width="1.5" /><text x="${p[0]}" y="${p[1]+4}" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink)">${i}</text>`).join("");
+    svg.innerHTML = edges + nodes;
+
+    const lines = [`${S.steps}`, `  ${S.gaeLoss} = ${loss.toFixed(4)}`, `  ${LANG==="uk"?"товщина лінії = ймовірність зв'язку":"line thickness = predicted edge probability"}`];
+    panel.querySelector("#gaeStepsPanel").textContent = lines.join("\n");
+  }
+  stepsSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 99. Genetic-Fuzzy Hybrid
+// ---------------------------------------------------------------------------
+function fuzzyPredictGF(xv, params) {
+  const muLow = Math.exp(-((xv-params.cLow)**2)/(2*params.sLow**2));
+  const muHigh = Math.exp(-((xv-params.cHigh)**2)/(2*params.sHigh**2));
+  const wSum = muLow+muHigh || 1e-9;
+  return (muLow*params.outLow + muHigh*params.outHigh)/wSum;
+}
+function fuzzyGAFitness(params, data) { let s=0; for (const [xv,yv] of data) s += (fuzzyPredictGF(xv,params)-yv)**2; return -s/data.length; }
+function arrToParamsGF(a) { return { cLow:a[0], sLow:Math.abs(a[1])+0.1, cHigh:a[2], sHigh:Math.abs(a[3])+0.1, outLow:a[4], outHigh:a[5] }; }
+function runGeneticFuzzy(data, popSize, generations, rnd) {
+  let pop = Array.from({length:popSize}, () => [rnd()*4-2, rnd()*2, rnd()*4-2, rnd()*2, rnd()*4-2, rnd()*4-2]);
+  for (let g = 0; g < generations; g++) {
+    const newPop = [];
+    for (let i = 0; i < popSize; i++) {
+      const a = pop[Math.floor(rnd()*popSize)], b = pop[Math.floor(rnd()*popSize)];
+      const parent1 = fuzzyGAFitness(arrToParamsGF(a),data) > fuzzyGAFitness(arrToParamsGF(b),data) ? a : b;
+      const c = pop[Math.floor(rnd()*popSize)], d = pop[Math.floor(rnd()*popSize)];
+      const parent2 = fuzzyGAFitness(arrToParamsGF(c),data) > fuzzyGAFitness(arrToParamsGF(d),data) ? c : d;
+      const child = parent1.map((v,i2) => { let nv=(v+parent2[i2])/2; if (rnd()<0.2) nv += gaussFrom(rnd)*0.3; return nv; });
+      newPop.push(child);
+    }
+    pop = newPop;
+  }
+  const fitness = pop.map((ind) => fuzzyGAFitness(arrToParamsGF(ind),data));
+  const bestIdx = fitness.indexOf(Math.max(...fitness));
+  return { params: arrToParamsGF(pop[bestIdx]), fitness: fitness[bestIdx] };
+}
+const GENFUZZY_DATA = (function () { const out=[]; for (let xv=-3;xv<=3;xv+=0.3) out.push([xv, xv<0?xv*xv:2*xv]); return out; })();
+
+function mountGenFuzzyDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 240, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="gfSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--ink-faint)">●</span> ${LANG==="uk"?"справжня функція":"true function"} &nbsp; <span style="color:var(--mint)">●</span> ${LANG==="uk"?"нечітка система":"fuzzy system"}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"покоління":"generations"} <span class="val" id="gfGenVal">40</span></label><input type="range" id="gfGen" min="0" max="100" step="5" value="40"></div>
+        </div>
+        <div class="demo-steps" id="gfSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.genFuzzyCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.genFuzzyAnalysis}</p></div>
+    ${relatedLinksHTML(["fuzzy","search"])}
+  `;
+
+  const genSlider = panel.querySelector("#gfGen");
+  const svg = panel.querySelector("#gfSvg");
+
+  function render() {
+    const generations = parseInt(genSlider.value, 10);
+    panel.querySelector("#gfGenVal").textContent = generations;
+
+    const { params, fitness } = runGeneticFuzzy(GENFUZZY_DATA, 20, generations, mulberry32(1));
+    const trueVals = GENFUZZY_DATA.map((d) => d[1]);
+    const predVals = GENFUZZY_DATA.map((d) => fuzzyPredictGF(d[0], params));
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: -3, xMax: 3, yMin: Math.min(...trueVals)-0.5, yMax: Math.max(...trueVals)+0.5, xTicks: 4, yTicks: 4, xFmt: (v)=>v.toFixed(0), yFmt: (v)=>v.toFixed(0) });
+    const truePath = GENFUZZY_DATA.map((d,i)=>`${i===0?"M":"L"} ${x(d[0]).toFixed(1)} ${y(trueVals[i]).toFixed(1)}`).join(" ");
+    const predPath = GENFUZZY_DATA.map((d,i)=>`${i===0?"M":"L"} ${x(d[0]).toFixed(1)} ${y(predVals[i]).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${truePath}" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4 3" />` + `<path d="${predPath}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    const lines = [`${S.steps}`, `  ${S.genFuzzyFitness} = ${(-fitness).toFixed(3)}`];
+    panel.querySelector("#gfSteps").textContent = lines.join("\n");
+  }
+  genSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 100. Autoregressive Conditional Duration (ACD)
+// ---------------------------------------------------------------------------
+function acdSeries(omega, alpha, beta, durations) {
+  let psi = omega/(1-alpha-beta);
+  const out = [];
+  for (const dv of durations) { out.push(psi); psi = omega+alpha*dv+beta*psi; }
+  return out;
+}
+const ACD_DURATIONS = (function () { const rnd = mulberry32(8); const out=[]; for (let i=0;i<40;i++) out.push(i>20&&i<25 ? 0.2+Math.abs(gaussFrom(rnd)*0.1) : 2+Math.abs(gaussFrom(rnd)*0.5)); return out; })();
+
+function mountAcdDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 230, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="acdSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--ink-faint)">●</span> ${LANG==="uk"?"фактична тривалість":"actual duration"} &nbsp; <span style="color:var(--mint)">●</span> ${S.acdDuration}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>α <span class="val" id="acdAlphaVal">0.20</span></label><input type="range" id="acdAlpha" min="0.05" max="0.5" step="0.01" value="0.20"></div>
+          <div class="demo-slider-row"><label>β <span class="val" id="acdBetaVal">0.70</span></label><input type="range" id="acdBeta" min="0.3" max="0.9" step="0.01" value="0.70"></div>
+        </div>
+        <div class="demo-steps" id="acdSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.acdCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.acdAnalysis}</p></div>
+    ${relatedLinksHTML(["microstructure"])}
+  `;
+
+  const alphaSlider = panel.querySelector("#acdAlpha"), betaSlider = panel.querySelector("#acdBeta");
+  const svg = panel.querySelector("#acdSvg");
+
+  function render() {
+    const alphaV = parseFloat(alphaSlider.value), betaV = parseFloat(betaSlider.value);
+    panel.querySelector("#acdAlphaVal").textContent = alphaV.toFixed(2);
+    panel.querySelector("#acdBetaVal").textContent = betaV.toFixed(2);
+
+    const omega = 0.1*(1-alphaV-betaV)/(1-0.2-0.7);
+    const psi = acdSeries(Math.max(0.01,omega), alphaV, betaV, ACD_DURATIONS);
+    const allVals = ACD_DURATIONS.concat(psi);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: ACD_DURATIONS.length-1, yMin: 0, yMax: Math.max(...allVals)*1.1, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(1), xLabel: "trade #" });
+    const actualPath = ACD_DURATIONS.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const psiPath = psi.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${actualPath}" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="3 2" />` + `<path d="${psiPath}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    const lines = [`${S.steps}`, `  ψ = ω + α·d + β·ψ`, `  ${S.acdDuration} ${LANG==="uk"?"під час сплеску":"during burst"} = ${psi[22].toFixed(2)}`];
+    panel.querySelector("#acdSteps").textContent = lines.join("\n");
+  }
+  [alphaSlider, betaSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 101. Event-Study NLP Signals
+// ---------------------------------------------------------------------------
+function computeCAR(returns, marketReturns, eventIdx, window, beta) {
+  const car = []; let cumulative = 0;
+  for (let i = eventIdx-window; i <= eventIdx+window; i++) { cumulative += returns[i]-beta*marketReturns[i]; car.push(cumulative); }
+  return car;
+}
+const EVENTSTUDY_DATA = (function () {
+  const rnd = mulberry32(10);
+  const n = 60, eventIdx = 30;
+  const mkt = [], stock = [];
+  for (let i = 0; i < n; i++) { const m = gaussFrom(rnd)*0.01; const shock = i===eventIdx ? 0.05 : 0; mkt.push(m); stock.push(1.1*m+shock+gaussFrom(rnd)*0.005); }
+  return { mkt, stock, eventIdx };
+})();
+
+function mountEventStudyDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 230, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="esSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>β <span class="val" id="esBetaVal">1.10</span></label><input type="range" id="esBeta" min="0.5" max="1.8" step="0.05" value="1.10"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"вікно":"window"} <span class="val" id="esWindowVal">5</span></label><input type="range" id="esWindow" min="2" max="15" step="1" value="5"></div>
+        </div>
+        <div class="demo-steps" id="esSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.eventStudyCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.eventStudyAnalysis}</p></div>
+    ${relatedLinksHTML(["nlp"])}
+  `;
+
+  const betaSlider = panel.querySelector("#esBeta"), windowSlider = panel.querySelector("#esWindow");
+  const svg = panel.querySelector("#esSvg");
+
+  function render() {
+    const beta = parseFloat(betaSlider.value), window_ = parseInt(windowSlider.value, 10);
+    panel.querySelector("#esBetaVal").textContent = beta.toFixed(2);
+    panel.querySelector("#esWindowVal").textContent = window_;
+
+    const { mkt, stock, eventIdx } = EVENTSTUDY_DATA;
+    const car = computeCAR(stock, mkt, eventIdx, window_, beta);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: -window_, xMax: window_, yMin: Math.min(...car)-0.01, yMax: Math.max(...car)+0.01, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>(v*100).toFixed(1)+"%", xLabel: LANG==="uk"?"дні від події":"days from event" });
+    const carPath = car.map((v,i)=>`${i===0?"M":"L"} ${x(i-window_).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const eventX = x(0);
+    svg.innerHTML = axesSvg + `<line x1="${eventX.toFixed(1)}" y1="${PAD}" x2="${eventX.toFixed(1)}" y2="${H-PAD}" stroke="var(--level-2)" stroke-width="1" stroke-dasharray="3 3" />` + `<path d="${carPath}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    const lines = [`${S.steps}`, `  ${S.eventStudyCar} = ${(car[car.length-1]*100).toFixed(2)}%`];
+    panel.querySelector("#esSteps").textContent = lines.join("\n");
+  }
+  [betaSlider, windowSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 102. Attention-Weight Visualization
+// ---------------------------------------------------------------------------
+function computeAttentionViz(Q, K, V, scale) {
+  const scores = Q.map((qi) => K.map((kj) => qi.reduce((s,v,d)=>s+v*kj[d],0)/scale));
+  return scores.map((row) => softmaxAT(row));
+}
+const ATTNVIZ_TOKENS = ["+0.01","-0.02","+0.005","-0.06","+0.02"];
+const ATTNVIZ_EMBEDS = [[1,0.01],[-1,0.02],[1,0.005],[-1,0.06],[1,0.02]];
+
+function mountAttnVizDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const cellSize = 46, gridPad = 80;
+  const n = ATTNVIZ_TOKENS.length;
+  const W = gridPad+cellSize*n+20, H = gridPad+cellSize*n+20;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="attnVizSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"обраний токен":"selected token"} <span class="val" id="attnVizIdxVal">3</span></label><input type="range" id="attnVizIdx" min="0" max="4" step="1" value="3"></div>
+        </div>
+        <div class="demo-steps" id="attnVizSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.attnWeightCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.attnWeightAnalysis}</p></div>
+    ${relatedLinksHTML(["xai","attention"])}
+  `;
+
+  const idxSlider = panel.querySelector("#attnVizIdx");
+  const svg = panel.querySelector("#attnVizSvg");
+  const attnW = computeAttentionViz(ATTNVIZ_EMBEDS, ATTNVIZ_EMBEDS, ATTNVIZ_EMBEDS, Math.sqrt(2));
+
+  function render() {
+    const idx = parseInt(idxSlider.value, 10);
+    panel.querySelector("#attnVizIdxVal").textContent = ATTNVIZ_TOKENS[idx];
+
+    let cells = "";
+    for (let i = 0; i < n; i++) {
+      cells += `<text x="${gridPad-8}" y="${gridPad+i*cellSize+cellSize/2+4}" text-anchor="end" font-family="var(--mono)" font-size="10" fill="var(--ink-soft)">${ATTNVIZ_TOKENS[i]}</text>`;
+      cells += `<text x="${gridPad+i*cellSize+cellSize/2}" y="${gridPad-10}" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-soft)" transform="rotate(-30 ${gridPad+i*cellSize+cellSize/2} ${gridPad-10})">${ATTNVIZ_TOKENS[i]}</text>`;
+      const w = attnW[idx][i];
+      const cx = gridPad+i*cellSize, cy = gridPad+idx*cellSize;
+      cells += `<rect x="${cx}" y="${cy}" width="${cellSize-2}" height="${cellSize-2}" fill="var(--mint)" opacity="${w.toFixed(3)}" stroke="var(--level-3)" stroke-width="2" />`;
+      cells += `<text x="${cx+cellSize/2-1}" y="${cy+cellSize/2+3}" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="${w>0.4?'var(--bg)':'var(--ink-soft)'}">${w.toFixed(2)}</text>`;
+    }
+    svg.innerHTML = cells;
+
+    const lines = [`${S.steps}`, `  ${S.attnWeightRow} "${ATTNVIZ_TOKENS[idx]}": [${attnW[idx].map((w)=>w.toFixed(2)).join(", ")}]`];
+    panel.querySelector("#attnVizSteps").textContent = lines.join("\n");
+  }
+  idxSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 103. White's Reality Check
+// ---------------------------------------------------------------------------
+function whiteRealityCheck(strategyReturns, nBootstrap, rnd) {
+  const n = strategyReturns[0].length;
+  const meanPerf = strategyReturns.map((rets) => rets.reduce((a,b)=>a+b,0)/n);
+  const bestObserved = Math.max(...meanPerf);
+  let countExceed = 0;
+  for (let b = 0; b < nBootstrap; b++) {
+    const idx = Array.from({length:n}, () => Math.floor(rnd()*n));
+    const bootMeans = strategyReturns.map((rets,si) => idx.reduce((s,i)=>s+rets[i],0)/n - meanPerf[si]);
+    if (Math.max(...bootMeans) >= bestObserved) countExceed++;
+  }
+  return { bestObserved, pValue: countExceed/nBootstrap };
+}
+
+function mountWrcDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 220, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="wrcSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"кількість стратегій":"number of strategies"} <span class="val" id="wrcNVal">50</span></label><input type="range" id="wrcN" min="1" max="200" step="1" value="50"></div>
+        </div>
+        <div class="demo-steps" id="wrcSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.wrcCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.wrcAnalysis}</p></div>
+    ${relatedLinksHTML(["validation"])}
+  `;
+
+  const nSlider = panel.querySelector("#wrcN");
+  const svg = panel.querySelector("#wrcSvg");
+  const nObs = 100;
+  const allStratRets = (function () { const rnd = mulberry32(11); const out=[]; for (let s=0;s<200;s++) { const r=[]; for(let i=0;i<nObs;i++) r.push(gaussFrom(rnd)*0.01); out.push(r); } return out; })();
+
+  function render() {
+    const nStrat = parseInt(nSlider.value, 10);
+    panel.querySelector("#wrcNVal").textContent = nStrat;
+
+    const strategies = allStratRets.slice(0, nStrat);
+    const result = whiteRealityCheck(strategies, 150, mulberry32(11));
+
+    const barH = Math.min(H-2*PAD, result.pValue*(H-2*PAD)*2);
+    const col = result.pValue < 0.05 ? "var(--mint)" : "var(--level-3)";
+    svg.innerHTML = `<rect x="${PAD+60}" y="${H-PAD-barH}" width="60" height="${barH.toFixed(1)}" fill="${col}" opacity="0.8" /><text x="${PAD+90}" y="${H-PAD-barH-8}" text-anchor="middle" font-family="var(--mono)" font-size="12" fill="${col}">p=${result.pValue.toFixed(2)}</text>`;
+
+    const lines = [`${S.steps}`, `  ${S.wrcBestObs} = ${(result.bestObserved*100).toFixed(3)}%`, `  ${S.wrcPValue} = ${result.pValue.toFixed(3)}`];
+    panel.querySelector("#wrcSteps").textContent = lines.join("\n");
+  }
+  nSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 104. Monte Carlo VaR
+// ---------------------------------------------------------------------------
+function monteCarloVaR(portfolioValue, mu, sigma, T, confidence, nSims, rnd) {
+  const losses = [];
+  for (let i = 0; i < nSims; i++) { const ret = mu*T + sigma*Math.sqrt(T)*gaussFrom(rnd); losses.push(-portfolioValue*ret); }
+  losses.sort((a,b)=>b-a);
+  return { var: losses[Math.floor((1-confidence)*nSims)], losses };
+}
+
+function mountMcVarDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 240, PAD = 30;
+  let seed = 12;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="mcVarSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>N (${LANG==="uk"?"симуляцій":"simulations"}) <span class="val" id="mcVarNVal">3000</span></label><input type="range" id="mcVarN" min="100" max="10000" step="100" value="3000"></div>
+          <button type="button" class="demo-run-btn" id="mcVarRun">${S.runNewRound}</button>
+        </div>
+        <div class="demo-steps" id="mcVarSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.mcVarCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.mcVarAnalysis}</p></div>
+    ${relatedLinksHTML(["risk-measures"])}
+  `;
+
+  const nSlider = panel.querySelector("#mcVarN"), runBtn = panel.querySelector("#mcVarRun");
+  const svg = panel.querySelector("#mcVarSvg");
+  const PV = 1000000, sigma = 0.02;
+
+  function render() {
+    const nSims = parseInt(nSlider.value, 10);
+    panel.querySelector("#mcVarNVal").textContent = nSims;
+
+    const { var: varVal, losses } = monteCarloVaR(PV, 0.0003, sigma, 1, 0.95, nSims, mulberry32(seed));
+    const nBins = 30;
+    const xMin = Math.min(...losses), xMax = Math.max(...losses);
+    const counts = new Array(nBins).fill(0);
+    for (const v of losses) { const bi = Math.min(nBins-1, Math.max(0, Math.floor((v-xMin)/(xMax-xMin)*nBins))); counts[bi]++; }
+    const maxCount = Math.max(...counts, 1);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin: 0, yMax: maxCount, xTicks: 4, yTicks: 0, xFmt: (v)=>(v/1000).toFixed(0)+"k", yFmt: ()=>"" });
+    let bars = "";
+    for (let i = 0; i < nBins; i++) { const bx = xMin+(i/nBins)*(xMax-xMin); const h = (counts[i]/maxCount)*(H-2*PAD); const isTail = bx >= varVal; bars += `<rect x="${x(bx).toFixed(1)}" y="${(H-PAD-h).toFixed(1)}" width="${((x(bx+(xMax-xMin)/nBins)-x(bx))-1).toFixed(1)}" height="${h.toFixed(1)}" fill="${isTail?"var(--level-3)":"var(--mint)"}" opacity="0.8" />`; }
+    svg.innerHTML = axesSvg + bars;
+
+    const analyticalVaR = PV*1.645*sigma;
+    const lines = [`${S.steps}`, `  ${S.mcVarValue} = $${Math.round(varVal).toLocaleString()}`, `  ${S.mcVarAnalytical} = $${Math.round(analyticalVaR).toLocaleString()}`];
+    panel.querySelector("#mcVarSteps").textContent = lines.join("\n");
+  }
+  nSlider.addEventListener("input", render);
+  runBtn.addEventListener("click", () => { seed = Math.floor(Math.random()*100000); render(); });
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 105. Purged / Embargoed k-Fold CV
+// ---------------------------------------------------------------------------
+function purgedKFoldSplits(n, k, embargoFrac) {
+  const foldSize = Math.floor(n/k);
+  const embargoSize = Math.floor(n*embargoFrac);
+  const splits = [];
+  for (let fold = 0; fold < k; fold++) {
+    const testStart = fold*foldSize, testEnd = fold===k-1 ? n : testStart+foldSize;
+    let trainCount = 0;
+    for (let i = 0; i < n; i++) {
+      if (i >= testStart && i < testEnd) continue;
+      if (i >= testStart-embargoSize && i < testEnd+embargoSize) continue;
+      trainCount++;
+    }
+    splits.push({ testStart, testEnd, trainCount });
+  }
+  return splits;
+}
+
+function mountPurgedCvDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 220, PAD = 40;
+  const N = 100;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="purgedSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--mint)">■</span> ${LANG==="uk"?"тренування":"train"} &nbsp; <span style="color:var(--level-2)">■</span> ${LANG==="uk"?"тест":"test"} &nbsp; <span style="color:var(--level-3)">■</span> ${LANG==="uk"?"карантин":"embargo"}</p>
+      </div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>k (${LANG==="uk"?"фолдів":"folds"}) <span class="val" id="purgedKVal">5</span></label><input type="range" id="purgedK" min="3" max="10" step="1" value="5"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"розмір карантину":"embargo size"} <span class="val" id="purgedEmbVal">5%</span></label><input type="range" id="purgedEmb" min="0" max="20" step="1" value="5"></div>
+        </div>
+        <div class="demo-steps" id="purgedSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.purgedCvCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.purgedCvAnalysis}</p></div>
+    ${relatedLinksHTML(["validation"])}
+  `;
+
+  const kSlider = panel.querySelector("#purgedK"), embSlider = panel.querySelector("#purgedEmb");
+  const svg = panel.querySelector("#purgedSvg");
+
+  function render() {
+    const k = parseInt(kSlider.value, 10), embPct = parseInt(embSlider.value, 10);
+    panel.querySelector("#purgedKVal").textContent = k;
+    panel.querySelector("#purgedEmbVal").textContent = embPct+"%";
+
+    const splits = purgedKFoldSplits(N, k, embPct/100);
+    const rowH = 18, rowGap = 5;
+    const xScale = (W-2*PAD)/N;
+    const embargoSize = Math.floor(N*embPct/100);
+    let bars = "";
+    splits.forEach((sp, i) => {
+      const yy = PAD + i*(rowH+rowGap);
+      bars += `<rect x="${PAD}" y="${yy}" width="${N*xScale}" height="${rowH}" fill="var(--mint)" opacity="0.7" />`;
+      const embStart = Math.max(0, sp.testStart-embargoSize), embEnd = Math.min(N, sp.testEnd+embargoSize);
+      bars += `<rect x="${PAD+embStart*xScale}" y="${yy}" width="${(embEnd-embStart)*xScale}" height="${rowH}" fill="var(--level-3)" opacity="0.6" />`;
+      bars += `<rect x="${PAD+sp.testStart*xScale}" y="${yy}" width="${(sp.testEnd-sp.testStart)*xScale}" height="${rowH}" fill="var(--level-2)" opacity="0.9" />`;
+      bars += `<text x="${PAD-6}" y="${yy+rowH/2+4}" text-anchor="end" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">${i+1}</text>`;
+    });
+    svg.innerHTML = bars;
+
+    const lines = [`${S.steps}`, ...splits.map((sp,i) => `  ${S.purgedCvFold} ${i+1}: ${S.purgedCvTrainCount} = ${sp.trainCount}`)];
+    panel.querySelector("#purgedSteps").textContent = lines.join("\n");
+  }
+  [kSlider, embSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+
+// ---------------------------------------------------------------------------
+// 106. VECM (Vector Error Correction Model)
+// ---------------------------------------------------------------------------
+const VECM_DATA = (function () {
+  const rnd = mulberry32(1);
+  const n = 150;
+  const y2 = [100]; for (let i = 1; i < n; i++) y2.push(y2[i-1]+gaussFrom(rnd)*0.5);
+  const y1 = [];
+  for (let i = 0; i < n; i++) {
+    const target = 2*y2[i]+10;
+    const prev = y1.length ? y1[y1.length-1] : target;
+    y1.push(prev + 0.3*(target-prev) + gaussFrom(rnd)*0.3);
+  }
+  return { y1, y2 };
+})();
+function fitVECM(y1, y2) {
+  const n = y1.length;
+  const my1 = y1.reduce((a,b)=>a+b,0)/n, my2 = y2.reduce((a,b)=>a+b,0)/n;
+  let num=0, den=0;
+  for (let i=0;i<n;i++) { num += (y2[i]-my2)*(y1[i]-my1); den += (y2[i]-my2)**2; }
+  const beta = num/den;
+  const ect = y1.map((v,i) => v-beta*y2[i]);
+  const dy1 = []; for (let t=1;t<n;t++) dy1.push(y1[t]-y1[t-1]);
+  const ectLag = ect.slice(0,n-1);
+  const mEct = ectLag.reduce((a,b)=>a+b,0)/ectLag.length, mDy1 = dy1.reduce((a,b)=>a+b,0)/dy1.length;
+  let num2=0, den2=0;
+  for (let i=0;i<dy1.length;i++) { num2 += (ectLag[i]-mEct)*(dy1[i]-mDy1); den2 += (ectLag[i]-mEct)**2; }
+  return { beta, alpha1: num2/den2, ect };
+}
+
+function mountVecmDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 230, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="vecmSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--mint)">●</span> y1 &nbsp; <span style="color:var(--level-2)">●</span> 2·y2+10 (${LANG==="uk"?"рівновага":"equilibrium"})</p>
+      </div>
+      <div>
+        <div class="demo-steps" id="vecmSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.vecmCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.vecmAnalysis}</p></div>
+    ${relatedLinksHTML(["time-series"])}
+  `;
+
+  const svg = panel.querySelector("#vecmSvg");
+  const { y1, y2 } = VECM_DATA;
+  const { beta, alpha1 } = fitVECM(y1, y2);
+  const eq = y2.map((v) => 2*v+10);
+  const allVals = y1.concat(eq);
+  const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: y1.length-1, yMin: Math.min(...allVals)-5, yMax: Math.max(...allVals)+5, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(0), xLabel: "t" });
+  const path1 = y1.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+  const pathEq = eq.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+  svg.innerHTML = axesSvg + `<path d="${pathEq}" fill="none" stroke="var(--level-2)" stroke-width="1.5" stroke-dasharray="4 3" />` + `<path d="${path1}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+  const lines = [`${S.steps}`, `  ECT = y1 - β·y2`, `  ${S.vecmBeta} = ${beta.toFixed(3)} (${LANG==="uk"?"справжнє":"true"}=2.0)`, `  ${S.vecmAlpha} = ${alpha1.toFixed(3)} (${LANG==="uk"?"від'ємне = повернення до рівноваги":"negative = reverting to equilibrium"})`];
+  panel.querySelector("#vecmSteps").textContent = lines.join("\n");
+}
+
+// ---------------------------------------------------------------------------
+// 107. SARIMAX
+// ---------------------------------------------------------------------------
+function solveOLSSarimax(X, yv) {
+  const p = X[0].length;
+  const XtX = Array.from({length:p}, () => new Array(p).fill(0));
+  const Xty = new Array(p).fill(0);
+  for (let i = 0; i < X.length; i++) { for (let a = 0; a < p; a++) { Xty[a] += X[i][a]*yv[i]; for (let b = 0; b < p; b++) XtX[a][b] += X[i][a]*X[i][b]; } }
+  const M = XtX.map((row,i) => row.concat([Xty[i]]));
+  for (let i = 0; i < p; i++) { let piv = M[i][i]; if (Math.abs(piv)<1e-10) piv=1e-10; for (let j=0;j<=p;j++) M[i][j] /= piv; for (let k=0;k<p;k++) { if (k===i) continue; const f=M[k][i]; for (let j=0;j<=p;j++) M[k][j]-=f*M[i][j]; } }
+  return M.map((row) => row[p]);
+}
+function fitSARIMAX(yv, exog, seasonalPeriod) {
+  const n = yv.length;
+  const X = []; for (let t = seasonalPeriod; t < n; t++) X.push([1, yv[t-1], yv[t-seasonalPeriod], exog[t]]);
+  return solveOLSSarimax(X, yv.slice(seasonalPeriod));
+}
+const SARIMAX_DATA = (function () {
+  const rnd = mulberry32(2);
+  const n = 100, period = 12;
+  const exog = []; for (let i = 0; i < n; i++) exog.push(gaussFrom(rnd)*1);
+  const yv = [50,51];
+  for (let i = 2; i < n; i++) yv.push(0.4*yv[i-1] + 0.5*exog[i] + 25 + gaussFrom(rnd)*0.5);
+  return { yv, exog, period };
+})();
+
+function mountSarimaxDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 230, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="sarimaxSvg"></svg></div>
+      <div>
+        <div class="demo-steps" id="sarimaxSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.sarimaxCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.sarimaxAnalysis}</p></div>
+    ${relatedLinksHTML(["time-series"])}
+  `;
+
+  const svg = panel.querySelector("#sarimaxSvg");
+  const { yv, exog, period } = SARIMAX_DATA;
+  const coef = fitSARIMAX(yv, exog, period);
+  const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: yv.length-1, yMin: Math.min(...yv)-2, yMax: Math.max(...yv)+2, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(0), xLabel: "t" });
+  const path = yv.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+  svg.innerHTML = axesSvg + `<path d="${path}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+  const lines = [`${S.steps}`, `  y_t = c + φ·y_{t-1} + Φ·y_{t-s} + β·exog_t`, `  ${S.sarimaxCoefs}: [${coef.map((c)=>c.toFixed(3)).join(", ")}]`];
+  panel.querySelector("#sarimaxSteps").textContent = lines.join("\n");
+}
+
+// ---------------------------------------------------------------------------
+// 108. ARCH(q)
+// ---------------------------------------------------------------------------
+function archSeries(omega, alphas, returns) {
+  const q = alphas.length;
+  const out = [];
+  for (let t = 0; t < returns.length; t++) { let sigma2 = omega; for (let i = 1; i <= q; i++) { if (t-i>=0) sigma2 += alphas[i-1]*returns[t-i]*returns[t-i]; } out.push(sigma2); }
+  return out;
+}
+
+function mountArchDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 600, H = 230, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="archSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${S.archOrder} <span class="val" id="archQVal">3</span></label><input type="range" id="archQ" min="1" max="8" step="1" value="3"></div>
+        </div>
+        <div class="demo-steps" id="archSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.archCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.archAnalysis}</p></div>
+    ${relatedLinksHTML(["volatility"])}
+  `;
+
+  const qSlider = panel.querySelector("#archQ");
+  const svg = panel.querySelector("#archSvg");
+
+  function render() {
+    const q = parseInt(qSlider.value, 10);
+    panel.querySelector("#archQVal").textContent = q;
+
+    const alphas = Array.from({length:q}, (_,i) => 0.5/Math.pow(1.5,i)/q*3);
+    const sumAlpha = alphas.reduce((a,b)=>a+b,0);
+    const normAlphas = alphas.map((a) => a*0.6/sumAlpha);
+    const var_ = archSeries(0.0001, normAlphas, GARCH_EPS);
+    const volPct = var_.map((v) => Math.sqrt(v*252)*100);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: volPct.length-1, yMin: 0, yMax: Math.max(...volPct)*1.1, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(0)+"%", xLabel: "t", yLabel: "σ" });
+    const path = volPct.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${path}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    const lines = [`${S.steps}`, `  σ²_t = ω + Σᵢ αᵢ·ε²_{t-i}, i=1..${q}`, `  ${LANG==="uk"?"пік волатильності":"peak volatility"} = ${Math.max(...volPct).toFixed(1)}%`];
+    panel.querySelector("#archSteps").textContent = lines.join("\n");
+  }
+  qSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 109. Realized Volatility
+// ---------------------------------------------------------------------------
+function realizedVolatility(intradayReturns) { return Math.sqrt(intradayReturns.reduce((s,r)=>s+r*r,0)); }
+function genIntraday(nPerDay, dailyVol, rnd) { const out=[]; for (let i=0;i<nPerDay;i++) out.push(gaussFrom(rnd)*dailyVol/Math.sqrt(nPerDay)); return out; }
+
+function mountRealizedVolDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 230, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="rvSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"вибірок за день":"samples per day"} <span class="val" id="rvNVal">78</span></label><input type="range" id="rvN" min="6" max="200" step="1" value="78"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"справжня денна волатильність":"true daily volatility"} <span class="val" id="rvVolVal">2.0%</span></label><input type="range" id="rvVol" min="0.5" max="5" step="0.1" value="2.0"></div>
+        </div>
+        <div class="demo-steps" id="rvSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.rvCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.rvAnalysis}</p></div>
+    ${relatedLinksHTML(["volatility"])}
+  `;
+
+  const nSlider = panel.querySelector("#rvN"), volSlider = panel.querySelector("#rvVol");
+  const svg = panel.querySelector("#rvSvg");
+
+  function render() {
+    const nPerDay = parseInt(nSlider.value, 10), trueVol = parseFloat(volSlider.value)/100;
+    panel.querySelector("#rvNVal").textContent = nPerDay;
+    panel.querySelector("#rvVolVal").textContent = (trueVol*100).toFixed(1)+"%";
+
+    const rnd = mulberry32(3);
+    const intraday = genIntraday(nPerDay, trueVol, rnd);
+    const rv = realizedVolatility(intraday);
+    let cumulative = 0;
+    const path = [[0,0]];
+    intraday.forEach((r,i) => { cumulative += r; path.push([i+1, cumulative]); });
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: nPerDay, yMin: Math.min(...path.map((p)=>p[1]))-0.005, yMax: Math.max(...path.map((p)=>p[1]))+0.005, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>(v*100).toFixed(1)+"%", xLabel: LANG==="uk"?"внутрішньоденний бар":"intraday bar" });
+    const pathD = path.map((p,i)=>`${i===0?"M":"L"} ${x(p[0]).toFixed(1)} ${y(p[1]).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${pathD}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    const lines = [`${S.steps}`, `  RV = √(Σ r²_intraday)`, `  ${S.rvValue} = ${(rv*100).toFixed(2)}% (${LANG==="uk"?"ціль":"target"}: ${(trueVol*100).toFixed(1)}%)`];
+    panel.querySelector("#rvSteps").textContent = lines.join("\n");
+  }
+  [nSlider, volSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 110. HAR-RV
+// ---------------------------------------------------------------------------
+function harRVFit(rv, weekLags, monthLags) {
+  const n = rv.length;
+  const X = [], Y = [];
+  for (let t = monthLags; t < n; t++) {
+    const rvDay = rv[t-1];
+    const rvWeek = rv.slice(t-weekLags,t).reduce((a,b)=>a+b,0)/weekLags;
+    const rvMonth = rv.slice(t-monthLags,t).reduce((a,b)=>a+b,0)/monthLags;
+    X.push([1,rvDay,rvWeek,rvMonth]); Y.push(rv[t]);
+  }
+  return { coef: solveOLSSarimax(X,Y), X, Y };
+}
+const HARRV_SERIES = (function () { const rnd = mulberry32(4); const out=[]; let vol=0.15; for (let i=0;i<200;i++) { vol = 0.9*vol+0.1*0.15+gaussFrom(rnd)*0.02; vol = Math.max(0.05,vol); out.push(vol); } return out; })();
+
+function mountHarRvDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 230, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap">
+        <svg viewBox="0 0 ${W} ${H}" id="harRvSvg"></svg>
+        <p class="demo-note" style="margin-top:8px"><span style="color:var(--ink-faint)">●</span> RV &nbsp; <span style="color:var(--mint)">●</span> HAR-RV fit</p>
+      </div>
+      <div>
+        <div class="demo-steps" id="harRvSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.harRvCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.harRvAnalysis}</p></div>
+    ${relatedLinksHTML(["volatility","time-series"])}
+  `;
+
+  const svg = panel.querySelector("#harRvSvg");
+  const { coef, X, Y } = harRVFit(HARRV_SERIES, 5, 22);
+  const fitted = X.map((row) => row.reduce((s,v,i)=>s+v*coef[i],0));
+  const allVals = Y.concat(fitted);
+  const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: Y.length-1, yMin: Math.min(...allVals)-0.02, yMax: Math.max(...allVals)+0.02, xTicks: 4, yTicks: 4, xFmt: (v)=>Math.round(v), yFmt: (v)=>v.toFixed(2) });
+  const rvPath = Y.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+  const fitPath = fitted.map((v,i)=>`${i===0?"M":"L"} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+  svg.innerHTML = axesSvg + `<path d="${rvPath}" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4 3" />` + `<path d="${fitPath}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+  const lines = [`${S.steps}`, `  RV_t = c + β_d·RV_{t-1} + β_w·RV_week + β_m·RV_month`, `  ${S.harRvCoefs}: [${coef.map((c)=>c.toFixed(3)).join(", ")}]`];
+  panel.querySelector("#harRvSteps").textContent = lines.join("\n");
+}
+
+// ---------------------------------------------------------------------------
+// 111. APT
+// ---------------------------------------------------------------------------
+const APT_DATA = (function () {
+  const rnd = mulberry32(5);
+  const n = 200;
+  const inflF=[], gdpF=[], rateF=[], ret=[];
+  const trueBetas = [0.0001, 0.5, 1.2, -0.8];
+  for (let i = 0; i < n; i++) {
+    const infl=gaussFrom(rnd)*0.005, gdp=gaussFrom(rnd)*0.008, rate=gaussFrom(rnd)*0.006;
+    inflF.push(infl); gdpF.push(gdp); rateF.push(rate);
+    ret.push(trueBetas[0]+trueBetas[1]*infl+trueBetas[2]*gdp+trueBetas[3]*rate+gaussFrom(rnd)*0.002);
+  }
+  return { inflF, gdpF, rateF, ret, trueBetas };
+})();
+
+function mountAptDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 230, PAD = 40;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="aptSvg"></svg></div>
+      <div>
+        <div class="demo-steps" id="aptSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.aptCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.aptAnalysis}</p></div>
+    ${relatedLinksHTML(["factor"])}
+  `;
+
+  const svg = panel.querySelector("#aptSvg");
+  const { inflF,gdpF,rateF,ret,trueBetas } = APT_DATA;
+  const X = ret.map((_,i)=>[1,inflF[i],gdpF[i],rateF[i]]);
+  const coef = solveOLSSarimax(X, ret);
+  const labels = ["Infl","GDP","Rate"];
+  const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: -0.5, xMax: 2.5, yMin: -1.2, yMax: 1.4, xTicks: 1, yTicks: 4, xFmt: ()=>"", yFmt: (v)=>v.toFixed(1) });
+  let bars = "";
+  for (let i = 0; i < 3; i++) {
+    const cx = x(i);
+    const fitted = coef[i+1], trueV = trueBetas[i+1];
+    const zeroY = y(0);
+    bars += `<rect x="${(cx-16).toFixed(1)}" y="${(fitted>=0?y(fitted):zeroY).toFixed(1)}" width="14" height="${Math.abs(y(fitted)-zeroY).toFixed(1)}" fill="var(--mint)" opacity="0.85" />`;
+    bars += `<line x1="${(cx-18).toFixed(1)}" y1="${y(trueV).toFixed(1)}" x2="${cx.toFixed(1)}" y2="${y(trueV).toFixed(1)}" stroke="var(--level-3)" stroke-width="2" stroke-dasharray="3 2" />`;
+    bars += `<text x="${cx.toFixed(1)}" y="${H-PAD+16}" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-soft)">${labels[i]}</text>`;
+  }
+  svg.innerHTML = axesSvg + `<line x1="${PAD}" y1="${y(0).toFixed(1)}" x2="${W-PAD}" y2="${y(0).toFixed(1)}" stroke="var(--ink-faint)" stroke-width="1" />` + bars;
+
+  const lines = [`${S.steps}`, `  ${S.aptCoefs}: [${coef.map((c)=>c.toFixed(3)).join(", ")}]`, `  (${LANG==="uk"?"справжні":"true"}: ${trueBetas.map((v)=>v.toFixed(2)).join(", ")})`];
+  panel.querySelector("#aptSteps").textContent = lines.join("\n");
+}
+
+// ---------------------------------------------------------------------------
+// 112. IPCA (Instrumented PCA, simplified characteristics-driven cross-section)
+// ---------------------------------------------------------------------------
+function fitIPCA(returnsRow, characteristics) {
+  const X = characteristics.map((c) => [1,...c]);
+  const coef = solveOLSSarimax(X, returnsRow);
+  const pred = X.map((row) => row.reduce((s,v,i)=>s+v*coef[i],0));
+  const meanY = returnsRow.reduce((a,b)=>a+b,0)/returnsRow.length;
+  const ssTot = returnsRow.reduce((s,v)=>s+(v-meanY)**2,0);
+  const ssRes = returnsRow.reduce((s,v,i)=>s+(v-pred[i])**2,0);
+  return { coef, r2: 1-ssRes/ssTot, pred };
+}
+const IPCA_DATA = (function () {
+  const rnd = mulberry32(6);
+  const Nstocks = 30, Tperiods = 50;
+  const chars = Array.from({length:Nstocks}, () => [gaussFrom(rnd), gaussFrom(rnd)]);
+  const trueGamma = [0.02,-0.01];
+  const rets = [];
+  for (let t = 0; t < Tperiods; t++) {
+    const ft = [gaussFrom(rnd)*0.01, gaussFrom(rnd)*0.01];
+    rets.push(chars.map((c) => trueGamma[0]*c[0]*ft[0]*50+trueGamma[1]*c[1]*ft[1]*50+gaussFrom(rnd)*0.005));
+  }
+  return { chars, rets };
+})();
+
+function mountIpcaDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 230, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="ipcaSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"період":"period"} t <span class="val" id="ipcaTVal">0</span></label><input type="range" id="ipcaT" min="0" max="49" step="1" value="0"></div>
+        </div>
+        <div class="demo-steps" id="ipcaSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.ipcaCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.ipcaAnalysis}</p></div>
+    ${relatedLinksHTML(["factor"])}
+  `;
+
+  const tSlider = panel.querySelector("#ipcaT");
+  const svg = panel.querySelector("#ipcaSvg");
+  const { chars, rets } = IPCA_DATA;
+
+  function render() {
+    const t = parseInt(tSlider.value, 10);
+    panel.querySelector("#ipcaTVal").textContent = t;
+
+    const { pred, r2 } = fitIPCA(rets[t], chars);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: Math.min(...rets[t])-0.01, xMax: Math.max(...rets[t])+0.01, yMin: Math.min(...pred)-0.01, yMax: Math.max(...pred)+0.01, xTicks: 4, yTicks: 4, xFmt: (v)=>(v*100).toFixed(1)+"%", yFmt: (v)=>(v*100).toFixed(1)+"%", xLabel: LANG==="uk"?"фактична":"actual", yLabel: LANG==="uk"?"підігнана":"fitted" });
+    const dots = rets[t].map((rv,i) => `<circle cx="${x(rv).toFixed(1)}" cy="${y(pred[i]).toFixed(1)}" r="3" fill="var(--mint)" opacity="0.7" />`).join("");
+    const diagMin = Math.min(Math.min(...rets[t]),Math.min(...pred)), diagMax = Math.max(Math.max(...rets[t]),Math.max(...pred));
+    const diag = `M ${x(diagMin).toFixed(1)} ${y(diagMin).toFixed(1)} L ${x(diagMax).toFixed(1)} ${y(diagMax).toFixed(1)}`;
+    svg.innerHTML = axesSvg + `<path d="${diag}" stroke="var(--ink-faint)" stroke-width="1" stroke-dasharray="3 3" fill="none" />` + dots;
+
+    const lines = [`${S.steps}`, `  ${S.ipcaR2} (t=${t}) = ${r2.toFixed(3)}`];
+    panel.querySelector("#ipcaSteps").textContent = lines.join("\n");
+  }
+  tSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 113. Value-at-Risk (basic definition)
+// ---------------------------------------------------------------------------
+function computeVaRBasic(returns, confidence, portfolioValue) {
+  const sorted = returns.slice().sort((a,b)=>a-b);
+  const idx = Math.floor((1-confidence)*sorted.length);
+  return -sorted[idx]*portfolioValue;
+}
+const VARBASIC_RETURNS = (function () { const rnd = mulberry32(7); const out=[]; for (let i=0;i<1000;i++) out.push(gaussFrom(rnd)*0.015); return out; })();
+
+function mountVarBasicDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 230, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="varBasicSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"довірчий рівень":"confidence level"} <span class="val" id="varBasicConfVal">95%</span></label><input type="range" id="varBasicConf" min="90" max="99.5" step="0.5" value="95"></div>
+        </div>
+        <div class="demo-steps" id="varBasicSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.varBasicCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.varBasicAnalysis}</p></div>
+    ${relatedLinksHTML(["risk-measures"])}
+  `;
+
+  const confSlider = panel.querySelector("#varBasicConf");
+  const svg = panel.querySelector("#varBasicSvg");
+
+  function render() {
+    const conf = parseFloat(confSlider.value)/100;
+    panel.querySelector("#varBasicConfVal").textContent = (conf*100).toFixed(1)+"%";
+
+    const varVal = computeVaRBasic(VARBASIC_RETURNS, conf, 1000000);
+    const nBins = 30;
+    const xMin = Math.min(...VARBASIC_RETURNS), xMax = Math.max(...VARBASIC_RETURNS);
+    const counts = new Array(nBins).fill(0);
+    for (const v of VARBASIC_RETURNS) { const bi = Math.min(nBins-1, Math.max(0, Math.floor((v-xMin)/(xMax-xMin)*nBins))); counts[bi]++; }
+    const maxCount = Math.max(...counts, 1);
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin, xMax, yMin: 0, yMax: maxCount, xTicks: 4, yTicks: 0, xFmt: (v)=>(v*100).toFixed(1)+"%", yFmt: ()=>"" });
+    let bars = "";
+    for (let i = 0; i < nBins; i++) { const bx=xMin+(i/nBins)*(xMax-xMin); const h=(counts[i]/maxCount)*(H-2*PAD); const isTail = bx <= -varVal/1000000; bars += `<rect x="${x(bx).toFixed(1)}" y="${(H-PAD-h).toFixed(1)}" width="${((x(bx+(xMax-xMin)/nBins)-x(bx))-1).toFixed(1)}" height="${h.toFixed(1)}" fill="${isTail?"var(--level-3)":"var(--mint)"}" opacity="0.8" />`; }
+    svg.innerHTML = axesSvg + bars;
+
+    const lines = [`${S.steps}`, `  ${S.varBasicValue} = $${Math.round(varVal).toLocaleString()}`];
+    panel.querySelector("#varBasicSteps").textContent = lines.join("\n");
+  }
+  confSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 114. CVaR Optimization
+// ---------------------------------------------------------------------------
+function portfolioCVaR(weights, scenarioReturns, alpha) {
+  const portRets = scenarioReturns.map((scenario) => weights.reduce((s,w,i)=>s+w*scenario[i],0));
+  const sorted = portRets.slice().sort((a,b)=>a-b);
+  const cutoff = Math.floor((1-alpha)*sorted.length);
+  const tail = sorted.slice(0, Math.max(1,cutoff));
+  return -tail.reduce((a,b)=>a+b,0)/tail.length;
+}
+function optimizeCVaR(scenarioReturns, nAssets, alpha, iterations) {
+  let weights = new Array(nAssets).fill(1/nAssets);
+  const lr = 0.05, eps = 0.01;
+  for (let iter = 0; iter < iterations; iter++) {
+    const grad = new Array(nAssets).fill(0);
+    for (let i = 0; i < nAssets; i++) {
+      const w1=[...weights]; w1[i]+=eps; const s1=w1.reduce((a,b)=>a+b,0); const w1n=w1.map((w)=>w/s1);
+      const w2=[...weights]; w2[i]=Math.max(0.001,w2[i]-eps); const s2=w2.reduce((a,b)=>a+b,0); const w2n=w2.map((w)=>w/s2);
+      grad[i] = (portfolioCVaR(w1n,scenarioReturns,alpha) - portfolioCVaR(w2n,scenarioReturns,alpha))/(2*eps);
+    }
+    weights = weights.map((w,i) => Math.max(0.001, w-lr*grad[i]));
+    const s = weights.reduce((a,b)=>a+b,0); weights = weights.map((w) => w/s);
+  }
+  return { weights, cvar: portfolioCVaR(weights,scenarioReturns,alpha) };
+}
+const CVAROPT_SCENARIOS = (function () { const rnd = mulberry32(8); const trueVols=[0.3,0.15,0.2]; const out=[]; for (let s=0;s<500;s++) out.push(trueVols.map((v)=>gaussFrom(rnd)*v)); return out; })();
+
+function mountCvarOptDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 230, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="cvarOptSvg"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>α (${LANG==="uk"?"довірчий рівень CVaR":"CVaR confidence"}) <span class="val" id="cvarOptAlphaVal">95%</span></label><input type="range" id="cvarOptAlpha" min="90" max="99" step="1" value="95"></div>
+        </div>
+        <div class="demo-steps" id="cvarOptSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.cvarOptCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.cvarOptAnalysis}</p></div>
+    ${relatedLinksHTML(["portfolio","risk-measures"])}
+  `;
+
+  const alphaSlider = panel.querySelector("#cvarOptAlpha");
+  const svg = panel.querySelector("#cvarOptSvg");
+
+  function render() {
+    const alpha = parseInt(alphaSlider.value, 10)/100;
+    panel.querySelector("#cvarOptAlphaVal").textContent = (alpha*100).toFixed(0)+"%";
+
+    const { weights, cvar } = optimizeCVaR(CVAROPT_SCENARIOS, 3, alpha, 100);
+    const equalW = [1/3,1/3,1/3];
+    const equalCvar = portfolioCVaR(equalW, CVAROPT_SCENARIOS, alpha);
+
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: -0.5, xMax: 2.5, yMin: 0, yMax: 0.7, xTicks: 1, yTicks: 4, xFmt: ()=>"", yFmt: (v)=>(v*100).toFixed(0)+"%" });
+    let bars = "";
+    weights.forEach((w,i) => { const cx=x(i); const h1=(w/0.7)*(H-2*PAD); bars += `<rect x="${(cx-18).toFixed(1)}" y="${(H-PAD-h1).toFixed(1)}" width="36" height="${h1.toFixed(1)}" fill="var(--mint)" opacity="0.85" /><text x="${cx.toFixed(1)}" y="${H-PAD+16}" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-soft)">${LANG==="uk"?"актив":"asset"} ${i+1}</text>`; });
+    svg.innerHTML = axesSvg + bars;
+
+    const lines = [`${S.steps}`, `  ${S.cvarOptWeight}: [${weights.map((w)=>(w*100).toFixed(1)+"%").join(", ")}]`, `  ${S.cvarOptValue} = ${cvar.toFixed(4)} (${LANG==="uk"?"рівна вага":"equal weight"}: ${equalCvar.toFixed(4)})`];
+    panel.querySelector("#cvarOptSteps").textContent = lines.join("\n");
+  }
+  alphaSlider.addEventListener("input", render);
+  render();
+}
+
+// ---------------------------------------------------------------------------
+// 115. Reduced-Form (Intensity) Credit Model
+// ---------------------------------------------------------------------------
+function reducedFormBondPrice(faceValue, hazardRate, recoveryRate, r, T) {
+  const survivalT = Math.exp(-hazardRate*T);
+  const defaultProb = 1-survivalT;
+  const expectedPayoff = faceValue*survivalT + faceValue*recoveryRate*defaultProb;
+  return expectedPayoff*Math.exp(-r*T);
+}
+
+function mountReducedFormDemo(panel) {
+  const S = DEMO_STRINGS[LANG];
+  const W = 340, H = 230, PAD = 30;
+
+  panel.innerHTML = `
+    <div class="demo-layout">
+      <div class="demo-chart-wrap"><svg viewBox="0 0 ${W} ${H}" id="rfSvg2"></svg></div>
+      <div>
+        <div class="demo-controls">
+          <div class="demo-slider-row"><label>${LANG==="uk"?"hazard rate":"hazard rate"} <span class="val" id="rfHazardVal">3.0%</span></label><input type="range" id="rfHazard" min="0.1" max="15" step="0.1" value="3.0"></div>
+          <div class="demo-slider-row"><label>${LANG==="uk"?"рівень відновлення":"recovery rate"} <span class="val" id="rfRecVal">40%</span></label><input type="range" id="rfRec" min="0" max="80" step="5" value="40"></div>
+        </div>
+        <div class="demo-steps" id="rfSteps"></div>
+      </div>
+    </div>
+    <div class="demo-callout"><p class="eyebrow2">${S.inFinance}</p><p>${S.reducedFormCallout}</p></div>
+    <div class="demo-analysis"><p class="eyebrow2">${S.analysisLabel}</p><p>${S.reducedFormAnalysis}</p></div>
+    ${relatedLinksHTML(["credit"])}
+  `;
+
+  const hazardSlider = panel.querySelector("#rfHazard"), recSlider = panel.querySelector("#rfRec");
+  const svg = panel.querySelector("#rfSvg2");
+
+  function render() {
+    const hazard = parseFloat(hazardSlider.value)/100, recovery = parseFloat(recSlider.value)/100;
+    panel.querySelector("#rfHazardVal").textContent = (hazard*100).toFixed(1)+"%";
+    panel.querySelector("#rfRecVal").textContent = (recovery*100).toFixed(0)+"%";
+
+    const nPts = 60;
+    const curve = [];
+    for (let i = 0; i < nPts; i++) { const T = 0.5+(i/(nPts-1))*9.5; curve.push([T, reducedFormBondPrice(100,hazard,recovery,0.03,T)]); }
+    const { x, y, svg: axesSvg } = axesSVG({ W, H, pad: PAD, xMin: 0, xMax: 10, yMin: 0, yMax: 105, xTicks: 4, yTicks: 4, xFmt: (v)=>v.toFixed(0), yFmt: (v)=>v.toFixed(0), xLabel: "T (years)", yLabel: "price" });
+    const path = curve.map(([T,p],i)=>`${i===0?"M":"L"} ${x(T).toFixed(1)} ${y(p).toFixed(1)}`).join(" ");
+    svg.innerHTML = axesSvg + `<path d="${path}" fill="none" stroke="var(--mint)" stroke-width="2" />`;
+
+    const price5y = reducedFormBondPrice(100,hazard,recovery,0.03,5);
+    const lines = [`${S.steps}`, `  P = [FV·S(T) + FV·R·(1-S(T))]·e^(-rT)`, `  ${S.reducedFormPrice} (T=5) = ${price5y.toFixed(2)}`];
+    panel.querySelector("#rfSteps").textContent = lines.join("\n");
+  }
+  [hazardSlider, recSlider].forEach((el) => el.addEventListener("input", render));
+  render();
+}
+
+
 const DEMOS = {
   "volatility::GARCH(1,1)": { mount: mountGarchDemo },
   "unsupervised-outliers::Isolation Forest": { mount: mountIsoForestDemo },
@@ -8768,6 +10119,26 @@ const DEMOS = {
   "fuzzy::Fuzzy Rule-Based Fraud Scoring": { mount: mountFuzzyFraudDemo },
   "rl::DDPG": { mount: mountDdpgDemo },
   "systemic::Marginal Expected Shortfall": { mount: mountMesDemo },
+  "sequential-dl::Seq2Seq (Encoder-Decoder)": { mount: mountSeq2SeqDemo },
+  "autoencoders::LSTM-Autoencoder": { mount: mountLstmAeDemo },
+  "graph::Graph Autoencoder": { mount: mountGaeDemo },
+  "fuzzy::Genetic-Fuzzy Hybrids": { mount: mountGenFuzzyDemo },
+  "microstructure::Autoregressive Conditional Duration": { mount: mountAcdDemo },
+  "nlp::Event-Study NLP Signals": { mount: mountEventStudyDemo },
+  "xai::Attention-Weight Visualization": { mount: mountAttnVizDemo },
+  "validation::White's Reality Check / SPA Test": { mount: mountWrcDemo },
+  "risk-measures::Monte Carlo VaR": { mount: mountMcVarDemo },
+  "validation::Purged / Embargoed k-Fold CV": { mount: mountPurgedCvDemo },
+  "time-series::VECM": { mount: mountVecmDemo },
+  "time-series::SARIMAX": { mount: mountSarimaxDemo },
+  "volatility::ARCH": { mount: mountArchDemo },
+  "volatility::Realized Volatility (RV)": { mount: mountRealizedVolDemo },
+  "volatility::HAR-RV": { mount: mountHarRvDemo },
+  "factor::APT": { mount: mountAptDemo },
+  "factor::IPCA": { mount: mountIpcaDemo },
+  "risk-measures::Value-at-Risk (VaR)": { mount: mountVarBasicDemo },
+  "portfolio::CVaR Optimization": { mount: mountCvarOptDemo },
+  "credit::Reduced-Form (Intensity) Models": { mount: mountReducedFormDemo },
 };
 
 function applyFilters() {
